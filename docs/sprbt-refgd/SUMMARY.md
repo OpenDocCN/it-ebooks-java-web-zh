@@ -1,4 +1,4 @@
-+   [Spring Boot 参考指南](sprbt-refgd_00.md)
++   [Spring Boot 参考指南](README.md)
 +   [I. Spring Boot 文档](sprbt-refgd_01.md)
 +   [II. 开始](sprbt-refgd_02.md)
 +   [III. 使用 Spring Boot](sprbt-refgd_03.md)
