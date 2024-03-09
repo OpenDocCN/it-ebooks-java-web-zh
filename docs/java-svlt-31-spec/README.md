@@ -1,6 +1,6 @@
-# 介紹
+# Java Servlet 3.1 规范
 
-# JSR 340: Java Servlet 3.1 Specification《Java Servlet 3.1 规范》
+## JSR 340: Java Servlet 3.1 Specification
 
 This is a Chinese translation of [Java Servlet 3.1 Specification](https://jcp.org/en/jsr/detail?id=340), and also provides a lot of useful examples about Servlet 3.1 .
 
