@@ -24,7 +24,7 @@
 
 **注意**：如果你想要使用最新的 Jersey 模块的 SNAPSHOT 版本（*译者注*：SNAPSHOT 版本代表不稳定、尚处于开发中的版本），需要在 pom.xml 中添加如下内容：
 
-```
+```java
 <repository>
     <id>snapshot-repository.java.net</id>
     <name>Java.net Snapshot Repository for Maven</name>
@@ -35,7 +35,7 @@
 
 使用 Maven 的工程创建一个 Jersey 项目是最方便的，让我们用这种方法来看一下它是怎么实现的。让我们创建一个新的 Jersey 项目,运行在[Grizzly](http://grizzly.java.net/)容器。我们使用 Jersey-provided 的 maven archetype。创建一个项目，需要执行下面的代码：
 
-```
+```java
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 \
 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
 -DgroupId=com.example -DartifactId=simple-service -Dpackage=com.example \
@@ -60,7 +60,7 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 \
 
 在原文路径下的`com.example`包中有两个 class 文件，这个 Main 类主要是负责承接 Grizzly 容器，同时也为这个容器配置和部署 JAX-RS 应用。在同一个包内的另外一个类 MyResource 类是 JAX-RS 的一个实现的源代码，如下：
 
-```
+```java
 package com.example;
 
 import javax.ws.rs.GET;
@@ -92,7 +92,7 @@ public class MyResource {
 
 在`src/test/java`目录下的 MyResourceTest 类是对 MyResource 的单元测试，他们具有相同的包`com.example`
 
-```
+```java
 package com.example;
 
 import javax.ws.rs.client.Client;
@@ -142,13 +142,13 @@ public class MyResourceTest {
 
 项目有了，进入项目的跟目录（即 `\simple-service` ）现在先测试运行下：
 
-```
+```java
 $ mvn clean test 
 ```
 
 项目将会被编译，并且进行单元测试
 
-```
+```java
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -178,13 +178,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
 上面可以看看到测试通过，下面我们用标准模式运行项目：
 
-```
+```java
 $ mvn exec:java 
 ```
 
 运行结果如下：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO]
 [INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethrea
@@ -217,7 +217,7 @@ Hit enter to stop it...
 
 接下来试下与部署在 `/myresource` 下面的资源的交互。将资源的 URL 输入浏览器，或者在控制台用`curl`命令执行(*译者注*：如果没有安装 curl,请参考[curl 安装](http://jingyan.baidu.com/article/a681b0dec4c67a3b1943467c.html))：
 
-```
+```java
 $ curl http://localhost:8080/myapp/myresource
 Got it! 
 ```
@@ -226,7 +226,7 @@ Got it!
 
 用`-i`命令获取所有回应的头文件信息：
 
-```
+```java
 $ curl -i http://localhost:8080/myapp/myresource
 
 HTTP/1.1 200 OK
@@ -241,7 +241,7 @@ Got it!
 
 如果想看到更多返回信息，可以变换不同的 curl 命令参数。举例：
 
-```
+```java
 $ curl -v http://localhost:8080/myapp/myresource
 
 * Adding handle: conn: 0x5bc180
@@ -277,7 +277,7 @@ Got it!* Connection #0 to host localhost left intact
 
 与 1.1 类似的创建项目的流程，创建 JavaEE Web 项目仅需要打包成 WAR 并且部署到 Servlet 容器。除了基于 Grizzly 的 archetype, Jersey 也提供了 Maven archetype 用来创建 web 项目，命令如下：
 
-```
+```java
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
                 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
                 -DgroupId=com.example -DartifactId=simple-service-webapp -Dpackage=com.example \
@@ -299,13 +299,13 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
 
 项目打包成 WAR,执行:
 
-```
+```java
 mvn clean package 
 ```
 
 打包成功，如下：
 
-```
+```java
 [INFO]
 [INFO] --- maven-war-plugin:2.2:war (default-war) @ simple-service-webapp ---
 [INFO] Packaging webapp
@@ -344,7 +344,7 @@ ple-service-webapp\target\simple-service-webapp.war
 
 与 1.4 节类似的，创建一个 Web 项目打包成 WAR 部署在 Servlet 容器或者发布到[Heroku](https://www.heroku.com/)。执行下面命令
 
-```
+```java
 mvn archetype:generate -DarchetypeArtifactId=jersey-heroku-webapp \
                 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
                 -DgroupId=com.example -DartifactId=simple-heroku-webapp -Dpackage=com.example \
@@ -367,13 +367,13 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-heroku-webapp \
 
 项目打包成 WAR,执行:
 
-```
+```java
 mvn clean package 
 ```
 
 打包成功，如下：
 
-```
+```java
 Results :
 
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
@@ -486,14 +486,14 @@ uide-Demos\demo-1.5\simple-heroku-webapp\target\dependency\javax.ws.rs-api-2.0.1
 
 首先给你的项目创建一个 Git 仓库：
 
-```
+```java
  $ git init
 Initialized empty Git repository in /.../simple-heroku-webapp/.git/ 
 ```
 
 接着创建 Heroku 的实例，并把远程引用添加到你的 Git 仓库：
 
-```
+```java
 $ heroku create
 Creating simple-heroku-webapp... done, stack is cedar
 http://simple-heroku-webapp.herokuapp.com/ | git@heroku.com:simple-heroku-webapp.git
@@ -504,7 +504,7 @@ Git remote heroku added
 
 添加并提交到你的 Git 仓库：
 
-```
+```java
 $ git add src/ pom.xml Procfile system.properties
 $ git commit -a -m "initial commit"
 [master (root-commit) e2b58e3] initial commit
@@ -520,7 +520,7 @@ $ git commit -a -m "initial commit"
 
 将修改推送到 Heroku:
 
-```
+```java
 $ git push heroku master
 Counting objects: 21, done.
 Delta compression using up to 8 threads.
@@ -655,7 +655,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 如果你使用 GlassFish 应用服务，那么你不需要打包任何东西，所有的一切都已经包含了。你只需要声明依赖使 JAX-RS API 可以编入到你的应用。
 
-```
+```java
 <dependency>
     <groupId>javax.ws.rs</groupId>
     <artifactId>javax.ws.rs-api</artifactId>
@@ -666,7 +666,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 如果你使用特定的功能，那么直接取决于你依赖的 Jersey
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-servlet</artifactId>
@@ -686,7 +686,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 以下依赖应用服务器（servlet 容器）没有任何集成的 JAX-RS 实现。然后应用需要包括 JAX-RS API 和 Jersey 部署应用程序的实现。
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <!-- 如果容器支持低于 Servlet API 3.0,请使用"jersey-container-servlet-core"  -->
@@ -705,7 +705,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 在 JDK 是否使用 JAX-RS 中客户端的规范完全取决于客户。有各种不同的附加模块可以被添加，例如像 grizzly 或 Apache 或 jetty 等连接器（见下面依赖）。Jersey 客户端 在 JDK 默认运行（HttpUrlConnection）。更多的细节见 Chapter 5, Client API。
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.core</groupId>
     <artifactId>jersey-client</artifactId>
@@ -715,7 +715,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 目前可用的连接器：
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.connectors</groupId>
     <artifactId>jersey-grizzly-connector</artifactId>
@@ -739,7 +739,7 @@ Jersy 的创建、组装和安装都是使用 [Apache Maven](http://maven.apache
 
 除了标准的 JAX-RS 基于 Servlet 的部署（Servlet 2.5 及以上版本），Jersey 对下面容器提供可编程的部署环境：Grizzly 2（HTTP 和 Servlet），JDK HTTP 服务器，简单的 HTTP 服务器，Jetty HTTP 服务器。本章介绍只需要 maven 依赖，更多的内容见 Chapter 4\. Application Deployment and Runtime Environments 应用部署和运行时环境
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-grizzly2-http</artifactId>
@@ -805,7 +805,7 @@ Root Resource Classes 是带有 [@PATH](http://jax-rs-spec.java.net/nonav/$%7Bja
 
 Example 3.1\. 简单 hello world 根资源类例子
 
-```
+```java
 package org.glassfish.jersey.examples.helloworld;
 
 import javax.ws.rs.GET;
@@ -832,7 +832,7 @@ public class HelloWorldResource {
 
 URI 的路径模版是由 URIs 和嵌入 URI 语法的变量组成。变量在运行时将会被匹配到的 URI 的那部分多代替。例如下面的 [@Path](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/Path.html) 注解
 
-```
+```java
 @Path("/users/{username}") 
 ```
 
@@ -842,7 +842,7 @@ URI 的路径模版是由 URIs 和嵌入 URI 语法的变量组成。变量在�
 
 Example 3.2\. 指定的 URI 路径参数
 
-```
+```java
 @Path("/users/{username}")
 public class UserResource {
 
@@ -856,7 +856,7 @@ public class UserResource {
 
 它规定匹配正则表达式式要精确到大小写的，如果填写的话会覆盖默认的表达式 `[^/]+?` ，例如
 
-```
+```java
 @Path("users/{username: [a-zA-Z][a-zA-Z_0-9]*}") 
 ```
 
@@ -872,7 +872,7 @@ public class UserResource {
 
 Example 3.3\. PUT 方法
 
-```
+```java
 @PUT
 public Response putContainer() {
     System.out.println("PUT CONTAINER " + container);
@@ -900,7 +900,7 @@ public Response putContainer() {
 
 Example 3.4\. 指定输出文件的 MIME 类型
 
-```
+```java
 @Path("/myResource")
 @Produces("text/plain")
 public class SomeResource {
@@ -925,7 +925,7 @@ public class SomeResource {
 
 Example 3.5\. 使用多个返回类型
 
-```
+```java
 @GET
 @Produces({"application/xml", "application/json"})
 public String doGetAsXmlOrJson() {
@@ -939,7 +939,7 @@ public String doGetAsXmlOrJson() {
 
 Example 3.6\. 服务器端内容协商
 
-```
+```java
 @GET
 @Produces({"application/xml; qs=0.9", "application/json"})
 public String doGetAsXmlOrJson() {
@@ -957,7 +957,7 @@ public String doGetAsXmlOrJson() {
 
 Example 3.7\. 指定输入 MIME 类型：
 
-```
+```java
 @POST
 @Consumes("text/plain")
 public void postClichedMessage(String message) {
@@ -979,7 +979,7 @@ public void postClichedMessage(String message) {
 
 Example 3.8\. 查询参数
 
-```
+```java
 @Path("smooth")
 @GET
 public Response smooth(
@@ -1000,7 +1000,7 @@ public Response smooth(
 
 Example 3.9\. 自定义 JAVA 类型用作消耗请求的参数
 
-```
+```java
 public class ColorParam extends Color {
 
     public ColorParam(String s) {
@@ -1045,7 +1045,7 @@ public class ColorParam extends Color {
 
 Example 3.10\. HTML 表格处理
 
-```
+```java
 @POST
 @Consumes("application/x-www-form-urlencoded")
 public void post(@FormParam("name") String name) {
@@ -1057,7 +1057,7 @@ public void post(@FormParam("name") String name) {
 
 Example 3.11\. 从查询参数或者路径获取 Map
 
-```
+```java
 @GET
 public String get(@Context UriInfo ui) {
     MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
@@ -1069,7 +1069,7 @@ header 和 cookie 参数用法如下:
 
 Example 3.12\. 从头部参数获取 Map
 
-```
+```java
 @GET
 public String get(@Context HttpHeaders hh) {
     MultivaluedMap<String, String> headerParams = hh.getRequestHeaders();
@@ -1083,7 +1083,7 @@ public String get(@Context HttpHeaders hh) {
 
 Example 3.13\. form 表单参数 获取 Map
 
-```
+```java
 @POST
 @Consumes("application/x-www-form-urlencoded")
 public void post(MultivaluedMap<String, String> formParams) {
@@ -1097,7 +1097,7 @@ public void post(MultivaluedMap<String, String> formParams) {
 
 3.14\. @BeanParam 用法
 
-```
+```java
 public class MyBeanParam {
     @PathParam("p")
     private String pathParam;
@@ -1125,7 +1125,7 @@ public class MyBeanParam {
 
 Example 3.15\. 将 MyBeanParam 以参数形式注入:
 
-```
+```java
 @POST
 public void post(@BeanParam MyBeanParam beanParam, String entity) {
     final String pathParam = beanParam.getPathParam(); // contains injected path parameter "p"
@@ -1141,7 +1141,7 @@ public void post(@BeanParam MyBeanParam beanParam, String entity) {
 
 Example 3.16\. 多个 bean 注入到一个资源或方法
 
-```
+```java
 @POST
 public void post(@BeanParam MyBeanParam beanParam, @BeanParam AnotherBean anotherBean, @PathParam("p") pathParam,
 String entity) {
@@ -1160,7 +1160,7 @@ String entity) {
 
 Example 3.17\. 子资源方法
 
-```
+```java
 @Singleton
 @Path("/printers")
 public class PrintersResource {
@@ -1200,7 +1200,7 @@ public class PrintersResource {
 
 Example 3.18\. 子资源定位器
 
-```
+```java
 @Path("/item")
 public class ItemResource {
     @Context UriInfo uriInfo;
@@ -1235,7 +1235,7 @@ public class ItemContentResource {
 
 Example 3.19\. 空路径的子资源定位器
 
-```
+```java
 @Path("/item")
 public class ItemResource {
 
@@ -1250,7 +1250,7 @@ public class ItemResource {
 
 Example 3.20\. 子资源定位器返回子类型
 
-```
+```java
 @Path("/item")
 public class ItemResource {
 
@@ -1265,7 +1265,7 @@ public class ItemResource {
 
 Example 3.21\. 从类中创建子资源定位器
 
-```
+```java
 import javax.inject.Singleton;
 
 @Path("/item")
@@ -1288,7 +1288,7 @@ JAX-RS 资源默认情况下，在每个请求范围受到管理，这意味着�
 
 Example 3.22\. 子资源定位返回资源模型
 
-```
+```java
 import org.glassfish.jersey.server.model.Resource;
 
 @Path("/item")
@@ -1332,7 +1332,7 @@ Table 3.1\. 资源域
 
 Example 3.23\. 注入
 
-```
+```java
 @Path("{id:\\d+}")
 public class InjectedResource {
     // 注入到属性
@@ -1365,7 +1365,7 @@ public class InjectedResource {
 
 Example 3.24\. 错误!注入单域
 
-```
+```java
 @Path("resource")
 @Singleton
 public static class MySingletonResource {
@@ -1387,7 +1387,7 @@ public static class MySingletonResource {
 
 Example 3.25\. Injection of proxies into singleton
 
-```
+```java
 @Path("resource")
 @Singleton
 public static class MySingletonResource {
@@ -1420,7 +1420,7 @@ public static class MySingletonResource {
 
 Example 3.26\. 可能注入的例子
 
-```
+```java
 @Path("resource")
 public static class SummaryOfInjectionsResource {
     @QueryParam("query")
@@ -1491,7 +1491,7 @@ JAX-RS 提供部署无关的抽象类的 [Application](http://jax-rs-spec.java.n
 
 Example 4.1\. 部署无关的抽象类的应用模型
 
-```
+```java
 public class MyApplication extends Application {
     @Override
     public Set<Class<?>> getClasses() {
@@ -1508,7 +1508,7 @@ public class MyApplication extends Application {
 
 Example 4.2\. 在应用模型中重用 Jersey 的实现
 
-```
+```java
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
         packages("org.foo.rest;org.bar.rest");
@@ -1584,7 +1584,7 @@ Jersey 验证的 SPIs 列表
 
 Example 4.3\. 通过 ResourceConfig 注册 SPI 实现
 
-```
+```java
 ResourceConfig resourceConfig = new ResourceConfig(MyResource.class);
 resourceConfig.register(org.glassfish.jersey.server.filter.UriConnegFilter.class);
 resourceConfig.register(org.glassfish.jersey.server.validation.ValidationFeature.class);
@@ -1595,7 +1595,7 @@ resourceConfig.property(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
 
 同样，在场景中的部署模型需要扩展应用程序的子类（如在所有的 servlet 容器部署），可以使用下面的代码来实现相同的应用程序配置：
 
-```
+```java
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
         register(org.glassfish.jersey.server.filter.UriConnegFilter.class);
@@ -1623,7 +1623,7 @@ public class MyApplication extends ResourceConfig {
 
 Example 4.5\. 使用 Jersey 和 JDK HTTP Server
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 HttpServer server = JdkHttpServerFactory.createHttpServer(baseUri, config); 
@@ -1631,7 +1631,7 @@ HttpServer server = JdkHttpServerFactory.createHttpServer(baseUri, config);
 
 JDK HTTP 容器依赖：
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-jdk-http</artifactId>
@@ -1647,7 +1647,7 @@ Grizzly 容器支持 HTTP 注射 Grizzly 的特性 org.glassfish.grizzly.http.se
 
 Example 4.6\. 使用 Jersey 和 Grizzly HTTP Server
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
     ResourceConfig config = new ResourceConfig(MyResource.class);
     HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config); 
@@ -1655,7 +1655,7 @@ URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 
 容器扩展模块依赖要加入:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-grizzly2-http</artifactId>
@@ -1673,7 +1673,7 @@ Simple 的框架支持 HTTP 容器注入 Simple 框架特性 的 org.simpleframe
 
 Example 4.7\. 使用 Jersey 和 Simple 框架
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
     ResourceConfig config = new ResourceConfig(MyResource.class);
     SimpleContainer server = SimpleContainerFactory.create(baseUri, config); 
@@ -1681,7 +1681,7 @@ URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 
 容器扩展模块依赖要加入:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-simple-http</artifactId>
@@ -1699,7 +1699,7 @@ Jetty HTTP 容器支持注入 Jetty 特性的 org.eclipse.jetty.server.Request �
 
 Example 4.8\. 使用 Jersey 和 Jetty HTTP Server
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 Server server = JettyHttpContainerFactory.createServer(baseUri, config); 
@@ -1707,7 +1707,7 @@ Server server = JettyHttpContainerFactory.createServer(baseUri, config);
 
 容器扩展模块依赖要加入（**译者注：**原文中依赖包有误，这里做了更正）:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-jetty-http</artifactId>
@@ -1723,7 +1723,7 @@ Server server = JettyHttpContainerFactory.createServer(baseUri, config);
 
 JAX-RS 规范 定义了可以编程创建一个 JAX-RS 应用端点（即容器）给任何 Application 子类的实例的能力。举例，Jersey 支持 Grizzly HttpHandler 实例的创建，如下：
 
-```
+```java
 HttpHandler endpoint = RuntimeDelegate.getInstance()
         .createEndpoint(new MyApplication(), HttpHandler.class); 
 ```
@@ -1744,7 +1744,7 @@ Jersey 集成 Servlet 容器支持至少 Servlet 2.5 规范。运行在 Servlet 
 
 Example 4.9\. 将 Jersey 当做 Servlet
 
-```
+```java
 <web-app>
     <servlet>
         <servlet-name>MyApplication</servlet-name>
@@ -1766,7 +1766,7 @@ Example 4.9\. 将 Jersey 当做 Servlet
 
 Example 4.10\. 将 Jersey 当做 Servlet Filter
 
-```
+```java
 <web-app>
     <filter>
         <filter-name>MyApplication</filter-name>
@@ -1792,7 +1792,7 @@ Example 4.10\. 将 Jersey 当做 Servlet Filter
 
 Example 4.11\. 配置 Jersey 容器 Servlet 或者 过滤器来自定义 Application 子类
 
-```
+```java
 <init-param>
     <param-name>javax.ws.rs.Application</param-name>
     <param-value>org.foo.MyApplication</param-value>
@@ -1809,7 +1809,7 @@ Jersey 将考虑所有 Application 实现的 getClasses() 和 getSingletons() �
 
 Example 4.12\. 配置 Jersey 的 Servlet 或者 Filter 来扫描包
 
-```
+```java
 <init-param>
     <param-name>jersey.config.server.provider.packages</param-name>
     <param-value>
@@ -1830,7 +1830,7 @@ Jersey 将会自动发现被选中的资源和提供者。你可以通过设置 
 
 Example 4.13\. 配置 Jersey 的 Servlet 或者 Filter 来使用类的列表
 
-```
+```java
 <init-param>
     <param-name>jersey.config.server.provider.classnames</param-name>
     <param-value>
@@ -1850,7 +1850,7 @@ Example 4.13\. 配置 Jersey 的 Servlet 或者 Filter 来使用类的列表
 
 Example 4.14\. 在 JAX-RS 应用部署中使用 @ApplicationPath 和 Servlet 3.0
 
-```
+```java
 @ApplicationPath("resources")
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
@@ -1865,7 +1865,7 @@ public class MyApplication extends ResourceConfig {
 
 Example 4.15\. 配置你的 maven-war-plugin 插件来忽略缺失的 web.xml
 
-```
+```java
 <plugins>
     ...
     <plugin>
@@ -1886,7 +1886,7 @@ Example 4.15\. 配置你的 maven-war-plugin 插件来忽略缺失的 web.xml
 
 Example 4.16\. 在 Servlet 3.0 使用 web.xml 使用 JAX-RS 应用部署
 
-```
+```java
 <web-app>
     <servlet>
         <servlet-name>org.foo.rest.MyApplication</servlet-name>
@@ -1914,7 +1914,7 @@ Servlet 的框架插件机制是 Servlet 3 规范的一个特性。它简化了�
 
 Example 4.17\. 没用 Application 子类的 JAX-RS 应用的 web.xml
 
-```
+```java
 <web-app version="3.0"
 
     >
@@ -1944,7 +1944,7 @@ Example 4.17\. 没用 Application 子类的 JAX-RS 应用的 web.xml
 
 Example 4.18\.
 
-```
+```java
 <web-app version="3.0"
 
     >
@@ -1990,7 +1990,7 @@ Jersey 使用它自己的实现了 Servlet 的 ServletContainer 和 Filter API �
 
 Jersey 提供了两个 Servlet 模块。第一个模块是 Jersey 核心 Servlet 模块,提供核心 Servlet 需要集成的支持,需要 Servlet 2.5 或更高的容器:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-servlet-core</artifactId>
@@ -1999,7 +1999,7 @@ Jersey 提供了两个 Servlet 模块。第一个模块是 Jersey 核心 Servlet
 
 为了支持额外的 Servlet 3.x 部署模式和异步 JAX-RS 资源的编程模型,另外一个 Jersey 模块为:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-servlet</artifactId>
@@ -2022,7 +2022,7 @@ Jersey 支持使用 Java EE 托管 bean 作为根资源类、子类提供者以�
 
 在下面的代码中,您可以找到一个 bean 的一个例子,使用受管 bean 拦截器定义为一个 JAX-RS bean 。bean 用于拦截方法调用资源 getIt():
 
-```
+```java
 @ManagedBean
 @Path("/managedbean")
 public class ManagedBeanResource {
@@ -2050,7 +2050,7 @@ CDI bean 可以作为 Jersey 根资源类、子类提供者以及 Application �
 
 下一个例子显示了一个使用 CDI bean 作为 JAX-RS 资源类。我们假设,CDI 已经启用。该例子通过使用另一个 bean (MyOtherCdiBean)提供类型安全的依赖注入分开使用 CDI :
 
-```
+```java
 @Path("/cdibean")
 public class CdiBeanResource {
     @Inject MyOtherCdiBean bean;  // CDI injected bean
@@ -2069,7 +2069,7 @@ public class CdiBeanResource {
 
 以下示例包含一个无状态 EJB 本地接口用于 Jersey :
 
-```
+```java
 @Local
 public interface LocalEjb {
     @GET
@@ -2143,7 +2143,7 @@ Example 4.19\.
 
 启动控制台:
 
-```
+```java
 ~/glassfish/bin$ ./asadmin
 Use "exit" to exit and "help" for online help.
 asadmin> 
@@ -2151,7 +2151,7 @@ asadmin>
 
 检查 java 属性值(从配置文件中加载):
 
-```
+```java
 asadmin>  list-jvm-options
 ...
 -Dglassfish.osgi.start.level.final=2
@@ -2160,13 +2160,13 @@ asadmin>  list-jvm-options
 
 根据类型添加值:
 
-```
+```java
 asadmin>  create-jvm-options --target server -Dglassfish.osgi.start.level.final=3 
 ```
 
 第二个选项是修改 osgi.properties 配置文件:
 
-```
+```java
 # Final start level of OSGi framework. This is used by GlassFish launcher code
 # to set the start level of the OSGi framework once server is up and running so that
 # optional services can start. The initial start level of framework is controlled using
@@ -2176,14 +2176,14 @@ glassfish.osgi.start.level.final=3
 
 执行 Felix shell:
 
-```
+```java
 asadmin> osgi lb
 ... list of bundles ... 
 ```
 
 或者启动 shell 使用 osgi-shell 命令 (域必须启动，否则 osgi shell 不能启动):
 
-```
+```java
 asadmin> osgi-shell
 Use "exit" to exit and "help" for online help.
 gogo$ 
@@ -2191,7 +2191,7 @@ gogo$
 
 直接执行 osgi 命令:
 
-```
+```java
 gogo$ lb
 ... list of bundles ... 
 ```
@@ -2200,7 +2200,7 @@ gogo$ lb
 
 如前所述,WAR 只是一个 OSGi 类型的 WAR 文件。除了通常的 OSGi 头必须除了含有一种特殊的头,Web-ContextPath,指定 web 应用程序的上下文路径。我们的 WAB (在其他旁边)出现在以下标题清单:
 
-```
+```java
 Web-ContextPath: helloworld
 Webapp-Context: helloworld
 Bundle-ClassPath: WEB-INF/classese 
@@ -2218,7 +2218,7 @@ Bundle-ClassPath: WEB-INF/classese
 
 1) 编译 (可选)
 
-```
+```java
 examples$ cd osgi-http-service/bundle
 bundle$ mvn clean package 
 ```
@@ -2227,21 +2227,21 @@ bundle$ mvn clean package
 
 2) 安装进 OSGi 运行时:
 
-```
+```java
 gogo$ install file:///path/to/file/bundle.jar
 Bundle ID: 303 
 ```
 
 或直接从 maven repository 安装:
 
-```
+```java
 gogo$ install http://maven.java.net/content/repositories/releases/org/glassfish/jersey/examples/osgi-http-service/bundle/<version>/bundle-<version>.jar
 Bundle ID: 303 
 ```
 
 确保 <version> 替换为适当的版本号。哪一个是合适取决于特定的 您正在使用 GlassFish 4\. x 版本。包的版本不能高于 GlassFish 4.x 中 Jersey 集成的版本服务器。Jersey 包在 OSGi 级别声明其他包的依赖关系,这些依赖项版本敏感的。如果假设使用例子包从是 2.5 版本,但是 Glassfish 中 Jersey 版本是 2.3.1,依赖不会合适,包不会开始。如果发生这种情况,这个错误将是这样的:
 
-```
+```java
 gogo$ lb
 ...
 303 | Installed  |    1| jersey-examples-osgi-http-service-bundle (2.5.0.SNAPSHOT)
@@ -2335,7 +2335,7 @@ JAX-RS 资源的客户端 API 是一个 Java 类的实例 WebTarget。封装了�
 
 Example 5.1\. POST request with form parameters 将 form 参数以 POST 形式请求
 
-```
+```java
 Client client = ClientBuilder.newClient();
 WebTarget target = client.target("http://localhost:9998").path("resource");
 
@@ -2369,7 +2369,7 @@ target.request(MediaType.APPLICATION_JSON_TYPE)
 
 Example 5.1\. POST request with form parameters 将 form 参数以 POST 形式请求
 
-```
+```java
 Client client = ClientBuilder.newClient();
 WebTarget target = client.target("http://localhost:9998").path("resource");
 
@@ -2401,7 +2401,7 @@ target.request(MediaType.APPLICATION_JSON_TYPE)
 
 JAX-RS 客户端 API 是一个设计为允许流利的编程模型。这意味着,建设一个客户端实例,从中创建一个 WebTarget,请求[调用](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/client/Invocation.html)是建立和调用可以调用的链接在一个“流”。流的各个步骤将以下部分所示。利用客户端 API 首先需要构建一个[客户端](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/client/Client.html)实例使用一个静态 [ClientBuilder](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/client/ClientBuilder.html) 工厂方法。这是最简单的例子:
 
-```
+```java
 Client client = ClientBuilder.newClient(); 
 ```
 
@@ -2409,7 +2409,7 @@ ClientBuilder 是 JAX-RS API 用于创建新实例的客户端。在稍微高级
 
 客户端实例可以创建期间通过的[ClientConfig](https://jersey.java.net/apidocs/2.16/jersey/org/glassfish/jersey/client/ClientConfig.html)配置到 newClient(可配置)的 ClientBuilder 工厂方法中。ClientConfig 实现[可配置](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/core/Configurable.html)的,因此它提供了方法来注册供应商(如功能或单独的实体供应商、过滤器或拦截器)和设置属性。下面的代码显示了一个注册自定义客户端过滤器:
 
-```
+```java
 ClientConfig clientConfig = new ClientConfig();
 clientConfig.register(MyClientResponseFilter.class);
 clientConfig.register(new AnotherClientFilter());
@@ -2420,7 +2420,7 @@ Client client = ClientBuilder.newClient(clientConfig);
 
 注意,Jersey ClientConfig 支持[可配置](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/core/Configurable.html)的流利的 API 模型。与配置一个新的客户端实例的代码也可以写使用更紧凑的样式如下所示。
 
-```
+```java
 Client client = ClientBuilder.newClient(new ClientConfig()
         .register(MyClientResponseFilter.class)
         .register(new AnotherClientFilter()); 
@@ -2430,13 +2430,13 @@ Client client = ClientBuilder.newClient(new ClientConfig()
 
 自客户端实现可配置接口,它甚至可以进一步配置之后创建的。更重要的是,任何配置更改做一个客户端实例不会影响 ClientConfig 实例,用于提供初始客户端实例配置在实例创建的时间。下一段代码展示了一个配置现有的客户端实例。
 
-```
+```java
 client.register(ThirdClientFilter.class); 
 ```
 
 类似于之前的例子,因为 Client.register(…) 方法支持流利的 API,可以链接多个客户机实例配置调用:
 
-```
+```java
 client.register(FilterA.class)
       .register(new FilterB())
       .property("my-property", true); 
@@ -2444,7 +2444,7 @@ client.register(FilterA.class)
 
 getConfiguration() 方法可以使用来获得当前配置的客户端实例。
 
-```
+```java
 ClientConfig clientConfig = new ClientConfig();
 clientConfig.register(MyClientResponseFilter.class);
 clientConfig.register(new AnotherClientFilter());
@@ -2459,13 +2459,13 @@ Configuration newConfiguration = client.getConfiguration();
 
 客户端实例创建 WebTarget
 
-```
+```java
 WebTarget webTarget = client.target("http://example.com/rest"); 
 ```
 
 客户端包含几个目标(…)方法,允许创建 WebTarget 实例。在本例中我们使用目标 uri (String)版本。 uri 作为字符串传递到方法有针对性的 web 资源的 uri。在更复杂的场景,这可能是整个 RESTful 应用程序的上下文根 URI,WebTarget 实例代表个人资源的目标可以派生和单独配置。这是可能的,因为 JAX-RS WebTarget 还实现了可配置:
 
-```
+```java
 WebTarget webTarget = client.target("http://example.com/rest");
 webTarget.register(FilterForExampleCom.class); 
 ```
@@ -2476,7 +2476,7 @@ JAX-RS 客户端 API 中使用的配置原则适用于 WebTarget 。每个 WebTa
 
 让我们假设我们有一个 webtarget 指向 "[`example.com/rest`](http://example.com/rest)" 的 URI，代表着一个 RESTful 应用上下文根有资源暴露在 URI 为 "[`example.com/rest/resource"。正如已经提到的，一个 WebTarget`](http://example.com/rest/resource"。正如已经提到的，一个 WebTarget) 实例可以用来获得其他网站的目标。使用下面的代码定义一个路径的资源。
 
-```
+```java
 WebTarget resourceWebTarget = webTarget.path("resource"); 
 ```
 
@@ -2484,13 +2484,13 @@ WebTarget resourceWebTarget = webTarget.path("resource");
 
 假设有个子资源 "[`example.com/rest/resource/helloworld`](http://example.com/rest/resource/helloworld)" ，可以驱动一个 WebTarget 通过下面语句：
 
-```
+```java
 WebTarget helloworldWebTarget = resourceWebTarget.path("helloworld"); 
 ```
 
 让我们假设 helloworld 资源接受查询参数用于 GET 请求,定义了问候消息。下一个代码片段显示了一个代码，通过定义查询参数的创建一种新的 WebTarget 。
 
-```
+```java
 WebTarget helloworldWebTargetWithQueryParam =
     helloworldWebTarget.queryParam("greeting", "Hi World!"); 
 ```
@@ -2501,7 +2501,7 @@ WebTarget helloworldWebTargetWithQueryParam =
 
 现在要调用一个 GET HTTP 请求 到 一个已经创建的 web target 上。开始构建一个新的 HTTP 请求调用，首先要创建一个新的 [Invocation.Builder](http://jax-rs-spec.java.net/nonav/2.0/apidocs/javax/ws/rs/client/Invocation.Builder.html)
 
-```
+```java
 Invocation.Builder invocationBuilder =
         helloworldWebTargetWithQueryParam.request(MediaType.TEXT_PLAIN_TYPE);
 invocationBuilder.header("some-header", "true"); 
@@ -2515,7 +2515,7 @@ invocationBuilder 是用来设置请求特定的参数，这里我们可以给�
 
 如果你不想调用它们之前做任何批处理您的 HTTP 请求调用，还有一个更方便的方法，可以直接从一个调用生成器实例用来调用你的请求。这种方法如下：
 
-```
+```java
 Response response = invocationBuilder.get(); 
 ```
 
@@ -2523,14 +2523,14 @@ Response response = invocationBuilder.get();
 
 请求将通过所有配置请求过滤器（AnotherClientFilter, ThirdClientFilter 和 FilterForExampleCom）。一旦通过滤波器处理，请求将被发送到远程资源。假设资源然后返回一个 HTTP 200 消息的一个纯文本响应，内容包含在请求中发送问候查询参数的值。现在我们可以看到返回的响应：
 
-```
+```java
 System.out.println(response.getStatus());
 System.out.println(response.readEntity(String.class)); 
 ```
 
 控制台输出：
 
-```
+```java
 200
 Hi World! 
 ```
@@ -2539,7 +2539,7 @@ Hi World!
 
 想象下，你要调用 POST 请求，但不带任何参数，仅仅需要使用 helloworldWebTarget 实例，将 post() 替换 get()：
 
-```
+```java
 Response postResponse =
         helloworldWebTarget.request(MediaType.TEXT_PLAIN_TYPE)
                 .post(Entity.entity("A string entity to be POSTed", MediaType.TEXT_PLAIN)); 
@@ -2551,7 +2551,7 @@ Response postResponse =
 
 Example 5.2\. Using JAX-RS Client API
 
-```
+```java
 ClientConfig clientConfig = new ClientConfig();
 clientConfig.register(MyClientResponseFilter.class);
 clientConfig.register(new AnotherClientFilter());
@@ -2579,7 +2579,7 @@ System.out.println(response.readEntity(String.class));
 
 Example 5.3\. Using JAX-RS Client API fluently
 
-```
+```java
 Client client = ClientBuilder.newClient(new ClientConfig()
             .register(MyClientResponseFilter.class)
             .register(new AnotherClientFilter()));
@@ -2595,7 +2595,7 @@ String entity = client.target("http://example.com/rest")
 
 上面的代码做同样的事情。这种快捷的方法让你指定（如果成功返回一个 HTTP 响应状态码响应实体 2XX ）应为 Java 字符串返回类型。这个紧凑的示例演示了 JAX-RS 客户端 API 另一个优点 。流畅的 JAX-RS 客户端 API 很方便，特别是简单的用法中。这是另一个非常简单的 GET 请求返回一个字符串表示形式（实体）：
 
-```
+```java
 String responseEntity = ClientBuilder.newClient()
             .target("http://example.com").path("resource/rest")
                         .request().get(String.class) 
@@ -2649,7 +2649,7 @@ String responseEntity = ClientBuilder.newClient()
 
 Example 7.1\. Using File with a specific media type to produce a response
 
-```
+```java
 @GET
 @Path("/images/{image}")
 @Produces("image/*")
@@ -2669,7 +2669,7 @@ public Response getImage(@PathParam("image") String image) {
 
 Content-Type 响应头（如果没有设置编程方式，在下节介绍）将自动设置基于媒体类型通过 [@Produces](http://jax-rs-spec.java.net/nonav/2.0/apidocs/javax/ws/rs/Produces.html) 声明。例如下面的方法，当允许多个输出媒体类型时，最可接受的媒体类型被使用：
 
-```
+```java
 @GET
 @Produces({"application/xml", "application/json"})
 public String doGetAsXmlOrJson() {
@@ -2687,7 +2687,7 @@ public String doGetAsXmlOrJson() {
 
 Example 7.2\. Returning 201 status code and adding Location header in response to POST request
 
-```
+```java
 @POST
 @Consumes("application/xml")
 public Response post(String content) {
@@ -2701,7 +2701,7 @@ public Response post(String content) {
 
 Example 7.3\. Adding an entity body to a custom response
 
-```
+```java
 @POST
 @Consumes("application/xml")
 public Response post(String content) {
@@ -2723,7 +2723,7 @@ public Response post(String content) {
 
 Example 7.4\. Throwing exceptions to control response
 
-```
+```java
 @Path("items/{itemid}/")
 public Item getItem(@PathParam("itemid") String itemid) {
   Item i = getItems().get(itemid);
@@ -2739,7 +2739,7 @@ public Item getItem(@PathParam("itemid") String itemid) {
 
 Example 7.5\. Application specific exception implementation
 
-```
+```java
 public class CustomNotFoundException extends WebApplicationException {
 
   /**
@@ -2764,7 +2764,7 @@ public class CustomNotFoundException extends WebApplicationException {
 
 Example 7.6\. Mapping generic exceptions to responses
 
-```
+```java
 @Provider
 public class EntityNotFoundMapper implements ExceptionMapper<javax.persistence.EntityNotFoundException> {
   public Response toResponse(javax.persistence.EntityNotFoundException ex) {
@@ -2792,7 +2792,7 @@ JAX-RS 使用上下文接口[Request](http://jax-rs-spec.java.net/nonav/2.0/apid
 
 Example 7.7\. Conditional GET support
 
-```
+```java
 public SparklinesResource(
   @QueryParam("d") IntegerList data,
   @DefaultValue("0,100") @QueryParam("limits") Interval limits,

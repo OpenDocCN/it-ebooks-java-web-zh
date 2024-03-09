@@ -56,7 +56,7 @@ SpringApplication 会给监听器（即使是在上下文被创建之前就存�
 
 SpringApplication 已经被属性化（主要是 setters），所以你可以在创建应用时使用它的 Java API 修改它的行为。或者你可以使用 properties 文件中的`spring.main.*`来外部化（在应用代码外配置）这些配置。比如，在`application.properties`中可能会有以下内容：
 
-```
+```java
 spring.main.web_environment=false
 spring.main.show_banner=false 
 ```
@@ -86,7 +86,7 @@ spring.main.show_banner=false
 
 有些人喜欢使用（例如）`--port=9000`代替`--server.port=9000`来设置命令行配置属性。你可以通过在 application.properties 中使用占位符来启用该功能，比如：
 
-```
+```java
 server.port=${port:8080} 
 ```
 
@@ -100,7 +100,7 @@ server.port=${port:8080}
 
 YAML 是 JSON 的一个超集，可以非常方便的将外部配置以层次结构形式存储起来。比如：
 
-```
+```java
 spring:
     application:
         name: cruncher
@@ -113,7 +113,7 @@ server:
 
 创建一个 application.yml 文件，将它放到 classpath 的根目录下，并添加 snakeyaml 依赖（Maven 坐标为`org.yaml:snakeyaml`，如果你使用`spring-boot-starter`那就已经被包含了）。一个 YAML 文件会被解析为一个 Java `Map<String,Object>`（和一个 JSON 对象类似），Spring Boot 会平伸该 map，这样它就只有 1 级深度，并且有 period-separated 的 keys，跟人们在 Java 中经常使用的 Properties 文件非常类似。 上面的 YAML 示例对应于下面的 application.properties 文件：
 
-```
+```java
 spring.application.name=cruncher
 spring.datasource.driverClassName=com.mysql.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost/test
@@ -128,13 +128,13 @@ server.port=9000
 
 Spring `Environment`有一个 API 可以设置生效的 profiles，但通常你会设置一个系统 profile（`spring.profiles.active`）或一个 OS 环境变量（`SPRING_PROFILES_ACTIVE`）。比如，使用一个`-D`参数启动应用程序（记着把它放到 main 类或 jar 文件之前）：
 
-```
+```java
 $ java -jar -Dspring.profiles.active=production demo-0.0.1-SNAPSHOT.jar 
 ```
 
 在 Spring Boot 中，你也可以在 application.properties 里设置生效的 profile，例如：
 
-```
+```java
 spring.profiles.active=production 
 ```
 
@@ -152,7 +152,7 @@ spring.profiles.active=production
 
 示例：
 
-```
+```java
 server:
     port: 9000
 ---
@@ -222,7 +222,7 @@ Servlet 规范支持的 Servlet，Filter，ServletContextListener 和其他监�
 
 使用`@WebIntegrationTests`的一个有用实践是设置`server.port=0`，然后使用`@Value`注入实际的（'local'）端口。例如：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SampleDataJpaApplication.class)
 @WebIntegrationTest("server.port:0")
@@ -245,7 +245,7 @@ public class CityRepositoryIntegrationTests {
 
 SSL 能够以声明方式进行配置，一般通过在 application.properties 或 application.yml 设置各种各样的`server.ssl.*`属性。例如：
 
-```
+```java
 server.port = 8443
 server.ssl.key-store = classpath:keystore.jks
 server.ssl.key-store-password = secret
@@ -272,7 +272,7 @@ Tomcat APIs 相当丰富，一旦获取到`TomcatEmbeddedServletContainerFactory
 
 你可以将一个`org.apache.catalina.connector.Connector`添加到`TomcatEmbeddedServletContainerFactory`，这就能够允许多连接器，比如 HTTP 和 HTTPS 连接器：
 
-```
+```java
 @Bean
 public EmbeddedServletContainerFactory servletContainer() {
     TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
@@ -310,21 +310,21 @@ private Connector createSslConnector() {
 
 Spring Boot 将自动配置 Tomcat 的`RemoteIpValve`，如果你启用它的话。这允许你透明地使用标准的`x-forwarded-for`和`x-forwarded-proto`头，很多前端代理服务器都会添加这些头信息（headers）。通过将这些属性中的一个或全部设置为非空的内容来开启该功能（它们是大多数代理约定的值，如果你只设置其中的一个，则另一个也会被自动设置）。
 
-```
+```java
 server.tomcat.remote_ip_header=x-forwarded-for
 server.tomcat.protocol_header=x-forwarded-proto 
 ```
 
 如果你的代理使用不同的头部（headers），你可以通过向 application.properties 添加一些条目来自定义该值的配置，比如：
 
-```
+```java
 server.tomcat.remote_ip_header=x-your-remote-ip-header
 server.tomcat.protocol_header=x-your-protocol-header 
 ```
 
 该值也可以配置为一个默认的，能够匹配信任的内部代理的正则表达式。默认情况下，受信任的 IP 包括 10/8, 192.168/16, 169.254/16 和 127/8。可以通过向 application.properties 添加一个条目来自定义该值的配置，比如：
 
-```
+```java
 server.tomcat.internal_proxies=192\\.168\\.\\d{1,3}\\.\\d{1,3} 
 ```
 
@@ -340,7 +340,7 @@ Spring Boot starters（特别是 spring-boot-starter-web）默认都是使用 To
 
 Maven 示例：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -359,7 +359,7 @@ Maven 示例：
 
 Gradle 示例：
 
-```
+```java
 configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
 }
@@ -385,7 +385,7 @@ dependencies {
 
 Maven 示例：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -404,7 +404,7 @@ Maven 示例：
 
 Gradle 示例：
 
-```
+```java
 configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
 }
@@ -428,7 +428,7 @@ dependencies {
 
 往`UndertowEmbeddedServletContainerFactory`添加一个`UndertowBuilderCustomizer`，然后添加一个监听者到`Builder`：
 
-```
+```java
 @Bean
 public UndertowEmbeddedServletContainerFactory embeddedServletContainerFactory() {
     UndertowEmbeddedServletContainerFactory factory = new UndertowEmbeddedServletContainerFactory();
@@ -456,7 +456,7 @@ Tomcat7 可用于 Spring Boot，但默认使用的是 Tomcat8。如果不能使�
 
 如果正在使用 starter pom 和 parent，你只需要改变 Tomcat 的 version 属性，比如，对于一个简单的 webapp 或 service：
 
-```
+```java
 <properties>
     <tomcat.version>7.0.59</tomcat.version>
 </properties>
@@ -476,7 +476,7 @@ Tomcat7 可用于 Spring Boot，但默认使用的是 Tomcat8。如果不能使�
 
 你可以通过设置`tomcat.version`属性改变 Tomcat 的版本：
 
-```
+```java
 ext['tomcat.version'] = '7.0.59'
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
@@ -495,7 +495,7 @@ Jetty8 可用于 Spring Boot，但默认使用的是 Jetty9。如果不能使用
 
 如果正在使用 starter pom 和 parent，你只需添加 Jetty starter，去掉 WebSocket 依赖，并改变 version 属性，比如，对于一个简单的 webapp 或 service：
 
-```
+```java
 <properties>
     <jetty.version>8.1.15.v20140411</jetty.version>
     <jetty-jsp.version>2.2.0.v201112011158</jetty-jsp.version>
@@ -530,7 +530,7 @@ Jetty8 可用于 Spring Boot，但默认使用的是 Jetty9。如果不能使用
 
 你可以设置`jetty.version`属性并排除相关的 WebSocket 依赖，比如对于一个简单的 webapp 或 service：
 
-```
+```java
 ext['jetty.version'] = '8.1.15.v20140411'
 dependencies {
     compile ('org.springframework.boot:spring-boot-starter-web') {
@@ -548,7 +548,7 @@ dependencies {
 
 如果想在一个使用内嵌容器的 Spring Boot 应用中使用@ServerEndpoint，你需要声明一个单独的 ServerEndpointExporter @Bean：
 
-```
+```java
 @Bean
 public ServerEndpointExporter serverEndpointExporter() {
     return new ServerEndpointExporter();
@@ -569,19 +569,19 @@ Spring Boot 提供两种启用 HTTP 压缩的机制;一种是 Tomcat 特有的�
 
 Tomcat 对 HTTP 响应压缩提供内建支持。默认是禁用的，但可以通过 application.properties 轻松的启用：
 
-```
+```java
 server.tomcat.compression: on 
 ```
 
 当设置为`on`时，Tomcat 将压缩响应的长度至少为 2048 字节。你可以配置一个整型值来设置该限制而不只是`on`，比如：
 
-```
+```java
 server.tomcat.compression: 4096 
 ```
 
 默认情况下，Tomcat 只压缩某些 MIME 类型的响应（text/html，text/xml 和 text/plain）。你可以使用`server.tomcat.compressableMimeTypes`属性进行自定义，比如：
 
-```
+```java
 server.tomcat.compressableMimeTypes=application/json,application/xml 
 ```
 
@@ -603,7 +603,7 @@ GzipFilter 可以使用`spring.http.gzip.*`属性进行配置。具体参考[Gzi
 
 在 Spring Boot 应用中，任何 Spring `@RestController`默认应该渲染为 JSON 响应，只要 classpath 下存在 Jackson2。例如：
 
-```
+```java
 @RestController
 public class MyController {
 
@@ -623,7 +623,7 @@ public class MyController {
 
 如果 classpath 下存在 Jackson XML 扩展（jackson-dataformat-xml），它会被用来渲染 XML 响应，示例和 JSON 的非常相似。想要使用它，只需为你的项目添加以下的依赖：
 
-```
+```java
 <dependency>
     <groupId>com.fasterxml.jackson.dataformat</groupId>
     <artifactId>jackson-dataformat-xml</artifactId>
@@ -632,7 +632,7 @@ public class MyController {
 
 你可能也想添加对 Woodstox 的依赖。它比 JDK 提供的默认 Stax 实现快很多，并且支持良好的格式化输出，提高了 namespace 处理能力：
 
-```
+```java
 <dependency>
     <groupId>org.codehaus.woodstox</groupId>
     <artifactId>woodstox-core-asl</artifactId>
@@ -641,7 +641,7 @@ public class MyController {
 
 如果 Jackson 的 XML 扩展不可用，Spring Boot 将使用 JAXB（JDK 默认提供），不过你需要为 MyThing 添加额外的注解`@XmlRootElement`：
 
-```
+```java
 @XmlRootElement
 public class MyThing {
     private String name;
@@ -742,7 +742,7 @@ WebMvcAutoConfiguration 将会为你的上下文添加以下 ViewResolvers：
 
 Spring Boot 除了 commons-logging API 外没有其他强制性的日志依赖，你有很多可选的日志实现。想要使用[Logback](http://logback.qos.ch/)，你需要包含它，及一些对 classpath 下 commons-logging 的绑定。最简单的方式是通过依赖`spring-boot-starter-logging`的 starter pom。对于一个 web 应用程序，你只需添加`spring-boot-starter-web`依赖，因为它依赖于 logging starter。例如，使用 Maven：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -751,7 +751,7 @@ Spring Boot 除了 commons-logging API 外没有其他强制性的日志依赖�
 
 Spring Boot 有一个 LoggingSystem 抽象，用于尝试通过 classpath 上下文配置日志系统。如果 Logback 可用，则首选它。如果你唯一需要做的就是设置不同日志的级别，那可以通过在 application.properties 中使用`logging.level`前缀实现，比如：
 
-```
+```java
 logging.level.org.springframework.web: DEBUG
 logging.level.org.hibernate: ERROR 
 ```
@@ -766,7 +766,7 @@ logging.level.org.hibernate: ERROR
 
 如果你将一个 logback.xml 放到 classpath 根目录下，那它将会被从这加载。Spring Boot 提供一个默认的基本配置，如果你只是设置日志级别，那你可以包含它，比如：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
@@ -792,7 +792,7 @@ Spring Boot 也支持[Log4j](http://logging.apache.org/log4j/1.2)或[Log4j 2](ht
 
 最简单的方式可能就是通过 starter poms，尽管它需要排除一些依赖，比如，在 Maven 中：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -835,7 +835,7 @@ Spring Boot 也支持[Log4j](http://logging.apache.org/log4j/1.2)或[Log4j 2](ht
 
 比如：
 
-```
+```java
 @Bean
 @ConfigurationProperties(prefix="datasource.mine")
 public DataSource dataSource() {
@@ -843,7 +843,7 @@ public DataSource dataSource() {
 } 
 ```
 
-```
+```java
 datasource.mine.jdbcUrl=jdbc:h2:mem:mydb
 datasource.mine.user=sa
 datasource.mine.poolSize=30 
@@ -857,7 +857,7 @@ datasource.mine.poolSize=30
 
 创建多个数据源和创建第一个工作都是一样的。如果使用针对 JDBC 或 JPA 的默认自动配置，你可能想要将其中一个设置为`@Primary`（然后它就能被任何`@Autowired`注入获取）。
 
-```
+```java
 @Bean
 @Primary
 @ConfigurationProperties(prefix="datasource.primary")
@@ -888,7 +888,7 @@ Spring Boot 会基于它找到的`@EnableAutoConfiguration`来尝试猜测你的
 
 Spring Boot 会基于它找到的`@EnableAutoConfiguration`来尝试猜测你的`@Entity`定义的位置。想要获取更多控制，你可以使用`@EntityScan`注解，比如：
 
-```
+```java
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses=City.class)
@@ -905,7 +905,7 @@ public class Application {
 
 Spring Data JPA 已经提供了一些独立的配置选项（比如，针对 SQL 日志），并且 Spring Boot 会暴露它们，针对 hibernate 的外部配置属性也更多些。最常见的选项如下：
 
-```
+```java
 spring.jpa.hibernate.ddl-auto: create-drop
 spring.jpa.hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
 spring.jpa.database: H2
@@ -930,7 +930,7 @@ spring.jpa.show-sql: true
 
 示例：
 
-```
+```java
 // add two data sources configured as above
 
 @Bean
@@ -1103,7 +1103,7 @@ Spring Boot 安装了一个'whitelabel'错误页面，如果你遇到一个服�
 
 Spring Security 也提供了一个方便的 AuthenticationManagerBuilder，可用于构建具有常见选项的 AuthenticationManager。在一个 webapp 中，推荐将它注入到 WebSecurityConfigurerAdapter 的一个 void 方法中，比如：
 
-```
+```java
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -1121,7 +1121,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 如果你遇到了实例化问题（比如，使用 JDBC 或 JPA 进行用户详细信息的存储），那将 AuthenticationManagerBuilder 回调提取到一个 GlobalAuthenticationConfigurerAdapter（放到 init()方法内以防其他地方也需要 authentication manager）可能是个不错的选择，比如：
 
-```
+```java
 @Configuration
 public class AuthenticationManagerConfiguration extends
 
@@ -1142,7 +1142,7 @@ public class AuthenticationManagerConfiguration extends
 
 你可以向 application.properties 添加以下设置里开启该功能，比如：
 
-```
+```java
 server.tomcat.remote_ip_header=x-forwarded-for
 server.tomcat.protocol_header=x-forwarded-proto 
 ```
@@ -1199,7 +1199,7 @@ Spring Boot 有很多用于热加载的选项。使用 IDE 开发是一个不错
 
 为了在 Maven 命令行下使用 Spring Loaded，你只需将它作为一个依赖添加到 Spring Boot 插件声明中即可，比如：
 
-```
+```java
 <plugin>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -1223,7 +1223,7 @@ Spring Boot 有很多用于热加载的选项。使用 IDE 开发是一个不错
 
 为了正确配置 IntelliJ，你可以使用`idea` Gradle 插件：
 
-```
+```java
 buildscript {
     repositories { jcenter() }
     dependencies {
@@ -1258,7 +1258,7 @@ idea {
 
 如果你使用 Maven 进行一个直接或间接继承`spring-boot-dependencies`（比如`spring-boot-starter-parent`）的构建，并想覆盖一个特定的第三方依赖，那你可以添加合适的`<properties>`元素。浏览[spring-boot-dependencies](http://github.com/spring-projects/spring-boot/tree/master/spring-boot-dependencies/pom.xml) POM 可以获取一个全面的属性列表。例如，想要选择一个不同的 slf4j 版本，你可以添加以下内容：
 
-```
+```java
 <properties>
     <slf4j.version>1.7.5<slf4j.version>
 </properties> 
@@ -1274,7 +1274,7 @@ idea {
 
 `spring-boot-maven-plugin`能够用来创建可执行的'胖'JAR。如果你正在使用`spring-boot-starter-parent` POM，你可以简单地声明该插件，然后你的 jar 将被重新打包：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -1287,7 +1287,7 @@ idea {
 
 如果没有使用 parent POM，你仍旧可以使用该插件。不过，你需要另外添加一个`<executions>`片段：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -1316,7 +1316,7 @@ idea {
 
 对于 Maven 来说，正常的 JAR 插件和 Spring Boot 插件都有一个'classifier'，你可以添加它来创建另外的 JAR。示例如下（使用 Spring Boot Starter Parent 管理插件版本，其他配置采用默认设置）：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -1334,7 +1334,7 @@ idea {
 
 对于 Gradle 用户来说，步骤类似。示例如下：
 
-```
+```java
 bootRepackage  {
     classifier = 'exec'
 } 
@@ -1348,7 +1348,7 @@ bootRepackage  {
 
 为了处理任何有问题的库，你可以标记那些特定的内嵌 jars，让它们在可执行 jar 第一次运行时自动解压到一个临时文件夹中。例如，为了将 JRuby 标记为使用 Maven 插件拆包，你需要添加如下的配置：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -1369,7 +1369,7 @@ bootRepackage  {
 
 使用 Gradle 完全上述操作：
 
-```
+```java
 springBoot  {
     requiresUnpack = ['org.jruby:jruby-complete']
 } 
@@ -1389,7 +1389,7 @@ springBoot  {
 
 build.gradle：
 
-```
+```java
 applicationDefaultJvmArgs = [
     "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
 ] 
@@ -1397,7 +1397,7 @@ applicationDefaultJvmArgs = [
 
 命令行：
 
-```
+```java
 $ gradle run --debug-jvm 
 ```
 
@@ -1415,7 +1415,7 @@ $ gradle run --debug-jvm
 
 示例：
 
-```
+```java
 <target name="build" depends="compile">
     <copy todir="target/classes/lib">
         <fileset dir="lib/runtime" />
@@ -1434,13 +1434,13 @@ $ gradle run --debug-jvm
 
 该 Actuator 示例中有一个 build.xml 文件，可以使用以下命令来运行：
 
-```
+```java
 $ ant -lib <path_to class="hljs-pi">/ivy-2.2.jar</path_to> 
 ```
 
 在上述操作之后，你可以使用以下命令运行该应用：
 
-```
+```java
 $ java -jar target/*.jar 
 ```
 
@@ -1472,7 +1472,7 @@ Java 事务 API 自身并不要求 Java 7，而是官方的 API jar 包含的已
 
 产生一个可部署 war 包的第一步是提供一个 SpringBootServletInitializer 子类，并覆盖它的 configure 方法。这充分利用了 Spring 框架对 Servlet 3.0 的支持，并允许你在应用通过 servlet 容器启动时配置它。通常，你只需把应用的主类改为继承 SpringBootServletInitializer 即可：
 
-```
+```java
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
@@ -1490,13 +1490,13 @@ public class Application extends SpringBootServletInitializer {
 
 下一步是更新你的构建配置，这样你的项目将产生一个 war 包而不是 jar 包。如果你使用 Maven，并使用`spring-boot-starter-parent`（为了配置 Maven 的 war 插件），所有你需要做的就是更改 pom.xml 的 packaging 为 war：
 
-```
+```java
 <packaging>war</packaging> 
 ```
 
 如果你使用 Gradle，你需要修改 build.gradle 来将 war 插件应用到项目上：
 
-```
+```java
 apply plugin: 'war' 
 ```
 
@@ -1504,7 +1504,7 @@ apply plugin: 'war'
 
 如果使用 Maven：
 
-```
+```java
 <dependencies>
     <!-- … -->
     <dependency>
@@ -1518,7 +1518,7 @@ apply plugin: 'war'
 
 如果使用 Gradle：
 
-```
+```java
 dependencies {
     // …
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -1544,7 +1544,7 @@ dependencies {
 
 通过继承 SpringBootServletInitializer 创建一个可执行 war（比如，在一个名为 Application 的类中），然后添加 Spring Boot 的`@EnableAutoConfiguration`注解。示例：
 
-```
+```java
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
@@ -1573,7 +1573,7 @@ public class Application extends SpringBootServletInitializer {
 
 一旦 war 可以使用，我们就通过添加一个 main 方法到 Application 来让它可以执行，比如：
 
-```
+```java
 public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
 } 
@@ -1600,7 +1600,7 @@ Servlet 3.0+的应用转化的相当简单，如果它们已经使用 Spring Ser
 
 一个传统的 Weblogic 初始化器可能如下所示：
 
-```
+```java
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.web.WebApplicationInitializer;
@@ -1613,7 +1613,7 @@ public class MyApplication extends SpringBootServletInitializer implements WebAp
 
 如果使用 logback，你需要告诉 Weblogic 你倾向使用的打包版本而不是服务器预装的版本。你可以通过添加一个具有如下内容的`WEB-INF/weblogic.xml`实现该操作：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <wls:weblogic-web-app
     xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"

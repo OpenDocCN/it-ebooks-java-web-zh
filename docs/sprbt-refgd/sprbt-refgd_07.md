@@ -16,7 +16,7 @@ Spring Boot CLI 是一个命令行工具，如果想使用 Spring 进行快速�
 
 一旦安装好 CLI，你可以输入`spring`来运行它。如果你不使用任何参数运行`spring`，将会展现一个简单的帮助界面：
 
-```
+```java
 $ spring
 usage: spring [--help] [--version]
        <command class="hljs-pi"></command> [<args class="hljs-pi">]
@@ -31,7 +31,7 @@ Available commands are:
 
 你可以使用`help`获取任何支持命令的详细信息。例如：
 
-```
+```java
 $ spring help run
 spring run - Run a spring groovy script
 
@@ -54,7 +54,7 @@ Option                     Description
 
 `version`命令提供一个检查你正在使用的 Spring Boot 版本的快速方式：
 
-```
+```java
 $ spring version
 Spring CLI v1.3.0.BUILD-SNAPSHOT 
 ```
@@ -67,7 +67,7 @@ Spring CLI v1.3.0.BUILD-SNAPSHOT
 
 下面是一个使用 Groovy 编写的"hello world" web 应用： hello.grooy
 
-```
+```java
 @RestController
 class WebApplication {
 
@@ -81,19 +81,19 @@ class WebApplication {
 
 想要编译和运行应用，输入：
 
-```
+```java
 $ spring run hello.groovy 
 ```
 
 想要给应用传递命令行参数，你需要使用一个`--`来将它们和"spring"命令参数区分开来。例如：
 
-```
+```java
 $ spring run hello.groovy -- --server.port=9000 
 ```
 
 想要设置 JVM 命令行参数，你可以使用`JAVA_OPTS`环境变量，例如：
 
-```
+```java
 $ JAVA_OPTS=-Xmx1024m spring run hello.groovy 
 ```
 
@@ -153,7 +153,7 @@ Spring Boot 提供一个新的`@GrabMetadata`注解，你可以使用它提供�
 
 例如，下面的声明：
 
-```
+```java
 `@GrabMetadata("com.example.custom-versions:1.0.0")` 
 ```
 
@@ -161,7 +161,7 @@ Spring Boot 提供一个新的`@GrabMetadata`注解，你可以使用它提供�
 
 可以通过注解指定多个属性文件，它们会以声明的顺序被使用。例如：
 
-```
+```java
 `@GrabMetadata(["com.example.custom-versions:1.0.0",
         "com.example.more-versions:1.0.0"])` 
 ```
@@ -170,7 +170,7 @@ Spring Boot 提供一个新的`@GrabMetadata`注解，你可以使用它提供�
 
 你可以在任何能够使用`@Grab`的地方使用`@GrabMetadata`，然而，为了确保元数据的顺序一致，你在应用程序中最多只能使用一次`@GrabMetadata`。[Spring IO Platform](http://platform.spring.io/)是一个非常有用的依赖元数据源(Spring Boot 的超集)，例如：
 
-```
+```java
 @GrabMetadata('io.spring.platform:platform-versions:1.0.4.RELEASE') 
 ```
 
@@ -180,7 +180,7 @@ Spring Boot 提供一个新的`@GrabMetadata`注解，你可以使用它提供�
 
 `test`命令允许你编译和运行应用程序的测试用例。常规使用方式如下：
 
-```
+```java
 $ spring test app.groovy tests.groovy
 Total: 1, Success: 1, : Failures: 0
 Passed? true 
@@ -190,7 +190,7 @@ Passed? true
 
 下面是我们使用的`test.groovy`文件（含有一个 JUnit 测试）：
 
-```
+```java
 class ApplicationTests {
 
     @Test
@@ -209,13 +209,13 @@ class ApplicationTests {
 
 你可以在所有接收文件输入的命令中使用 shell 通配符。这允许你轻松处理来自一个目录下的多个文件，例如：
 
-```
+```java
 $ spring run *.groovy 
 ```
 
 如果你想将'test'或'spec'代码从主应用代码中分离，这项技术就十分有用了：
 
-```
+```java
 $ spring test app/*.groovy test/*.groovy 
 ```
 
@@ -225,19 +225,19 @@ $ spring test app/*.groovy test/*.groovy
 
 你可以使用`jar`命令打包应用程序为一个可执行的 jar 文件。例如：
 
-```
+```java
 $ spring jar my-app.jar *.groovy 
 ```
 
 最终的 jar 包括编译应用产生的类和所有依赖，这样你就可以使用`java -jar`来执行它了。该 jar 文件也包括来自应用 classpath 的实体。你可以使用`--include`和`--exclude`添加明确的路径（两者都是用逗号分割，同样都接收值为'+'和'-'的前缀，'-'意味着它们将从默认设置中移除）。默认包含（includes）：
 
-```
+```java
 public/**, resources/**, static/**, templates/**, META-INF/**, * 
 ```
 
 默认排除(excludes)：
 
-```
+```java
 .*, repository/**, build/**, target/**, **/*.jar, **/*.groovy 
 ```
 
@@ -249,7 +249,7 @@ public/**, resources/**, static/**, templates/**, META-INF/**, *
 
 `init`命令允许你使用[start.spring.io](https://start.spring.io/)在不离开 shell 的情况下创建一个新的项目。例如：
 
-```
+```java
 $ spring init --dependencies=web,data-jpa my-project
 Using service at https://start.spring.io
 Project extracted to '/Users/developer/example/my-project' 
@@ -257,7 +257,7 @@ Project extracted to '/Users/developer/example/my-project'
 
 这创建了一个`my-project`目录，它是一个基本 Maven 且依赖`spring-boot-starter-web`和`spring-boot-starter-data-jpa`的项目。你可以使用`--list`参数列出该服务的能力。
 
-```
+```java
 $ spring init --list
 =======================================
 Capabilities of https://start.spring.io
@@ -283,7 +283,7 @@ maven-project -  Maven Project [format:project, build:maven] (default)
 
 `init`命令支持很多选项，查看`help`输出可以获得更多详情。例如，下面的命令创建一个使用 Java8 和 war 打包的 gradle 项目：
 
-```
+```java
 $ spring init --build=gradle --java-version=1.8 --dependencies=websocket --packaging=war sample-app.zip
 Using service at https://start.spring.io
 Content saved to 'sample-app.zip' 
@@ -295,7 +295,7 @@ Content saved to 'sample-app.zip'
 
 Spring Boot 包括完整的 BASH 和 zsh shells 的命令行脚本。如果你不使用它们中的任何一个（可能你是一个 Window 用户），那你可以使用`shell`命令启用一个集成 shell。
 
-```
+```java
 $ spring shell
 Spring Boot (v1.3.0.BUILD-SNAPSHOT)
 Hit TAB to complete. Type \'help' and hit RETURN for help, and \'exit' to quit. 
@@ -303,7 +303,7 @@ Hit TAB to complete. Type \'help' and hit RETURN for help, and \'exit' to quit.
 
 从内嵌 shell 中可以直接运行其他命令：
 
-```
+```java
 $ version
 Spring CLI v1.3.0.BUILD-SNAPSHOT 
 ```
@@ -316,13 +316,13 @@ Spring CLI v1.3.0.BUILD-SNAPSHOT
 
 使用`install`命令可以为 CLI 添加扩展。该命令接收一个或多个格式为`group:artifact:version`的 artifact 坐标集。例如：
 
-```
+```java
 $ spring install com.example:spring-boot-cli-extension:1.0.0.RELEASE 
 ```
 
 除了安装你提供坐标的 artifacts 标识外，所有依赖也会被安装。使用`uninstall`可以卸载一个依赖。和`install`命令一样，它接收一个或多个格式为`group:artifact:version`的 artifact 坐标集。例如：
 
-```
+```java
 $ spring uninstall com.example:spring-boot-cli-extension:1.0.0.RELEASE 
 ```
 
@@ -330,7 +330,7 @@ $ spring uninstall com.example:spring-boot-cli-extension:1.0.0.RELEASE
 
 为了卸载所有附加依赖，你可以使用`--all`选项。例如：
 
-```
+```java
 $ spring uninstall --all 
 ```
 
@@ -340,7 +340,7 @@ $ spring uninstall --all
 
 Spring 框架 4.0 版本对 beans{} DSL（借鉴自[Grails](http://grails.org/)）提供原生支持，你可以使用相同的格式在你的 Groovy 应用程序脚本中嵌入 bean 定义。有时候这是一个包括外部特性的很好的方式，比如中间件声明。例如：
 
-```
+```java
 @Configuration
 class Application implements CommandLineRunner {
 

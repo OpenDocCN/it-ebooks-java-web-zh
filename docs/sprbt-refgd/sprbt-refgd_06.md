@@ -16,7 +16,7 @@
 
 一旦你构建了应用（比如，使用`mvn clean package`）并[安装](http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html)了 cf[命令行工具](http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html)，你可以使用下面的`cf push`命令（将路径指向你编译后的.jar）来部署应用。在发布一个应用前，确保你已登陆 cf 命令行客户端。
 
-```
+```java
 $ cf push acloudyspringtime -p target/demo-0.0.1-SNAPSHOT.jar 
 ```
 
@@ -24,7 +24,7 @@ $ cf push acloudyspringtime -p target/demo-0.0.1-SNAPSHOT.jar
 
 就此，cf 开始上传你的应用：
 
-```
+```java
 Uploading acloudyspringtime... OK
 Preparing to start acloudyspringtime... OK
 -----> Downloaded app package (8.9M)
@@ -49,7 +49,7 @@ App started
 
 检验部署应用的状态是很简单的：
 
-```
+```java
 $ cf apps
 Getting applications in ...
 OK
@@ -70,7 +70,7 @@ acloudyspringtime    started           1/1         512M     1G     acloudyspring
 
 环境变量并不总是有利于设计最简单的 API，所以 Spring Boot 自动提取它们，然后将这些数据导入能够通过 Spring `Environment`抽象访问的属性里：
 
-```
+```java
 @Component
 class MyBean implements EnvironmentAware {
 
@@ -98,7 +98,7 @@ Heroku 是另外一个流行的 Paas 平台。想要自定义 Heroku 的构建�
 
 你必须配置你的应用监听正确的端口。下面是用于我们的 starter REST 应用的 Procfile：
 
-```
+```java
 web: java -Dserver.port=$PORT -jar target/demo-0.0.1-SNAPSHOT.jar 
 ```
 
@@ -106,13 +106,13 @@ Spring Boot 将`-D`参数作为属性，通过一个 Spring 的 Environment 实�
 
 Heroku 默认使用 Java 1.6。只要你的 Maven 或 Gradle 构建时使用相同的版本就没问题（Maven 用户可以设置`java.version`属性）。如果你想使用 JDK 1.7，在你的 pom.xml 和 Procfile 临近处创建一个 system.properties 文件。在该文件中添加以下设置：
 
-```
+```java
 java.runtime.version=1.7 
 ```
 
 这就是你需要做的一切。对于 Heroku 部署来说，经常做的工作就是使用`git push`将代码推送到生产环境。
 
-```
+```java
 $ git push heroku master
 
 Initializing repository, done.
@@ -171,7 +171,7 @@ To git@heroku.com:agile-sierra-1405.git
 
 2.使用一个`build` hook 去构建你的 jar（使用 Maven 或 Gradle），比如
 
-```
+```java
 #!/bin/bash
 cd $OPENSHIFT_REPO_DIR
 mvn package -s .openshift/settings.xml -DskipTests=true 
@@ -179,7 +179,7 @@ mvn package -s .openshift/settings.xml -DskipTests=true
 
 3.添加一个调用`java -jar …`的`start` hook
 
-```
+```java
 #!/bin/bash
 cd $OPENSHIFT_REPO_DIR
 nohup java -jar target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} & 
@@ -187,7 +187,7 @@ nohup java -jar target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.addres
 
 4.使用一个`stop` hook
 
-```
+```java
 #!/bin/bash
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 PID=$(ps -ef | grep java.*\.jar | grep -v grep | awk '{ print $2 }')
@@ -201,7 +201,7 @@ fi
 
 5.将内嵌的服务绑定到平台提供的在 application.properties 定义的环境变量，比如
 
-```
+```java
 spring.datasource.url: jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/${OPENSHIFT_APP_NAME}
 spring.datasource.username: ${OPENSHIFT_MYSQL_DB_USERNAME}
 spring.datasource.password: ${OPENSHIFT_MYSQL_DB_PASSWORD} 

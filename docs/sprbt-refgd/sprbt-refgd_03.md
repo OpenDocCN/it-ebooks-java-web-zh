@@ -33,7 +33,7 @@ Maven 用户可以继承`spring-boot-starter-parent`项目来获取合适的默�
 
 想配置你的项目继承`spring-boot-starter-parent`只需要简单地设置`parent`为：
 
-```
+```java
 <!-- Inherit defaults from Spring Boot -->
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -52,7 +52,7 @@ Maven 用户可以继承`spring-boot-starter-parent`项目来获取合适的默�
 
 如果你不使用`spring-boot-starter-parent`，通过使用一个`scope=import`的依赖，你仍能获取到依赖管理的好处：
 
-```
+```java
 <dependencyManagement>
      <dependencies>
         <dependency>
@@ -73,7 +73,7 @@ Maven 用户可以继承`spring-boot-starter-parent`项目来获取合适的默�
 
 `spring-boot-starter-parent`选择相当保守的 Java 兼容策略。如果你遵循我们的建议，使用最新的 Java 版本，你可以添加一个`java.version`属性：
 
-```
+```java
 <properties>
     <java.version>1.8</java.version>
 </properties> 
@@ -85,7 +85,7 @@ Maven 用户可以继承`spring-boot-starter-parent`项目来获取合适的默�
 
 Spring Boot 包含一个 Maven 插件，它可以将项目打包成一个可执行 jar。如果想使用它，你可以将该插件添加到`<plugins>`节点处：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -104,7 +104,7 @@ Spring Boot 包含一个 Maven 插件，它可以将项目打包成一个可执�
 
 Gradle 用户可以直接在它们的`dependencies`节点处导入”starter POMs“。跟 Maven 不同的是，这里没有用于导入共享配置的"超父"（super parent）。
 
-```
+```java
 apply plugin: 'java'
 
 repositories { jcenter() }
@@ -115,7 +115,7 @@ dependencies {
 
 spring-boot-gradle-plugin 插件也是可以使用的，它提供创建可执行 jar 和从 source 运行项目的任务。它也添加了一个`ResolutionStrategy`用于让你省略常用依赖的版本号：
 
-```
+```java
 buildscript {
     repositories { jcenter() }
     dependencies {
@@ -240,7 +240,7 @@ Spring Boot 不需要使用任何特殊的代码结构，然而，这里有一�
 
 下面是一个典型的结构：
 
-```
+```java
 com
  +- example
      +- myproject
@@ -259,7 +259,7 @@ com
 
 `Application.java`文件将声明`main`方法，还有基本的`@Configuration`。
 
-```
+```java
 package com.example.myproject;
 
 import org.springframework.boot.SpringApplication;
@@ -323,7 +323,7 @@ Spring Boot 自动配置（auto-configuration）尝试根据你添加的 jar 依
 
 如果发现应用了你不想要的特定自动配置类，你可以使用`@EnableAutoConfiguration`注解的排除属性来禁用它们。
 
-```
+```java
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.jdbc.*;
 import org.springframework.context.annotation.*;
@@ -344,7 +344,7 @@ public class MyConfiguration {
 
 下面是一个`@Service` Bean 的示例，它使用构建器注入获取一个需要的`RiskAssessor` bean。
 
-```
+```java
 package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -374,7 +374,7 @@ public class DatabaseAccountService implements AccountService {
 
 该`@SpringBootApplication`注解等价于以默认属性使用`@Configuration`，`@EnableAutoConfiguration`和`@ComponentScan`。
 
-```
+```java
 package com.example.myproject;
 
 import org.springframework.boot.SpringApplication;
@@ -414,13 +414,13 @@ public class Application {
 
 如果使用 Spring Boot Maven 或 Gradle 插件创建一个可执行 jar，你可以使用`java -jar`运行你的应用。例如：
 
-```
+```java
 $ java -jar target/myproject-0.0.1-SNAPSHOT.jar 
 ```
 
 运行一个打包的程序并开启远程调试支持是可能的，这允许你将调试器附加到打包的应用程序上：
 
-```
+```java
 $ java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
        -jar target/myproject-0.0.1-SNAPSHOT.jar 
 ```
@@ -431,13 +431,13 @@ $ java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n \
 
 Spring Boot Maven 插件包含一个`run`目标，它可以用来快速编译和运行应用程序。应用程序以一种暴露的方式运行，由于即时"热"加载，你可以编辑资源。
 
-```
+```java
 $ mvn spring-boot:run 
 ```
 
 你可能想使用有用的操作系统环境变量：
 
-```
+```java
 $ export MAVEN_OPTS=-Xmx1024m -XX:MaxPermSize=128M -Djava.security.egd=file:/dev/./urandom 
 ```
 
@@ -449,13 +449,13 @@ $ export MAVEN_OPTS=-Xmx1024m -XX:MaxPermSize=128M -Djava.security.egd=file:/dev
 
 Spring Boot Gradle 插件也包含一个`run`目标，它可以用来以暴露的方式运行你的应用程序。不管你什么时候导入`spring-boot-plugin`，`bootRun`任务总是被添加进去。
 
-```
+```java
 $ gradle bootRun 
 ```
 
 你可能想使用那些有用的操作系统环境变量：
 
-```
+```java
 $ export JAVA_OPTS=-Xmx1024m -XX:MaxPermSize=128M -Djava.security.egd=file:/dev/./urandom 
 ```
 

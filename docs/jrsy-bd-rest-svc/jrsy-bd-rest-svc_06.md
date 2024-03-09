@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 6--Jersey+SQLServer+Hibernate4.3
 
-# 用 Jersey 构建 RESTful 服务 6--Jersey+SQLServer+Hibernate4.3
-
 ## 一、总体说明
 
 本例运行演示了用 Jersey 构建 RESTful 服务中，如何同过 Hibernate 将数据持久化进 SQLServer 的过程
@@ -16,7 +14,7 @@
 
 1.  与上文 mysql 的配置不同点主要在 hibernate.cfg.xml 文件； 配置如下：
 
-    ```
+    ```java
     <?xml version='1.0' encoding='utf-8'?>  
     <!DOCTYPE hibernate-configuration PUBLIC  
             "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
@@ -51,7 +49,7 @@
 
     getUserById 修改成如下：
 
-    ```
+    ```java
     @Override
     public User getUserById(String id) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -77,7 +75,7 @@
 
     getAllUsers 给成如下：
 
-    ```
+    ```java
     @Override
     public List<User> getAllUsers() {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -104,7 +102,7 @@
 
     或者如下：
 
-    ```
+    ```java
     @Override
     public List<User> getAllUsers() {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -133,7 +131,7 @@
 
 ### 可能会出现如下错误
 
-```
+```java
 ERROR: 指定的架构名称 "RestDemo" 不存在，或者您没有使用该名称的权限。
 三月 26, 2014 3:38:43 下午 org.hibernate.tool.hbm2ddl.SchemaUpdate execute
 INFO: HHH000232: Schema update complete
@@ -148,13 +146,13 @@ ERROR: 对象名 'RestDemo.T_USER' 无效。
 
 将配置文件中的`hibernate.default_schema`值修改为如下即可：
 
-```
+```java
 <property name="hibernate.default_schema">RestDemo.dbo</property> 
 ```
 
 或者去掉上面的配置，在“User.hbm.xml”修改如下
 
-```
+```java
 <class name="User" table="T_USER" schema="RestDemo.dbo"> 
 ```
 

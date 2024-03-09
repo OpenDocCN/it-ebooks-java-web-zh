@@ -49,7 +49,7 @@ Spring Boot 使开发独立的，产品级别的基于 Spring 的应用变得非
 
 Spring Boot 可以跟典型的 Java 开发工具一块使用或安装为一个命令行工具。不管怎样，你将需要安装[Java SDK v1.6](http://www.java.com/) 或更高版本。在开始之前，你需要检查下当前安装的 Java 版本：
 
-```
+```java
 $ java -version 
 ```
 
@@ -77,7 +77,7 @@ Spring Boot 依赖的 groupId 为`org.springframework.boot`。通常你的 Maven
 
 下面是一个典型的 pom.xml 文件：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -152,7 +152,7 @@ Spring Boot 依赖可以使用`org.springframework.boot` `group`来声明。通�
 
 下面是一个典型的`build.gradle`文件：
 
-```
+```java
 buildscript {
     repositories {
         jcenter()
@@ -211,7 +211,7 @@ Spring Boot 是一个命令行工具，用于使用 Spring 进行快速原型搭
 
 GVM（Groovy 环境管理器）可以用来管理多种不同版本的 Groovy 和 Java 二进制包，包括 Groovy 自身和 Spring Boot CLI。可以从[gvmtool.net](http://gvmtool.net/)获取 gvm，并使用以下命令安装 Spring Boot：
 
-```
+```java
 $ gvm install springboot
 $ spring --version
 Spring Boot v1.3.0.BUILD-SNAPSHOT 
@@ -219,7 +219,7 @@ Spring Boot v1.3.0.BUILD-SNAPSHOT
 
 如果你正在为 CLI 开发新的特性，并想轻松获取你刚构建的版本，可以使用以下命令：
 
-```
+```java
 $ gvm install springboot dev /path/to/spring-boot/spring-boot-cli/target/spring-boot-cli-1.3.0.BUILD-SNAPSHOT-bin/spring-1.3.0.BUILD-SNAPSHOT/
 $ gvm use springboot dev
 $ spring --version
@@ -230,7 +230,7 @@ Spring CLI v1.3.0.BUILD-SNAPSHOT
 
 你可以通过以下命令来验证：
 
-```
+```java
 $ gvm ls springboot
 
 ================================================================================
@@ -252,7 +252,7 @@ Available Springboot Versions
 
 如果你的环境是 Mac，并使用[Homebrew](http://brew.sh/)，想要安装 Spring Boot CLI 只需如下操作：
 
-```
+```java
 $ brew tap pivotal/tap
 $ brew install springboot 
 ```
@@ -267,7 +267,7 @@ Homebrew 将把 spring 安装到`/usr/local/bin`下。
 
 如果你的环境是 Mac，并使用[MacPorts](http://www.macports.org/)，想要安装 Spring Boot CLI 只需如下操作：
 
-```
+```java
 $ sudo port install spring-boot-cli 
 ```
 
@@ -277,7 +277,7 @@ $ sudo port install spring-boot-cli
 
 Spring Boot CLI 启动脚本为[BASH](http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)和[zsh](http://en.wikipedia.org/wiki/Zsh) shells 提供完整的命令行实现。你可以在任何 shell 中 source 脚本（名称也是 spring），或将它放到你个人或系统范围的 bash 实现初始化中。在一个 Debian 系统里，系统范围的脚本位于`/shell-completion/bash`下，当一个新的 shell 启动时该目录下的所有脚本都被执行。想要手动运行该脚本，例如，你已经使用 GVM 进行安装了：
 
-```
+```java
 $ . ~/.gvm/springboot/current/shell-completion/bash/spring
 $ spring <hit here="" tab="" class="hljs-pi">grab  help  jar  run  test  version</hit> 
 ```
@@ -290,7 +290,7 @@ $ spring <hit here="" tab="" class="hljs-pi">grab  help  jar  run  test  version
 
 下面是一个相当简单的 web 应用，你可以用它测试你的安装是否成功。创建一个名叫`app.groovy`的文件：
 
-```
+```java
 @RestController
 class ThisWillActuallyRun {
 
@@ -304,7 +304,7 @@ class ThisWillActuallyRun {
 
 然后简单地从一个 shell 中运行它：
 
-```
+```java
 $ spring run app.groovy 
 ```
 
@@ -312,7 +312,7 @@ $ spring run app.groovy
 
 在你最喜欢的浏览器中打开 localhost:8080，然后你应该看到以下输出：
 
-```
+```java
 Hello World! 
 ```
 
@@ -334,14 +334,14 @@ Hello World!
 
 在开始前，你需要打开一个终端，检查是否安装可用的 Java 版本和 Maven：
 
-```
+```java
 $ java -version
 java version "1.7.0_51"
 Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode) 
 ```
 
-```
+```java
 $ mvn -v
 Apache Maven 3.2.3 (33f8c3e1027c3ddde99d3cdebad2656a31e8fdf4; 2014-08-11T13:58:10-07:00)
 Maven home: /Users/user/tools/apache-maven-3.1.1
@@ -356,7 +356,7 @@ Java version: 1.7.0_51, vendor: Oracle Corporation
 
 我们需要以创建一个 Maven pom.xml 文件作为开始。该 pom.xml 是用来构建项目的处方。打开你最喜欢的文本编辑器，然后添加以下内容：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -411,14 +411,14 @@ Spring Boot 提供很多"Starter POMs"，这能够让你轻松的将 jars 添加
 
 其他的”Starter POMs“简单的提供依赖，这些依赖可能是你开发特定类型的应用时需要的。由于正在开发一个 web 应用，我们将添加一个`spring-boot-starter-web`依赖-但在此之前，让我们看下目前所拥有的：
 
-```
+```java
 $ mvn dependency:tree
 [INFO] com.example:myproject:jar:0.0.1-SNAPSHOT 
 ```
 
 `mvn dependency:tree`命令以树形表示来打印你的项目依赖。你可以看到`spring-boot-starter-parent`本身并没有提供依赖。编辑我们的 pom.xml，并在 parent 节点下添加`spring-boot-starter-web`依赖：
 
-```
+```java
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -435,7 +435,7 @@ $ mvn dependency:tree
 
 为了完成应用程序，我们需要创建一个单独的 Java 文件。Maven 默认会编译`src/main/java`下的源码，所以你需要创建那样的文件结构，然后添加一个名为`src/main/java/Example.java`的文件：
 
-```
+```java
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
@@ -489,7 +489,7 @@ public class Example {
 
 到此我们的应用应该可以工作了。由于使用了`spring-boot-starter-parent` POM，这样我们就有了一个非常有用的 run 目标，我们可以用它启动程序。在项目根目录下输入`mvn spring-boot:run`来启动应用：
 
-```
+```java
 $ mvn spring-boot:run
 
   .   ____          _            __ _ _
@@ -507,7 +507,7 @@ $ mvn spring-boot:run
 
 如果使用一个浏览器打开[localhost:8080](http://localhost:8080)，你应该可以看到以下输出：
 
-```
+```java
 Hello World! 
 ```
 
@@ -523,7 +523,7 @@ Hello World!
 
 为了创建可执行的 jar，需要将`spring-boot-maven-plugin`添加到我们的 pom.xml 中。在 dependencies 节点下插入以下内容：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -538,7 +538,7 @@ Hello World!
 
 保存你的 pom.xml，然后从命令行运行`mvn package`：
 
-```
+```java
 $ mvn package
 
 [INFO] Scanning for projects...
@@ -558,7 +558,7 @@ $ mvn package
 
 如果查看 target 目录，你应该看到`myproject-0.0.1-SNAPSHOT.jar`。该文件应该有 10Mb 左右的大小。如果想偷看内部结构，你可以运行`jar tvf`：
 
-```
+```java
 $ jar tvf target/myproject-0.0.1-SNAPSHOT.jar 
 ```
 
@@ -566,7 +566,7 @@ $ jar tvf target/myproject-0.0.1-SNAPSHOT.jar
 
 为了运行该应用程序，你可以使用`java -jar`命令：
 
-```
+```java
 $ java -jar target/myproject-0.0.1-SNAPSHOT.jar
 
   .   ____          _            __ _ _

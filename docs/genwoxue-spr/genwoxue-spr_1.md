@@ -1,12 +1,8 @@
 # 跟我学 Spring3
 
-# 跟我学 Spring3
-
 > 作者：开涛
 > 
 > 来源：[跟我学 spring3](http://www.iteye.com/blogs/subjects/spring3)
-
-# 【第二章】 IoC 之 2.1 IoC 基础 ——跟我学 Spring3
 
 # 【第二章】 IoC 之 2.1 IoC 基础 ——跟我学 Spring3
 
@@ -57,8 +53,6 @@ IoC 和 DI 由什么关系呢？其实它们是同一个概念的不同角度描
 注：如果想要更加深入的了解 IoC 和 DI，请参考大师级人物 Martin Fowler 的一篇经典文章《Inversion of Control Containers and the Dependency Injection pattern》，原文地址：[`www.martinfowler.com/articles/injection.html。`](http://www.martinfowler.com/articles/injection.html。)
 
 转自【[`sishuok.com/forum/blogPost/list/2427.html`](http://sishuok.com/forum/blogPost/list/2427.html)】
-
-# 【第二章】 IoC 之 2.2 IoC 容器基本原理 ——跟我学 Spring3
 
 # 【第二章】 IoC 之 2.2 IoC 容器基本原理 ——跟我学 Spring3
 
@@ -126,7 +120,7 @@ spring-framework-3.0.5.RELEASE-dependencies.zip 表示此压缩包中是 spring 
 
 **核心 jar 包：**从下载的 spring-framework-3.0.5.RELEASE-with-docs.zip 中 dist 目录查找如下 jar 包
 
-```
+```java
 org.springframework.asm-3.0.5.RELEASE.jar
 
 org.springframework.core-3.0.5.RELEASE.jar
@@ -140,7 +134,7 @@ org.springframework.expression-3.0.5.RELEASE.jar
 
 **依赖的 jar 包：**从下载的 spring-framework-3.0.5.RELEASE-dependencies.zip 中查找如下依赖 jar 包
 
-```
+```java
 com.springsource.org.apache.log4j-1.2.15.jar
 
 com.springsource.org.apache.commons.logging-1.1.1.jar
@@ -308,8 +302,6 @@ ApplicationContext 接口获取 Bean 方法简介：
 Bean 之间几乎没有依赖关系，是不是很容易重用。
 
 [转自【http://sishuok.com/forum/blogPost/list/2428.html](http://sishuok.com/forum/blogPost/list/2428.html)】
-
-# 【第二章】 IoC 之 2.3 IoC 的配置使用——跟我学 Spring3
 
 # 【第二章】 IoC 之 2.3 IoC 的配置使用——跟我学 Spring3
 
@@ -629,8 +621,6 @@ Spring IoC 容器如何实例化 Bean 呢？传统应用程序可以通过 new �
 ### 2.3.5 小结
 
 到此我们已经讲完了 Spring IoC 基础部分，包括 IoC 容器概念，如何实例化容器，Bean 配置、命名及实例化，Bean 获取等等。不知大家是否注意到到目前为止，我们只能通过简单的实例化 Bean，没有涉及 Bean 之间关系。接下来一章让我们进入配置 Bean 之间关系章节，也就是依赖注入。
-
-# 【第三章】 DI 之 3.1 DI 的配置使用 ——跟我学 spring3
 
 # 【第三章】 DI 之 3.1 DI 的配置使用 ——跟我学 spring3
 
@@ -1452,8 +1442,6 @@ NavigationA 类是我们的前端类，通过对它的导航进行注入值，�
 
 # 【第三章】 DI 之 3.2 循环依赖 ——跟我学 spring3
 
-# 【第三章】 DI 之 3.2 循环依赖 ——跟我学 spring3
-
 ### 3.2.1 什么是循环依赖
 
 循环依赖就是循环引用，就是两个或多个 Bean 相互之间的持有对方，比如 CircleA 引用 CircleB，CircleB 引用 CircleC，CircleC 引用 CircleA，则它们最终反映为一个环。此处不是循环调用，循环调用是方法之间的环调用。如图 3-5 所示：
@@ -1633,8 +1621,6 @@ Spring 容器将每一个正在创建的 Bean 标识符放在一个“当前创�
 包之间的依赖结构必须是一个直接的无环图形（DAG）。也就是说，在依赖结构中不允许出现环（循环依赖）。
 
 原创内容 转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2448.html#7070`](http://sishuok.com/forum/blogPost/list/0/2448.html#7070)】
-
-# 【第三章】 DI 之 3.3 更多 DI 的知识 ——跟我学 spring3
 
 # 【第三章】 DI 之 3.3 更多 DI 的知识 ——跟我学 spring3
 
@@ -2157,8 +2143,6 @@ HelloImpl5 类用于打印欢迎信息，其中包括 setter 注入和方法注�
 
 # 【第三章】 DI 之 3.4 Bean 的作用域 ——跟我学 spring3
 
-# 【第三章】 DI 之 3.4 Bean 的作用域 ——跟我学 spring3
-
 ## 3.4 Bean 的作用域
 
 什么是作用域呢？即“scope”，在面向对象程序设计中一般指对象或变量之间的可见范围。而在 Spring 容器中是指其创建的 Bean 对象相对于其他 Bean 对象的请求可见范围。
@@ -2488,8 +2472,6 @@ Scope 已经实现了，让我们将其注册到 Spring 容器，使其发挥作
 
 # 【第四章】 资源 之 4.1 基础知识 ——跟我学 spring3
 
-# 【第四章】 资源 之 4.1 基础知识 ——跟我学 spring3
-
 ### 4.1.1 概述
 
 在日常程序开发中，处理外部资源是很繁琐的事情，我们可能需要处理 URL 资源、File 资源资源、ClassPath 相关资源、服务器相关资源（JBoss AS 5.x 上的 VFS 资源）等等很多资源。因此处理这些资源需要使用不同的接口，这就增加了我们系统的复杂性；而且处理这些资源步骤都是类似的（打开资源、读取资源、关闭资源），因此如果能抽象出一个统一的接口来对这些底层资源进行统一访问，是不是很方便，而且使我们系统更加简洁，都是对不同的底层资源使用同一个接口进行访问。
@@ -2500,13 +2482,13 @@ Spring 提供一个 Resource 接口来统一这些底层资源一致的访问，
 
 Spring 的 Resource 接口代表底层外部资源，提供了对底层外部资源的一致性访问接口。
 
-```
+```java
 public interface InputStreamSource {
     InputStream getInputStream() throws IOException;
 } 
 ```
 
-```
+```java
 public interface Resource extends InputStreamSource {
        boolean exists();
        boolean isReadable();
@@ -2556,8 +2538,6 @@ Resource 接口提供了足够的抽象，足够满足我们日常使用。而�
 
 # 【第四章】 资源 之 4.2 内置 Resource 实现 ——跟我学 spring3
 
-# 【第四章】 资源 之 4.2 内置 Resource 实现 ——跟我学 spring3
-
 ## 4.2 内置 Resource 实现
 
 ### 4.2.1 ByteArrayResource
@@ -2566,7 +2546,7 @@ ByteArrayResource 代表 byte[]数组资源，对于“getInputStream”操作�
 
 首先让我们看下使用 ByteArrayResource 如何处理 byte 数组资源：
 
-```
+```java
  package cn.javass.spring.chapter4;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2586,7 +2566,7 @@ Resource resource = new ByteArrayResource("Hello World!".getBytes());
 
 是不是很简单，让我们看下“dumpStream”实现：
 
-```
+```java
 private void dumpStream(Resource resource) {
         InputStream is = null;
         try {
@@ -2619,7 +2599,7 @@ InputStreamResource 代表 java.io.InputStream 字节流，对于“getInputStre
 
 让我们看下测试代码吧：
 
-```
+```java
 @Test
 public void testInputStreamResource() {
    ByteArrayInputStream bis = new ByteArrayInputStream("Hello World!".getBytes());
@@ -2639,7 +2619,7 @@ FileSystemResource 代表 java.io.File 资源，对于“getInputStream ”操�
 
 让我们看下测试代码吧：
 
-```
+```java
 @Test
 public void testFileResource() {
 File file = new File("d:/test.txt");
@@ -2677,7 +2657,7 @@ ClassPathResource 提供了三个构造器：
 
 1）使用默认的加载器加载资源，将加载当前 ClassLoader 类路径上相对于根路径的资源：
 
-```
+```java
 @Test
 public void testClasspathResourceByDefaultClassLoader() throws IOException {
    Resource resource = new ClassPathResource("cn/javass/spring/chapter4/test1.properties");
@@ -2691,7 +2671,7 @@ public void testClasspathResourceByDefaultClassLoader() throws IOException {
 
 2）使用指定的 ClassLoader 进行加载资源，将加载指定的 ClassLoader 类路径上相对于根路径的资源：
 
-```
+```java
 @Test
 public void testClasspathResourceByClassLoader() throws IOException {
     ClassLoader cl = this.getClass().getClassLoader();
@@ -2706,7 +2686,7 @@ public void testClasspathResourceByClassLoader() throws IOException {
 
 3）使用指定的类进行加载资源，将尝试加载相对于当前类的路径的资源：
 
-```
+```java
 @Test
 public void testClasspathResourceByClass() throws IOException {
    Class clazz = this.getClass();
@@ -2730,7 +2710,7 @@ public void testClasspathResourceByClass() throws IOException {
 
 4）加载 jar 包里的资源，首先在当前类路径下找不到，最后才到 Jar 包里找，而且在第一个 Jar 包里找到的将被返回：
 
-```
+```java
 @Test
 public void classpathResourceTestFromJar() throws IOException {
 Resource resource = new ClassPathResource("overview.html");
@@ -2774,7 +2754,7 @@ Jboss VFS(Virtual File System)框架是一个文件系统资源访问的抽象�
 
 让我们看下示例（cn.javass.spring.chapter4.ResourceTest）：
 
-```
+```java
 @Test
 public void testVfsResourceForRealFileSystem() throws IOException {
 //1.创建一个虚拟的文件目录
@@ -2817,13 +2797,11 @@ TempFileProvider.create("tmp", Executors.newScheduledThreadPool(1)));
 
 # 【第四章】 资源 之 4.3 访问 Resource ——跟我学 spring3
 
-# 【第四章】 资源 之 4.3 访问 Resource ——跟我学 spring3
-
 ### 4.3.1 ResourceLoader 接口
 
 ResourceLoader 接口用于返回 Resource 对象；其实现可以看作是一个生产 Resource 的工厂类。
 
-```
+```java
 public interface ResourceLoader {
        Resource getResource(String location);
        ClassLoader getClassLoader();
@@ -2836,7 +2814,7 @@ Spring 提供了一个适用于所有环境的 DefaultResourceLoader 实现，�
 
 ResourceLoader 在进行加载资源时需要使用前缀来指定需要加载：“classpath:path”表示返回 ClasspathResource，“[`path”和“file:path”表示返回 UrlResource 资源，如果不加前缀则需要根据当前上下文来决定，DefaultResourceLoader 默认实现可以加载 classpath 资源，如代码所示（cn.javass.spring.chapter4.ResourceLoaderTest）：`](http://path”和“file:path”表示返回 UrlResource 资源，如果不加前缀则需要根据当前上下文来决定，DefaultResourceLoader 默认实现可以加载 classpath 资源，如代码所示（cn.javass.spring.chapter4.ResourceLoaderTest）：)
 
-```
+```java
 @Test
 public void testResourceLoad() {
     ResourceLoader loader = new DefaultResourceLoader();
@@ -2866,7 +2844,7 @@ public void testResourceLoad() {
 
 ResourceLoaderAware 是一个标记接口，用于通过 ApplicationContext 上下文注入 ResourceLoader。
 
-```
+```java
 public interface ResourceLoaderAware {
    void setResourceLoader(ResourceLoader resourceLoader);
 } 
@@ -2876,7 +2854,7 @@ public interface ResourceLoaderAware {
 
 1） 首先准备测试 Bean，我们的测试 Bean 还简单只需实现 ResourceLoaderAware 接口，然后通过回调将 ResourceLoader 保存下来就可以了：
 
-```
+```java
 package cn.javass.spring.chapter4.bean;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ResourceLoader;
@@ -2894,13 +2872,13 @@ public class ResourceBean implements ResourceLoaderAware {
 
 2） 配置 Bean 定义（chapter4/resourceLoaderAware.xml）：
 
-```
+```java
  &lt;bean class="cn.javass.spring.chapter4.bean.ResourceBean"/&gt; 
 ```
 
 3）测试(cn.javass.spring.chapter4.ResoureLoaderAwareTest)：
 
-```
+```java
 @Test
 public void test() {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("chapter4/resourceLoaderAware.xml");
@@ -2926,7 +2904,7 @@ ResourceEditor 完全使用 ApplicationContext 根据注入的路径字符串获
 
 1）准备 Bean：
 
-```
+```java
 package cn.javass.spring.chapter4.bean;
 import org.springframework.core.io.Resource;
 public class ResourceBean3 {
@@ -2942,7 +2920,7 @@ public class ResourceBean3 {
 
 2）准备配置文件（chapter4/ resourceInject.xml）：
 
-```
+```java
 &lt;bean id="resourceBean1" class="cn.javass.spring.chapter4.bean.ResourceBean3"&gt;
    &lt;property name="resource" value="cn/javass/spring/chapter4/test1.properties"/&gt;
 &lt;/bean&gt;
@@ -2956,7 +2934,7 @@ value="classpath:cn/javass/spring/chapter4/test1.properties"/&gt;
 
 3）让我们来看下测试代码（cn.javass.spring.chapter4.ResourceInjectTest）吧：
 
-```
+```java
 @Test
 public void test() {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("chapter4/resourceInject.xml");
@@ -2970,8 +2948,6 @@ public void test() {
 接下来一节让我们深入 ApplicationContext 对各种 Resource 的支持，及如何使用更便利的资源加载方式。
 
 原创内容 转自请注明出处【[`sishuok.com/forum/blogPost/list/0/2457.html`](http://sishuok.com/forum/blogPost/list/0/2457.html#7105)】
-
-# 【第四章】 资源 之 4.4 Resource 通配符路径 ——跟我学 spring3
 
 # 【第四章】 资源 之 4.4 Resource 通配符路径 ——跟我学 spring3
 
@@ -3142,8 +3118,6 @@ Spring 通过 ResourceArrayPropertyEditor 来进行类型转换的，而它又�
 
 # 【第五章】Spring 表达式语言 之 5.1 概述 5.2 SpEL 基础 ——跟我学 spring3
 
-# 【第五章】Spring 表达式语言 之 5.1 概述 5.2 SpEL 基础 ——跟我学 spring3
-
 ## 5.1 概述
 
 ### 5.1.1 概述
@@ -3180,7 +3154,7 @@ SpEL 在求表达式值时一般分为四步，其中第三步可选：首先构
 
 让我们看下代码片段吧：
 
-```
+```java
 package cn.javass.spring.chapter5;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -3250,7 +3224,7 @@ SpEL 提供简单的接口从而简化用户使用，在介绍原理前让我们
 
 **1）ExpressionParser 接口**：表示解析器，默认实现是 org.springframework.expression.spel.standard 包中的 SpelExpressionParser 类，使用 parseExpression 方法将字符串表达式转换为 Expression 对象，对于 ParserContext 接口用于定义字符串表达式是不是模板，及模板开始与结束字符：
 
-```
+```java
 public interface ExpressionParser {
        Expression parseExpression(String expressionString);
        Expression parseExpression(String expressionString, ParserContext context);
@@ -3259,7 +3233,7 @@ public interface ExpressionParser {
 
 来看下示例：
 
-```
+```java
  @Test
 public void testParserContext() {
     ExpressionParser parser = new SpelExpressionParser();
@@ -3292,8 +3266,6 @@ public void testParserContext() {
 **3）Expression 接口：**表示表达式对象，默认实现是 org.springframework.expression.spel.standard 包中的 SpelExpression，提供 getValue 方法用于获取表达式值，提供 setValue 方法用于设置对象值。
 
 了解了 SpEL 原理及接口，接下来的事情就是 SpEL 语法了。
-
-# 【第五章】Spring 表达式语言 之 5.3 SpEL 语法 ——跟我学 spring3
 
 # 【第五章】Spring 表达式语言 之 5.3 SpEL 语法 ——跟我学 spring3
 
@@ -3671,8 +3643,6 @@ SpEL 投影运算还支持 Map 投影，但 Map 投影最终只能得到 List �
 
 # 【第五章】Spring 表达式语言 之 5.4 在 Bean 定义中使用 EL—跟我学 spring3
 
-# 【第五章】Spring 表达式语言 之 5.4 在 Bean 定义中使用 EL—跟我学 spring3
-
 ### 5.4.1 xml 风格的配置
 
 SpEL 支持在 Bean 定义时注入，默认使用“#{SpEL 表达式}”表示，其中“#root”根对象默认可以认为是 ApplicationContext，只有 ApplicationContext 实现默认支持 SpEL，获取根对象属性其实是获取容器中的 Bean。
@@ -3825,8 +3795,6 @@ SpEL 支持在 Bean 定义时注入，默认使用“#{SpEL 表达式}”表示�
 
 # 【第六章】 AOP 之 6.1 AOP 基础 ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.1 AOP 基础 ——跟我学 spring3
-
 ### 6.1.1 AOP 是什么
 
 考虑这样一个问题：需要对系统中的某些业务做日志记录，比如支付系统中的支付业务需要记录支付相关日志，对于支付系统可能相当复杂，比如可能有自己的支付系统，也可能引入第三方支付平台，面对这样的支付系统该如何解决呢？
@@ -3948,13 +3916,11 @@ AOP 代理就是 AOP 框架通过代理模式创建的对象，Spring 使用 JDK
 
 # 【第六章】 AOP 之 6.2 AOP 的 HelloWorld ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.2 AOP 的 HelloWorld ——跟我学 spring3
-
 ### 6.2.1 准备环境
 
 首先准备开发需要的 jar 包，请到 spring-framework-3.0.5.RELEASE-dependencies.zip 和 spring-framework-3.0.5.RELEASE-with-docs 中查找如下 jar 包：
 
-```
+```java
 org.springframework.aop-3.0.5.RELEASE.jar
 
 com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar
@@ -4085,8 +4051,6 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 # 【第六章】 AOP 之 6.3 基于 Schema 的 AOP ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.3 基于 Schema 的 AOP ——跟我学 spring3
-
 ## 6.3 基于 Schema 的 AOP
 
 基于 Schema 的 AOP 从 Spring2.0 之后通过“aop”命名空间来定义切面、切入点及声明通知。
@@ -4195,7 +4159,7 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 将输入：
 
-```
+```java
 ==========================================
 
 ===========before advice param:before
@@ -4267,7 +4231,7 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 将输入：
 
-```
+```java
 ======================================
 
 ============after returning
@@ -4340,7 +4304,7 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 将输入：
 
-```
+```java
 ======================================
 
 ============before throwing
@@ -4408,7 +4372,7 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 将输入：
 
-```
+```java
 ======================================
 
 ============before finally
@@ -4477,7 +4441,7 @@ com.springsource.net.sf.cglib-2.2.0.jar
 
 将输入：
 
-```
+```java
 ======================================
 
 ===========around before advice
@@ -4552,7 +4516,7 @@ Spring 引入允许为目标对象引入新的接口，通过在< aop:aspect>标
 
 将输入：
 
-```
+```java
 ======================================
 
 =========introduction
@@ -4631,7 +4595,7 @@ Advisor 可以使用<aop:config>标签下的<aop:advisor>标签定义：
 
 将输入：
 
-```
+```java
 ======================================
 
 ===========before advice
@@ -4647,15 +4611,13 @@ Advisor 可以使用<aop:config>标签下的<aop:advisor>标签定义：
 
 # 【第六章】 AOP 之 6.4 基于@AspectJ 的 AOP ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.4 基于@AspectJ 的 AOP ——跟我学 spring3
-
 Spring 除了支持 Schema 方式配置 AOP，还支持注解方式：使用@AspectJ 风格的切面声明。
 
 ### 6.4.1 启用对@AspectJ 的支持
 
 Spring 默认不支持@AspectJ 风格的切面声明，为了支持需要使用如下配置：
 
-```
+```java
 <aop:aspectj-autoproxy/> 
 ```
 
@@ -4665,7 +4627,7 @@ Spring 默认不支持@AspectJ 风格的切面声明，为了支持需要使用�
 
 @AspectJ 风格的声明切面非常简单，使用@Aspect 注解进行声明：
 
-```
+```java
 @Aspect()
 Public class Aspect{
 ……
@@ -4674,7 +4636,7 @@ Public class Aspect{
 
 然后将该切面在配置文件中声明为 Bean 后，Spring 就能自动识别并进行 AOP 方面的配置：
 
-```
+```java
 <bean id="aspect" class="……Aspect"/> 
 ```
 
@@ -4684,7 +4646,7 @@ Public class Aspect{
 
 @AspectJ 风格的命名切入点使用 org.aspectj.lang.annotation 包下的@Pointcut+方法（方法必须是返回 void 类型）实现。
 
-```
+```java
 @Pointcut(value="切入点表达式", argNames = "参数名列表")
 public void pointcutName(……) {} 
 ```
@@ -4695,7 +4657,7 @@ public void pointcutName(……) {}
 
 **pointcutName：**切入点名字，可以使用该名字进行引用该切入点表达式。
 
-```
+```java
 @Pointcut(value="execution(* cn.javass..*.sayAdvisorBefore(..)) && args(param)", argNames = "param")
 public void beforePointcut(String param) {} 
 ```
@@ -4708,7 +4670,7 @@ public void beforePointcut(String param) {}
 
 **一、前置通知：**使用 org.aspectj.lang.annotation 包下的@Before 注解声明；
 
-```
+```java
 @Before(value = "切入点表达式或命名切入点", argNames = "参数列表参数名") 
 ```
 
@@ -4722,7 +4684,7 @@ public void beforePointcut(String param) {}
 
 2、定义切面：
 
-```
+```java
 package cn.javass.spring.chapter6.aop;
 import org.aspectj.lang.annotation.Aspect;
 @Aspect
@@ -4733,14 +4695,14 @@ public class HelloWorldAspect2 {
 
 3、定义切入点：
 
-```
+```java
 @Pointcut(value="execution(* cn.javass..*.sayAdvisorBefore(..)) && args(param)", argNames = "param")
 public void beforePointcut(String param) {} 
 ```
 
 4、定义通知：
 
-```
+```java
 @Before(value = "beforePointcut(param)", argNames = "param")
 public void beforeAdvice(String param) {
     System.out.println("===========before advice param:" + param);
@@ -4749,7 +4711,7 @@ public void beforeAdvice(String param) {
 
 5、在 chapter6/advice2.xml 配置文件中进行如下配置：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <beans  
 
@@ -4771,7 +4733,7 @@ public void beforeAdvice(String param) {
 
 6、测试代码 cn.javass.spring.chapter6.AopTest:
 
-```
+```java
 @Test
 public void testAnnotationBeforeAdvice() {
     System.out.println("======================================");
@@ -4784,7 +4746,7 @@ public void testAnnotationBeforeAdvice() {
 
 将输出：
 
-```
+```java
  ==========================================
 
 ===========before advice param:before
@@ -4810,7 +4772,7 @@ public void testAnnotationBeforeAdvice() {
 
 **二、后置返回通知：**使用 org.aspectj.lang.annotation 包下的@AfterReturning 注解声明；
 
-```
+```java
 @AfterReturning(
 value="切入点表达式或命名切入点",
 pointcut="切入点表达式或命名切入点",
@@ -4826,7 +4788,7 @@ returning="返回值对应参数名")
 
 **returning：**与 Schema 方式配置中的同义。
 
-```
+```java
 @AfterReturning(
     value="execution(* cn.javass..*.sayBefore(..))",
     pointcut="execution(* cn.javass..*.sayAfterReturning(..))",
@@ -4840,7 +4802,7 @@ public void afterReturningAdvice(Object retVal) {
 
 **三、后置异常通知：**使用 org.aspectj.lang.annotation 包下的@AfterThrowing 注解声明；
 
-```
+```java
 @AfterThrowing (
 value="切入点表达式或命名切入点",
 pointcut="切入点表达式或命名切入点",
@@ -4856,7 +4818,7 @@ throwing="异常对应参数名")
 
 **throwing：**与 Schema 方式配置中的同义。
 
-```
+```java
 @AfterThrowing(
     value="execution(* cn.javass..*.sayAfterThrowing(..))",
     argNames="exception", throwing="exception")
@@ -4869,7 +4831,7 @@ public void afterThrowingAdvice(Exception exception) {
 
 **四、后置最终通知：**使用 org.aspectj.lang.annotation 包下的@After 注解声明；
 
-```
+```java
 @After (
 value="切入点表达式或命名切入点",
 argNames="参数列表参数名") 
@@ -4879,7 +4841,7 @@ argNames="参数列表参数名")
 
 **argNames：**与 Schema 方式配置中的同义；
 
-```
+```java
 @After(value="execution(* cn.javass..*.sayAfterFinally(..))")
 public void afterFinallyAdvice() {
     System.out.println("===========after finally advice");
@@ -4890,7 +4852,7 @@ public void afterFinallyAdvice() {
 
 **五、环绕通知：**使用 org.aspectj.lang.annotation 包下的@Around 注解声明；
 
-```
+```java
 @Around (
 value="切入点表达式或命名切入点",
 argNames="参数列表参数名") 
@@ -4900,7 +4862,7 @@ argNames="参数列表参数名")
 
 **argNames：**与 Schema 方式配置中的同义；
 
-```
+```java
 @Around(value="execution(* cn.javass..*.sayAround(..))")
 public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
     System.out.println("===========around before advice");
@@ -4916,7 +4878,7 @@ public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 
 @AspectJ 风格的引入声明在切面中使用 org.aspectj.lang.annotation 包下的@DeclareParents 声明：
 
-```
+```java
 @DeclareParents(
 value=" AspectJ 语法类型表达式",
 defaultImpl=引入接口的默认实现类)
@@ -4929,7 +4891,7 @@ private Interface interface**：**指定需要引入的接口；
 
 defaultImpl**：**指定引入接口的默认实现类，没有与 Schema 方式中的 delegate-ref 属性同义的定义方式；
 
-```
+```java
 @DeclareParents(
     value="cn.javass..*.IHelloWorldService+", defaultImpl=cn.javass.spring.chapter6.service.impl.IntroductiondService.class)
 private IIntroductionService introductionService; 
@@ -4938,8 +4900,6 @@ private IIntroductionService introductionService;
 其中测试代码与 Schema 方式几乎一样，在此就不演示了，如果需要请参考 AopTest.java 中的 testAnnotationIntroduction 测试方法。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2471.html`](http://sishuok.com/forum/blogPost/list/0/2471.html#7143)】
-
-# 【第六章】 AOP 之 6.5 AspectJ 切入点语法详解 ——跟我学 spring3
 
 # 【第六章】 AOP 之 6.5 AspectJ 切入点语法详解 ——跟我学 spring3
 
@@ -4995,13 +4955,13 @@ AspectJ 切入点支持的切入点指示符还有： call、get、set、preinit
 > 
 > **java.*.String** 匹配 java 包下的任何“一级子包”下的 String 类型；
 > 
-> ```
+> ```java
 >  如匹配 java.lang.String，但不匹配 java.lang.ss.String 
 > ```
 > 
 > **java..*** 匹配 java 包及任何子包下的任何类型;
 > 
-> ```
+> ```java
 >  如匹配 java.lang.String、java.lang.annotation.Annotation 
 > ```
 > 
@@ -5009,7 +4969,7 @@ AspectJ 切入点支持的切入点指示符还有： call、get、set、preinit
 > 
 > **java.lang.Number+** 匹配 java.lang 包下的任何 Number 的自类型；
 > 
-> ```
+> ```java
 >  如匹配 java.lang.Integer，也匹配 java.math.BigInteger 
 > ```
 
@@ -5017,7 +4977,7 @@ AspectJ 切入点支持的切入点指示符还有： call、get、set、preinit
 
 **匹配类型：**使用如下方式匹配
 
-```
+```java
 注解？ 类的全限定名字 
 ```
 
@@ -5026,7 +4986,7 @@ AspectJ 切入点支持的切入点指示符还有： call、get、set、preinit
 
 **匹配方法执行：**使用如下方式匹配：
 
-```
+```java
 注解？ 修饰符? 返回值类型 类型声明?方法名(参数列表) 异常列表？ 
 ```
 
@@ -5139,7 +5099,7 @@ AspectJ 使用 且（&&）、或（||）、非（！）来组合切入点表达�
 
 比如我们定义如下切面：
 
-```
+```java
 package cn.javass.spring.chapter6.aop;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -5152,7 +5112,7 @@ public class ReferencePointcutAspect {
 
 可以通过如下方式引用：
 
-```
+```java
 @Before(value = "cn.javass.spring.chapter6.aop.ReferencePointcutAspect.pointcut()")
 public void referencePointcutTest2(JoinPoint jp) {} 
 ```
@@ -5167,15 +5127,13 @@ public void referencePointcutTest2(JoinPoint jp) {}
 
 # 【第六章】 AOP 之 6.6 通知参数 ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.6 通知参数 ——跟我学 spring3
-
 前边章节已经介绍了声明通知，但如果想获取被被通知方法参数并传递给通知方法，该如何实现呢？接下来我们将介绍两种获取通知参数的方式。
 
 *   **使用 JoinPoint 获取**：Spring AOP 提供使用 org.aspectj.lang.JoinPoint 类型获取连接点数据，任何通知方法的第一个参数都可以是 JoinPoint(环绕通知是 ProceedingJoinPoint，JoinPoint 子类)，当然第一个参数位置也可以是 JoinPoint.StaticPart 类型，这个只返回连接点的静态部分。
 
 **1) JoinPoint：**提供访问当前被通知方法的目标对象、代理对象、方法参数等数据：
 
-```
+```java
 package org.aspectj.lang;
 import org.aspectj.lang.reflect.SourceLocation;
 public interface JoinPoint {
@@ -5194,7 +5152,7 @@ public interface JoinPoint {
 
 **2）**ProceedingJoinPoint：用于环绕通知，使用 proceed()方法来执行目标方法：
 
-```
+```java
 public interface ProceedingJoinPoint extends JoinPoint {
     public Object proceed() throws Throwable;
     public Object proceed(Object[] args) throws Throwable;
@@ -5203,7 +5161,7 @@ public interface ProceedingJoinPoint extends JoinPoint {
 
 **3) JoinPoint.StaticPart：**提供访问连接点的静态部分，如被通知方法签名、连接点类型等：
 
-```
+```java
 public interface StaticPart {
     Signature getSignature();    //返回当前连接点签名
     String getKind();          //连接点类型
@@ -5216,7 +5174,7 @@ public interface StaticPart {
 
 使用如下方式在通知方法上声明，必须是在第一个参数，然后使用 jp.getArgs()就能获取到被通知方法参数：
 
-```
+```java
 @Before(value="execution(* sayBefore(*))")
 public void before(JoinPoint jp) {}
 
@@ -5228,7 +5186,7 @@ public void before(JoinPoint.StaticPart jp) {}
 
 在 Spring AOP 中，除了 execution 和 bean 指示符不能传递参数给通知方法，其他指示符都可以将匹配的相应参数或对象自动传递给通知方法。
 
-```
+```java
 @Before(value="execution(* test(*)) && args(param)", argNames="param")
 public void before1(String param) {
     System.out.println("===param:" + param);
@@ -5249,7 +5207,7 @@ public void before1(String param) {
 
 1、如果我们通过“argNames”属性指定了参数名，那么就是要我们指定的；
 
-```
+```java
 @Before(value=" args(param)", argNames="param") //明确指定了
 public void before1(String param) {
     System.out.println("===param:" + param);
@@ -5258,7 +5216,7 @@ public void before1(String param) {
 
 2、如果第一个参数类型是 JoinPoint、ProceedingJoinPoint 或 JoinPoint.StaticPart 类型，应该从“argNames”属性省略掉该参数名（可选，写上也对），这些类型对象会自动传入的，但必须作为第一个参数；
 
-```
+```java
 @Before(value=" args(param)", argNames="param") //明确指定了
 public void before1(JoinPoint jp, String param) {
     System.out.println("===param:" + param);
@@ -5267,7 +5225,7 @@ public void before1(JoinPoint jp, String param) {
 
 3、如果“**class 文件中含有变量调试信息**”将使用这些方法签名中的参数名来确定参数名；
 
-```
+```java
 @Before(value=" args(param)") //不需要 argNames 了
 public void before1(JoinPoint jp, String param) {
     System.out.println("===param:" + param);
@@ -5276,7 +5234,7 @@ public void before1(JoinPoint jp, String param) {
 
 4、如果没有“**class 文件中含有变量调试信息**”，将尝试自己的参数匹配算法，如果发现参数绑定有二义性将抛出 AmbiguousBindingException 异常；对于只有一个绑定变量的切入点表达式，而通知方法只接受一个参数，说明绑定参数是明确的，从而能配对成功。
 
-```
+```java
 @Before(value=" args(param)")
 public void before1(JoinPoint jp, String param) {
     System.out.println("===param:" + param);
@@ -5287,7 +5245,7 @@ public void before1(JoinPoint jp, String param) {
 
 接下来让我们示例一下组合情况吧：
 
-```
+```java
 @Before(args(param) && target(bean) && @annotation(secure)",
         argNames="jp,param,bean,secure")
 public void before5(JoinPoint jp, String param,
@@ -5304,7 +5262,7 @@ public void before5(JoinPoint jp, String param,
 
 除了上边介绍的普通方式，也可以对使用命名切入点自动获取参数：
 
-```
+```java
  @Pointcut(value="args(param)", argNames="param")
 private void pointcut1(String param){}
 @Pointcut(value="@annotation(secure)", argNames="secure")
@@ -5323,8 +5281,6 @@ public void before6(JoinPoint jp, String param, Secure secure) {
 
 # 【第六章】 AOP 之 6.7 通知顺序 ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.7 通知顺序 ——跟我学 spring3
-
 如果我们有多个通知想要在同一连接点执行，那执行顺序如何确定呢？Spring AOP 使用 AspectJ 的优先级规则来确定通知执行顺序。总共有两种情况：同一切面中通知执行顺序、不同切面中的通知执行顺序。
 
 首先让我们看下
@@ -5337,7 +5293,7 @@ public void before6(JoinPoint jp, String param, Secure secure) {
 
 而如果在同一切面中定义两个相同类型通知（如同是前置通知或环绕通知（proceed 之前））并在同一连接点执行时，其执行顺序是未知的，如果确实需要指定执行顺序需要将通知重构到两个切面，然后定义切面的执行顺序。
 
-```
+```java
 错误“Advice precedence circularity error”：说明 AspectJ 无法决定通知的执行顺序，只要将通知方法分类并按照顺序排列即可解决。 
 ```
 
@@ -5358,8 +5314,6 @@ Spring 中可以通过在切面实现类上实现 org.springframework.core.Order
 在此我们不推荐使用实现 Ordered 接口方法，所以没介绍，示例代码在 cn.javass.spring.chapter6\. OrderAopTest 文件中。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2474.html`](http://sishuok.com/forum/blogPost/list/0/2474.html#7146)】
-
-# 【第六章】 AOP 之 6.8 切面实例化模型 ——跟我学 spring3
 
 # 【第六章】 AOP 之 6.8 切面实例化模型 ——跟我学 spring3
 
@@ -5391,8 +5345,6 @@ Spring AOP 支持 AspectJ 的 singleton、perthis、pertarget 实例化模型（
 
 # 【第六章】 AOP 之 6.9 代理机制 ——跟我学 spring3
 
-# 【第六章】 AOP 之 6.9 代理机制 ——跟我学 spring3
-
 Spring AOP 通过代理模式实现，目前支持两种代理：JDK 动态代理、CGLIB 代理来创建 AOP 代理，Spring 建议优先使用 JDK 动态代理。
 
 *   **JDK 动态代理：**使用 java.lang.reflect.Proxy 动态代理实现，即提取目标对象的接口，然后对接口创建 AOP 代理。
@@ -5406,18 +5358,16 @@ Spring AOP 默认首先使用 JDK 动态代理来代理目标对象，如果目�
 
 对于 Schema 风格配置切面使用如下方式来指定使用 CGLIB 代理：
 
-```
+```java
 <aop:config proxy-target-class="true">
 </aop:config> 
 ```
 
 而如果使用@AspectJ 风格使用如下方式来指定使用 CGLIB 代理：
 
-```
+```java
 <aop:aspectj-autoproxy proxy-target-class="true"/> 
 ```
-
-# 【第七章】 对 JDBC 的支持 之 7.1 概述 ——跟我学 spring3
 
 # 【第七章】 对 JDBC 的支持 之 7.1 概述 ——跟我学 spring3
 
@@ -5427,7 +5377,7 @@ Spring AOP 默认首先使用 JDK 动态代理来代理目标对象，如果目�
 
 传统应用程序开发中，进行 JDBC 编程是相当痛苦的，如下所示：
 
-```
+```java
 //cn.javass.spring.chapter7\. TraditionalJdbcTest
 @Test
 public void test() throws Exception {
@@ -5496,8 +5446,6 @@ Spring JDBC 抽象框架由四部分组成：datasource、support、core、objec
 
 # 【第七章】 对 JDBC 的支持 之 7.2 JDBC 模板类 ——跟我学 spring3
 
-# 【第七章】 对 JDBC 的支持 之 7.2 JDBC 模板类 ——跟我学 spring3
-
 ## 7.2 JDBC 模板类
 
 ### 7.2.1 概述
@@ -5520,7 +5468,7 @@ Spring 除了提供 JdbcTemplate 核心类，还提供了基于 JdbcTemplate 实
 
 1）准备需要的 jar 包并添加到类路径中：
 
-```
+```java
 //JDBC 抽象框架模块
 org.springframework.jdbc-3.0.5.RELEASE.jar     
 //Spring 事务管理及一致的 DAO 访问及非检查异常模块 
@@ -5533,7 +5481,7 @@ hsqldb.jar
 
 在使用 JdbcTemplate 模板类时必须通过 DataSource 获取数据库连接，Spring JDBC 提供了 DriverManagerDataSource 实现，它通过包装“DriverManager.getConnection”获取数据库连接，具体 DataSource 相关请参考【7.5.1 控制数据库连接】。
 
-```
+```java
 package cn.javass.spring.chapter7;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -5588,7 +5536,7 @@ Spring JDBC 解决方法相比传统 JDBC 编程方式是不是简单多了，�
 
 一、首先创建表结构：
 
-```
+```java
 //代码片段(cn.javass.spring.chapter7.JdbcTemplateTest)
 @Before
 public void setUp() {
@@ -5608,7 +5556,7 @@ public void tearDown() {
 
 二、定义测试骨架，该测试方法将用于实现增删改查测试：
 
-```
+```java
 @Test
 public void testCURD() {
     insert();
@@ -5620,7 +5568,7 @@ public void testCURD() {
 
 三、新增测试：
 
-```
+```java
 private void insert() {
   jdbcTemplate.update("insert into test(name) values('name1')");
   jdbcTemplate.update("insert into test(name) values('name2')");
@@ -5630,7 +5578,7 @@ private void insert() {
 
 四、删除测试：
 
-```
+```java
 private void delete() {
   jdbcTemplate.update("delete from test where name=?", new Object[]{"name2"});
   Assert.assertEquals(1, jdbcTemplate.queryForInt("select count(*) from test"));
@@ -5639,7 +5587,7 @@ private void delete() {
 
 五、更新测试：
 
-```
+```java
 private void update() {
   jdbcTemplate.update("update test set name='name3' where name=?", new Object[]{"name1"});
   Assert.assertEquals(1, jdbcTemplate.queryForInt("select count(*) from test where name='name3'"));
@@ -5648,7 +5596,7 @@ private void update() {
 
 六、查询测试：
 
-```
+```java
 private void select() {
   jdbcTemplate.query("select * from test", new RowCallbackHandler(){
     @Override
@@ -5705,7 +5653,7 @@ private void select() {
 
 **1）预编译语句及存储过程创建回调、自定义功能回调使用：**
 
-```
+```java
 @Test
 public void testPpreparedStatement1() {
   int count = jdbcTemplate.execute(new PreparedStatementCreator() {
@@ -5730,7 +5678,7 @@ public void testPpreparedStatement1() {
 
 **2）预编译语句设值回调使用：**
 
-```
+```java
  @Test
 public void testPreparedStatement2() {
   String insertSql = "insert into test(name) values (?)";
@@ -5750,7 +5698,7 @@ public void testPreparedStatement2() {
 
 **3）结果集处理回调：**
 
-```
+```java
 @Test
 public void testResultSet1() {
   jdbcTemplate.update("insert into test(name) values('name5')");
@@ -5769,7 +5717,7 @@ public void testResultSet1() {
 
 **RowMapper 接口提供**mapRow(ResultSet rs, int rowNum)方法将结果集的每一行转换为一个 Map，当然可以转换为其他类，如表的对象画形式。
 
-```
+```java
 @Test
 public void testResultSet2() {
   jdbcTemplate.update("insert into test(name) values('name5')");
@@ -5789,7 +5737,7 @@ public void testResultSet2() {
 
 RowCallbackHandler 接口也提供方法 processRow(ResultSet rs)，能将结果集的行转换为需要的形式。
 
-```
+```java
 @Test
 public void testResultSet3() {
   jdbcTemplate.update("insert into test(name) values('name5')");
@@ -5815,7 +5763,7 @@ ResultSetExtractor 使用回调方法 extractData(ResultSet rs)提供给用户�
 
 当然 JdbcTemplate 提供更简单的 queryForXXX 方法，来简化开发：
 
-```
+```java
 //1.查询一行数据并返回 int 型结果
 jdbcTemplate.queryForInt("select count(*) from test");
 //2\. 查询一行数据并将该行数据转换为 Map 返回
@@ -5835,7 +5783,7 @@ SqlRowSet rs = jdbcTemplate.queryForRowSet("select * from test");
 
 首先修改 JdbcTemplateTest 的 setUp 方法，修改后如下所示：
 
-```
+```java
  @Before
 public void setUp() {
     String createTableSql = "create memory table test" +
@@ -5864,7 +5812,7 @@ public void setUp() {
 
 其次修改 JdbcTemplateTest 的 tearDown 方法，修改后如下所示：
 
-```
+```java
 @After
 public void tearDown() {
     jdbcTemplate.execute("DROP FUNCTION FUNCTION_TEST");
@@ -5878,7 +5826,7 @@ public void tearDown() {
 
 接下来看一下 hsqldb 如何调用自定义函数：
 
-```
+```java
 @Test
 public void testCallableStatementCreator1() {
     final String callFunctionSql = "{call FUNCTION_TEST(?)}";
@@ -5916,7 +5864,7 @@ public void testCallableStatementCreator1() {
 
 最后让我们示例下 mysql 如何调用自定义函数：
 
-```
+```java
 @Test
 public void testCallableStatementCreator2() {
     JdbcTemplate mysqlJdbcTemplate = new JdbcTemplate(getMysqlDataSource);
@@ -5961,7 +5909,7 @@ public DataSource getMysqlDataSource() {
 
 最后看一下如何如何调用存储过程：
 
-```
+```java
 @Test
 public void testCallableStatementCreator3() {
     final String callProcedureSql = "{call PROCEDURE_TEST(?, ?)}";
@@ -5998,7 +5946,7 @@ NamedParameterJdbcTemplate 主要提供以下三类方法：execute 方法、que
 
 首先让我们看个例子吧：
 
-```
+```java
 @Test
 public void testNamedParameterJdbcTemplate1() {
 NamedParameterJdbcTemplate namedParameterJdbcTemplate = null;
@@ -6044,7 +5992,7 @@ NamedParameterJdbcTemplate 类为命名参数设值有两种方式：java.util.M
 
 **2）SqlParameterSource：**可以使用 SqlParameterSource 实现作为来实现为命名参数设值，默认有 MapSqlParameterSource 和 BeanPropertySqlParameterSource 实现；MapSqlParameterSource 实现非常简单，只是封装了 java.util.Map；而 BeanPropertySqlParameterSource 封装了一个 JavaBean 对象，通过 JavaBean 对象属性来决定命名参数的值。
 
-```
+```java
 package cn.javass.spring.chapter7;
 public class UserModel {
     private int id;
@@ -6053,7 +6001,7 @@ public class UserModel {
 } 
 ```
 
-```
+```java
 @Test
 public void testNamedParameterJdbcTemplate2() {
     NamedParameterJdbcTemplate namedParameterJdbcTemplate = null;
@@ -6076,7 +6024,7 @@ SimpleJdbcTemplate 主要提供两类方法：query 及 queryForXXX 方法、upd
 
 首先让我们看个例子吧：
 
-```
+```java
 //定义 UserModel 的 RowMapper
 package cn.javass.spring.chapter7;
 import java.sql.ResultSet;
@@ -6093,7 +6041,7 @@ public class UserRowMapper implements RowMapper&lt;UserModel&gt; {
 } 
 ```
 
-```
+```java
 @Test
 public void testSimpleJdbcTemplate() {
     //还支持 DataSource 和 NamedParameterJdbcTemplate 作为构造器参数
@@ -6125,8 +6073,6 @@ SimpleJdbcTemplate 类还支持命名参数特性，如 queryForList(String sql,
 
 # 【第七章】 对 JDBC 的支持 之 7.3 关系数据库操作对象化 ——跟我学 spring3
 
-# 【第七章】 对 JDBC 的支持 之 7.3 关系数据库操作对象化 ——跟我学 spring3
-
 ### 7.3.1 概述
 
 所谓**关系数据库对象化其实就是用面向对象方式表示关系数据库操作，从而可以复用。**
@@ -6147,7 +6093,7 @@ Spring JDBC 框架将数据库操作封装为一个 RdbmsOperation，该对象�
 
 **1）SqlQuery：**需要覆盖如下方法来定义一个 RowMapper，其中 parameters 参数表示命名参数或占位符参数值列表，而 context 是由用户传入的上下文数据。
 
-```
+```java
 RowMapper<T> newRowMapper(Object[] parameters, Map context) 
 ```
 
@@ -6158,7 +6104,7 @@ SqlQuery 提供两类方法：
 
 演示一下 SqlQuery 如何使用：
 
-```
+```java
 @Test
 public void testSqlQuery() {
     SqlQuery query = new UserModelSqlQuery(jdbcTemplate);
@@ -6169,7 +6115,7 @@ public void testSqlQuery() {
 
 从测试代码可以 SqlQuery 使用非常简单，创建 SqlQuery 实现对象，然后调用相应的方法即可，接下来看一下 SqlQuery 实现：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class UserModelSqlQuery extends SqlQuery<UserModel> {
@@ -6207,7 +6153,7 @@ MappingSqlQuery 所有查询方法完全继承于 SqlQuery。
 
 演示一下 MappingSqlQuery 如何使用：
 
-```
+```java
 @Test
 public void testMappingSqlQuery() {
     jdbcTemplate.update("insert into test(name) values('name5')");
@@ -6221,7 +6167,7 @@ public void testMappingSqlQuery() {
 
 MappingSqlQuery 使用和 SqlQuery 完全一样，创建 MappingSqlQuery 实现对象，然后调用相应的方法即可，接下来看一下 MappingSqlQuery 实现，findObjectByNamedParam 方法用于执行命名参数查询：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class UserModelMappingSqlQuery extends MappingSqlQuery<UserModel> {
@@ -6249,7 +6195,7 @@ public class UserModelMappingSqlQuery extends MappingSqlQuery<UserModel> {
 
 3） **SqlFunction：**SQL“函数”包装器，用于支持那些返回单行结果集的查询。该类主要用于返回单行单列结果集。
 
-```
+```java
 @Test
 public void testSqlFunction() {
     jdbcTemplate.update("insert into test(name) values('name5')");
@@ -6274,7 +6220,7 @@ SqlUpdate 提供了 update 及 updateByNamedParam 方法用于数据库更新操
 
 演示一下 SqlUpdate 如何使用：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class InsertUserModel extends SqlUpdate {
@@ -6287,7 +6233,7 @@ public class InsertUserModel extends SqlUpdate {
 } 
 ```
 
-```
+```java
 @Test
 public void testSqlUpdate() {       
     SqlUpdate insert = new InsertUserModel(jdbcTemplate);
@@ -6315,7 +6261,7 @@ StoredProcedure 提供 execute 方法用于执行存储过程及函数。
 
 **一、StoredProcedure 如何调用自定义函数：**
 
-```
+```java
 @Test
 public void testStoredProcedure1() {
     StoredProcedure lengthFunction = new HsqldbLengthFunction(jdbcTemplate);
@@ -6326,7 +6272,7 @@ public void testStoredProcedure1() {
 
 StoredProcedure 使用非常简单，定义 StoredProcedure 实现 HsqldbLengthFunction，并调用 execute 方法执行即可，接下来看一下 HsqldbLengthFunction 实现：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class HsqldbLengthFunction extends StoredProcedure {
@@ -6353,7 +6299,7 @@ StoredProcedure 自定义函数使用类似于 SqlQuery，首先设置数据源�
 
 接下来看一下 mysql 自定义函数如何使用：
 
-```
+```java
 @Test
 public void testStoredProcedure2() {
     JdbcTemplate mysqlJdbcTemplate = new JdbcTemplate(getMysqlDataSource());
@@ -6371,7 +6317,7 @@ public void testStoredProcedure2() {
 
 MysqlLengthFunction 自定义函数使用与 HsqldbLengthFunction 使用完全一样，只是内部实现稍有差别：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class MysqlLengthFunction extends StoredProcedure {
@@ -6393,7 +6339,7 @@ MysqlLengthFunction 与 HsqldbLengthFunction 实现不同的地方有两点：
 
 **一、StoredProcedure 如何调用存储过程：**
 
-```
+```java
 @Test
 public void testStoredProcedure3() {
     StoredProcedure procedure = new HsqldbTestProcedure(jdbcTemplate);
@@ -6405,7 +6351,7 @@ public void testStoredProcedure3() {
 
 StoredProcedure 存储过程实现 HsqldbTestProcedure 调用与 HsqldbLengthFunction 调用完全一样，不同的是在实现时，参数描述稍有不同：
 
-```
+```java
 package cn.javass.spring.chapter7;
 //省略 import
 public class HsqldbTestProcedure extends StoredProcedure {
@@ -6425,8 +6371,6 @@ public class HsqldbTestProcedure extends StoredProcedure {
 
 # 【第七章】 对 JDBC 的支持 之 7.4 Spring 提供的其它帮助 ——跟我学 spring3【私塾在线原创】
 
-# 【第七章】 对 JDBC 的支持 之 7.4 Spring 提供的其它帮助 ——跟我学 spring3【私塾在线原创】
-
 7.4 Spring 提供的其它帮助
 
 ### 7.4.1 **SimpleJdbc 方式**
@@ -6435,7 +6379,7 @@ Spring JDBC 抽象框架提供 SimpleJdbcInsert 和 SimpleJdbcCall 类，这两�
 
 1、SimpleJdbcInsert： 用于插入数据，根据数据库元数据进行插入数据，本类用于简化插入操作，提供三种类型方法：execute 方法用于普通插入、executeAndReturnKey 及 executeAndReturnKeyHolder 方法用于插入时获取主键值、executeBatch 方法用于批处理。
 
-```
+```java
 @Test
 public void testSimpleJdbcInsert() {
     SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
@@ -6470,7 +6414,7 @@ public void testSimpleJdbcInsert() {
 
 2、SimpleJdbcCall： 用于调用存储过程及自定义函数，本类用于简化存储过程及自定义函数调用。
 
-```
+```java
 @Test
 public void testSimpleJdbcCall1() {
     //此处用 mysql,因为 hsqldb 调用自定义函数和存储过程一样
@@ -6488,7 +6432,7 @@ public void testSimpleJdbcCall1() {
 *   **declareParameters** **：** 描述参数类型，使用方式与 StoredProcedure 对象一样；
 *   **执行：** 调用 execute 方法执行自定义函数；
 
-```
+```java
 @Test
 public void testSimpleJdbcCall2() {
     //调用 hsqldb 自定义函数得使用如下方式
@@ -6512,7 +6456,7 @@ throws SQLException, DataAccessException {
 
 调用 hsqldb 数据库自定义函数与调用 mysql 自定义函数完全不同，详见 StoredProcedure 中的解释。
 
-```
+```java
 @Test
 public void testSimpleJdbcCall3() {
   SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate);
@@ -6549,7 +6493,7 @@ Spring JDBC 提供了一下 DataSource 实现：
 
 **1** **）JdbcTemplate** **获取自动生成主键方式：**
 
-```
+```java
 @Test
 public void testFetchKey1() throws SQLException {
     final String insertSql = "insert into test(name) values('name5')";
@@ -6568,7 +6512,7 @@ public void testFetchKey1() throws SQLException {
 
 **2** **）SqlUpdate** **获取自动生成主键方式：**
 
-```
+```java
 @Test
 public void testFetchKey2() {
     final String insertSql = "insert into test(name) values('name5')";
@@ -6593,7 +6537,7 @@ JDBC 批处理用于减少与数据库交互的次数来提升性能，Spring JD
 
 **1** **）JdbcTemplate** **批处理：** 支持普通的批处理及占位符批处理；
 
-```
+```java
 @Test
 public void testBatchUpdate1() {
     String insertSql = "insert into test(name) values('name5')";
@@ -6605,7 +6549,7 @@ public void testBatchUpdate1() {
 
 直接调用 batchUpdate 方法执行需要批处理的语句即可。
 
-```
+```java
 @Test
 public void testBatchUpdate2() {
     String insertSql = "insert into test(name) values(?)";
@@ -6628,7 +6572,7 @@ JdbcTemplate 还可以通过 batchUpdate(String sql, final BatchPreparedStatemen
 
 **2** **）NamedParameterJdbcTemplate** **批处理：** 支持命名参数批处理；
 
-```
+```java
 @Test
 public void testBatchUpdate3() {
     NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
@@ -6645,7 +6589,7 @@ public void testBatchUpdate3() {
 
 **3) SimpleJdbcTemplate** **批处理：** 已更简单的方式进行批处理；
 
-```
+```java
 @Test
 public void testBatchUpdate4() {
     SimpleJdbcTemplate simpleJdbcTemplate = new SimpleJdbcTemplate(jdbcTemplate);
@@ -6662,7 +6606,7 @@ public void testBatchUpdate4() {
 
 **4** **）SimpleJdbcInsert** **批处理：**
 
-```
+```java
 @Test
 public void testBatchUpdate5() {
     SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
@@ -6675,8 +6619,6 @@ public void testBatchUpdate5() {
 ```
 
 如代码所示，使用 executeBatch(Map<String, Object>[] batch)方法执行批处理。
-
-# 【第七章】 对 JDBC 的支持 之 7.5 集成 Spring JDBC 及最佳实践 ——跟我学 spring3
 
 # 【第七章】 对 JDBC 的支持 之 7.5 集成 Spring JDBC 及最佳实践 ——跟我学 spring3
 
@@ -6700,7 +6642,7 @@ Spring JDBC 提供如下 DaoSupport 实现：
 
 **1)首先定义 Dao 接口**
 
-```
+```java
 package cn.javass.spring.chapter7.dao;
 import cn.javass.spring.chapter7.UserModel;
 public interface IUserDao {
@@ -6711,7 +6653,7 @@ public interface IUserDao {
 
 **2）定义 Dao 实现，此处是使用 Spring JDBC 实现：**
 
-```
+```java
 package cn.javass.spring.chapter7.dao.jdbc;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
@@ -6736,7 +6678,7 @@ public class UserJdbcDaoImpl extends SimpleJdbcDaoSupport implements IUserDao {
 
 **3）进行资源配置（resources/chapter7/applicationContext-resources.xml）：**
 
-```
+```java
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
       <list>
@@ -6748,7 +6690,7 @@ public class UserJdbcDaoImpl extends SimpleJdbcDaoSupport implements IUserDao {
 
 PropertyPlaceholderConfigurer 用于替换配置元数据，如本示例中将对 bean 定义中的${…}占位符资源用“classpath:chapter7/resources.properties”中相应的元素替换。
 
-```
+```java
 <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
     <property name="targetDataSource">
       <bean class="org.logicalcobwebs.proxool.ProxoolDataSource">
@@ -6787,7 +6729,7 @@ ProxoolDataSource 属性含义如下：
 
 **4）定义资源文件（classpath:chapter7/resources.properties）：**
 
-```
+```java
 proxool.maxConnCount=10
 proxool.minConnCount=5
 proxool.statistics=1m,15m,1h,1d
@@ -6803,7 +6745,7 @@ db.password=
 
 **5）dao 定义配置（chapter7/applicationContext-jdbc.xml）：**
 
-```
+```java
 <bean id="abstractDao" abstract="true">
     <property name="dataSource" ref="dataSource"/>
 </bean>   
@@ -6816,7 +6758,7 @@ db.password=
 
 **6） 最后测试一下吧（cn.javass.spring.chapter7\. JdbcTemplateTest）：**
 
-```
+```java
 @Test
 public void testBestPractice() {
     String[] configLocations = new String[] {
@@ -6834,8 +6776,6 @@ public void testBestPractice() {
 首先读取配置文件，获取 IUserDao 接口实现，然后再调用 IUserDao 接口方法，进行数据库操作，这样对于开发人员使用来说，只面向接口，不关心实现，因此很容易更换实现，比如像更换为 hibernate 实现非常简单。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2493.html`](http://sishuok.com/forum/blogPost/list/0/2493.html#7208)】
-
-# 【第八章】 对 ORM 的支持 之 8.1 概述 ——跟我学 spring3
 
 # 【第八章】 对 ORM 的支持 之 8.1 概述 ——跟我学 spring3
 
@@ -6875,8 +6815,6 @@ Spring 还在测试、数据源管理方面提供支持，从而允许方便测�
 接下来让我们学习一下 Spring 如何集成 ORM 框架—Hibernate。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2495.html`](http://sishuok.com/forum/blogPost/list/0/2495.html#7212)】
-
-# 【第八章】 对 ORM 的支持 之 8.2 集成 Hibernate3 ——跟我学 spring3
 
 # 【第八章】 对 ORM 的支持 之 8.2 集成 Hibernate3 ——跟我学 spring3
 
@@ -6935,7 +6873,7 @@ packagesToScan：通过扫描指定的包获取注解模型类，而不是手工
 
 **2、对象模型定义，此处使用第七章中的 UserModel：**
 
-```
+```java
 package cn.javass.spring.chapter7;
 public class UserModel {
     private int id;
@@ -6946,7 +6884,7 @@ public class UserModel {
 
 **3、Hibernate 映射定义（chapter8/hbm/user.hbm.xml），定义对象和数据库之间的映射：**
 
-```
+```java
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
@@ -6963,7 +6901,7 @@ public class UserModel {
 
 **5、 SessionFactory 配置定义（chapter8/applicationContext-hibernate.xml）：**
 
-```
+```java
 &lt;bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"&gt;
     &lt;property name="dataSource" ref="dataSource"/&gt; &lt;!-- 指定数据源 --&gt;
       &lt;property name="mappingResources"&gt;     &lt;!-- 指定映射定义 --&gt;
@@ -6983,7 +6921,7 @@ public class UserModel {
 
 **6、 获取 SessionFactory：**
 
-```
+```java
 package cn.javass.spring.chapter8;
 //省略 import
 public class HibernateTest {
@@ -7003,7 +6941,7 @@ public class HibernateTest {
 
 **7、通过 SessionFactory 获取 Session 对象进行创建和删除表：**
 
-```
+```java
 @Before
 public void setUp() {
   //id 自增主键从 0 开始
@@ -7023,7 +6961,7 @@ public void tearDown() {
 
 **8、使用 SessionFactory 获取 Session 对象进行持久化数据：**
 
-```
+```java
 @Test
 public void testFirst() {
     Session session = sessionFactory.openSession();
@@ -7042,7 +6980,7 @@ public void testFirst() {
 } 
 ```
 
-```
+```java
 private Transaction beginTransaction(Session session) {
     Transaction transaction = session.beginTransaction();
     transaction.begin();
@@ -7066,7 +7004,7 @@ HibernateTimplate 模板类用于简化事务管理及常见操作，类似于 J
 
 接下来示例一下 HibernateTemplate 的使用：
 
-```
+```java
 @Test
 public void testHibernateTemplate() {
 HibernateTemplate hibernateTemplate =
@@ -7099,7 +7037,7 @@ new HibernateTemplate(sessionFactory);
 
 **2、 定义 Dao 接口实现，此处是 Hibernate 实现：**
 
-```
+```java
  package cn.javass.spring.chapter8.dao.hibernate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import cn.javass.spring.chapter7.UserModel;
@@ -7124,7 +7062,7 @@ public class UserHibernateDaoImpl extends HibernateDaoSupport implements IUserDa
 
 **4、dao 定义配置，在 chapter8/applicationContext-hibernate.xml 中添加如下配置：**
 
-```
+```java
 &lt;bean id="abstractDao" abstract="true"&gt;
     &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
 &lt;/bean&gt;   
@@ -7135,7 +7073,7 @@ public class UserHibernateDaoImpl extends HibernateDaoSupport implements IUserDa
 
 **5、 最后测试一下吧（cn.javass.spring.chapter8\. HibernateTest）：**
 
-```
+```java
 @Test
 public void testBestPractice() {
     String[] configLocations = new String[] {
@@ -7162,7 +7100,7 @@ Spring+Hibernate CRUD（增删改查）我们使用注解类来示例，让我�
 *   使用注解@Id 指定主键映射；
 *   使用注解@ Column 指定数据库列映射；
 
-```
+```java
 package cn.javass.spring.chapter8;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7187,7 +7125,7 @@ public class UserModel2 {
 
 此处使用 AnnotationSessionFactoryBean 通过 annotatedClasses 属性指定注解模型来定义映射元数据；
 
-```
+```java
 &lt;bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"&gt;
 &lt;property name="dataSource" ref="dataSource"/&gt;  &lt;!-- 1、指定数据源 --&gt;
   &lt;property name="annotatedClasses"&gt;           &lt;!-- 2、指定注解类 --&gt;
@@ -7205,7 +7143,7 @@ public class UserModel2 {
 
 **2.2、定义 HibernateTemplate ：**
 
-```
+```java
 &lt;bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"&gt;
     &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
 &lt;/bean&gt; 
@@ -7213,7 +7151,7 @@ public class UserModel2 {
 
 **3、最后进行 CURD 测试吧：**
 
-```
+```java
 @Test
 public void testCURD() {
     String[] configLocations = new String[] {
@@ -7253,8 +7191,6 @@ Spring 集成 Hibernate 进行增删改查是不是比 Spring JDBC 方式简单�
 
 # 【第八章】 对 ORM 的支持 之 8.3 集成 iBATIS ——跟我学 spring3
 
-# 【第八章】 对 ORM 的支持 之 8.3 集成 iBATIS ——跟我学 spring3
-
 8.3 集成 iBATIS
 
 iBATIS 是一个半自动化的 ORM 框架，需要通过配置方式指定映射 SQL 语句，而不是由框架本身生成（如 Hibernate 自动生成对应 SQL 来持久化对象），即 Hibernate 属于全自动 ORM 框架。
@@ -7289,7 +7225,7 @@ com.springsource.com.ibatis-2.3.4.726.jar
 
 **3、** iBATIS**映射定义（chapter8/sqlmaps/UserSQL.xml）：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
@@ -7320,7 +7256,7 @@ com.springsource.com.ibatis-2.3.4.726.jar
 
 **4、 iBATIS 配置文件（chapter8/sql-map-config.xml）定义：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
@@ -7336,7 +7272,7 @@ com.springsource.com.ibatis-2.3.4.726.jar
 
 **6、 SqlMapClient 配置（chapter8/applicationContext-ibatis.xml）定义：**
 
-```
+```java
 <bean id="sqlMapClient"
     class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
     <!-- 1、指定数据源 -->
@@ -7348,7 +7284,7 @@ com.springsource.com.ibatis-2.3.4.726.jar
 
 **7、 获取 SqlMapClient：**
 
-```
+```java
 package cn.javass.spring.chapter8;
 //省略 import
 public class IbatisTest {
@@ -7368,7 +7304,7 @@ public class IbatisTest {
 
 **8、 通过 SqlMapClient 创建和删除表：**
 
-```
+```java
 @Before
 public void setUp() throws SQLException {
     sqlMapClient.update("UserSQL.createTable");
@@ -7381,7 +7317,7 @@ public void tearDown() throws SQLException {
 
 **9、 使用 SqlMapClient 进行对象持久化：**
 
-```
+```java
  @Test
 public void testFirst() throws SQLException {
     UserModel model = new UserModel();
@@ -7423,7 +7359,7 @@ SqlMapClientTemplate 模板类同样用于简化事务管理及常见操作，�
 
 接下来示例一下 SqlMapClientTemplate 的使用：
 
-```
+```java
 @Test
 public void testSqlMapClientTemplate() {
 SqlMapClientTemplate sqlMapClientTemplate =
@@ -7455,7 +7391,7 @@ new SqlMapClientTemplate(sqlMapClient);
 
 **2、 定义 Dao 接口实现，此处是 iBATIS 实现：**
 
-```
+```java
 package cn.javass.spring.chapter8.dao.ibatis;
 //省略 import
 public class UserIbatisDaoImpl extends SqlMapClientDaoSupport
@@ -7473,7 +7409,7 @@ public class UserIbatisDaoImpl extends SqlMapClientDaoSupport
 
 **3、修改 iBATS 映射文件（chapter8/sqlmaps/UserSQL.xml），添加 countAll 查询：**
 
-```
+```java
 <select id="countAll" resultClass="java.lang.Integer">
     <![CDATA[ select count(*) from test ]]>   
 </select> 
@@ -7485,7 +7421,7 @@ public class UserIbatisDaoImpl extends SqlMapClientDaoSupport
 
 **5、dao 定义配置，在 chapter8/applicationContext-ibatis.xml 中添加如下配置：**
 
-```
+```java
 <bean id="abstractDao" abstract="true">
     <property name="sqlMapClient" ref="sqlMapClient"/>
 </bean>   
@@ -7498,7 +7434,7 @@ public class UserIbatisDaoImpl extends SqlMapClientDaoSupport
 
 **5、 最后测试一下吧（cn.javass.spring.chapter8\. IbatisTest）：**
 
-```
+```java
 @Test
 public void testBestPractice() {
     String[] configLocations = new String[] {
@@ -7542,7 +7478,7 @@ ibatis 3.x 和 MyBatis 是兼容的，只需要将 DTD 变更一下就可以了�
 
 **3、MyBatis 映射定义（chapter8/sqlmaps/UserSQL-mybatis.xml）：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -7583,7 +7519,7 @@ ibatis 3.x 和 MyBatis 是兼容的，只需要将 DTD 变更一下就可以了�
 
 **3、 MyBatis 配置文件（chapter8/sql-map-config-mybatis.xml）定义：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -7608,7 +7544,7 @@ ibatis 3.x 和 MyBatis 是兼容的，只需要将 DTD 变更一下就可以了�
 
 **5、 定义 Dao 接口实**现，**此处是 MyBatis 实现：**
 
-```
+```java
 package cn.javass.spring.chapter8.dao.mybatis;
 //省略 import
 public class UserMybatisDaoImpl extends SqlSessionDaoSupport
@@ -7634,7 +7570,7 @@ implements IUserDao {
 
 **7、dao 定义配置，在 chapter8/applicationContext-mybatis.xml 中添加如下配置：**
 
-```
+```java
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
   <property name="dataSource" ref="dataSource"/><!-- 1、指定数据源 -->
   <property name="configLocation" value="chapter8/sql-map-config-mybatis.xml"/>
@@ -7656,7 +7592,7 @@ implements IUserDao {
 
 **8、最后测试一下吧（cn.javass.spring.chapter8\. IbatisTest）：**
 
-```
+```java
 @Test
 public void testMybatisBestPractice() {
     String[] configLocations = new String[] {
@@ -7679,8 +7615,6 @@ public void testMybatisBestPractice() {
 
 # 【第八章】 对 ORM 的支持 之 8.4 集成 JPA ——跟我学 spring3
 
-# 【第八章】 对 ORM 的支持 之 8.4 集成 JPA ——跟我学 spring3
-
 ## 8.4 集成 JPA
 
 JPA 全称为 Java 持久性 API（Java Persistence API），JPA 是 Java EE 5 标准之一，是一个 ORM 规范，由厂商来实现该规范，目前有 Hibernate、OpenJPA、TopLink、EclipseJPA 等实现。
@@ -7697,7 +7631,7 @@ persistenceUnitName：指定持久化单元的名称；
 
 使用方式：
 
-```
+```java
 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
     <property name="persistenceUnitName" value="persistenceUnit"/>
 </bean> 
@@ -7707,7 +7641,7 @@ persistenceUnitName：指定持久化单元的名称；
 
 使用方式：
 
-```
+```java
 <beans 
 
     xsi:schemaLocation="
@@ -7749,7 +7683,7 @@ loadTimeWeaver：用于指定 LoadTimeWeaver 实现，从而允许 JPA 加载时
 
 **2、对象模型定义，此处使用 UserModel2：**
 
-```
+```java
 package cn.javass.spring.chapter8;
 //省略 import
 @Entity
@@ -7767,7 +7701,7 @@ public class UserModel2 {
 
 **1、 JPA 配置定义（chapter8/persistence.xml），定义对象和数据库之间的映射：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
 
@@ -7782,7 +7716,7 @@ public class UserModel2 {
 
 **3、 EntityManagerFactory 配置定义（chapter8/applicationContext-jpa.xml）：**
 
-```
+```java
  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="dataSource"/>
     <property name="persistenceXmlLocation" value="chapter8/persistence.xml"/>
@@ -7799,7 +7733,7 @@ public class UserModel2 {
   <bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence"/> 
 ```
 
-```
+```java
 <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
    <property name="generateDdl" value="false" />
    <property name="database" value="HSQL"/>
@@ -7818,7 +7752,7 @@ public class UserModel2 {
 
 **4、 获取 EntityManagerFactory：**
 
-```
+```java
 package cn.javass.spring.chapter8;
 //省略 import
 public class JPATest {
@@ -7838,7 +7772,7 @@ public class JPATest {
 
 5、 通过 EntityManagerFactory 获取 EntityManager 进行创建和删除表：
 
-```
+```java
 @Before
 public void setUp() throws SQLException {
    //id 自增主键从 0 开始
@@ -7878,7 +7812,7 @@ private void beginTransaction(EntityManager em) throws SQLException {
 
 **6、 使用 EntityManagerFactory 获取 EntityManager 对象进行持久化数据：**
 
-```
+```java
 @Test
 public void testFirst() throws SQLException {
     UserModel2 model = new UserModel2();
@@ -7910,7 +7844,7 @@ JpaTemplate 模板类用于简化事务管理及常见操作，类似于 JdbcTem
 
 **1、修改 Spring 配置文件（chapter8/applicationContext-jpa.xml），添加 JPA 事务管理器：**
 
-```
+```java
 <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
 </bean> 
@@ -7920,7 +7854,7 @@ JpaTemplate 模板类用于简化事务管理及常见操作，类似于 JdbcTem
 
 **2、修改 JPATest 类，添加类变量 ctx，用于后边使用其获取事务管理器使用：**
 
-```
+```java
 package cn.javass.spring.chapter8;
 public class JPATest {
     private static EntityManagerFactory entityManagerFactory;
@@ -7938,7 +7872,7 @@ public class JPATest {
 
 **3）JpaTemplate 模板类使用：**
 
-```
+```java
 @Test
 public void testJpaTemplate() {
 final JpaTemplate jpaTemplate = new JpaTemplate(entityManagerFactory);
@@ -7982,7 +7916,7 @@ final JpaTemplate jpaTemplate = new JpaTemplate(entityManagerFactory);
 
 **2、 定义 Dao 接口实现，此处是 JPA 实现：**
 
-```
+```java
 package cn.javass.spring.chapter8.dao.jpa;
 //省略 import
 @Transactional(propagation = Propagation.REQUIRED)
@@ -8011,7 +7945,7 @@ public class UserJpaDaoImpl extends JpaDaoSupport implements IUserDao {
 
 **4.1、**首先添加 tx 命名空间用于支持事务：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 
 
@@ -8024,7 +7958,7 @@ public class UserJpaDaoImpl extends JpaDaoSupport implements IUserDao {
 
 4.2、为**@Transactional**注解事务开启事务支持：
 
-```
+```java
 <tx:annotation-driven transaction-manager="txManager"/> 
 ```
 
@@ -8032,7 +7966,7 @@ public class UserJpaDaoImpl extends JpaDaoSupport implements IUserDao {
 
 4.3、配置 DAO Bean：
 
-```
+```java
 <bean id="abstractDao" abstract="true">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
 </bean>   
@@ -8045,7 +7979,7 @@ public class UserJpaDaoImpl extends JpaDaoSupport implements IUserDao {
 
 **5、最后测试一下吧（cn.javass.spring.chapter8\. JPATest）：**
 
-```
+```java
 @Test
 public void testBestPractice() {
     String[] configLocations = new String[] {
@@ -8068,7 +8002,7 @@ public void testBestPractice() {
 
 Spring+JPA CRUD（增删改查）也相当简单，让我们直接看具体示例吧：
 
-```
+```java
 @Test
 public void testCRUD() {
     PlatformTransactionManager txManager = ctx.getBean(PlatformTransactionManager.class);
@@ -8105,8 +8039,6 @@ public void testCRUD() {
 Spring 集成 JPA 进行增删改查也相当简单，但本文介绍的稍微复杂一点，因为牵扯到编程式事务，如果采用声明式事务将和集成 Hibernate 方式一样简洁。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2500.html`](http://sishuok.com/forum/blogPost/list/0/2500.html#7218)】
-
-# 【第九章】 Spring 的事务 之 9.1 数据库事务概述 ——跟我学 spring3
 
 # 【第九章】 Spring 的事务 之 9.1 数据库事务概述 ——跟我学 spring3
 
@@ -8172,13 +8104,11 @@ Spring 支持声明式事务和编程式事务事务类型。
 
 # 【第九章】 Spring 的事务 之 9.2 事务管理器 ——跟我学 spring3
 
-# 【第九章】 Spring 的事务 之 9.2 事务管理器 ——跟我学 spring3
-
 ### 9.2.1 概述
 
 Spring 框架支持事务管理的核心是事务管理器抽象，对于不同的数据访问框架（如 Hibernate）通过实现策略接口 PlatformTransactionManager，从而能支持各种数据访问框架的事务管理，PlatformTransactionManager 接口定义如下：
 
-```
+```java
 public interface PlatformTransactionManager {
        TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
        void commit(TransactionStatus status) throws TransactionException;
@@ -8192,7 +8122,7 @@ public interface PlatformTransactionManager {
 
 **TransactionDefinition 接口定义如下：**
 
-```
+```java
 public interface TransactionDefinition {
        int getPropagationBehavior();
        int getIsolationLevel();
@@ -8210,7 +8140,7 @@ public interface TransactionDefinition {
 
 **TransactionStatus 接口定义如下：**
 
-```
+```java
 public interface TransactionStatus extends SavepointManager {
        boolean isNewTransaction();
        boolean hasSavepoint();
@@ -8253,7 +8183,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **a)JDBC 及 iBATIS、MyBatis 框架事务管理器**
 
-```
+```java
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="dataSource"/>
 </bean> 
@@ -8263,7 +8193,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **b)Jdo 事务管理器**
 
-```
+```java
 <bean id="txManager" class="org.springframework.orm.jdo.JdoTransactionManager">
     <property name="persistenceManagerFactory" ref="persistenceManagerFactory"/>
 </bean> 
@@ -8273,7 +8203,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **c)Jpa 事务管理器**
 
-```
+```java
 <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
 </bean> 
@@ -8283,7 +8213,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 还需要为 entityManagerFactory 对象指定 jpaDialect 属性，该属性所对应的对象指定了如何获取连接对象、开启事务、关闭事务等事务管理相关的行为。
 
-```
+```java
 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         ……
         <property name="jpaDialect" ref="jpaDialect"/>
@@ -8293,7 +8223,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **d)Hibernate 事务管理器**
 
-```
+```java
 <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
     <property name="sessionFactory" ref="sessionFactory"/>
 </bean> 
@@ -8305,7 +8235,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **a)Jta 事务管理器**
 
-```
+```java
 <beans 
 
     xsi:schemaLocation="
@@ -8355,7 +8285,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 **2.1、配置分布式数据源：**
 
-```
+```java
  <bean id="dataSource1" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
     <property name="uniqueResourceName" value="jdbc/test1"/>
     <property name="xaDataSourceClassName" value="org.apache.derby.jdbc.EmbeddedXADataSource"/>
@@ -8388,7 +8318,7 @@ Spring 不仅提供这些事务管理器，还提供对如 JMS 事务管理的�
 
 2.2、配置事务管理器：
 
-```
+```java
 <bean id="atomikosTransactionManager" class = "com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method = "close">  
       <property name="forceShutdown" value="true"/>  
 </bean>  
@@ -8420,8 +8350,6 @@ Spring 还提供了对特定应用服务器事务管理器集成的支持，目�
 
 # 【第九章】 Spring 的事务 之 9.3 编程式事务 ——跟我学 spring3
 
-# 【第九章】 Spring 的事务 之 9.3 编程式事务 ——跟我学 spring3
-
 ## 9.3 编程式事务
 
 ### 9.3.1 编程式事务概述
@@ -8430,7 +8358,7 @@ Spring 还提供了对特定应用服务器事务管理器集成的支持，目�
 
 Spring 框架提供一致的事务抽象，因此对于 JDBC 还是 JTA 事务都是采用相同的 API 进行编程。
 
-```
+```java
 Connection conn = null;
 UserTransaction tx = null;
 try {
@@ -8471,7 +8399,7 @@ Spring 中的事务分为物理事务和逻辑事务；
 
 **工具类：**使用工具类获取连接（会话）和释放连接（会话），如使用 org.springframework.jdbc.datasource 包中的 DataSourceUtils 类来获取和释放具有逻辑事务功能的连接。当然对集成第三方 ORM 框架也提供了类似的工具类，如对 Hibernate 提供了 SessionFactoryUtils 工具类，JPA 的 EntityManagerFactoryUtils 等，其他工具类都是使用类似***Utils 命名；
 
-```
+```java
 //获取具有 Spring 事务（逻辑事务）管理功能的连接
 DataSourceUtils. getConnection(DataSource dataSource)
 //释放具有 Spring 事务（逻辑事务）管理功能的连接
@@ -8480,7 +8408,7 @@ DataSourceUtils. releaseConnection(Connection con, DataSource dataSource)
 
 **TransactionAwareDataSourceProxy：**使用该数据源代理类包装需要 Spring 事务管理支持的数据源，该包装类必须位于最外层，主要用于遗留项目中可能直接使用数据源获取连接和释放连接支持或希望在 Spring 中进行混合使用各种持久化框架时使用，其内部实际使用 DataSourceUtils 工具类获取和释放真正连接；
 
-```
+```java
 <!--使用该方式包装数据源，必须在最外层，targetDataSource 知道目标数据源-->
 <bean id="dataSourceProxy"
 class="org.springframework.jdbc.datasource.
@@ -8507,7 +8435,7 @@ Spring 提供两种编程式事务支持：直接使用 PlatformTransactionManag
 
 **2、事务管理器定义（chapter9/applicationContext-jdbc.xml）：**
 
-```
+```java
 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
     <property name="dataSource" ref="dataSource"/>
 </bean> 
@@ -8517,7 +8445,7 @@ Spring 提供两种编程式事务支持：直接使用 PlatformTransactionManag
 
 **3.1、首先准备测试时使用的 SQL：**
 
-```
+```java
 package cn.javass.spring.chapter9;
 //省略 import
 public class TransactionTest {
@@ -8534,7 +8462,7 @@ public class TransactionTest {
 
 **3.2、初始化 Spring 容器**
 
-```
+```java
 package cn.javass.spring.chapter9;
 //省略 import
 public class TransactionTest {
@@ -8559,7 +8487,7 @@ public class TransactionTest {
 
 **3.3、使用高级别方案 JdbcTemplate 来进行事务管理器测试：**
 
-```
+```java
 @Test
 public void testPlatformTransactionManager() {
     DefaultTransactionDefinition def = new DefaultTransactionDefinition();
@@ -8585,7 +8513,7 @@ public void testPlatformTransactionManager() {
 
 **3.4、使用低级别解决方案来进行事务管理器测试：**
 
-```
+```java
 @Test
 public void testPlatformTransactionManagerForLowLevel1() {
 DefaultTransactionDefinition def = new DefaultTransactionDefinition();      def.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);      def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -8622,7 +8550,7 @@ TransactionTemplate 模板类使用的回调接口：
 
 **1、接下来演示一下 TransactionTemplate 模板类如何使用：**
 
-```
+```java
 @Test
 public void testTransactionTemplate() {//位于 TransactionTest 类中
   jdbcTemplate.execute(CREATE_TABLE_SQL);
@@ -8645,7 +8573,7 @@ public void testTransactionTemplate() {//位于 TransactionTest 类中
 
 **注：对于抛出 Exception 类型的异常且需要回滚时，需要捕获异常并通过调用 status 对象的 setRollbackOnly()方法告知事务管理器当前事务需要回滚，如下所示：**
 
-```
+```java
 try {
     //业务操作
 } catch (Exception e) { //可使用具体业务异常代替
@@ -8655,7 +8583,7 @@ try {
 
 **2、前边已经演示了 JDBC 事务管理，接下来演示一下 JTA 分布式事务管理：**
 
-```
+```java
 @Test
 public void testJtaTransactionTemplate() {
     String[] configLocations = new String[] {
@@ -8708,7 +8636,7 @@ public void testJtaTransactionTemplate() {
 
 **模型对象一般放在项目中的 model 包里。**
 
-```
+```java
 package cn.javass.spring.chapter9.model;
 public class UserModel {
     private int id;
@@ -8718,7 +8646,7 @@ public class UserModel {
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter9.model;
 public class AddressModel {
     private int id;
@@ -8732,7 +8660,7 @@ public class AddressModel {
 
 **2.1、定义 Dao 层接口：**
 
-```
+```java
 package cn.javass.spring.chapter9.service;
 import cn.javass.spring.chapter9.model.UserModel;
 public interface IUserService {
@@ -8741,7 +8669,7 @@ public interface IUserService {
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter9.service;
 import cn.javass.spring.chapter9.model.AddressModel;
 public interface IAddressService {
@@ -8752,7 +8680,7 @@ public interface IAddressService {
 
 2.2、定义 Dao 层实现：
 
-```
+```java
 package cn.javass.spring.chapter9.dao.jdbc;
 //省略 import，注意 model 要引用 chapter 包里的
 public class UserJdbcDaoImpl extends NamedParameterJdbcDaoSupport implements IUserDao {
@@ -8772,7 +8700,7 @@ public class UserJdbcDaoImpl extends NamedParameterJdbcDaoSupport implements IUs
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter9.dao.jdbc;
 //省略 import，注意 model 要引用 chapter 包里的
 public class AddressJdbcDaoImpl extends NamedParameterJdbcDaoSupport implements IAddressDao {
@@ -8794,7 +8722,7 @@ public class AddressJdbcDaoImpl extends NamedParameterJdbcDaoSupport implements 
 
 **3.1、定义 Service 层接口，一般使用“I×××Service”命名：**
 
-```
+```java
 package cn.javass.spring.chapter9.service;
 import cn.javass.spring.chapter9.model.UserModel;
 public interface IUserService {
@@ -8812,7 +8740,7 @@ public interface IAddressService {
 
 **3.2、定义 Service 层实现，一般使用“×××ServiceImpl”或“×××Service”命名：**
 
-```
+```java
 package cn.javass.spring.chapter9.service.impl;
 //省略 import，注意 model 要引用 chapter 包里的
 public class AddressServiceImpl implements IAddressService {
@@ -8841,7 +8769,7 @@ public class AddressServiceImpl implements IAddressService {
 } 
 ```
 
-```
+```java
  package cn.javass.spring.chapter9.service.impl;
 //省略 import，注意 model 要引用 chapter 包里的
 public class UserServiceImpl implements IUserService {
@@ -8881,7 +8809,7 @@ Service 实现中需要 Spring 事务管理的部分应该使用 TransactionTemp
 
 **4、定义 TransactionTemplateUtils，用于简化获取 TransactionTemplate 模板类，工具类一般放在 util 包中：**
 
-```
+```java
 package cn.javass.spring.chapter9.util;
 //省略 import
 public class TransactionTemplateUtils {
@@ -8911,7 +8839,7 @@ getDefaultTransactionTemplate 用于获取传播行为为 PROPAGATION_REQUIRED�
 
 **6、Dao 层配置定义（chapter9/dao/applicationContext-jdbc.xml）：**
 
-```
+```java
 <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
     <property name="dataSource" ref="dataSource"/>
 </bean>
@@ -8920,14 +8848,14 @@ getDefaultTransactionTemplate 用于获取传播行为为 PROPAGATION_REQUIRED�
 </bean> 
 ```
 
-```
+```java
 <bean id="userDao" class="cn.javass.spring.chapter9.dao.jdbc.UserJdbcDaoImpl" parent="abstractDao"/>
 <bean id="addressDao" class="cn.javass.spring.chapter9.dao.jdbc.AddressJdbcDaoImpl" parent="abstractDao"/> 
 ```
 
 **7、Service 层配置定义（chapter9/service/applicationContext-service.xml）：**
 
-```
+```java
 <bean id="userService" class="cn.javass.spring.chapter9.service.impl.UserServiceImpl">
     <property name="userDao" ref="userDao"/>
     <property name="txManager" ref="txManager"/>
@@ -8941,7 +8869,7 @@ getDefaultTransactionTemplate 用于获取传播行为为 PROPAGATION_REQUIRED�
 
 **8、准备测试需要的表创建语句，在 TransactionTest 测试类中添加如下静态变量：**
 
-```
+```java
 private static final String CREATE_USER_TABLE_SQL =
     "create table user" +
     "(id int GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY, " +
@@ -8957,7 +8885,7 @@ private static final String DROP_ADDRESS_TABLE_SQL = "drop table address";
 
 **9、 测试一下吧：**
 
-```
+```java
 @Test
     public void testServiceTransaction() {
         String[] configLocations = new String[] {
@@ -9046,13 +8974,13 @@ ISOLATION_SERIALIZABLE：序列化。
 
 二、回滚测试，修改 AddressServiceImpl 的 save 方法片段：
 
-```
+```java
 addressDao.save(address); 
 ```
 
 为
 
-```
+```java
 addressDao.save(address);
 //抛出异常，将标识当前事务需要回滚
 throw new RuntimeException(); 
@@ -9060,13 +8988,13 @@ throw new RuntimeException();
 
 二、修改 UserServiceImpl 的 save 方法片段：
 
-```
+```java
 addressService.save(user.getAddress()); 
 ```
 
 为
 
-```
+```java
 try {
     addressService.save(user.getAddress());//将在同一个事务内执行
 } catch (RuntimeException e) {
@@ -9077,7 +9005,7 @@ try {
 
 三、修改测试方法片段:
 
-```
+```java
 userService.save(user);
 Assert.assertEquals(1, userService.countAll());
 Assert.assertEquals(1, addressService.countAll()); 
@@ -9085,7 +9013,7 @@ Assert.assertEquals(1, addressService.countAll());
 
 为如下形式：
 
-```
+```java
 try {
     userService.save(user);
     Assert.fail();
@@ -9111,13 +9039,13 @@ Assert 断言中 countAll 方法都返回 0，说明事务回滚了，即说明�
 
 1、将如下获取事务模板方式
 
-```
+```java
 TransactionTemplate transactionTemplate = TransactionTemplateUtils.getDefaultTransactionTemplate(txManager); 
 ```
 
 替换为如下形式，表示传播行为为 RequiresNew：
 
-```
+```java
 TransactionTemplate transactionTemplate = TransactionTemplateUtils.getTransactionTemplate(
         txManager, 
         TransactionDefinition.PROPAGATION_REQUIRES_NEW, 
@@ -9126,7 +9054,7 @@ TransactionTemplate transactionTemplate = TransactionTemplateUtils.getTransactio
 
 2、执行如下测试，发现执行结果是正确的：
 
-```
+```java
 userService.save(user);
 Assert.assertEquals(1, userService.countAll());
 Assert.assertEquals(1, addressService.countAll()); 
@@ -9134,7 +9062,7 @@ Assert.assertEquals(1, addressService.countAll());
 
 3、修改 UserServiceImpl 的 save 方法片段
 
-```
+```java
 userDao.save(user);       
 user.getAddress().setUserId(user.getId());
 addressService.save(user.getAddress()); 
@@ -9142,7 +9070,7 @@ addressService.save(user.getAddress());
 
 为如下形式，表示 userServiceImpl 类的 save 方法将发生回滚，而 AddressServiceImpl 类的方法由于在抛出异常前执行，将成功提交事务到数据库：
 
-```
+```java
 userDao.save(user);       
 user.getAddress().setUserId(user.getId());
 addressService.save(user.getAddress());
@@ -9151,7 +9079,7 @@ throw new RuntimeException();
 
 4、修改测试方法片段：
 
-```
+```java
 userService.save(user);
 Assert.assertEquals(1, userService.countAll());
 Assert.assertEquals(1, addressService.countAll()); 
@@ -9159,7 +9087,7 @@ Assert.assertEquals(1, addressService.countAll());
 
 为如下形式：
 
-```
+```java
 try {
     userService.save(user);
     Assert.fail();
@@ -9279,7 +9207,7 @@ Assert 断言中调用 userService 对象 countAll 方法返回 0，说明该逻
 
 **1、重新定义业务类实现，在业务类中无需显示的事务管理代码：**
 
-```
+```java
 package cn.javass.spring.chapter9.service.impl;
 //省略 import
 public class ConfigAddressServiceImpl implements IAddressService {
@@ -9295,7 +9223,7 @@ public class ConfigAddressServiceImpl implements IAddressService {
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter9.service.impl;
 //省略 import
 public class ConfigUserServiceImpl implements IUserService {
@@ -9323,7 +9251,7 @@ public class ConfigUserServiceImpl implements IUserService {
 
 **2.1、首先添加目标类定义：**
 
-```
+```java
 <bean id="targetUserService" class="cn.javass.spring.chapter9.service.impl.ConfigUserServiceImpl">
     <property name="userDao" ref="userDao"/>
     <property name="addressService" ref="targetAddressService"/>
@@ -9335,7 +9263,7 @@ public class ConfigUserServiceImpl implements IUserService {
 
 **2.2、配置 TransactionProxyFactoryBean 类：**
 
-```
+```java
 <bean id="transactionProxyParent" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"  abstract="true">
     <property name="transactionManager" ref="txManager"/>
     <property name="transactionAttributes">
@@ -9370,7 +9298,7 @@ public class ConfigUserServiceImpl implements IUserService {
 
 需要特别注意“-异常”和“+异常”中“异常”只是真实异常的部分名，内部使用如下方式判断：
 
-```
+```java
 //真实抛出的异常.name.indexOf(配置中指定的需要回滚/不回滚的异常名)
 exceptionClass.getName().indexOf(this.exceptionName) 
 ```
@@ -9379,7 +9307,7 @@ exceptionClass.getName().indexOf(this.exceptionName)
 
 **2.3、定义代理 Bean：**
 
-```
+```java
 <bean id="proxyUserService" parent="transactionProxyParent">
     <property name="target" ref="targetUserService"/>
 </bean>
@@ -9396,7 +9324,7 @@ exceptionClass.getName().indexOf(this.exceptionName)
 
 并在 testConfigTransaction 测试方法内将：
 
-```
+```java
 IUserService userService =
 ctx2.getBean("userService", IUserService.class);
 IAddressService addressService =
@@ -9405,7 +9333,7 @@ ctx2.getBean("addressService", IAddressService.class);
 
 替换为：
 
-```
+```java
 IUserService userService =
 ctx2.getBean("proxyUserService ", IUserService.class);
 IAddressService addressService =
@@ -9440,8 +9368,6 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 
 # 【第九章】 Spring 的事务 之 9.4 声明式事务 ——跟我学 spring3
 
-# 【第九章】 Spring 的事务 之 9.4 声明式事务 ——跟我学 spring3
-
 ## 9.4 声明式事务
 
 ### 9.4.1 声明式事务概述
@@ -9460,7 +9386,7 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 
 **2.1、XML 命名空间定义，定义用于事务支持的 tx 命名空间和 AOP 支持的 aop 命名空间：**
 
-```
+```java
 <beans 
 
       xsi:schemaLocation="
@@ -9474,7 +9400,7 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 
 **2.2、业务实现配置，非常简单，使用以前定义的非侵入式业务实现：**
 
-```
+```java
 <bean id="userService" class="cn.javass.spring.chapter9.service.impl.ConfigUserServiceImpl">
     <property name="userDao" ref="userDao"/>
     <property name="addressService" ref="addressService"/>
@@ -9486,7 +9412,7 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 
 **2.3、事务相关配置：**
 
-```
+```java
 <tx:advice id="txAdvice" transaction-manager="txManager">
     <tx:attributes>
         <tx:method name="save*" propagation="REQUIRED" isolation="READ_COMMITTED"/>
@@ -9495,7 +9421,7 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 </tx:advice> 
 ```
 
-```
+```java
 <aop:config>
     <aop:pointcut id="serviceMethod" expression="execution(* cn..chapter9.service..*.*(..))"/>
     <aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
@@ -9519,13 +9445,13 @@ ctx2.getBean("proxyAddressService ", IAddressService.class);
 
 并在 testDeclareTransaction 测试方法内将：
 
-```
+```java
 classpath:chapter9/service/applicationContext-service.xml" 
 ```
 
 替换为：
 
-```
+```java
 classpath:chapter9/service/applicationContext-service-declare.xml" 
 ```
 
@@ -9541,7 +9467,7 @@ classpath:chapter9/service/applicationContext-service-declare.xml"
 
 声明式事务管理通过配置<tx:advice/>来定义事务属性，配置方式如下所示：
 
-```
+```java
 <tx:advice id="……" transaction-manager="……">
 <tx:attributes>
         <tx:method name="……"
@@ -9581,7 +9507,7 @@ isolation：事务隔离级别定义；默认为“DEFAULT”，其值可以通�
 
 **1、首先看下声明式事务配置的最佳实践吧：**
 
-```
+```java
 <tx:advice id="txAdvice" transaction-manager="txManager">
 <tx:attributes>
            <tx:method name="save*" propagation="REQUIRED" />
@@ -9610,13 +9536,13 @@ isolation：事务隔离级别定义；默认为“DEFAULT”，其值可以通�
 
 如果我们有一个 batchSaveOrUpdate 方法需要“REQUIRES_NEW”事务传播行为，则直接添加如下配置即可：
 
-```
+```java
 <tx:method name="batchSaveOrUpdate" propagation="REQUIRES_NEW" /> 
 ```
 
 **2、接下来看一下多事务语义配置吧，**声明式事务最佳实践中已经配置了通用事务属性，因此可以针对需要其他事务属性的业务方法进行特例化配置：
 
-```
+```java
 <tx:advice id="noTxAdvice" transaction-manager="txManager">
     <tx:attributes>
            <tx:method name="*" propagation="NEVER" />
@@ -9642,7 +9568,7 @@ isolation：事务隔离级别定义；默认为“DEFAULT”，其值可以通�
 
 **1、定义业务逻辑实现：**
 
-```
+```java
 package cn.javass.spring.chapter9.service.impl;
 //省略 import
 public class AnnotationUserServiceImpl implements IUserService {
@@ -9673,7 +9599,7 @@ public class AnnotationUserServiceImpl implements IUserService {
 
 **2.1、XML 命名空间定义，定义用于事务支持的 tx 命名空间和 AOP 支持的 aop 命名空间：**
 
-```
+```java
 <beans 
 
       xsi:schemaLocation="
@@ -9687,7 +9613,7 @@ public class AnnotationUserServiceImpl implements IUserService {
 
 **2.2、业务实现配置，非常简单，使用以前定义的非侵入式业务实现：**
 
-```
+```java
 <bean id="userService" class="cn.javass.spring.chapter9.service.impl.ConfigUserServiceImpl">
     <property name="userDao" ref="userDao"/>
     <property name="addressService" ref="addressService"/>
@@ -9699,7 +9625,7 @@ public class AnnotationUserServiceImpl implements IUserService {
 
 **2.3、事务相关配置：**
 
-```
+```java
 <tx:annotation-driven transaction-manager="txManager"/> 
 ```
 
@@ -9711,25 +9637,25 @@ public class AnnotationUserServiceImpl implements IUserService {
 
 将测试代码片段：
 
-```
+```java
 classpath:chapter9/service/applicationContext-service.xml" 
 ```
 
 替换为：
 
-```
+```java
 classpath:chapter9/service/applicationContext-service-annotation.xml" 
 ```
 
 将测试代码段
 
-```
+```java
 userService.save(user); 
 ```
 
 **替换为：**
 
-```
+```java
 try {
     userService.save(user);
     Assert.fail();
@@ -9808,8 +9734,6 @@ Spring 声明式事务实现其实就是 Spring AOP+线程绑定实现，利用 
 
 # 【第十章】集成其它 Web 框架 之 10.1 概述 ——跟我学 spring3
 
-# 【第十章】集成其它 Web 框架 之 10.1 概述 ——跟我学 spring3
-
 ## 10.1 概述
 
 ### 10.1.1 Spring 和 Web 框架
@@ -9844,7 +9768,7 @@ Spring 对所有 Web 框架抽象出通用配置，以减少重复配置，其�
 
 **1.3、web.xml 初始内容如下：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" 
 
@@ -9859,7 +9783,7 @@ Spring 对所有 Web 框架抽象出通用配置，以减少重复配置，其�
 
 Spring 提供 XmlWebApplicationContext 实现，并在 Web 应用程序中默认使用该实现，可以通过在 web.xml 配置文件中使用如下方式指定：
 
-```
+```java
 <context-param>
     <param-name>contextClass</param-name>
     <param-value>
@@ -9876,7 +9800,7 @@ Spring 提供 XmlWebApplicationContext 实现，并在 Web 应用程序中默认
 
 默认情况下将加载/WEB-INF/applicationContext.xml 配置文件，当然也可以使用如下形式在 web.xml 中定义要加载自定义的配置文件，多个配置文件用“，”分割：
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -9887,7 +9811,7 @@ Spring 提供 XmlWebApplicationContext 实现，并在 Web 应用程序中默认
 
 通用 Spring 配置文件（resources/chapter10/applicationContext-message.xml）内容如下所示：
 
-```
+```java
 <bean id="message" class="java.lang.String">
     <constructor-arg index="0" value="Hello Spring"/>
 </bean> 
@@ -9899,7 +9823,7 @@ Spring 提供 XmlWebApplicationContext 实现，并在 Web 应用程序中默认
 
 Spring 使用 ContextLoaderListener 监听器来加载和关闭 Spring Web 容器，即使用如下方式在 web.xml 中指定：
 
-```
+```java
 <listener>
     <listener-class>
        org.springframework.web.context.ContextLoaderListener
@@ -9915,7 +9839,7 @@ ContextLoaderListener 监听器将在 Web 应用启动时使用指定的配置�
 
 既然已经定义了 Spring Web 容器，那如何在 Web 中访问呢？Spring 提供如下方式来支持获取 Spring Web 容器（WebApplicationContext）：
 
-```
+```java
 WebApplicationContextUtils.getWebApplicationContext(servletContext);
 或
 WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext); 
@@ -9937,7 +9861,7 @@ Jetty 是一个非常轻量级的 Web 服务器，并且提供嵌入式运行支
 
 **7.1、准备 Jetty 嵌入式 Web 服务器运行需要的 jar 包：**
 
-```
+```java
 到 http://dist.codehaus.org/jetty/网站下载 jetty-6.1.24，在下载的 jetty-6.1.24.zip 包中拷贝如下 jar 包到项目的 lib/jetty 目录下，并添加到类路径中： 
 ```
 
@@ -9945,7 +9869,7 @@ Jetty 是一个非常轻量级的 Web 服务器，并且提供嵌入式运行支
 
 **7.2、在单元测试中启动 Web 服务器：**
 
-```
+```java
 package cn.javass.spring.chapter10;
 import org.junit.Test;
 import org.mortbay.jetty.Server;
@@ -9981,8 +9905,6 @@ public class WebFrameWorkIntegrateTest {
 图 10-3 点击红色按钮关闭 Web 服务器
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2510.html`](http://sishuok.com/forum/blogPost/list/0/2510.html#7233)】
-
-# 【第十章】集成其它 Web 框架 之 10.2 集成 Struts1.x ——跟我学 spring3
 
 # 【第十章】集成其它 Web 框架 之 10.2 集成 Struts1.x ——跟我学 spring3
 
@@ -10024,7 +9946,7 @@ Struts1.x 是最早实现 MVC（模型-视图-控制器）模式的 Web 框架�
 
 **1、 第一个 Action 实现：**
 
-```
+```java
  package cn.javass.spring.chapter10.struts1x.action;
 import org.apache.struts.action.Action;
 //省略部分 import
@@ -10044,7 +9966,7 @@ public class HelloWorldAction1 extends Action {
 
 **2、JSP 页面定义（webapp/WEB-INF/jsp/hello.jsp）：**
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8"
 contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -10065,7 +9987,7 @@ contentType="text/html; charset=UTF-8" %>
 
 在此配置文件中定义我们使用的“message”Bean；
 
-```
+```java
 <bean id="message" class="java.lang.String">
     <constructor-arg index="0" value="Hello Spring"/>
 </bean> 
@@ -10073,7 +9995,7 @@ contentType="text/html; charset=UTF-8" %>
 
 **3.2、struts 配置文件定义（resources/chapter10/struts1x/struts-config.xml）：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts-config PUBLIC
           "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
@@ -10089,7 +10011,7 @@ contentType="text/html; charset=UTF-8" %>
 
 **3.3、web.xml 部署描述符文件定义（webapp/WEB-INF/web.xml）添加如下内容：**
 
-```
+```java
 <!-- Struts1.x 前端控制器配置开始   -->
        <servlet>
         <servlet-name>hello</servlet-name>
@@ -10127,7 +10049,7 @@ Spring 还提供 ActionSupport 类来简化获取 WebApplicationContext，Spring
 
 **1、Action 定义**
 
-```
+```java
 package cn.javass.spring.chapter10.struts1x.action;
 //省略 import
 public class HelloWorldAction2 extends ActionSupport {
@@ -10144,7 +10066,7 @@ public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServlet
 
 **2、修改 Struts 配置文件（resources/chapter10/struts1x/struts-config.xml）添加如下 Action 定义：**
 
-```
+```java
 <action path="/hello2" type="cn.javass.spring.chapter10.struts1x.action.HelloWorldAction2">
     <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
 </action> 
@@ -10160,7 +10082,7 @@ Struts 插件集成使用 ContextLoaderPlugin 类，该类用于为 ActionServle
 
 **1、在 Struts 配置文件（resources/chapter10/struts1x/struts-config.xml）中配置插件：**
 
-```
+```java
 <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
     <set-property property="contextClass" value="org.springframework.web.context.support.XmlWebApplicationContext"/>
     <set-property property="contextConfigLocation" value="/WEB-INF/hello-servlet.xml"/>
@@ -10174,7 +10096,7 @@ Struts 插件集成使用 ContextLoaderPlugin 类，该类用于为 ActionServle
 
 由于我们的 ActionServlet 在 web.xml 中的名字为 hello，而我们的配置文件在/WEB-INF/hello-servlet.xml，因此 contextConfigLocation 和 namespace 可以不指定，因此最简单配置如下：
 
-```
+```java
 <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn"/> 
 ```
 
@@ -10189,7 +10111,7 @@ Struts 插件集成使用 ContextLoaderPlugin 类，该类用于为 ActionServle
 
 **2、定义 Action 实现，由于 Action 将在 Spring 中配置，因此 message 可以使用依赖注入方式了：**
 
-```
+```java
 package cn.javass.spring.chapter10.struts1x.action;
 //省略
 public class HelloWorldAction3 extends Action {
@@ -10209,7 +10131,7 @@ public class HelloWorldAction3 extends Action {
 
 **3．1、在 Struts 配置文件（resources/chapter10/struts1x/struts-config.xml）中进行 Action 定义：**
 
-```
+```java
 <action path="/hello3" type="org.springframework.web.struts.DelegatingActionProxy">
     <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
 </action> 
@@ -10217,7 +10139,7 @@ public class HelloWorldAction3 extends Action {
 
 **3.2、在 Spring 配置文件（webapp/WEB-INF/hello-servlet.xml）中定义 Action 对应的 Bean：**
 
-```
+```java
 <bean name="/hello3" class="cn.javass.spring.chapter10.struts1x.action.HelloWorldAction3">
     <property name="message" ref="message"/>
 </bean> 
@@ -10236,7 +10158,7 @@ public class HelloWorldAction3 extends Action {
 
 **4.1、首先要替换掉 Struts 默认的 RequestProcessor，在 Struts 配置文件（resources/chapter10/struts1x/struts-config.xml）中添加如下配置：**
 
-```
+```java
 <controller>
     <set-property property="processorClass"
          value="org.springframework.web.struts.DelegatingRequestProcessor"/>
@@ -10245,7 +10167,7 @@ public class HelloWorldAction3 extends Action {
 
 **4．2、在 Struts 配置文件（resources/chapter10/struts1x/struts-config.xml）中进行 Action 定义：**
 
-```
+```java
 <action path="/hello4" type=" cn.javass.spring.chapter10.struts1x.action.HelloWorldAction3">
     <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
 </action> 
@@ -10253,7 +10175,7 @@ public class HelloWorldAction3 extends Action {
 
 或更简单形式：
 
-```
+```java
 <action path="/hello4">
     <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
 </action> 
@@ -10261,7 +10183,7 @@ public class HelloWorldAction3 extends Action {
 
 **4.3、在 Spring 配置文件（webapp/WEB-INF/hello-servlet.xml）中定义 Action 对应的 Bean：**
 
-```
+```java
 <bean name="/hello4" class="cn.javass.spring.chapter10.struts1x.action.HelloWorldAction3">
     <property name="message" ref="message"/>
 </bean> 
@@ -10286,8 +10208,6 @@ Struts1x 与 Spring 集成到此就完成了，在集成时需要注意一下几
 *   当有多个 Struts 模块时建议在通用配置部分配置通用部分，因为通用配置在正在 Web 容器中是可共享的，而在各个 Struts 模块配置文件中配置是不可共享的，因此不推荐直接使用 ContextLoaderPlugin 中为每个模块都指定所有配置，因为**ContextLoaderPlugin 加载的 Spring 容器只对当前的 ActionServlet 有效对其他 ActionServlet 无效，**如图 10-4 所示。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/2511.html`](http://sishuok.com/forum/blogPost/list/2511.html)】
-
-# 【第十章】集成其它 Web 框架 之 10.3 集成 Struts2.x ——跟我学 spring3
 
 # 【第十章】集成其它 Web 框架 之 10.3 集成 Struts2.x ——跟我学 spring3
 
@@ -10322,7 +10242,7 @@ Struts2 提供一个默认的 ObjectFactory 接口实现 StrutsSpringObjectFacto
 
 **1、Struts2.x 的 Action 实现：**
 
-```
+```java
  package cn.javass.spring.chapter10.struts2x.action;
 import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -10345,7 +10265,7 @@ public class HelloWorldAction extends ActionSupport {
 
 在此配置文件中定义我们使用的“message”Bean；
 
-```
+```java
 <bean id="message" class="java.lang.String">
     <constructor-arg index="0" value="Hello Spring"/>
 </bean> 
@@ -10353,7 +10273,7 @@ public class HelloWorldAction extends ActionSupport {
 
 **4、Spring Action 配置文件定义（resources/chapter10/hello-servlet.xml）：**
 
-```
+```java
 <bean name="helloAction" class="cn.javass.spring.chapter10.struts2x.action.HelloWorldAction" scope="prototype">
     <property name="message" ref="message"/>
 </bean> 
@@ -10363,7 +10283,7 @@ Struts2 的 Action 在 Spring 中配置，而且应该是 prototype，因为 Str
 
 **5、struts2 配置文件定义（resources/chapter10/struts2x/struts.xml）：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
@@ -10386,7 +10306,7 @@ Struts2 的 Action 在 Spring 中配置，而且应该是 prototype，因为 Str
 
 **6.1、由于 Struts2 只能使用通用配置，因此需要在通用配置中加入 Spring Action 配置文件（chapter10/struts2x/struts2x-servlet.xml）：**
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -10400,7 +10320,7 @@ Struts2 只能在通用配置中指定所有 Spring 配置文件，并没有如 
 
 **6.2、Strut2 前端控制器定义，在 web.xml 中添加如下配置：**
 
-```
+```java
 <!-- Struts2.x 前端控制器配置开始   -->
 <filter>
     <filter-name>struts2x</filter-name>
@@ -10438,13 +10358,13 @@ Struts 配置文件默认加载“struts-default.xml,struts-plugin.xml, struts.x
 
 在 struts.xml 中指定：
 
-```
+```java
 <constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory"/> 
 ```
 
 **或在 struts.properties 文件（webapp/WEB-INF/classes/）中：**
 
-```
+```java
 struts.objectFactory=org.apache.struts2.spring.StrutsSpringObjectFactory 
 ```
 
@@ -10463,8 +10383,6 @@ StrutsSpringObjectFactory 将根据 Struts2 配置文件中的<action class=”�
 图 10-5 Strut2 与 Spring 集成
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2512.html`](http://sishuok.com/forum/blogPost/list/0/2512.html#7237)】
-
-# 【第十章】集成其它 Web 框架 之 10.4 集成 JSF ——跟我学 spring3
 
 # 【第十章】集成其它 Web 框架 之 10.4 集成 JSF ——跟我学 spring3
 
@@ -10507,7 +10425,7 @@ Spring 集成 JSF 有三种种方式：
 
 类似于 Struts1x 中的最简单集成，Spring 集成 JSF 也提供类似的工具类 FacesContextUtils，使用如下方式获取 WebApplicationContext：
 
-```
+```java
 WebApplicationContext ctx = FacesContextUtils.getWebApplicationContext(FacesContext.getCurrentInstance()); 
 ```
 
@@ -10524,7 +10442,7 @@ Spring 提供 javax.faces.el.VariableResolver 的两种实现 DelegatingVariable
 
 **1、JSF 管理 Bean（Managed Bean）实现：**
 
-```
+```java
 package cn.javass.spring.chapter10.jsf;
 public class HelloBean {
     private String message;
@@ -10539,7 +10457,7 @@ public class HelloBean {
 
 **2、JSF 配置文件定义（resources/chapter10/jsf/faces-config.xml）：**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="1.2" 
 
@@ -10570,7 +10488,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 
 **4、JSP 页面定义（webapp/hello-jsf.jsp）：**
 
-```
+```java
  <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
@@ -10591,7 +10509,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 
 **指定 JSF 配置文件位置，**通过 javax.faces.CONFIG_FILES 上下文初始化参数指定 JSF 配置文件位置，多个可用“，”分割，如果不指定该参数则默认加载的配置文件为“/WEB-INF/ faces-config.xml”：
 
-```
+```java
 <!-- JSF 配置文件开始 -->
 <context-param>
     <param-name>javax.faces.CONFIG_FILES</param-name>
@@ -10604,7 +10522,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 
 **前端控制器定义：**使用 FacesServlet 作为 JSF 的前端控制器，其拦截以“.jsf”结尾的 HTTP 请求：
 
-```
+```java
 <!-- jsf 前端控制器配置开始   -->
 <servlet>
     <servlet-name>jsf</servlet-name>
@@ -10643,7 +10561,7 @@ JSF1.2 之前，JSP 和 JSF 各个使用自己的一套表达式语言（EL Lang
 
 将如下配置
 
-```
+```java
 <variable-resolver>
     org.springframework.web.jsf.DelegatingVariableResolver
 </variable-resolver> 
@@ -10651,7 +10569,7 @@ JSF1.2 之前，JSP 和 JSF 各个使用自己的一套表达式语言（EL Lang
 
 修改为：
 
-```
+```java
 <el-resolver>
 org.springframework.web.jsf.el.SpringBeanFacesELResolver
 </el-resolver> 
@@ -10662,8 +10580,6 @@ org.springframework.web.jsf.el.SpringBeanFacesELResolver
 自此 JSF 与 Spring 集成就算结束了，是不是也很简单。
 
 原创内容，转载请注明出处【[`sishuok.com/forum/blogPost/list/0/2513.html`](http://sishuok.com/forum/blogPost/list/0/2513.html#7238)】
-
-# 【第十一章】 SSH 集成开发积分商城 之 11.1 概述 ——跟我学 spring3
 
 # 【第十一章】 SSH 集成开发积分商城 之 11.1 概述 ——跟我学 spring3
 
@@ -10841,8 +10757,6 @@ jar 包终于准备完了，是不是很头疼啊，在此推荐使用 maven 进
 
 # 【第十一章】 SSH 集成开发积分商城 之 11.2 实现通用层 ——跟我学 spring3
 
-# 【第十一章】 SSH 集成开发积分商城 之 11.2 实现通用层 ——跟我学 spring3
-
 ## 11.2 实现通用层
 
 ### 11.2.1 功能概述
@@ -10861,7 +10775,7 @@ jar 包终于准备完了，是不是很头疼啊，在此推荐使用 maven 进
 
 如默认分页大小如果在多处硬编码定义为 10，突然发生变故需要将默认分页大小 10 为 5，怎么办？如果当初我们提取出来放在一个通用的常量类中是不是只有一处变动。
 
-```
+```java
 package cn.javass.commons;
 public class Constants {
     public static final int DEFAULT_PAGE_SIZE = 5;  //默认分页大小
@@ -10878,7 +10792,7 @@ public class Constants {
 
 **1、 分页对象定义，用于存放是否有上一页或下一页、当前页记录、当前页码、分页上下文，该对象是分页中必不可少对象，一般在业务逻辑层组装 Page 对象，然后传送到表现层展示，然后通用的分页标签使用该对象来决定如何显示分页：**
 
-```
+```java
 package cn.javass.commons.pagination;
 import java.util.Collections;
 import java.util.List;
@@ -10917,7 +10831,7 @@ public class Page<E> {/** 表示分页中的一页。*/
 
 **1、通用数据访问层接口定义**
 
-```
+```java
 package cn.javass.commons.dao;
 import java.io.Serializable;
 import java.util.List;
@@ -10944,7 +10858,7 @@ public interface IBaseDao<M extends Serializable, PK extends Serializable> {
 
 注意我们为什么把实现生成 HQL 时放到 init 方法中而不是构造器中呢？因为 SessionFactory 是通过 setter 注入，setter 注入晚于构造器注入，因此在构造器中使用 SessionFactory 会是 null，因此放到 init 方法中，并在 Spring 配置文件中指定初始化方法为 init 来完成生成 HQL。
 
-```
+```java
 package cn.javass.commons.dao.hibernate;
 //为节省篇幅省略 import
 public abstract class BaseHibernateDao<M extends Serializable, PK extends Serializable> extends HibernateDaoSupport implements IBaseDao<M, PK> {
@@ -11060,7 +10974,7 @@ public abstract class BaseHibernateDao<M extends Serializable, PK extends Serial
 
 **1、通用业务逻辑层接口定义**
 
-```
+```java
 package cn.javass.commons.service;
 //由于篇幅问题省略 import
 public interface IBaseService<M extends Serializable, PK extends Serializable> {
@@ -11083,7 +10997,7 @@ public interface IBaseService<M extends Serializable, PK extends Serializable> {
 
 通过通用的 setDao 方法注入通用 DAO 实现，在各 Service 实现时可以通过强制转型获取各转型后的 DAO。
 
-```
+```java
 package cn.javass.commons.service.impl;
 //由于篇幅问题省略 import
 public abstract class BaseServiceImpl<M extends Serializable, PK extends Serializable> implements IBaseService<M, PK> {
@@ -11147,7 +11061,7 @@ Struts2 常见规约编程：
 
 **1、通用表现层 Action 实现：**
 
-```
+```java
 package cn.javass.commons.web.action;
 import cn.javass.commons.Constants;
 //省略 import
@@ -11180,7 +11094,7 @@ public class BaseAction extends ActionSupport {
 
 此处实现比较简单，实际中可能包含如菜单等信息，对于可变部分使用请求参数来获取，从而保证了可变与不可变分离，如标题使用“${param.title}”来获取。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11195,7 +11109,7 @@ public class BaseAction extends ActionSupport {
 
 此处比较简单，实际中可能包含公司版权等信息。
 
-```
+```java
 </body>
 </html> 
 ```
@@ -11204,7 +11118,7 @@ public class BaseAction extends ActionSupport {
 
 在一处定义所有标签，避免标签定义使代码变得凌乱，且如果有多个页面需要新增或删除标签即费事又费力。
 
-```
+```java
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@taglib prefix="s" uri="/struts-tags" % 
 ```
@@ -11213,7 +11127,7 @@ public class BaseAction extends ActionSupport {
 
 当系统遇到错误或异常时应该跳到该页面来显示统一的错误信息并可能在该页保存异常信息。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="inc/header.jsp"/>
 失败或遇到异常！
@@ -11224,7 +11138,7 @@ public class BaseAction extends ActionSupport {
 
 对于执行成功的操作可以使用通用的页面表示，可变部分同样可以使用可变的请求参数传入。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="inc/header.jsp"/>
 成功！
@@ -11235,7 +11149,7 @@ public class BaseAction extends ActionSupport {
 
 用于设置当前 web 项目的上下文路径，即可以在 JSP 页面使用“${ctx}”获取当前上下文路径。
 
-```
+```java
 package cn.javass.commons.web.filter;
 //省略 import
 /** 用户设置当前 web 环境上下文，用于方便如 JSP 页面使用 */
@@ -11265,7 +11179,7 @@ throws IOException, ServletException {
 
 定义如配置元数据替换 Bean、数据源 Bean 等通用的 Bean。
 
-```
+```java
 <bean class=
 "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 <property name="locations">
@@ -11298,7 +11212,7 @@ throws IOException, ServletException {
 
 定义替换配置元数据键值对用于替换 Spring 配置文件中可变的配置元数据。
 
-```
+```java
 #数据库连接池属性
 proxool.maxConnCount=10
 proxool.minConnCount=5
@@ -11317,7 +11231,7 @@ db.password=
 
 在此还定义了“custom-default”包继承 struts-default 包，且是抽象的，在包里定义了如全局结果集全局异常映射。
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
@@ -11343,7 +11257,7 @@ db.password=
 
 可以配置基本的 log4j 配置文件然后在其他地方通过拷贝来定制需要的日志记录配置。
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration >
@@ -11366,7 +11280,7 @@ db.password=
 
 **定义如通用的集成配置、设置 web 环境上下文过滤器、字符过滤器（防止乱码）、通用的 Web 框架拦截器（如 Struts2 的）等等，从而可以通过拷贝复用。**
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.5"    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <!-- 通用配置开始   -->
@@ -11430,8 +11344,6 @@ db.password=
 
 # 【第十一章】 SSH 集成开发积分商城 之 11.3 实现积分商城层 ——跟我学 spring3
 
-# 【第十一章】 SSH 集成开发积分商城 之 11.3 实现积分商城层 ——跟我学 spring3
-
 ## 11.3 实现积分商城层
 
 ### 11.3.1 概述
@@ -11442,7 +11354,7 @@ db.password=
 
 **1、商品表，**定义了如商品名称、简介、原需积分、现需积分等，其中是否发布表示只有发布（true）了的商品才会在前台删除，是否已删除表示不会物理删除，商品不应该物理删除，而是逻辑删除，版本属性用于防止并发更新。
 
-```
+```java
 package cn.javass.point.model;
 /** 商品表 */
 @Entity
@@ -11479,7 +11391,7 @@ public class GoodsModel implements java.io.Serializable {
 
 **2、商品兑换码表，**定义了兑换码、兑换码所属商品（兑换码和商品直接是多对一关系）、购买人、购买时间、是否已经购买（防止一个兑换码多个用户兑换）、版本。
 
-```
+```java
 package cn.javass.point.model;
 import java.util.Date;
 //省略部分 import
@@ -11523,7 +11435,7 @@ public class GoodsCodeModel implements java.io.Serializable {
 
 **4、 创建数据库及表结构的 SQL 语句文件（sql/ pointShop_schema.sql）：**
 
-```
+```java
 CREATE DATABASE IF NOT EXISTS `point_shop` 
 DEFAULT CHARACTER SET 'utf8';
 USE `point_shop`;
@@ -11585,7 +11497,7 @@ Mysql 数据库引擎应该使用 InnoDB，如果使用 MyISM 将不支持事务
 
 商品及商品兑换码 DAO 接口定义直接继承 IBaseDao，无需在这些接口中定义重复的 CRUD 方法了，并通过泛型指定数据模型类及主键类型。
 
-```
+```java
 package cn.javass.point.dao;
 //省略 import
 /** 商品模型对象的 DAO 接口 */
@@ -11597,7 +11509,7 @@ public interface IGoodsDao extends IBaseDao<GoodsModel, Integer> {
 } 
 ```
 
-```
+```java
 package cn.javass.point.dao;
 //省略 import
 /** 商品兑换码模型对象的 DAO 接口 */
@@ -11615,7 +11527,7 @@ public interface IGoodsCodeDao extends IBaseDao<GoodsCodeModel, Integer> {
 
 DAO 接口实现定义都非常简单，对于 CRUD 实现直接从 BaseHibernateDao 继承即可，无需再定义重复的 CRUD 实现了，并通过泛型指定数据模型类及主键类型。
 
-```
+```java
 package cn.javass.point.dao.hibernate;
 //省略 import
 public class GoodsHibernateDao extends BaseHibernateDao<GoodsModel, Integer> implements IGoodsDao {
@@ -11647,7 +11559,7 @@ public class GoodsHibernateDao extends BaseHibernateDao<GoodsModel, Integer> imp
 } 
 ```
 
-```
+```java
 package cn.javass.point.dao.hibernate;
 //省略 import
 public class GoodsCodeHibernateDao extends 
@@ -11669,7 +11581,7 @@ BaseHibernateDao<GoodsCodeModel, Integer> implements IGoodsCodeDao {
 
 DAO 配置文件中定义 Hibernate 的 SessionFactory、事务管理器和 DAO 实现。
 
-```
+```java
 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
     <property name="dataSource" ref="dataSource"/><!-- 1、指定数据源 -->
     <property name="annotatedClasses">           <!-- 2、指定注解类 -->
@@ -11692,7 +11604,7 @@ DAO 配置文件中定义 Hibernate 的 SessionFactory、事务管理器和 DAO 
 </bean> 
 ```
 
-```
+```java
 <bean id="abstractDao" abstract="true" init-method="init">
     <property name="sessionFactory" ref="sessionFactory"/>
 </bean>   
@@ -11702,7 +11614,7 @@ DAO 配置文件中定义 Hibernate 的 SessionFactory、事务管理器和 DAO 
 
 **4、修改替换配置元数据的资源文件（resources/resources.properties），添加 Hibernate 属性相关：**
 
-```
+```java
  #Hibernate 属性
 hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 hibernate.hbm2ddl.auto=none
@@ -11730,7 +11642,7 @@ hibernate.format_sql=true
 
 接口定义时，对于 CRUD 直接继承 IBaseService 即可，无需再在这些接口中定义重复的 CRUD 方法了，并通过泛型指定数据模型类及数据模型的主键。
 
-```
+```java
 package cn.javass.point.service;
 //省略 import
 public interface IGoodsService extends IBaseService<GoodsModel, Integer> {
@@ -11739,7 +11651,7 @@ public interface IGoodsService extends IBaseService<GoodsModel, Integer> {
 } 
 ```
 
-```
+```java
 package cn.javass.point.service;
 //省略 import
 public interface IGoodsCodeService extends IBaseService<GoodsCodeModel, Integer> {
@@ -11754,7 +11666,7 @@ public interface IGoodsCodeService extends IBaseService<GoodsCodeModel, Integer>
 
 **2、NotCodeException 异常定义，表示指定商品的兑换码已经全部被兑换了，没有剩余的兑换码了：**
 
-```
+```java
 package cn.javass.point.exception;
 /** 购买失败异常,表示没有足够的兑换码 */
 public class NotCodeException extends RuntimeException {
@@ -11767,7 +11679,7 @@ NotCodeException 异常类实现 RuntimeException，当需要更多信息时可�
 
 接口实现时，CRUD 实现直接从 BaseServcice 继承即可，无需再在这些专有实现中定义重复的 CRUD 实现了，并通过泛型指定数据模型类及数据模型的主键。
 
-```
+```java
 package cn.javass.point.service.impl;
 //省略 import
 public class GoodsServiceImpl extends BaseServiceImpl<GoodsModel, Integer> implements IGoodsService {
@@ -11783,7 +11695,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<GoodsModel, Integer> imple
 } 
 ```
 
-```
+```java
 package cn.javass.point.service.impl;
 //省略 import
 public class GoodsCodeServiceImpl extends BaseServiceImpl<GoodsCodeModel, Integer> implements IGoodsCodeService {
@@ -11842,7 +11754,7 @@ save 方法和 buy 方法实现并不是最优的，save 方法中如果兑换�
 
 Service 层配置文件定义了事务和 Service 实现。
 
-```
+```java
 <tx:advice id="txAdvice" transaction-manager="txManager">
 <tx:attributes>
 <tx:method name="save*" propagation="REQUIRED" />
@@ -11861,7 +11773,7 @@ Service 层配置文件定义了事务和 Service 实现。
 </tx:advice> 
 ```
 
-```
+```java
 <aop:config>
     <aop:pointcut id="txPointcut" expression="execution(* cn.javass.point.service.*.*(..))" />
     <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
@@ -11909,7 +11821,7 @@ Service 层配置文件定义了事务和 Service 实现。
 *   可以在 Struts 配置文件中使用{1}访问第一个通配符匹配的结果，以此类推；
 *   Reuslt 也采用规约编程，即只有符合规律的放置 jsp 文件才会匹配到，如 Result 为“/WEB-INF/jsp/admin/{1}/list.jsp”，而 URL 为/goods/list.action 结果将为“/WEB-INF/jsp/admin/goods/list.jsp”。
 
-```
+```java
 <package name="admin" extends="custom-default" namespace="/admin">
         <action name="*/*" class="/admin/{1}Action" method="{2}">
            <result name="redirect" type="redirect">/admin/{1}/list.action</result>
@@ -11923,7 +11835,7 @@ Service 层配置文件定义了事务和 Service 实现。
 
 如“/admin/goods/list.action”将调用 cn.javass.point.web.admin.action.GoodsAction 的 list 方法。
 
-```
+```java
 <package name="front" extends="custom-default">
         <action name="*/*" class="/front/{1}Action" method="{2}">
            <result name="redirect" type="redirect">/{1}/list.action</result>
@@ -11938,7 +11850,7 @@ Service 层配置文件定义了事务和 Service 实现。
 
 **1.3、web.xml 配置：将 Spring 配置文件加上；**
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -11957,7 +11869,7 @@ Service 层配置文件定义了事务和 Service 实现。
 
 **2.1、Action 实现**
 
-```
+```java
 package cn.javass.point.web.admin.action;
 //省略 import
 public class GoodsAction extends BaseAction {
@@ -11986,7 +11898,7 @@ public class GoodsAction extends BaseAction {
 
 **2.2、Spring 配置文件定义（resources/cn/javass/web/pointShop-admin-servlet.xml）：**
 
-```
+```java
 <bean name="/admin/goodsAction" class="cn.javass.point.web.admin.action.GoodsAction" scope="prototype">
     <property name="goodsService" ref="goodsService"/>
 </bean> 
@@ -11996,7 +11908,7 @@ public class GoodsAction extends BaseAction {
 
 查询所有商品，通过迭代“page.items”（Page 对象的 items 属性中存放着分页列表数据）来显示商品列表，在最后应该有分页标签（请参考源代码，示例无），如类似于“<my:page url="${ctx}/admin/goods/list.action"/>”来定义分页元素。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12041,7 +11953,7 @@ public class GoodsAction extends BaseAction {
 
 表单提交到/admin/goods/add.action 即 cn.javass.point.web.admin.action.GoodsAction 的 add 方法。并将参数绑定到 goods 属性上，在此我们没有进行数据验证，在实际项目中页面中和 Action 中都要进行数据验证。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12092,7 +12004,7 @@ public class GoodsAction extends BaseAction {
 
 **3.1、Action 实现**
 
-```
+```java
 package cn.javass.point.web.admin.action;
 //省略 import
 public class GoodsCodeAction extends BaseAction {
@@ -12132,7 +12044,7 @@ public class GoodsCodeAction extends BaseAction {
 
 **3.2、Spring 配置文件定义（resources/cn/javass/web/pointShop-admin-servlet.xml）：**
 
-```
+```java
 <bean name="/admin/goodsCodeAction"
 class="cn.javass.point.web.admin.action.GoodsCodeAction" scope="prototype">
 <property name="goodsService" ref="goodsService"/>
@@ -12144,7 +12056,7 @@ class="cn.javass.point.web.admin.action.GoodsCodeAction" scope="prototype">
 
 商品兑换码列表页面时将展示相应商品的兑换码。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12187,7 +12099,7 @@ class="cn.javass.point.web.admin.action.GoodsCodeAction" scope="prototype">
 
 用于新增指定商品的兑换码。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12225,7 +12137,7 @@ class="cn.javass.point.web.admin.action.GoodsCodeAction" scope="prototype">
 
 **4.1、Action 实现**
 
-```
+```java
 package cn.javass.point.web.front.action;
 //省略 import
 public class GoodsAction extends BaseAction {
@@ -12263,7 +12175,7 @@ public class GoodsAction extends BaseAction {
 
 4.2**、Spring 配置文件定义（resources/cn/javass/web/pointShop-front-servlet.xml）：**
 
-```
+```java
 <bean name="/front/goodsAction" class="cn.javass.point.web.front.action.GoodsAction" scope="prototype">
     <property name="goodsService" ref="goodsService"/>
     <property name="goodsCodeService" ref="goodsCodeService"/>
@@ -12272,7 +12184,7 @@ public class GoodsAction extends BaseAction {
 
 **4.3、JSP 实现前台商品展示及购买页面（WEB-INF/jsp/ goods/list.jsp）**
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12299,7 +12211,7 @@ public class GoodsAction extends BaseAction {
 
 购买成功将通过“<s:actionmessage/>”标签显示成功信息并将兑换码显示给用户，购买失败将通过“<s:actionerror/>”标签提示如积分不足或兑换码没有了等错误信息。
 
-```
+```java
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../../common/inc/tld.jsp"%>
 <jsp:include page="../../common/inc/header.jsp">
@@ -12325,8 +12237,6 @@ public class GoodsAction extends BaseAction {
 我们整个开发过程是首先抽象和提取通用的模块和代码，这样可以复用减少开发时间，其次是基于通用层开发不可预测部分（即可变部分），因为每个项目的功能是不一样的。在开发过程中还集中将重复内容提取到一处这样方便以后修改。
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/2516.html`](http://sishuok.com/forum/blogPost/list/2516.html#7241)】
-
-# 【第十二章】零配置 之 12.1 概述 ——跟我学 spring3
 
 # 【第十二章】零配置 之 12.1 概述 ——跟我学 spring3
 
@@ -12371,8 +12281,6 @@ Spring 基于注解的配置采用约定注解含义来减少配置，包括注�
 
 # 【第十二章】零配置 之 12.2 注解实现 Bean 依赖注入 ——跟我学 spring3
 
-# 【第十二章】零配置 之 12.2 注解实现 Bean 依赖注入 ——跟我学 spring3
-
 ## 12.2 注解实现 Bean 依赖注入
 
 ### 12.2.1 概述
@@ -12388,7 +12296,7 @@ Spring3 的基于注解实现 Bean 依赖注入支持如下三种注解：
 
 这三种类型的注解在 Spring3 中都支持，类似于注解事务支持，想要使用这些注解需要在 Spring 容器中开启注解驱动支持，即使用如下配置方式开启：
 
-```
+```java
 <beans 
 
     xsi:schemaLocation=" http://www.springframework.org/schema/beans
@@ -12411,14 +12319,14 @@ Spring3 的基于注解实现 Bean 依赖注入支持如下三种注解：
 
 基于@Required 的依赖检查表示注解的 setter 方法必须，即必须通过在 XML 配置中配置 setter 注入，如果没有配置在容器启动时会抛出异常从而保证在运行时不会遇到空指针异常，@Required 只能放置在 setter 方法上，且通过 XML 配置的 setter 注入，可以使用如下方式来指定：
 
-```
+```java
 @Requried
 setter 方法 
 ```
 
 1、准备测试 Bean
 
-```
+```java
 package cn.javass.spring.chapter12;
 public class TestBean {
     private String message;
@@ -12434,7 +12342,7 @@ public class TestBean {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean" class="cn.javass.spring.chapter12.TestBean">
 <property name="message" ref="message"/>
 </bean>
@@ -12445,7 +12353,7 @@ public class TestBean {
 
 3、测试类和测试方法如下：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class DependencyInjectWithAnnotationTest {
@@ -12462,7 +12370,7 @@ public class DependencyInjectWithAnnotationTest {
 
 在 XML 配置文件中必须指定 setter 注入，否则在 Spring 容器启动时将抛出如下异常：
 
-```
+```java
 org.springframework.beans.factory.BeanCreationException:
 Error creating bean with name 'testBean' defined in class path resource [chapter12/dependecyInjectWithAnnotation.xml]: Initialization of bean failed;
 nested exception is org.springframework.beans.factory.BeanInitializationException: Property 'message' is required for bean 'testBean' 
@@ -12474,7 +12382,7 @@ nested exception is org.springframework.beans.factory.BeanInitializationExceptio
 
 基于@Autowired 的自动装配，默认是根据类型注入，可以用于构造器、字段、方法注入，使用方式如下：
 
-```
+```java
 @Autowired(required=true)
 构造器、字段、方法 
 ```
@@ -12485,7 +12393,7 @@ nested exception is org.springframework.beans.factory.BeanInitializationExceptio
 
 1、准备测试 Bean，在构造器上添加@AutoWired 注解：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import org.springframework.beans.factory.annotation.Autowired;
 public class TestBean11 {
@@ -12500,13 +12408,13 @@ public class TestBean11 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean11" class="cn.javass.spring.chapter12.TestBean11"/> 
 ```
 
 3、测试类如下：
 
-```
+```java
 @Test
 public void testAutowiredForConstructor() {
     TestBean11 testBean11 = ctx.getBean("testBean11", TestBean11.class);
@@ -12520,7 +12428,7 @@ public void testAutowiredForConstructor() {
 
 1、准备测试 Bean，在字段上添加@AutoWired 注解：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import org.springframework.beans.factory.annotation.Autowired;
 public class TestBean12 {
@@ -12532,13 +12440,13 @@ public class TestBean12 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean12" class="cn.javass.spring.chapter12.TestBean12"/> 
 ```
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testAutowiredForField() {
     TestBean12 testBean12 = ctx.getBean("testBean12", TestBean12.class);
@@ -12552,7 +12460,7 @@ public void testAutowiredForField() {
 
 1、准备测试 Bean，在方法上添加@AutoWired 注解：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import org.springframework.beans.factory.annotation.Autowired;
 public class TestBean13 {
@@ -12567,7 +12475,7 @@ public class TestBean13 {
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class TestBean14 {
@@ -12584,7 +12492,7 @@ public class TestBean14 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean13" class="cn.javass.spring.chapter12.TestBean13"/>
 <bean id="testBean14" class="cn.javass.spring.chapter12.TestBean14"/>
 <bean id="list" class="java.util.ArrayList">
@@ -12599,7 +12507,7 @@ public class TestBean14 {
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testAutowiredForMethod() {
     TestBean13 testBean13 = ctx.getBean("testBean13", TestBean13.class);
@@ -12619,21 +12527,21 @@ public void testAutowiredForMethod() {
 
 用于注入 SpEL 表达式，可以放置在字段方法或参数上，使用方式如下：
 
-```
+```java
 @Value(value = "SpEL 表达式")
 字段、方法、参数 
 ```
 
 1、可以在类字段上使用该注解：
 
-```
+```java
 @Value(value = "#{message}")
 private String message; 
 ```
 
 2、可以放置在带@Autowired 注解的方法的参数上：
 
-```
+```java
 @Autowired
 public void initMessage(@Value(value = "#{message}#{message}") String message) {
     this.message = message;
@@ -12642,7 +12550,7 @@ public void initMessage(@Value(value = "#{message}#{message}") String message) {
 
 3、还可以放置在带@Autowired 注解的构造器的参数上：
 
-```
+```java
 @Autowired
 private TestBean43(@Value(value = "#{message}#{message}") String message) {
     this.message = message;
@@ -12657,14 +12565,14 @@ private TestBean43(@Value(value = "#{message}#{message}") String message) {
 
 @Qualifier 限定描述符除了能根据名字进行注入，但能进行更细粒度的控制如何选择候选者，具体使用方式如下：
 
-```
+```java
 @Qualifier(value = "限定标识符")
 字段、方法、参数 
 ```
 
 **（1）、根据基于 XML 配置中的<qualifier>标签指定的名字进行注入，使用如下方式指定名称：**
 
-```
+```java
 <qualifier  type="org.springframework.beans.factory.annotation.Qualifier"  value="限定标识符"/> 
 ```
 
@@ -12672,7 +12580,7 @@ private TestBean43(@Value(value = "#{message}#{message}") String message) {
 
 1、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12693,13 +12601,13 @@ public class TestBean31 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean31" class="cn.javass.spring.chapter12.TestBean31"/> 
 ```
 
 我们使用@Qualifier("mysqlDataSource")来指定候选 Bean 的限定标识符，我们需要在配置文件中使用<qualifier>标签来指定候选 Bean 的限定标识符“mysqlDataSource”：
 
-```
+```java
 <bean id="mysqlDataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
      <qualifier value="mysqlDataSource"/>
 </bean> 
@@ -12707,7 +12615,7 @@ public class TestBean31 {
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testQualifierInject1() {
     TestBean31 testBean31 = ctx.getBean("testBean31", TestBean31.class);
@@ -12729,7 +12637,7 @@ public void testQualifierInject1() {
 
 1、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class TestBean32 {
@@ -12749,14 +12657,14 @@ public class TestBean32 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean32" class="cn.javass.spring.chapter12.TestBean32"/>
 <bean id="oracleDataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource"/> 
 ```
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testQualifierInject2() {
     TestBean32 testBean32 = ctx.getBean("testBean32", TestBean32.class);
@@ -12774,7 +12682,7 @@ public void testQualifierInject2() {
 
 1、扩展@Qualifier 限定描述符注解来分别表示 Mysql 和 Oracle 数据源
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 import org.springframework.beans.factory.annotation.Qualifier;
 /** 表示注入 Mysql 相关 */
@@ -12785,7 +12693,7 @@ public @interface Mysql {
 } 
 ```
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 import org.springframework.beans.factory.annotation.Qualifier;
 /** 表示注入 Oracle 相关 */
@@ -12798,7 +12706,7 @@ public @interface Oracle {
 
 2、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class TestBean33 {
@@ -12820,13 +12728,13 @@ public class TestBean33 {
 
 3、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean33" class="cn.javass.spring.chapter12.TestBean33"/> 
 ```
 
 4、在 Spring 修改定义的两个数据源：
 
-```
+```java
 <bean id="mysqlDataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
      <qualifier value="mysqlDataSource"/>
      <qualifier type="cn.javass.spring.chapter12.qualifier.Mysql"/>
@@ -12838,7 +12746,7 @@ public class TestBean33 {
 
 5、测试方法如下：
 
-```
+```java
 @Test
 public void testQualifierInject3() {
     TestBean33 testBean33 = ctx.getBean("testBean33", TestBean33.class);
@@ -12853,7 +12761,7 @@ public void testQualifierInject3() {
 
 1、首先定义数据库类型：
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 public enum DataBase {
     ORACLE, MYSQL;
@@ -12862,7 +12770,7 @@ public enum DataBase {
 
 2、其次扩展@Qualifier 限定描述符注解
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 //省略 import
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER})
@@ -12876,7 +12784,7 @@ public @interface DataSourceType {
 
 3、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12900,13 +12808,13 @@ public class TestBean34 {
 
 4、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean34" class="cn.javass.spring.chapter12.TestBean34"/> 
 ```
 
 5、在 Spring 修改定义的两个数据源：
 
-```
+```java
 <bean id="mysqlDataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <qualifier value="mysqlDataSource"/>
     <qualifier type="cn.javass.spring.chapter12.qualifier.Mysql"/>
@@ -12926,7 +12834,7 @@ public class TestBean34 {
 
 6、测试方法如下：
 
-```
+```java
 @Test
 public void testQualifierInject3() {
     TestBean34 testBean34 = ctx.getBean("testBean34", TestBean34.class);
@@ -12941,7 +12849,7 @@ public void testQualifierInject3() {
 
 1、首先使用如下方式定义一个自定义注解限定描述符：
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 //省略 import
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.PARAMETER})
@@ -12953,7 +12861,7 @@ public @interface CustomQualifier {
 
 2、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class TestBean35 {
@@ -12970,13 +12878,13 @@ public class TestBean35 {
 
 3、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean35" class="cn.javass.spring.chapter12.TestBean35"/> 
 ```
 
 4、然后在 Spring 配置文件中注册 CustomQualifier 自定义注解限定描述符，只有注册了 Spring 才能识别：
 
-```
+```java
 <bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
     <property name="customQualifierTypes">
         <set>
@@ -12988,7 +12896,7 @@ public class TestBean35 {
 
 5、测试方法如下：
 
-```
+```java
 @Test
 public void testQualifierInject5() {
     TestBean35 testBean35 = ctx.getBean("testBean35", TestBean35.class);
@@ -13008,14 +12916,14 @@ public void testQualifierInject5() {
 
 **一、@Resource：自动装配，**默认根据类型装配，如果指定 name 属性将根据名字装配，可以使用如下方式来指定：
 
-```
+```java
 @Resource(name = "标识符")
 字段或 setter 方法 
 ```
 
 1、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import javax.annotation.Resource;
 public class TestBean41 {
@@ -13027,13 +12935,13 @@ public class TestBean41 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean41" class="cn.javass.spring.chapter12.TestBean41"/> 
 ```
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testResourceInject1() {
     TestBean41 testBean41 = ctx.getBean("testBean41", TestBean41.class);
@@ -13053,7 +12961,7 @@ public void testResourceInject1() {
 
 1、在测试类 TestBean41 中添加如下代码：
 
-```
+```java
 @PostConstruct
 public void init() {
     System.out.println("==========init");
@@ -13066,7 +12974,7 @@ public void destroy() {
 
 2、修改测试方法如下：
 
-```
+```java
 @Test
 public void resourceInjectTest1() {
     ((ClassPathXmlApplicationContext) ctx).registerShutdownHook();
@@ -13081,7 +12989,7 @@ public void resourceInjectTest1() {
 
 在测试之前需要准备 JSR-330 注解所需要的 jar 包，到 spring-framework-3.0.5.RELEASE-dependencies.zip 中拷贝如下 jar 包到类路径：
 
-```
+```java
 com.springsource.javax.inject-1.0.0.jar 
 ```
 
@@ -13093,7 +13001,7 @@ com.springsource.javax.inject-1.0.0.jar
 
 1、首先扩展@Qualifier 限定描述符注解来表示 Mysql 数据源
 
-```
+```java
 package cn.javass.spring.chapter12.qualifier;
 //省略部分 import
 import javax.inject.Qualifier;
@@ -13106,7 +13014,7 @@ public @interface JSR330Mysql {
 
 2、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13129,13 +13037,13 @@ public class TestBean51 {
 
 3、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <bean id="testBean51" class="cn.javass.spring.chapter12.TestBean51"/> 
 ```
 
 4、在 Spring 修改定义的 mysqlDataSourceBean 数据源：
 
-```
+```java
 <bean id="mysqlDataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
          <qualifier value="mysqlDataSource"/>
          <qualifier type="cn.javass.spring.chapter12.qualifier.Mysql"/>
@@ -13149,7 +13057,7 @@ public class TestBean51 {
 
 5、测试方法如下：
 
-```
+```java
 @Test
 public void testInject() {
     TestBean51 testBean51 = ctx.getBean("testBean51", TestBean51.class);
@@ -13172,7 +13080,7 @@ public void testInject() {
 
 1、准备测试 Bean：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class TestBean61 {
@@ -13193,7 +13101,7 @@ public class TestBean61 {
 
 2、在 Spring 配置文件（chapter12/dependecyInjectWithAnnotation.xml）添加如下 Bean 配置：
 
-```
+```java
 <import resource="classpath:chapter7/applicationContext-resources.xml"/>
 <import resource="classpath:chapter8/applicationContext-jpa.xml"/>
 <bean id="testBean61" class="cn.javass.spring.chapter12.TestBean61"/> 
@@ -13203,7 +13111,7 @@ public class TestBean61 {
 
 3、测试方法如下：
 
-```
+```java
 @Test
 public void testJpaInject() {
     TestBean61 testBean61 = ctx.getBean("testBean61", TestBean61.class);
@@ -13220,8 +13128,6 @@ JPA 注解类似于@Resource 注解同样是先根据 unitName 属性去 JNDI �
 
 # 【第十二章】零配置 之 12.3 注解实现 Bean 定义 ——跟我学 spring3
 
-# 【第十二章】零配置 之 12.3 注解实现 Bean 定义 ——跟我学 spring3
-
 ## 12.3 注解实现 Bean 定义
 
 ### 12.3.1 概述
@@ -13230,7 +13136,7 @@ JPA 注解类似于@Resource 注解同样是先根据 unitName 属性去 JNDI �
 
 Spring 提供通过扫描类路径中的特殊注解类来自动注册 Bean 定义。同注解驱动事务一样需要开启自动扫描并注册 Bean 定义支持，使用方式如下（resources/chapter12/ componentDefinitionWithAnnotation.xml）：
 
-```
+```java
 <beans 
 
     xsi:schemaLocation="
@@ -13280,7 +13186,7 @@ Spring 基于注解实现 Bean 定义支持如下三种注解：
 
 **一、@Component：定义 Spring 管理 Bean，**使用方式如下：
 
-```
+```java
 @Component("标识符")
 POJO 类 
 ```
@@ -13289,7 +13195,7 @@ POJO 类
 
 1、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13308,7 +13214,7 @@ public class TestCompoment {
 
 3、定义测试类和测试方法：
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 public class ComponentDefinitionWithAnnotationTest {
@@ -13326,7 +13232,7 @@ public class ComponentDefinitionWithAnnotationTest {
 
 **@AspectJ 风格的切面可以通过@Compenent 注解标识其为 Spring 管理 Bean，而@Aspect 注解不能被 Spring 自动识别并注册为 Bean，必须通过@Component 注解来完成，示例如下：**
 
-```
+```java
 package cn.javass.spring.chapter12.aop;
 //省略 import
 @Component
@@ -13347,7 +13253,7 @@ public class TestAspect {
 
 1、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12.dao.hibernate;
 import org.springframework.stereotype.Repository;
 @Repository("testHibernateDao")
@@ -13360,7 +13266,7 @@ public class TestHibernateDaoImpl {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testDao() {
 TestHibernateDaoImpl dao =
@@ -13375,7 +13281,7 @@ Assert.assertNotNull(dao);
 
 1、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13396,7 +13302,7 @@ public class TestServiceImpl {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testService() {
     TestServiceImpl service = ctx.getBean("testService", TestServiceImpl.class);
@@ -13410,7 +13316,7 @@ public void testService() {
 
 1、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12.action;
 //省略 import
 @Controller
@@ -13428,7 +13334,7 @@ public class TestAction {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testWeb() {
     TestAction action = ctx.getBean("testAction", TestAction.class);
@@ -13446,7 +13352,7 @@ public void testWeb() {
 
 1、扩展@Component：
 
-```
+```java
 package cn.javass.spring.chapter12.stereotype;
 //省略 import
 @Target({ElementType.TYPE})
@@ -13462,7 +13368,7 @@ public @interface Cache{
 
 2、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12.cache;
 @Cache("cache")
 public class TestCache {
@@ -13474,7 +13380,7 @@ public class TestCache {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testCache() {
     TestCache cache = ctx.getBean("cache", TestCache.class);
@@ -13490,7 +13396,7 @@ public void testCache() {
 
 1、定义 javax.annotation.ManagedBean 注解类：
 
-```
+```java
 package javax.annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13507,7 +13413,7 @@ public @interface ManagedBean {
 
 2、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12;
 import javax.annotation.Resource;
 import org.springframework.context.ApplicationContext;
@@ -13525,7 +13431,7 @@ public class TestManagedBean {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testManagedBean() {
     TestManagedBean testManagedBean = ctx.getBean("managedBean", TestManagedBean.class);
@@ -13543,7 +13449,7 @@ public void testManagedBean() {
 
 1、定义测试 Bean 类:
 
-```
+```java
 package cn.javass.spring.chapter12;
 //省略 import
 @Named("namedBean")
@@ -13560,7 +13466,7 @@ public class TestNamedBean {
 
 3、定义测试方法：
 
-```
+```java
 @Test
 public void testNamedBean() {
 TestNamedBean testNamedBean =
@@ -13579,7 +13485,7 @@ TestNamedBean testNamedBean =
 
 前边的示例完全采用默认扫描设置，如果我们有几个组件不想被扫描并自动注册、我们想更改默认的 Bean 标识符生成策略该如何做呢？接下来让我们看一下如何细粒度的控制 Bean 定义扫描，具体定义如下：
 
-```
+```java
 <context:component-scan
         base-package=""
         resource-pattern="**/*.class"
@@ -13599,7 +13505,7 @@ TestNamedBean testNamedBean =
 
 默认情况下将自动过滤@Component、@ManagedBean、@Named 注解的类并将其注册为 Spring 管理 Bean，可以通过在<context:component-scan>标签中指定自定义过滤器将过滤到匹配条件的类注册为 Spring 管理 Bean，具体定义方式如下：
 
-```
+```java
 <context:include-filter type="aspectj" expression=""/>
 <context:exclude-filter type="regex" expression=""/> 
 ```
@@ -13613,26 +13519,26 @@ TestNamedBean testNamedBean =
 
 1、cn.javass.spring.chapter12.TestBean14 自动注册为 Spring 管理 Bean：
 
-```
+```java
 <context:include-filter type="assignable" expression="cn.javass.spring.chapter12.TestBean14"/> 
 ```
 
 2、把所有注解为 org.aspectj.lang.annotation.Aspect 自动注册为 Spring 管理 Bean：
 
-```
+```java
 <context:include-filter type="annotation"
 expression="org.aspectj.lang.annotation.Aspect"/> 
 ```
 
 3、将把匹配到正则表达式“cn.javass.spring.chapter12.TestBean2*”排除，不注册为 Spring 管理 Bean：
 
-```
+```java
 <context:exclude-filter type="regex" expression="cn\.javass\.spring\.chapter12\.TestBean2*"/> 
 ```
 
 4、将把匹配到 aspectj 表达式“cn.javass.spring.chapter12.TestBean3*”排除，不注册为 Spring 管理 Bean：
 
-```
+```java
 <context:exclude-filter type="aspectj" expression="cn.javass.spring.chapter12.TestBean3*"/> 
 ```
 
@@ -13642,7 +13548,7 @@ expression="org.aspectj.lang.annotation.Aspect"/>
 
 **1、@Lazy：**定义 Bean 将延迟初始化，使用方式如下：
 
-```
+```java
 @Component("component")
 @Lazy(true)
 public class TestCompoment {
@@ -13654,7 +13560,7 @@ public class TestCompoment {
 
 2、**@DependsOn：**定义 Bean 初始化及销毁时的顺序，使用方式如下：
 
-```
+```java
 @Component("component")
 @DependsOn({"managedBean"})
 public class TestCompoment {
@@ -13664,7 +13570,7 @@ public class TestCompoment {
 
 **3、@Scope**：定义 Bean 作用域，默认单例，使用方式如下：
 
-```
+```java
 @Component("component")
 @Scope("singleton")
 public class TestCompoment {
@@ -13674,7 +13580,7 @@ public class TestCompoment {
 
 **4、@Qualifier：**指定限定描述符，对应于基于 XML 配置中的<qualifier>标签，使用方式如下：
 
-```
+```java
 @Component("component")
 @Qualifier("component")
 public class TestCompoment {
@@ -13686,7 +13592,7 @@ public class TestCompoment {
 
 **5、@Primary：**自动装配时当出现多个 Bean 候选者时，被注解为@Primary 的 Bean 将作为首选者，否则将抛出异常，使用方式如下：
 
-```
+```java
 @Component("component")
 @Primary
 public class TestCompoment {
@@ -13695,8 +13601,6 @@ public class TestCompoment {
 ```
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/2547.html】`](http://sishuok.com/forum/blogPost/list/2547.html】)
-
-# 【第十二章】零配置 之 12.4 基于 Java 类定义 Bean 配置元数据 ——跟我学 spring3
 
 # 【第十二章】零配置 之 12.4 基于 Java 类定义 Bean 配置元数据 ——跟我学 spring3
 
@@ -13726,7 +13630,7 @@ public class TestCompoment {
 
 1、定义配置元数据的 Java 类如下所示：
 
-```
+```java
 package cn.javass.spring.chapter12.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13741,7 +13645,7 @@ public class ApplicationContextConfig {
 
 2、定义测试类，测试一下 Java 配置类是否工作：
 
-```
+```java
 package cn.javass.spring.chapter12.configuration;
 //省略 import
 public class ConfigurationTest {
@@ -13765,7 +13669,7 @@ public class ConfigurationTest {
 
 通过@Configuration 注解的类将被作为配置类使用，表示在该类中将定义 Bean 配置元数据，且使用@Configuration 注解的类本身也是一个 Bean，使用方式如下所示：
 
-```
+```java
 import org.springframework.context.annotation.Configuration;
 @Configuration("ctxConfig")
 public class ApplicationContextConfig {
@@ -13781,7 +13685,7 @@ public class ApplicationContextConfig {
 
 通过@Bean 注解配置类中的相应方法，则该方法名默认就是 Bean 名，该方法返回值就是 Bean 对象，并定义了 Spring IoC 容器如何实例化、自动装配、初始化 Bean 逻辑，具体使用方法如下：
 
-```
+```java
 @Bean(name={},
       autowire=Autowire.NO,
       initMethod="",
@@ -13794,7 +13698,7 @@ public class ApplicationContextConfig {
 
 示例如下所示（ApplicationContextConfig.java）
 
-```
+```java
 @Bean
 public String message() {
     return new String("hello");
@@ -13803,7 +13707,7 @@ public String message() {
 
 如上使用方式等价于如下基于 XML 配置方式
 
-```
+```java
 <bean id="message" class="java.lang.String">
     <constructor-arg index="0" value="hello"/>
 </bean> 
@@ -13828,7 +13732,7 @@ public String message() {
 
 *   **构造器注入：**通过在@Bean 注解的实例化方法中使用有参构造器实例化相应的 Bean 即可，如下所示(ApplicationContextConfig.java)：
 
-```
+```java
 @Bean
 public HelloApi helloImpl3() {
     //通过构造器注入,分别是引用注入（message()）和常量注入（1）
@@ -13838,7 +13742,7 @@ public HelloApi helloImpl3() {
 
 *   **setter 注入**：通过在@Bean 注解的实例化方法中使用无参构造器实例化后，通过相应的 setter 方法注入即可，如下所示(ApplicationContextConfig.java)：
 
-```
+```java
 @Bean
 public HelloApi helloImpl4() {
     HelloImpl4 helloImpl4 = new HelloImpl4();//测试 Bean 详见【3.1.3  setter 注入】
@@ -13854,7 +13758,7 @@ public HelloApi helloImpl4() {
 
 具体测试方法如下(ConfigurationTest.java)：
 
-```
+```java
 @Test
 public void testDependencyInject() {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
@@ -13867,7 +13771,7 @@ public void testDependencyInject() {
 
 在基于 XML 配置方式中，Spring 支持查找方法注入和替换方法注入，但在基于 Java 配置方式中只支持查找方法注入，一般用于在一个单例 Bean 中注入一个原型 Bean 的情况，具体详见【3.3.5 方法注入】，如下所示（ApplicationContextConfig.java）：
 
-```
+```java
 @Bean
 @Scope("singleton")
 public HelloApi helloApi2() {
@@ -13889,7 +13793,7 @@ public HelloApi helloApi2() {
 } 
 ```
 
-```
+```java
 @Bean
 @Scope(value="prototype")
 public Printer prototypePrinter() {
@@ -13904,7 +13808,7 @@ public Printer singletonPrinter() {
 
 具体测试方法如下(ConfigurationTest.java)：
 
-```
+```java
 @Test
 public void testLookupMethodInject() {
     AnnotationConfigApplicationContext ctx =
@@ -13923,7 +13827,7 @@ public void testLookupMethodInject() {
 
 类似于基于 XML 配置中的<import/>，基于 Java 的配置方式提供了@Import 来组合模块化的配置类，使用方式如下所示：
 
-```
+```java
 package cn.javass.spring.chapter12.configuration;
 //省略 import
 @Configuration("ctxConfig2")
@@ -13938,7 +13842,7 @@ public class ApplicationContextConfig2 {
 
 具体测试方法如下(ConfigurationTest.java)：
 
-```
+```java
 @Test
 public void  importTest() {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationContextConfig2.class);
@@ -13959,7 +13863,7 @@ public void  importTest() {
 
 1、定义基于 XML 方式的配置文件(chapter12/configuration/importResource.xml)：
 
-```
+```java
 <bean id="message3" class="java.lang.String">
     <constructor-arg index="0" value="test"></constructor-arg>
 </bean> 
@@ -13967,7 +13871,7 @@ public void  importTest() {
 
 2、修改基于 Java 方式的配置类 ApplicationContextConfig，添加如下注解：
 
-```
+```java
 @Configuration("ctxConfig") //1、使用@Configuration 注解配置类
 @ImportResource("classpath:chapter12/configuration/importResource.xml")
 public class ApplicationContextConfig {
@@ -13983,7 +13887,7 @@ public class ApplicationContextConfig {
 
 2、定义基于 XML 方式的配置文件（chapter12/configuration/xml-config.xml）：
 
-```
+```java
 <context:annotation-config/>
 <bean id="ctxConfig" class="cn.javass.spring.chapter12.configuration.ApplicationContextConfig"/> 
 ```
@@ -13993,7 +13897,7 @@ public class ApplicationContextConfig {
 
 3、测试代码如下所示(ConfigurationTest.java)：：
 
-```
+```java
 public void testXmlConfig() {
     String configLocations[] = {"chapter12/configuration/xml-config.xml"};
     ApplicationContext ctx = new ClassPathXmlApplicationContext(configLocations);
@@ -14009,19 +13913,19 @@ public void testXmlConfig() {
 
 **一、对于只有一个@Configuration 注解的配置类**，可以使用如下方式初始化容器：
 
-```
+```java
 AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationContextConfig.class); 
 ```
 
 **二、对于有多个@Configuration 注解的配置类**，可以使用如下方式初始化容器：
 
-```
+```java
 AnnotationConfigApplicationContext ctx1 = new AnnotationConfigApplicationContext(ApplicationContextConfig.class, ApplicationContextConfig2.class); 
 ```
 
 或者
 
-```
+```java
 AnnotationConfigApplicationContext ctx2 = new AnnotationConfigApplicationContext();
 ctx2.register(ApplicationContextConfig.class);
 ctx2.register(ApplicationContextConfig2.class); 
@@ -14029,7 +13933,7 @@ ctx2.register(ApplicationContextConfig2.class);
 
 **三、对于【12.3 注解实现 Bean 定义】中通过扫描类路径中的特殊注解类来自动注册 Bean 定义**，可以使用如下方式来实现：
 
-```
+```java
 public void testComponentScan() {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
     ctx.scan("cn.javass.chapter12.confiuration");
@@ -14040,7 +13944,7 @@ public void testComponentScan() {
 
 以上配置方式等价于基于 XML 方式中的如下配置：
 
-```
+```java
 <context:component-scan base-package="cn.javass.chapter12.confiuration"/> 
 ```
 
@@ -14048,7 +13952,7 @@ public void testComponentScan() {
 
 1、修改通用配置中的 Web 应用上下文实现，在此需要使用 AnnotationConfigWebApplicationContext：
 
-```
+```java
 <context-param>
     <param-name>contextClass</param-name>     
     <param-value>
@@ -14059,7 +13963,7 @@ public void testComponentScan() {
 
 **2、指定加载配置类**，类似于指定加载文件位置，在基于 Java 方式中需要指定需要加载的配置类：
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -14076,8 +13980,6 @@ public void testComponentScan() {
 2、如果指定的配置不是类，则通过扫描类路径方式加载注解 Bean 定义，即将通过 ctx.scan("cn.javass.chapter12.confiuration")加载 Bean 定义。
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/0/2550.html`](http://sishuok.com/forum/blogPost/list/0/2550.html#7325)】
-
-# 【第十二章】零配置 之 12.5 综合示例-积分商城 ——跟我学 spring3
 
 # 【第十二章】零配置 之 12.5 综合示例-积分商城 ——跟我学 spring3
 
@@ -14099,7 +14001,7 @@ public void testComponentScan() {
 
 1、删除 DAO 层配置文件(cn/javass/point/dao/applicationContext-hibernate.xml)中的如下配置：
 
-```
+```java
 <bean id="abstractDao" abstract="true" init-method="init">
 <property name="sessionFactory" ref="sessionFactory"/>
 </bean>   
@@ -14111,7 +14013,7 @@ parent="abstractDao"/>
 
 2、修改通用 DAO 实现 cn.javass.commons.dao.hibernate.BaseHibernateDao，通过注解实现依赖注入和指定初始化方法：
 
-```
+```java
 public abstract class BaseHibernateDao<M extends Serializable, PK extends Serializable> extends HibernateDaoSupport implements IBaseDao<M, PK>, InitializingBean {
     //省略类字段
     @Autowired @Required
@@ -14131,7 +14033,7 @@ public abstract class BaseHibernateDao<M extends Serializable, PK extends Serial
 
 3、修改 cn.javass.point.dao.hibernate.GoodsHibernateDao，在该类上添加@Repository 注解来进行 DAO 层 Bean 定义：
 
-```
+```java
 @Repository
 public class GoodsHibernateDao extends BaseHibernateDao<GoodsModel, Integer> implements IGoodsDao {
 ……
@@ -14140,7 +14042,7 @@ public class GoodsHibernateDao extends BaseHibernateDao<GoodsModel, Integer> imp
 
 4、修改 cn.javass.point.dao.hibernate.GoodsCodeHibernateDao，在该类上添加@Repository 注解来进行 DAO 层 Bean 定义：
 
-```
+```java
 @Repository
 public class GoodsCodeHibernateDao extends BaseHibernateDao<GoodsCodeModel, Integer> implements IGoodsCodeDao {
 ……
@@ -14155,7 +14057,7 @@ DAO 层到此就修改完毕，其他地方无需修改。
 
 1、删除 Service 层配置文件(cn/javass/point/service/applicationContext-service.xml)中的如下配置：
 
-```
+```java
 <bean id="goodsService" class="cn.javass.point.service.impl.GoodsServiceImpl">
     <property name="dao" ref="goodsDao"/>
 </bean>
@@ -14167,7 +14069,7 @@ DAO 层到此就修改完毕，其他地方无需修改。
 
 2、修改 cn.javass.point.service.impl.GoodsServiceImpl，在该类上添加@Service 注解来进行 Service 层 Bean 定义：
 
-```
+```java
 @Service
 public class GoodsServiceImpl extends BaseServiceImpl<GoodsModel, Integer> implements IGoodsService {
 
@@ -14182,7 +14084,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<GoodsModel, Integer> imple
 
 3、修改 cn.javass.point.service.impl.GoodsCodeServiceImpl，在该类上添加@Service 注解来进行 Service 层 Bean 定义：
 
-```
+```java
 @Service
 public class GoodsCodeServiceImpl extends BaseServiceImpl<GoodsCodeModel, Integer> implements IGoodsCodeService {
     @Autowired @Required
@@ -14207,14 +14109,14 @@ Service 层到此就修改完毕，其他地方无需修改。
 
 1、 删除表现层所有 Spring 配置文件(cn/javass/point/web)：
 
-```
+```java
 cn/javass/point/web/pointShop-admin-servlet.xml
 cn/javass/point/web/pointShop-front-servlet.xml 
 ```
 
 2、修改表现层管理模块的 cn.javass.point.web.admin.action.GoodsAction，在该类上添加@Controller 注解来进行表现层 Bean 定义，且作用域为“prototype”：
 
-```
+```java
 @Controller("/admin/goodsAction")
 @Scope("prototype")
 public class GoodsAction extends BaseAction {
@@ -14230,7 +14132,7 @@ public class GoodsAction extends BaseAction {
 
 3、修改表现层管理模块的 cn.javass.point.web.admin.action.GoodsCodeAction，在该类上添加@Controller 注解来进行表现层 Bean 定义，且作用域为“prototype”：
 
-```
+```java
 @Controller("/admin/goodsCodeAction")
 @Scope("prototype")
 public class GoodsCodeAction extends BaseAction {
@@ -14250,7 +14152,7 @@ public class GoodsCodeAction extends BaseAction {
 
 3、修改表现层前台模块的 cn.javass.point.web.front.action.GoodsAction，在该类上添加@Controller 注解来进行表现层 Bean 定义，且作用域为“prototype”：
 
-```
+```java
 @Controller("/front/goodsAction")
 @Scope("prototype")
 public class GoodsAction extends BaseAction {
@@ -14272,7 +14174,7 @@ public class GoodsAction extends BaseAction {
 
 1、定义一个基于 Java 方法的配置类，用于加载 XML 配置文件：
 
-```
+```java
 package cn.javass.point;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -14290,7 +14192,7 @@ public class AppConfig {
 
 2、修改集成其它 Web 框架的通用配置，将如下配置：
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
@@ -14305,7 +14207,7 @@ public class AppConfig {
 
 修改为如下配置：
 
-```
+```java
 <context-param>
   <param-name>contextClass</param-name>
   <param-value>
@@ -14326,8 +14228,6 @@ public class AppConfig {
 到此零配置方式实现 SSH 集成已经整合完毕，相对于基于 XML 方式主要减少了配置的数量和配置文件的数量。
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/2553.html`](http://sishuok.com/forum/blogPost/list/2553.html#7328)】
-
-# 【第十三章】 测试 之 13.1 概述 13.2 单元测试 ——跟我学 spring3
 
 # 【第十三章】 测试 之 13.1 概述 13.2 单元测试 ——跟我学 spring3
 
@@ -14403,7 +14303,7 @@ dist\org.springframework.test-3.0.5.RELEASE.jar
 
 **1、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 package cn.javass.point.dao.hibernate;
 //省略 import
 public class GoodsHibernateDaoUnitTest {
@@ -14435,7 +14335,7 @@ public class GoodsHibernateDaoUnitTest {
 
 **2、测试支持写完后，接下来测试一下 IGoodsDao 的 get 方法是否满足需求：**
 
-```
+```java
 @Test
 public void testSave () {
     //7、创建需要的 Model 数据
@@ -14477,7 +14377,7 @@ public void testSave () {
 
 **1、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 package cn.javass.point.service.impl;
 //省略 import
 public class GoodsCodeServiceImplUnitTest {
@@ -14510,7 +14410,7 @@ public class GoodsCodeServiceImplUnitTest {
 
 **2.1、测试购买失败的场景：**
 
-```
+```java
 @Test(expected = NotCodeException.class)
 public void testBuyFail() {
     final int goodsId = 1;
@@ -14535,7 +14435,7 @@ public void testBuyFail() {
 
 **2.2、测试购买成功的场景：**
 
-```
+```java
 @Test()
 public void testBuySuccess () {
     final int goodsId = 1;
@@ -14576,7 +14476,7 @@ Struts2 的 Action 测试相对业务逻辑层测试相对复杂一些，因为�
 
 **1、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 package cn.javass.point.web.front;
 import cn.javass.point.service.IGoodsCodeService;
 import cn.javass.point.web.front.action.GoodsAction;
@@ -14610,7 +14510,7 @@ public class GoodsActionUnitTest {
 
 **2.1、测试购买失败的场景：**
 
-```
+```java
 @Test
 public void testBuyFail() {
     final int goodsId = 1;
@@ -14642,7 +14542,7 @@ public void testBuyFail() {
 
 **2.2、测试购买成功的场景：**
 
-```
+```java
 @Test
 public void testBuySuccess() {
     final int goodsId = 1;
@@ -14681,8 +14581,6 @@ public void testBuySuccess() {
 
 # 【第十三章】 测试 之 13.3 集成测试 ——跟我学 spring3
 
-# 【第十三章】 测试 之 13.3 集成测试 ——跟我学 spring3
-
 ## 13.3 集成测试
 
 ### 13.3.1 概述
@@ -14703,7 +14601,7 @@ Spring TestContext 框架提供了一些通用的集成测试支持，主要提�
 
 对于每一个测试用例（测试类）应该只有一个上下文，而不是每个测试方法都创建新的上下文，这样有助于减少启动容器的开销，提供测试效率。可通过如下方式指定要加载的上下文：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
     locations={"classpath:applicationContext-resources-test.xml",
@@ -14721,7 +14619,7 @@ Test Fixture 可以指运行测试时需要的任何东西，一般通过@Before
 
 Test Fixture 的依赖注入就是使用 Spring IoC 容器的注入功能准备和销毁这些资源。可通过如下方式注入 Test Fixture：
 
-```
+```java
 @Autowired
 private IGoodsDao goodsDao;
 @Autowired
@@ -14734,7 +14632,7 @@ private ApplicationContext ctx;
 
 开启测试类的事务管理支持，即使用 Spring 容器的事务管理功能，从而可以独立于应用服务器完成事务相关功能的测试。为了使测试中的事务管理起作用需要通过如下方式开启测试类事务的支持：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
     locations={"classpath:applicationContext-resources-test.xml",
@@ -14788,7 +14686,7 @@ Spring 还通过提供如下注解来简化事务测试：
 
 **@TestExecutionListeners：**该注解用于指定 TestContext 框架的监听器用于与 TestContext 框架管理器发布的测试执行事件进行交互，TestContext 框架提供如下三个默认的监听器：DependencyInjectionTestExecutionListener、DirtiesContextTestExecutionListener、TransactionalTestExecutionListener 分别完成对 Test Fixture 的依赖注入、@DirtiesContext 支持和事务管理支持，即在默认情况下将自动注册这三个监听器，另外还可以使用如下方式指定监听器：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({})
 public class GoodsHibernateDaoIntegrationTest {
@@ -14811,7 +14709,7 @@ public class GoodsHibernateDaoIntegrationTest {
 
 1、拷贝一份 Spring 资源配置文件 applicationContext-resources.xml，并命名为 applicationContext-resources-test.xml 表示用于集成测试使用，并修改如下内容：
 
-```
+```java
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
   <property name="locations">
         <list>
@@ -14823,7 +14721,7 @@ public class GoodsHibernateDaoIntegrationTest {
 
 **2、拷贝一份替换配置元数据的资源文件（resources/resources.properties），并命名为 resources-test.properties 表示用于集成测试使用，并修改为以下内容：**
 
-```
+```java
 db.driver.class=org.hsqldb.jdbcDriver
 db.url=jdbc:hsqldb:mem:point_shop
 db.username=sa
@@ -14850,7 +14748,7 @@ hibernate.format_sql=true
 
 **1、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 package cn.javass.point.dao.hibernate;
 //省略 import
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14873,7 +14771,7 @@ public class GoodsHibernateDaoIntegrationTest {
 
 **2、测试支持写完后，接下来测试一下分页查询所有已发布的商品是否满足需求：**
 
-```
+```java
 @Transactional
 @Rollback
 @Test
@@ -14902,7 +14800,7 @@ public void testListAllPublishedSuccess() {
 
 **1、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 @ContextConfiguration(
 locations={"classpath:applicationContext-resources-test.xml",
              "classpath:cn/javass/point/dao/applicationContext-hibernate.xml",
@@ -14925,7 +14823,7 @@ public class GoodsCodeServiceImplIntegrationTest extends AbstractJUnit4SpringCon
 
 **2.1、测试购买失败的场景：**
 
-```
+```java
 @Transactional
 @Rollback
 @ExpectedException(NotCodeException.class)
@@ -14939,7 +14837,7 @@ public void testBuyFail() {
 
 **2.2、测试购买成功的场景：**
 
-```
+```java
 @Transactional
 @Rollback
 @Test
@@ -14975,7 +14873,7 @@ public void testBuySuccess() {
 
 **1、准备 Struts 提供的 junit 插件, 到 struts-2.2.1.1.zip 中拷贝如下 jar 包到类路径：**
 
-```
+```java
 lib\struts2-junit-plugin-2.2.1.1.jar 
 ```
 
@@ -14983,7 +14881,7 @@ lib\struts2-junit-plugin-2.2.1.1.jar
 
 **3、准备 Spring 配置文件：**由于我们的测试类继承 StrutsSpringTestCase 且将通过覆盖该类的 getContextLocations 方法来指定 Spring 配置文件，但由于 getContextLocations 方法只能返回一个配置文件，因此我们需要新建一个用于导入其他 Spring 配置文件的配置文件 applicationContext-test.xml，具体内容如下：
 
-```
+```java
 <import resource="classpath:applicationContext-resources-test.xml"/>
 <import resource="classpath:cn/javass/point/dao/applicationContext-hibernate.xml"/>
 <import resource="classpath:cn/javass/point/service/applicationContext-service.xml"/>
@@ -14993,7 +14891,7 @@ lib\struts2-junit-plugin-2.2.1.1.jar
 
 **3、在 test 文件夹下创建如下测试类：**
 
-```
+```java
 package cn.javass.point.web.front;
 //省略 import
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15030,7 +14928,7 @@ public class GoodsActionIntegrationTest extends StrutsSpringTestCase {
 
 **4.1、测试购买失败的场景：**
 
-```
+```java
 @Test
 public void testBuyFail() throws UnsupportedEncodingException, ServletException {
     //2 前台购买商品失败
@@ -15052,7 +14950,7 @@ public void testBuyFail() throws UnsupportedEncodingException, ServletException 
 
 **4.2、测试购买成功的场景：**
 
-```
+```java
 @Test
 public void testBuySuccess() throws UnsupportedEncodingException, ServletException {
     //3 后台新增商品

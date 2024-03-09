@@ -12,7 +12,7 @@
 
 **注**：示例文件只是一个指导。不要拷贝/粘贴整个内容到你的应用，而是只提取你需要的属性。
 
-```
+```java
 # ===================================================================
 # COMMON SPRING BOOT PROPERTIES
 #
@@ -613,7 +613,7 @@ Spring Boot jars 包含元数据文件，它们提供了所有支持的配置属
 
 配置元数据位于 jars 文件中的`META-INF/spring-configuration-metadata.json`，它们使用一个具有"groups"或"properties"分类节点的简单 JSON 格式：
 
-```
+```java
 {"groups": [
     {
         "name": "server",
@@ -639,7 +639,7 @@ Spring Boot jars 包含元数据文件，它们提供了所有支持的配置属
 
 每个"property"是一个配置节点，用户可以使用特定的值指定它。例如，`server.port`和`server.servlet-path`可能在`application.properties`中如以下定义：
 
-```
+```java
 server.port=9090
 server.servlet-path=/home 
 ```
@@ -689,7 +689,7 @@ server.servlet-path=/home
 
 通过使用`spring-boot-configuration-processor` jar， 你可以从被`@ConfigurationProperties`注解的节点轻松的产生自己的配置元数据文件。该 jar 包含一个在你的项目编译时会被调用的 Java 注解处理器。想要使用该处理器，你只需简单添加`spring-boot-configuration-processor`依赖，例如使用 Maven 你需要添加：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-configuration-processor</artifactId>
@@ -699,7 +699,7 @@ server.servlet-path=/home
 
 使用 Gradle 时，你可以使用[propdeps-plugin](https://github.com/spring-projects/gradle-plugins/tree/master/propdeps-plugin)并指定：
 
-```
+```java
 dependencies {
         optional "org.springframework.boot:spring-boot-configuration-processor"
     }
@@ -722,7 +722,7 @@ dependencies {
 
 该注解处理器自动将内部类当做内嵌属性处理。例如，下面的类：
 
-```
+```java
 @ConfigurationProperties(prefix="server")
 public class ServerProperties {
 
@@ -802,7 +802,7 @@ Java 没有提供任何标准的方式来加载内嵌的 jar 文件（也就是 
 
 Spring Boot Loader 兼容的 jar 文件应该遵循以下结构：
 
-```
+```java
 example.jar
  |
  +-META-INF
@@ -829,7 +829,7 @@ example.jar
 
 Spring Boot Loader 兼容的 war 文件应该遵循以下结构：
 
-```
+```java
 example.jar
  |
  +-META-INF
@@ -861,7 +861,7 @@ example.jar
 
 Spring Boot 用于支持加载内嵌 jars 的核心类是`org.springframework.boot.loader.jar.JarFile`。它允许你从一个标准的 jar 文件或内嵌的子 jar 数据中加载 jar 内容。当首次加载的时候，每个 JarEntry 的位置被映射到一个偏移于外部 jar 的物理文件：
 
-```
+```java
 myapp.jar
 +---------+---------------------+
 |         | /lib/mylib.jar      |
@@ -899,14 +899,14 @@ Spring Boot Loader 努力保持对已有代码和库的兼容。`org.springframe
 
 例如，这里有个典型的可执行 jar 文件的 MANIFEST.MF：
 
-```
+```java
 Main-Class: org.springframework.boot.loader.JarLauncher
 Start-Class: com.mycompany.project.MyApplication 
 ```
 
 对于一个 war 文件，它可能是这样的：
 
-```
+```java
 Main-Class: org.springframework.boot.loader.WarLauncher
 Start-Class: com.mycompany.project.MyApplication 
 ```
@@ -919,7 +919,7 @@ Start-Class: com.mycompany.project.MyApplication
 
 一些 PaaS 实现可能选择在运行前先解压存档。例如，Cloud Foundry 就是这样操作的。你可以运行一个解压的存档，只需简单的启动合适的启动器：
 
-```
+```java
 $ unzip -q myapp.jar
 $ java org.springframework.boot.loader.JarLaunche 
 ```

@@ -14,7 +14,7 @@ Spring Boot 包含很多其他的特性，它们可以帮你监控和管理发�
 
 基于 Maven 的项目想要添加执行器只需添加下面的'starter'依赖：
 
-```
+```java
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -25,7 +25,7 @@ Spring Boot 包含很多其他的特性，它们可以帮你监控和管理发�
 
 对于 Gradle，使用下面的声明：
 
-```
+```java
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 } 
@@ -63,7 +63,7 @@ dependencies {
 
 使用 Spring 属性可以自定义端点。你可以设置端点是否开启（enabled），是否敏感（sensitive），甚至它的 id。例如，下面的 application.properties 改变了敏感性和 beans 端点的 id，也启用了 shutdown。
 
-```
+```java
 endpoints.beans.id=springbeans
 endpoints.beans.sensitive=false
 endpoints.shutdown.enabled=true 
@@ -73,7 +73,7 @@ endpoints.shutdown.enabled=true
 
 默认情况下，除了 shutdown 外的所有端点都是启用的。如果希望指定选择端点的启用，你可以使用 endpoints.enabled 属性。例如，下面的配置禁用了除 info 外的所有端点：
 
-```
+```java
 endpoints.enabled=false
 endpoints.info.enabled=true 
 ```
@@ -115,7 +115,7 @@ HealthIndicators 返回的信息常常性质上有点敏感。例如，你可能
 
 想提供自定义健康信息，你可以注册实现了[HealthIndicator](http://github.com/spring-projects/spring-boot/tree/master/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/health/HealthIndicator.java)接口的 Spring beans。你需要提供一个 health()方法的实现，并返回一个 Health 响应。Health 响应需要包含一个 status 和可选的用于展示的详情。
 
-```
+```java
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
@@ -138,7 +138,7 @@ public class MyHealth implements HealthIndicator {
 
 例如，假设一个新的，代码为 FATAL 的 Status 被用于你的一个 HealthIndicator 实现中。为了配置严重程度，你需要将下面的配置添加到 application 属性文件中：
 
-```
+```java
 management.health.status.order: DOWN, OUT_OF_SERVICE, UNKNOWN, UP 
 ```
 
@@ -150,7 +150,7 @@ management.health.status.order: DOWN, OUT_OF_SERVICE, UNKNOWN, UP
 
 通过设置 Spring 属性 info.*，你可以定义 info 端点暴露的数据。所有在 info 关键字下的 Environment 属性都将被自动暴露。例如，你可以将下面的配置添加到 application.properties：
 
-```
+```java
 info.app.name=MyService
 info.app.description=My awesome service
 info.app.version=1.0.0 
@@ -166,7 +166,7 @@ info.app.version=1.0.0
 
 对于 Maven 项目，你可以使用资源过滤来自动扩展 info 属性。如果使用 spring-boot-starter-parent，你可以通过`@..@`占位符引用 Maven 的'project properties'。
 
-```
+```java
 project.artifactId=myproject
 project.name=Demo
 project.version=X.X.X.X
@@ -181,7 +181,7 @@ info.build.version=@project.version@
 
 如果你不使用 starter parent，在你的 pom.xml 你需要添加（处于<build class="hljs-pi">元素内）：</build>
 
-```
+```java
 <resources>
     <resource>
         <directory>src/main/resources</directory>
@@ -192,7 +192,7 @@ info.build.version=@project.version@
 
 和（处于<plugins class="hljs-pi">内）：</plugins>
 
-```
+```java
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-resources-plugin</artifactId>
@@ -209,7 +209,7 @@ info.build.version=@project.version@
 
 通过配置 Java 插件的 processResources 任务，你也可以自动使用来自 Gradle 项目的属性扩展 info 属性。
 
-```
+```java
 processResources {
     expand(project.properties)
 } 
@@ -217,7 +217,7 @@ processResources {
 
 然后你可以通过占位符引用 Gradle 项目的属性：
 
-```
+```java
 info.build.name=${name}
 info.build.description=${description}
 info.build.version=${version} 
@@ -231,7 +231,7 @@ info 端点的另一个有用特性是，当项目构建完成后，它可以发
 
 对于 Maven 用户，`spring-boot-starter-parent` POM 包含一个能够产生 git.properties 文件的预配置插件。只需要简单的将下面的声明添加到你的 POM 中：
 
-```
+```java
 <build>
     <plugins>
         <plugin>
@@ -258,7 +258,7 @@ info 端点的另一个有用特性是，当项目构建完成后，它可以发
 
 你可以使用 Spring 属性改变用户名，密码和访问端点需要的安全角色。例如，你可能会在 application.properties 中添加下列配置：
 
-```
+```java
 security.user.name=admin
 security.user.password=secret
 management.security.role=SUPERUSER 
@@ -272,7 +272,7 @@ management.security.role=SUPERUSER
 
 有时候将所有的管理端口划分到一个路径下是有用的。例如，你的应用可能已经将`/info`作为他用。你可以用`management.contextPath`属性为管理端口设置一个前缀：
 
-```
+```java
 management.context-path=/manage 
 ```
 
@@ -286,13 +286,13 @@ management.context-path=/manage
 
 `management.port`属性可以用来改变 HTTP 端口：
 
-```
+```java
 management.port=8081 
 ```
 
 由于你的管理端口经常被防火墙保护，不对外暴露也就不需要保护管理端点，即使你的主要应用是安全的。在这种情况下，classpath 下会存在 Spring Security 库，你可以设置下面的属性来禁用安全管理策略（management security）：
 
-```
+```java
 management.security.enabled=false 
 ```
 
@@ -306,7 +306,7 @@ management.security.enabled=false
 
 下面的 application.properties 示例不允许远程管理连接：
 
-```
+```java
 management.port=8081
 management.address=127.0.0.1 
 ```
@@ -349,7 +349,7 @@ MBean 的名称通常产生于端点的 id。例如，health 端点被暴露为`
 
 ```
 spring.jmx.enabled=false 
-```
+```java
 
 # 42.3\. 使用 Jolokia 通过 HTTP 实现 JMX 远程管理
 
@@ -362,7 +362,7 @@ Jolokia 是一个 JMX-HTTP 桥，它提供了一种访问 JMX beans 的替代方
     <groupId>org.jolokia</groupId>
     <artifactId>jolokia-core</artifactId>
  </dependency> 
-```
+```java
 
 在你的管理 HTTP 服务器上可以通过`/jolokia`访问 Jolokia。
 
@@ -374,7 +374,7 @@ Jolokia 有很多配置，传统上一般使用 servlet 参数进行设置。使
 
 ```
 jolokia.config.debug=true 
-```
+```java
 
 # 42.3.2\. 禁用 Jolokia
 
@@ -384,7 +384,7 @@ jolokia.config.debug=true
 
 ```
 endpoints.jolokia.enabled=false 
-```
+```java
 
 # 43\. 使用远程 shell 来进行监控和管理
 
@@ -397,7 +397,7 @@ Spring Boot 支持集成一个称为'CRaSH'的 Java shell。你可以在 CRaSH �
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-remote-shell</artifactId>
  </dependency> 
-```
+```java
 
 **注**：如果想使用 telnet 访问，你还需添加对`org.crsh:crsh.shell.telnet`的依赖。
 
@@ -409,7 +409,7 @@ Spring Boot 支持集成一个称为'CRaSH'的 Java shell。你可以在 CRaSH �
 
 ```
 Using default password for shell access: ec03e16c-4cf4-49ee-b745-7c8255c1dd7e 
-```
+```java
 
 Linux 和 OSX 用户可以使用`ssh`连接远程 shell，Windows 用户可以下载并安装[PuTTY](http://www.putty.org/)。
 
@@ -424,7 +424,7 @@ user@localhost's password:
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::  (v1.3.0.BUILD-SNAPSHOT) on myhost 
-```
+```java
 
 输入 help 可以获取一系列命令的帮助。Spring boot 提供`metrics`，`beans`，`autoconfig`和`endpoint`命令。
 
@@ -468,7 +468,7 @@ class hello {
     }
 
 } 
-```
+```java
 
 Spring Boot 将一些额外属性添加到了 InvocationContext，你可以在命令中访问它们：
 
@@ -522,7 +522,7 @@ Spring Boot 执行器包括一个支持'gauge'和'counter'级别的度量指标�
     "datasource.primary.active": 5,
     "datasource.primary.usage": 0.25
 } 
-```
+```java
 
 此处我们可以看到基本的`memory`，`heap`，`class loading`，`processor`和`thread pool`信息，连同一些 HTTP 指标。在该实例中，`root`('/')，`/metrics` URLs 分别返回 20 次，3 次`HTTP 200`响应。同时可以看到`root` URL 返回了 4 次`HTTP 401`（unauthorized）响应。双 asterix（star-star）来自于被 Spring MVC `/**`匹配到的一个请求（通常为一个静态资源）。
 
@@ -598,7 +598,7 @@ public class MyService {
     }
 
 } 
-```
+```java
 
 **注**：你可以将任何的字符串用作指标的名称，但最好遵循所选存储或图技术的指南。[Matt Aimonetti’s Blog](http://matt.aimonetti.net/posts/2013/06/26/practical-guide-to-graphite-monitoring/)中有一些好的关于图（Graphite）的指南。
 
@@ -673,7 +673,7 @@ Spring Boot 执行器具有一个灵活的审计框架，一旦 Spring Security 
     "timestamp": 1394343684465,
     ...
 }] 
-```
+```java
 
 # 46.1\. 自定义追踪
 

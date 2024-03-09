@@ -48,8 +48,6 @@ JAX-RS 定义的 API 位于 javax.ws.rs 包中。
 
 # Getting Started 开始
 
-# Getting Started 开始
-
 本章通过简单的示例带你快速入门。当你读完本章节，你马上就可以用 Jersey 写出 Web 应用。
 
 ## Before Getting Started 开始之前
@@ -67,7 +65,7 @@ OK,这就是所有必需的环境。当然，你可以根据自己的喜好选�
 
 在工作目录，创建第一个 Maven 管理的应用，执行
 
-```
+```java
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=com.waylau -DartifactId=simple-service-webapp -Dpackage=com.waylau.rest -DarchetypeVersion=2.16 
 ```
 
@@ -77,7 +75,7 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp -Darchetyp
 
 项目打包成 WAR,执行:
 
-```
+```java
 mvn clean package 
 ```
 
@@ -103,8 +101,6 @@ mvn clean package
 
 # Exploring the Newly Created Project 探索新项目
 
-# Exploring the Newly Created Project 探索新项目
-
 `simple-service-webapp`这个是由 Jersey 提供 Maven archetype 用来创建的 web 项目，在你的项目里面随意调整 pom.xml 内的 groupId，包号和版本号就可以成为一个新的项目。此时，simple-service-webapp 已经创建， 符合 Maven 的项目结构：
 
 *   标准的管理配置文件 pom.xml
@@ -116,7 +112,7 @@ mvn clean package
 
 MyResource 类是 JAX-RS 的一个实现的源代码，如下：
 
-```
+```java
  package com.waylau.rest;
 
     import javax.ws.rs.GET;
@@ -148,8 +144,6 @@ MyResource 类是 JAX-RS 的一个实现的源代码，如下：
 
 # Rapid Development 快速开发
 
-# Rapid Development 快速开发
-
 为了快速开发，首先是需要一款趁手的 IDE。 IDE 的选取以个人喜好为主，只要是自己熟悉的就好。本书的实例是使用 [Eclipse](http://www.eclipse.org/) 作为 IDE。
 
 ## 安装 M2Eclipse 插件
@@ -168,7 +162,7 @@ MyResource 类是 JAX-RS 的一个实现的源代码，如下：
 
 设置插件
 
-```
+```java
 <plugin>
     <groupId>org.apache.tomcat.maven</groupId>
     <artifactId>tomcat7-maven-plugin</artifactId>
@@ -178,7 +172,7 @@ MyResource 类是 JAX-RS 的一个实现的源代码，如下：
 
 执行
 
-```
+```java
 mvn tomcat7:run 
 ```
 
@@ -186,7 +180,7 @@ mvn tomcat7:run
 
 项目启动成功，可以看到输出：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder with a thread count of 1
@@ -228,7 +222,7 @@ INFO: Starting ProtocolHandler ["http-bio-8080"]
 
 设置插件
 
-```
+```java
 <plugin>
     <groupId>org.eclipse.jetty</groupId>
     <artifactId>jetty-maven-plugin</artifactId>
@@ -240,7 +234,7 @@ INFO: Starting ProtocolHandler ["http-bio-8080"]
 
 执行
 
-```
+```java
 mvn jetty:run 
 ```
 
@@ -248,7 +242,7 @@ mvn jetty:run
 
 项目启动成功，可以看到输出：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder with a thread count of 1
@@ -311,13 +305,11 @@ mvn jetty:run
 
 # Custom ResourceConfig 自定义资源配置
 
-# Custom ResourceConfig 自定义资源配置
-
 ## 观察 web.xml
 
 之前的 web.xml 配置是这样的：
 
-```
+```java
 <web-app version="2.5"   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
@@ -337,7 +329,7 @@ mvn jetty:run
 
 其中
 
-```
+```java
 <init-param>
     <param-name>jersey.config.server.provider.packages</param-name>
     <param-value>com.waylau.rest</param-value>
@@ -350,7 +342,7 @@ mvn jetty:run
 
 当需要更多的配置，上述方法显然不能满足。可以重写 [Application](http://jax-rs-spec.java.net/nonav/2.0/apidocs/javax/ws/rs/core/Application.html) 类。
 
-```
+```java
 package com.waylau.rest;
 
 import org.glassfish.jersey.server.ResourceConfig;
@@ -372,7 +364,7 @@ public class RestApplication extends ResourceConfig {
 
 为了规范，我们在建立 `com.waylau.rest.resource` 包，用来专门放资源来。接着把我们的资源 MyResource 移到该包下面。
 
-```
+```java
 public class RestApplication extends ResourceConfig {
 
     public RestApplication() {
@@ -384,7 +376,7 @@ public class RestApplication extends ResourceConfig {
 
 最终，RestApplication 在 web.xml 配置是这样的：
 
-```
+```java
 <init-param>
     <param-name>javax.ws.rs.Application</param-name>
     <param-value>com.waylau.rest.RestApplication</param-value>
@@ -401,13 +393,11 @@ public class RestApplication extends ResourceConfig {
 
 # Handle JSON and XML 处理 JSON 和 XML
 
-# Handle JSON and XML 处理 JSON 和 XML
-
 ## 一个 POJO 对象
 
 为了项目更加清晰，我们建立 `com.waylau.rest.bean`,在该包下面创建一个 POJO 对象 MyBean：
 
-```
+```java
 public class MyBean {
 
     private String name;
@@ -432,7 +422,7 @@ public class MyBean {
 
 我们想把这个对象返回给客户端，在 MyResource 资源下，写了
 
-```
+```java
 /**
  * 方法处理 HTTP GET 请求。返回的对象以"application/json"媒体类型
  * 给客户端
@@ -454,13 +444,13 @@ public MyBean getPojoJson() {
 
 在 index.jsp 里面，我们写了一个调用该 API 的方法
 
-```
+```java
 <p><a href="webapi/myresource/pojojson">POJO JSON</a> 
 ```
 
 启动项目，点击“POJO JSON”,后台提示如下错误
 
-```
+```java
 org.glassfish.jersey.message.internal.WriterInterceptorExecutor$TerminalWriterInterceptor aroundWriteTo
 SEVERE: MessageBodyWriter not found for media type=application/json, type=class com.waylau.rest.bean.MyPojo, genericType=class com.waylau.rest.bean.MyPojo. 
 ```
@@ -471,7 +461,7 @@ SEVERE: MessageBodyWriter not found for media type=application/json, type=class 
 
 需要添加 jersey-media-moxy 依赖库在你的 pom.xml 来使用 MOXy
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-moxy</artifactId>
@@ -482,7 +472,7 @@ SEVERE: MessageBodyWriter not found for media type=application/json, type=class 
 
 启动项目，点击“POJO JSON”,页面输出
 
-```
+```java
 {"age":28,"name":"waylau.com"} 
 ```
 
@@ -492,7 +482,7 @@ SEVERE: MessageBodyWriter not found for media type=application/json, type=class 
 
 使用 Jackson 2.x 需添加 jersey-media-json-jackson 模块到 pom.xml:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
@@ -503,7 +493,7 @@ SEVERE: MessageBodyWriter not found for media type=application/json, type=class 
 
 我们想把这个对象返回给客户端，在 MyResource 资源下，写了
 
-```
+```java
 /**
  * 方法处理 HTTP GET 请求。返回的对象以"application/xml"媒体类型
  * 给客户端
@@ -525,20 +515,20 @@ public MyBean getPojoXml() {
 
 在 index.jsp 里面，我们写了一个调用该 API 的方法
 
-```
+```java
 <p><a href="webapi/myresource/pojoxml">POJO XML</a> 
 ```
 
 启动项目，点击“POJO XML”,后台提示如下错误
 
-```
+```java
 org.glassfish.jersey.message.internal.WriterInterceptorExecutor$TerminalWriterInterceptor aroundWriteTo
 SEVERE: MessageBodyWriter not found for media type=application/xml, type=class com.waylau.rest.bean.MyPojo, genericType=class com.waylau.rest.bean.MyPojo. 
 ```
 
 那是因为 POJO 对象未被序列化成 XML 对象，所以找不到，解决方法很简单，在 MyBean 上面加上`@XmlRootElement`注解即可
 
-```
+```java
 @XmlRootElement
 public class MyBean {
 
@@ -592,7 +582,7 @@ public class MyBean {
 
 Jersey 和 JDK HTTP Server 用法：
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 HttpServer server = JdkHttpServerFactory.createHttpServer(baseUri, config); 
@@ -600,7 +590,7 @@ HttpServer server = JdkHttpServerFactory.createHttpServer(baseUri, config);
 
 JDK HTTP 容器依赖：
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-jdk-http</artifactId>
@@ -616,7 +606,7 @@ Grizzly 容器支持 HTTP 注射 Grizzly 的特性 org.glassfish.grizzly.http.se
 
 Jersey 和 Grizzly HTTP Server 用法：
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config); 
@@ -624,7 +614,7 @@ HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
 
 容器扩展模块依赖要加入:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-grizzly2-http</artifactId>
@@ -642,7 +632,7 @@ Simple 的框架支持 HTTP 容器注入 Simple 框架特性 的 org.simpleframe
 
 Jersey 和 Simple 框架用法：
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 SimpleContainer server = SimpleContainerFactory.create(baseUri, config); 
@@ -650,7 +640,7 @@ SimpleContainer server = SimpleContainerFactory.create(baseUri, config);
 
 容器扩展模块依赖要加入:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-simple-http</artifactId>
@@ -668,7 +658,7 @@ Jetty HTTP 容器支持注入 Jetty 特性的 org.eclipse.jetty.server.Request �
 
 Jersey 和 Jetty HTTP Server 用法：
 
-```
+```java
 URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 ResourceConfig config = new ResourceConfig(MyResource.class);
 Server server = JettyHttpContainerFactory.createServer(baseUri, config); 
@@ -676,7 +666,7 @@ Server server = JettyHttpContainerFactory.createServer(baseUri, config);
 
 容器扩展模块依赖要加入（**译者注：**原文中依赖包有误，这里做了更正）:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-jetty-http</artifactId>
@@ -694,7 +684,7 @@ Server server = JettyHttpContainerFactory.createServer(baseUri, config);
 
 MyBean.java
 
-```
+```java
 @XmlRootElement
 public class MyBean {
 
@@ -722,7 +712,7 @@ MyBean 作为我们数据相应的实体。
 
 MyResource.java
 
-```
+```java
 @Path("myresource")
 public class MyResource {
 
@@ -778,7 +768,7 @@ public class MyResource {
 
 RestApplication.java
 
-```
+```java
 public class RestApplication extends ResourceConfig {
 
     public RestApplication() {
@@ -797,7 +787,7 @@ public class RestApplication extends ResourceConfig {
 
 App.java
 
-```
+```java
 public class App {
     // HTTP server 所要监听的 uri
     public static final String BASE_URI = "http://192.168.11.125:8081/";
@@ -840,8 +830,6 @@ public class App {
 
 # Simulation of CURD 模拟 CURD 操作
 
-# Simulation of CURD 模拟 CURD 操作
-
 下面，我们要尝试下管理系统中最常用的几个 CURD 操作，来模拟一个“用户管理”。
 
 ## 服务端
@@ -852,7 +840,7 @@ public class App {
 
 先创建一个用户对象 UserBean.java
 
-```
+```java
 @XmlRootElement
 public class UserBean {
 
@@ -892,7 +880,7 @@ public class UserBean {
 
 添加
 
-```
+```java
 private static Map<Integer,UserBean> userMap  = new HashMap<Integer,UserBean>(); 
 ```
 
@@ -900,7 +888,7 @@ private static Map<Integer,UserBean> userMap  = new HashMap<Integer,UserBean>();
 
 完整的代码如下：
 
-```
+```java
 @Path("users")
 public class UserResource {
 
@@ -978,7 +966,7 @@ public class UserResource {
 
 我们先增加一个用户对象，使用 JSON 格式：
 
-```
+```java
 {
     "userId": 1,
     "age": 28,
@@ -992,7 +980,7 @@ public class UserResource {
 
 由于我们在新增的接口里面设置的是
 
-```
+```java
 @Consumes(MediaType.APPLICATION_JSON) 
 ```
 
@@ -1002,7 +990,7 @@ public class UserResource {
 
 就可以了。我们在添加一个用户对象
 
-```
+```java
 {
     "userId": 2,
     "age": 24,
@@ -1018,7 +1006,7 @@ public class UserResource {
 
 修改用户 1 的数据：
 
-```
+```java
 {
     "userId": 1,
     "age": 24,
@@ -1036,7 +1024,7 @@ public class UserResource {
 
 在根据 ID 查询的接口里面
 
-```
+```java
 @GET  
 @Path("{id}")  
 @Produces(MediaType.APPLICATION_JSON)  
@@ -1066,15 +1054,13 @@ public UserBean getUserById(@PathParam("id") int id){
 
 # Parameter Annotations 常用参数注解
 
-# Parameter Annotations 常用参数注解
-
 在前面的章节中，我们已经了解了几个参数注解，比如 通过 [@PathParam](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/PathParam.html) 来获取 URL 请求中的路径参数。
 
 ## @QueryParam
 
 [@QueryParam](http://jax-rs-spec.java.net/nonav/2.0/apidocs/javax/ws/rs/QueryParam.html) 用于从请求 URL 的查询组件中提取查询参数。我们在 MyResource 里面添加下面的方法：
 
-```
+```java
 @PUT
 @Path("pojo")
 @Consumes(MediaType.APPLICATION_JSON)  
@@ -1092,7 +1078,7 @@ public MyBean putPojo(@QueryParam("age") int age,
 
 启动服务，在 RESTClient 里面发送 PUT 请求 [`localhost:8080/webapi/myresource/pojo?age=28&name=waylau`](http://localhost:8080/webapi/myresource/pojo?age=28&name=waylau) 。成功后就能接收到一个 JSON 数据对象。
 
-```
+```java
 {
    "age": 28,
    "name": "waylau"
@@ -1107,7 +1093,7 @@ public MyBean putPojo(@QueryParam("age") int age,
 
 我们在 MyResource 里面添加下面的方法：
 
-```
+```java
 @POST
 @Path("pojo")
 @Consumes(MediaType.APPLICATION_JSON)  
@@ -1127,7 +1113,7 @@ public MyBean postPojoDefault(@DefaultValue("21") @QueryParam("age") int age,
 
 则返回
 
-```
+```java
 {
    "age": 26,
    "name": "waylau"
@@ -1138,7 +1124,7 @@ public MyBean postPojoDefault(@DefaultValue("21") @QueryParam("age") int age,
 
 则返回默认值
 
-```
+```java
 {
    "age": 21,
    "name": "www.waylau.com"
@@ -1149,7 +1135,7 @@ public MyBean postPojoDefault(@DefaultValue("21") @QueryParam("age") int age,
 
 [@FormParam](http://jax-rs-spec.java.net/nonav/2.0/apidocs/javax/ws/rs/FormParam.html) 顾名思义是处理 HTML 表单请求的。要求所请求 MIME 媒体类型为 `application/x-www-form-urlencoded`，并且符合指定的 HTML 编码的形式，此参数提取对于 HTML 表单 POST 请求是非常有用的。比如，我们要处理一个登陆表单，处理如下：
 
-```
+```java
 @POST
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.APPLICATION_JSON)
@@ -1176,15 +1162,13 @@ public Response login(@FormParam("username") String username,
 
 # File Upload and Download 文件上传、下载
 
-# File Upload and Download 文件上传、下载
-
 文件上传下载，是一般管理系统中经常会使用的操作。下面介绍下 REST 里面是如何实现的。
 
 ## FileResource
 
 我们在`com.waylau.rest.resource` 目录下创建 FileResource 资源类,在里面写两个路径，filepath 是文件下载路径，serverLocation 是文件上传的目录。当然 “小柳哥.txt” 这个文件是必须存在的。
 
-```
+```java
 private static final String filepath = "D:/测试文档/小柳哥.txt";
 private static final String serverLocation = "D:/测试文档/"; 
 ```
@@ -1195,7 +1179,7 @@ private static final String serverLocation = "D:/测试文档/";
 
 在 FileResource 资源类中添加 文件下载的代码如下：
 
-```
+```java
 @GET
 @Path("download")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -1227,7 +1211,7 @@ public Response downloadFile() {
 
 在 index.jsp 里面添加
 
-```
+```java
 <p><a href="webapi/files/download">Download</a> 
 ```
 
@@ -1239,7 +1223,7 @@ public Response downloadFile() {
 
 这是因为系统解析不了编码导致的。需要将文件名称编码做下转化即可：
 
-```
+```java
 //处理文件名称编码
 fileName = new String(fileName.getBytes("utf-8"),"ISO8859-1"); 
 ```
@@ -1258,7 +1242,7 @@ OK ，下载程序写完。
 
 下面例子就是用一个隐藏的 Form 表单来传参进行文件的下载：
 
-```
+```java
 var exportUrl = 'rest/files/excel/easyui-datagird'
 var form=$("<form>");//定义一个 form 表单
 form.attr("style","display:none");
@@ -1288,7 +1272,7 @@ form.submit().remove();;//表单提交并
 
 服务端要做如下的处理：
 
-```
+```java
 @POST
 @Path("excel/easyui-datagird")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -1308,7 +1292,7 @@ public Response jsonToExcle(@FormParam("fileName") String fileName,
 
 添加 jersey-media-multipart 到 pom.xml
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-multipart</artifactId>
@@ -1317,7 +1301,7 @@ public Response jsonToExcle(@FormParam("fileName") String fileName,
 
 并在 RestApplication 里面注册 MultiPart
 
-```
+```java
 public class RestApplication extends ResourceConfig {
 
     public RestApplication() {
@@ -1334,7 +1318,7 @@ public class RestApplication extends ResourceConfig {
 
 在 FileResource 资源类中添加 文件下载的代码如下：
 
-```
+```java
  @POST
 @Path("upload")
 @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -1376,7 +1360,7 @@ public Response uploadFile(
 
 在 index.jsp 写一个上传的 Form 表单
 
-```
+```java
 <h3>Upload a File</h3>
 <form action="webapi/files/upload" method="post" enctype="multipart/form-data">
    <p>
@@ -1479,7 +1463,7 @@ WebSocket 相较 SSE 最大的优势在于它是双向交流的，这意味向�
 
 为使用 Jersey SSE, 添加如下依赖:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-sse</artifactId>
@@ -1490,7 +1474,7 @@ WebSocket 相较 SSE 最大的优势在于它是双向交流的，这意味向�
 
 #### 服务端代码：
 
-```
+```java
 @Path("see-events")
 public class SseResource {
 
@@ -1540,7 +1524,7 @@ public class SseResource {
 
 #### 客户端代码：
 
-```
+```java
 //判断浏览器是否支持 EventSource
 if (typeof (EventSource) !== "undefined") {
     var source = new EventSource("webapi/see-events");
@@ -1585,7 +1569,7 @@ if (typeof (EventSource) !== "undefined") {
 
 运行项目
 
-```
+```java
 mvn jetty:run 
 ```
 
@@ -1597,7 +1581,7 @@ mvn jetty:run
 
 #### 服务端代码：
 
-```
+```java
 @Singleton
 @Path("sse-chat")
 public class SseChatResource {
@@ -1649,7 +1633,7 @@ public class SseChatResource {
 
 #### 客户端代码：
 
-```
+```java
 //判断浏览器是否支持 EventSource
 if (typeof (EventSource) !== "undefined") {
     var source = new EventSource("webapi/sse-chat");
@@ -1714,7 +1698,7 @@ EventSource 的用法与发布-订阅模式类似。而 send(message) 方法是�
 
 报如下错误：
 
-```
+```java
 八月 18, 2015 7:48:28 下午 org.glassfish.jersey.servlet.internal.ResponseWriter suspend
 WARNING: Attempt to put servlet request into asynchronous mode has failed. Please check your servlet configuration - all Servlet instances and Servlet filters involved in the request processing must explicitly declare support for asynchronous request processing.
 java.lang.IllegalStateException: !asyncSupported
@@ -1762,13 +1746,13 @@ java.lang.IllegalStateException: !asyncSupported
 
 是指服务器不支持异步请求。解决方法是在 web.xml 中添加
 
-```
+```java
 <async-supported>true</async-supported> 
 ```
 
 最后的 web.xml 为：
 
-```
+```java
 <web-app 
 
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -1813,7 +1797,7 @@ java.lang.IllegalStateException: !asyncSupported
 
 先是做一个过滤器 CrossDomainFilter.java，将响应头“Access-Control-Allow-Origin”设置为“*”
 
-```
+```java
 @Override
 public void filter(ContainerRequestContext requestContext,
         ContainerResponseContext responseContext) throws IOException {
@@ -1826,7 +1810,7 @@ public void filter(ContainerRequestContext requestContext,
 
 在 RestApplication 里，注册该过滤器即可。
 
-```
+```java
 public class RestApplication extends ResourceConfig {
 
     public RestApplication() {

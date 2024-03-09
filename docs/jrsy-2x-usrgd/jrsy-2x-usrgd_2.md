@@ -8,7 +8,7 @@ Jersey 提供对 Spring DI 的扩展。使得 Jersey 在使用 Spring bean 时 �
 
 为了 JAX-RS 资源能和 Spring 的功能正常工作还需要代理，比如 Spring 的事务管理（用 @Transactional）， Spring Security 和 面向切面编程(如 @Aspect)，资源必须通过 Spring 的注解 @Component, @Service, @Controller 或 @Repository 来管理：
 
-```
+```java
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import org.springframework.stereotype.Component;

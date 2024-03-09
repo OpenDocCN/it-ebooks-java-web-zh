@@ -8,7 +8,7 @@
 
 SpringApplication 类提供了一种从 main()方法启动 Spring 应用的便捷方式。在很多情况下，你只需委托给 SpringApplication.run 这个静态方法：
 
-```
+```java
 public static void main(String[] args){
     SpringApplication.run(MySpringConfiguration.class, args);
 } 
@@ -16,7 +16,7 @@ public static void main(String[] args){
 
 当应用启动时，你应该会看到类似下面的东西（这是何方神兽？？）：
 
-```
+```java
 .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -56,7 +56,7 @@ public static void main(String[] args){
 
 如果默认的 SpringApplication 不符合你的口味，你可以创建一个本地的实例并自定义它。例如，关闭 banner 你可以这样写：
 
-```
+```java
 public static void main(String[] args){
     SpringApplication app = new SpringApplication(MySpringConfiguration.class);
     app.setShowBanner(false);
@@ -74,7 +74,7 @@ public static void main(String[] args){
 
 如果你需要创建一个分层的 ApplicationContext（多个具有父子关系的上下文），或你只是喜欢使用流畅的构建 API，你可以使用 SpringApplicationBuilder。SpringApplicationBuilder 允许你以链式方式调用多个方法，包括可以创建层次结构的 parent 和 child 方法。
 
-```
+```java
 new SpringApplicationBuilder()
     .showBanner(false)
     .sources(Parent.class)
@@ -115,7 +115,7 @@ new SpringApplicationBuilder()
 
 如果你想获取原始的命令行参数，或一旦 SpringApplication 启动，你需要运行一些特定的代码，你可以实现 CommandLineRunner 接口。在所有实现该接口的 Spring beans 上将调用 run(String… args)方法。
 
-```
+```java
 import org.springframework.boot.*
 import org.springframework.stereotype.*
 
@@ -157,7 +157,7 @@ Spring Boot 使用一个非常特别的 PropertySource 次序来允许对值进�
 
 下面是一个具体的示例（假设你开发一个使用 name 属性的@Component）：
 
-```
+```java
 import org.springframework.stereotype.*
 import org.springframework.beans.factory.annotation.*
 
@@ -177,7 +177,7 @@ public class MyBean {
 
 RandomValuePropertySource 在注入随机值（比如，密钥或测试用例）时很有用。它能产生整数，longs 或字符串，比如：
 
-```
+```java
 my.secret=${random.value}
 my.number=${random.int}
 my.bignumber=${random.long}
@@ -212,7 +212,7 @@ SpringApplication 将从以下位置加载 application.properties 文件，并�
 
 如果不喜欢将 application.properties 作为配置文件名，你可以通过指定 spring.config.name 环境属性来切换其他的名称。你也可以使用 spring.config.location 环境属性来引用一个明确的路径（目录位置或文件路径列表以逗号分割）。
 
-```
+```java
 $ java -jar myproject.jar --spring.config.name=myproject
 //or
 $ java -jar myproject.jar --spring.config.location=classpath:/default.properties,classpath:/override.properties 
@@ -234,7 +234,7 @@ $ java -jar myproject.jar --spring.config.location=classpath:/default.properties
 
 当 application.properties 里的值被使用时，它们会被存在的 Environment 过滤，所以你能够引用先前定义的值（比如，系统属性）。
 
-```
+```java
 app.name=MyApp
 app.description=${app.name} is a Spring Boot application 
 ```
@@ -257,7 +257,7 @@ Spring 框架提供两个便利的类用于加载 YAML 文档，YamlPropertiesFa
 
 示例：
 
-```
+```java
 environments:
     dev:
         url: http://dev.bar.com
@@ -269,7 +269,7 @@ environments:
 
 上面的 YAML 文档会被转化到下面的属性中：
 
-```
+```java
 environments.dev.url=http://dev.bar.com
 environments.dev.name=Developer Setup
 environments.prod.url=http://foo.bar.com
@@ -278,7 +278,7 @@ environments.prod.name=My Cool App
 
 YAML 列表被表示成使用[index]间接引用作为属性 keys 的形式，例如下面的 YAML：
 
-```
+```java
 my:
    servers:
        - dev.bar.com
@@ -287,14 +287,14 @@ my:
 
 将会转化到下面的属性中:
 
-```
+```java
 my.servers[0]=dev.bar.com
 my.servers[1]=foo.bar.com 
 ```
 
 使用 Spring DataBinder 工具绑定那样的属性（这是@ConfigurationProperties 做的事），你需要确定目标 bean 中有个 java.util.List 或 Set 类型的属性，并且需要提供一个 setter 或使用可变的值初始化它，比如，下面的代码将绑定上面的属性：
 
-```
+```java
 @ConfigurationProperties(prefix="my")
 public class Config {
     private List<String> servers = new ArrayList<String>();
@@ -316,7 +316,7 @@ YamlPropertySourceLoader 类能够用于将 YAML 作为一个 PropertySource 导
 
 你可以在单个文件中定义多个特定配置（profile-specific）的 YAML 文档，并通过一个 spring.profiles key 标示应用的文档。例如：
 
-```
+```java
 server:
     address: 192.168.1.100
 ---
@@ -347,7 +347,7 @@ YAML 文件不能通过@PropertySource 注解加载。所以，在这种情况�
 
 示例：
 
-```
+```java
 @Component
 @ConfigurationProperties(prefix="connection")
 public class ConnectionSettings {
@@ -359,7 +359,7 @@ public class ConnectionSettings {
 
 当@EnableConfigurationProperties 注解应用到你的@Configuration 时，任何被@ConfigurationProperties 注解的 beans 将自动被 Environment 属性配置。这种风格的配置特别适合与 SpringApplication 的外部 YAML 配置进行配合使用。
 
-```
+```java
 # application.yml
 connection:
     username: admin
@@ -369,7 +369,7 @@ connection:
 
 为了使用@ConfigurationProperties beans，你可以使用与其他任何 bean 相同的方式注入它们。
 
-```
+```java
 @Service
 public class MyService {
     @Autowired
@@ -385,7 +385,7 @@ public class MyService {
 
 你可以通过在@EnableConfigurationProperties 注解中直接简单的列出属性类来快捷的注册@ConfigurationProperties bean 的定义。
 
-```
+```java
 @Configuration
 @EnableConfigurationProperties(ConnectionSettings.class)
 public class MyConfiguration {
@@ -402,7 +402,7 @@ public class MyConfiguration {
 
 为了从 Environment 属性配置一个 bean，将@ConfigurationProperties 添加到它的 bean 注册过程：
 
-```
+```java
 @ConfigurationProperties(prefix = "foo")
 @Bean
 public FooComponent fooComponent() {
@@ -420,7 +420,7 @@ Spring Boot 使用一些宽松的规则用于绑定 Environment 属性到@Config
 
 示例：
 
-```
+```java
 @Component
 @ConfigurationProperties(prefix="person")
 public class ConnectionSettings {
@@ -444,7 +444,7 @@ Spring 会尝试强制外部的应用属性在绑定到@ConfigurationProperties 
 
 Spring Boot 将尝试校验外部的配置，默认使用 JSR-303（如果在 classpath 路径中）。你可以轻松的为你的@ConfigurationProperties 类添加 JSR-303 javax.validation 约束注解：
 
-```
+```java
 @Component
 @ConfigurationProperties(prefix="connection")
 public class ConnectionSettings {
@@ -464,7 +464,7 @@ public class ConnectionSettings {
 
 Spring Profiles 提供了一种隔离应用程序配置的方式，并让这些配置只能在特定的环境下生效。任何@Component 或@Configuration 都能被@Profile 标记，从而限制加载它的时机。
 
-```
+```java
 @Configuration
 @Profile("production")
 public class ProductionConfiguration {
@@ -474,13 +474,13 @@ public class ProductionConfiguration {
 
 以正常的 Spring 方式，你可以使用一个 spring.profiles.active 的 Environment 属性来指定哪个配置生效。你可以使用平常的任何方式来指定该属性，例如，可以将它包含到你的 application.properties 中：
 
-```
+```java
 spring.profiles.active=dev,hsqldb 
 ```
 
 或使用命令行开关：
 
-```
+```java
 --spring.profiles.active=dev,hsqldb 
 ```
 
@@ -494,7 +494,7 @@ spring.profiles.active 属性和其他属性一样都遵循相同的排列规则
 
 示例：当一个应用使用下面的属性，并用`--spring.profiles.active=prod`开关运行，那 proddb 和 prodmq 配置也会生效：
 
-```
+```java
 ---
 my.property: fromyamlfile
 ---
@@ -532,7 +532,7 @@ Spring Boot 内部日志系统使用的是[Commons Logging](http://commons.apach
 
 Spring Boot 默认的日志输出格式如下：
 
-```
+```java
 2014-03-05 10:57:51.112  INFO 45469 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/7.0.52
 2014-03-05 10:57:51.253  INFO 45469 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2014-03-05 10:57:51.253  INFO 45469 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1358 ms
@@ -556,7 +556,7 @@ Spring Boot 默认的日志输出格式如下：
 
 默认的日志配置会在写日志消息时将它们回显到控制台。默认，ERROR, WARN 和 INFO 级别的消息会被记录。可以在启动应用时，通过`--debug`标识开启控制台的 DEBUG 级别日志记录。
 
-```
+```java
 $ java -jar myapp.jar --debug 
 ```
 
@@ -586,7 +586,7 @@ $ java -jar myapp.jar --debug
 
 示例：application.properties
 
-```
+```java
 logging.level.org.springframework.web: DEBUG
 logging.level.org.hibernate: ERROR 
 ```
@@ -632,7 +632,7 @@ Spring Web MVC 框架（通常简称为"Spring MVC"）是一个富"模型，视�
 
 示例：
 
-```
+```java
 @RestController
 @RequestMapping(value="/users")
 public class MyRestController {
@@ -678,7 +678,7 @@ Spring MVC 使用 HttpMessageConverter 接口转换 HTTP 请求和响应。合�
 
 如果需要添加或自定义转换器，你可以使用 Spring Boot 的 HttpMessageConverters 类：
 
-```
+```java
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.*;
@@ -742,7 +742,7 @@ Spring Boot 默认提供一个/error 映射用来以合适的方式处理所有�
 
 如果在某些条件下需要比较多的错误页面，内嵌的 servlet 容器提供了一个统一的 Java DSL（领域特定语言）来自定义错误处理。 示例：
 
-```
+```java
 @Bean
 public EmbeddedServletContainerCustomizer containerCustomizer(){
     return new MyCustomizer();
@@ -761,7 +761,7 @@ private static class MyCustomizer implements EmbeddedServletContainerCustomizer 
 
 N.B. 如果你为一个路径注册一个 ErrorPage，最终被一个过滤器（Filter）处理（对于一些非 Spring web 框架，像 Jersey 和 Wicket 这很常见），然后过滤器需要显式注册为一个 ERROR 分发器（dispatcher）。
 
-```
+```java
 @Bean
 public FilterRegistrationBean myFilter() {
     FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -790,7 +790,7 @@ public FilterRegistrationBean myFilter() {
 
 想要开始使用 Jersey 2.x 只需要加入 spring-boot-starter-jersey 依赖，然后你需要一个 ResourceConfig 类型的@Bean，用于注册所有的端点（endpoints）。
 
-```
+```java
 @Component
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
@@ -801,7 +801,7 @@ public class JerseyConfig extends ResourceConfig {
 
 所有注册的端点都应该被@Components 和 HTTP 资源 annotations（比如@GET）注解。
 
-```
+```java
 @Component
 @Path("/hello")
 public class Endpoint {
@@ -856,7 +856,7 @@ Spring Boot 底层使用了一个新的 ApplicationContext 类型，用于对内
 
 如果需要以编程的方式配置内嵌的 servlet 容器，你可以注册一个实现 EmbeddedServletContainerCustomizer 接口的 Spring bean。EmbeddedServletContainerCustomizer 提供对 ConfigurableEmbeddedServletContainer 的访问，ConfigurableEmbeddedServletContainer 包含很多自定义的 setter 方法。
 
-```
+```java
 import org.springframework.boot.context.embedded.*;
 import org.springframework.stereotype.Component;
 
@@ -873,7 +873,7 @@ public class CustomizationBean implements EmbeddedServletContainerCustomizer {
 
 如果上面的自定义手法过于受限，你可以自己注册 TomcatEmbeddedServletContainerFactory，JettyEmbeddedServletContainerFactory 或 UndertowEmbeddedServletContainerFactory。
 
-```
+```java
 @Bean
 public EmbeddedServletContainerFactory servletContainer() {
     TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
@@ -906,7 +906,7 @@ public EmbeddedServletContainerFactory servletContainer() {
 
 默认的 AuthenticationManager 有一个单一的 user（'user'的用户名和随机密码会在应用启动时以 INFO 日志级别打印出来）。如下：
 
-```
+```java
 Using default security password: 78fa095d-3f4c-48b1-ad50-e24c31d5cf35 
 ```
 
@@ -956,7 +956,7 @@ Spring Boot 可以自动配置的内嵌数据库包括[H2](http://www.h2database
 
 示例：典型的 POM 依赖如下：
 
-```
+```java
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -987,7 +987,7 @@ Spring Boot 可以自动配置的内嵌数据库包括[H2](http://www.h2database
 
 DataSource 配置通过外部配置文件的 spring.datasource.*属性控制。示例中，你可能会在 application.properties 中声明下面的片段：
 
-```
+```java
 spring.datasource.url=jdbc:mysql://localhost/test
 spring.datasource.username=dbuser
 spring.datasource.password=dbpass
@@ -1006,7 +1006,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
 spring.datasource.jndi-name 属性可以用来替代 spring.datasource.url，spring.datasource.username 和 spring.datasource.password 去从一个特定的 JNDI 路径访问 DataSource。比如，下面 application.properties 中的片段展示了如何获取 JBoss 定义的 DataSource：
 
-```
+```java
 spring.datasource.jndi-name=java:jboss/datasources/customers 
 ```
 
@@ -1016,7 +1016,7 @@ spring.datasource.jndi-name=java:jboss/datasources/customers
 
 Spring 的 JdbcTemplate 和 NamedParameterJdbcTemplate 类是被自动配置的，你可以在自己的 beans 中通过@Autowire 直接注入它们。
 
-```
+```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -1054,7 +1054,7 @@ Java 持久化 API 是一个允许你将对象映射为关系数据库的标准�
 
 任何被@Entity，@Embeddable 或@MappedSuperclass 注解的类都将被考虑。一个普通的实体类看起来像下面这样：
 
-```
+```java
 package com.example.myapp.domain;
 
 import java.io.Serializable;
@@ -1110,7 +1110,7 @@ Spring Data 仓库通常继承自[Repository](http://docs.spring.io/spring-data/
 
 下面是一个传统的 Spring Data 仓库：
 
-```
+```java
 package com.example.myapp.domain;
 
 import org.springframework.data.domain.*;
@@ -1132,7 +1132,7 @@ public interface CityRepository extends Repository<City, Long> {
 
 默认情况下，只有在你使用内嵌数据库（H2, HSQL 或 Derby）时，JPA 数据库才会被自动创建。你可以使用 spring.jpa.*属性显示的设置 JPA。比如，为了创建和删除表你可以将下面的配置添加到 application.properties 中：
 
-```
+```java
 spring.jpa.hibernate.ddl-auto=create-drop 
 ```
 
@@ -1158,7 +1158,7 @@ Spring Data 提供其他项目，用来帮你使用各种各样的 NoSQL 技术�
 
 你可以注入一个自动配置的 RedisConnectionFactory，StringRedisTemplate 或普通的跟其他 Spring Bean 相同的 RedisTemplate 实例。默认情况下，这个实例将尝试使用 localhost:6379 连接 Redis 服务器。
 
-```
+```java
 @Component
 public class MyBean {
 
@@ -1186,7 +1186,7 @@ public class MyBean {
 
 你可以注入一个自动配置的`org.springframework.data.mongodb.MongoDbFactory`来访问 Mongo 数据库。默认情况下，该实例将尝试使用 URL：`mongodb://localhost/test`连接一个 MongoDB 服务器。
 
-```
+```java
 import org.springframework.data.mongodb.MongoDbFactory;
 import com.mongodb.DB;
 
@@ -1210,7 +1210,7 @@ public class MyBean {
 
 你可以通过设置`spring.data.mongodb.uri`来改变该 url，或指定一个 host/port。比如，你可能会在你的 application.properties 中设置如下的属性：
 
-```
+```java
 spring.data.mongodb.host=mongoserver
 spring.data.mongodb.port=27017 
 ```
@@ -1225,7 +1225,7 @@ spring.data.mongodb.port=27017
 
 Spring Data Mongo 提供了一个[MongoTemplate](http://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/core/MongoTemplate.html)类，它的设计和 Spring 的 JdbcTemplate 很相似。正如 JdbcTemplate 一样，Spring Boot 会为你自动配置一个 bean，你只需简单的注入它即可：
 
-```
+```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -1253,7 +1253,7 @@ Spring Data 的仓库包括对 MongoDB 的支持。正如上面讨论的 JPA 仓
 
 实际上，不管是 Spring Data JPA 还是 Spring Data MongoDB 都共享相同的基础设施。所以你可以使用上面的 JPA 示例，并假设那个 City 现在是一个 Mongo 数据类而不是 JPA　@Entity，它将以同样的方式工作。
 
-```
+```java
 package com.example.myapp.domain;
 
 import org.springframework.data.domain.*;
@@ -1286,7 +1286,7 @@ public interface CityRepository extends Repository<City, Long> {
 
 你可以像其他 Spring beans 一样注入一个自动配置的 SolrServer 实例。默认情况下，该实例将尝试使用`localhost:8983/solr`连接一个服务器。
 
-```
+```java
 @Component
 public class MyBean {
 
@@ -1324,7 +1324,7 @@ Spring Data 的仓库包括了对 Apache Solr 的支持。正如上面讨论的 
 
 你可以像其他 Spring beans 那样注入一个自动配置的 ElasticsearchTemplate 或 Elasticsearch 客户端实例。默认情况下，该实例将尝试连接到一个本地内存服务器（在 Elasticsearch 项目中的一个 NodeClient），但你可以通过设置`spring.data.elasticsearch.clusterNodes`为一个以逗号分割的 host:port 列表来将其切换到一个远程服务器（比如，TransportClient）。
 
-```
+```java
 @Component
 public class MyBean {
 
@@ -1378,7 +1378,7 @@ javax.jms.ConnectionFactory 接口提供了一个标准的用于创建一个 jav
 
 HornetQ 配置被 spring.hornetq.*中的外部配置属性所控制。例如，你可能在 application.properties 声明以下片段：
 
-```
+```java
 spring.hornetq.mode=native
 spring.hornetq.host=192.168.1.210
 spring.hornetq.port=9876 
@@ -1396,7 +1396,7 @@ spring.hornetq.port=9876
 
 ActiveMQ 配置是通过 spring.activemq.*中的外部配置来控制的。例如，你可能在 application.properties 中声明下面的片段：
 
-```
+```java
 spring.activemq.broker-url=tcp://192.168.1.210:9876
 spring.activemq.user=admin
 spring.activemq.password=secret 
@@ -1412,7 +1412,7 @@ spring.activemq.password=secret
 
 如果你在一个应用服务器中运行你的应用，Spring Boot 将尝试使用 JNDI 定位一个 JMS ConnectionFactory。默认情况会检查 java:/JmsXA 和 java:/ XAConnectionFactory。如果需要的话，你可以使用 spring.jms.jndi-name 属性来指定一个替代位置。
 
-```
+```java
 spring.jms.jndi-name=java:/MyConnectionFactory 
 ```
 
@@ -1422,7 +1422,7 @@ spring.jms.jndi-name=java:/MyConnectionFactory
 
 Spring 的 JmsTemplate 会被自动配置，你可以将它直接注入到你自己的 beans 中：
 
-```
+```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -1445,7 +1445,7 @@ this.jmsTemplate = jmsTemplate;
 
 当 JMS 基础设施能够使用时，任何 bean 都能够被@JmsListener 注解，以创建一个监听者端点。如果没有定义 JmsListenerContainerFactory，一个默认的将会被自动配置。下面的组件在 someQueue 目标上创建一个监听者端点。
 
-```
+```java
 @Component
 public class MyBean {
 @JmsListener(destination = "someQueue")
@@ -1509,7 +1509,7 @@ Bitronix 是另一个流行的开源 JTA 事务管理器实现。你可以使用
 
 示例如下：
 
-```
+```java
 // Inject the primary (XA aware) ConnectionFactory
 @Autowired
 private ConnectionFactory defaultConnectionFactory;
@@ -1576,7 +1576,7 @@ Spring Boot 提供一个@SpringApplicationConfiguration 注解用来替换标准
 
 示例如下：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SampleDataJpaApplication.class)
 public class CityRepositoryIntegrationTests {
@@ -1592,7 +1592,7 @@ CityRepository repository;
 
 示例：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SampleDataJpaApplication.class)
 @WebIntegrationTest
@@ -1608,7 +1608,7 @@ RestTemplate restTemplate = new TestRestTemplate();
 
 你可以为@WebIntegrationTest 添加环境变量属性来改变应用服务器端口号，比如@WebIntegrationTest("server.port:9000")。此外，你可以将 server.port 和 management.port 属性设置为０来让你的集成测试使用随机的端口号，例如：
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MyApplication.class)
 @WebIntegrationTest({"server.port=0", "management.port=0"})
@@ -1627,7 +1627,7 @@ public class SomeIntegrationTests {
 
 注意你不能使用上述提到的@SpringApplicationConfiguration 注解，因为[Spock 找不到@ContextConfiguration 元注解](https://code.google.com/p/spock/issues/detail?id=349)。为了绕过该限制，你应该直接使用@ContextConfiguration 注解，并使用 Spring Boot 特定的上下文加载器来配置它。
 
-```
+```java
 @ContextConfiguration(loader = SpringApplicationContextLoader.class)
 class ExampleSpec extends Specification {
 // ...
@@ -1648,7 +1648,7 @@ class ExampleSpec extends Specification {
 
 ConfigFileApplicationContextInitializer 是一个 ApplicationContextInitializer，可以用来测试加载 Spring Boot 的 application.properties 文件。当不需要使用@SpringApplicationConfiguration 提供的全部特性时，你可以使用它。
 
-```
+```java
 @ContextConfiguration(classes = Config.class,initializers = ConfigFileApplicationContextInitializer.class) 
 ```
 
@@ -1680,7 +1680,7 @@ System.out.println("Hello World!");
 assertThat(capture.toString(), containsString("World"));
 }
 } 
-```
+```java
 
 # 35.4.4\. TestRestTemplate
 
@@ -1697,7 +1697,7 @@ HttpHeaders headers = template.getForEntity("http://myhost.com", String.class).g
 assertThat(headers.getLocation().toString(), containsString("myotherhost"));
 }
 } 
-```
+```java
 
 # 36\. 开发自动配置和使用条件
 

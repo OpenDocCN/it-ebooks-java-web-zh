@@ -1,15 +1,11 @@
 
 # The Problem 问题
 
-# The Problem 问题
-
 今天，我们使用通用的应用程序或者类库来实现互相通讯，比如，我们经常使用一个 HTTP 客户端库来从 web 服务器上获取信息，或者通过 web 服务来执行一个远程的调用。
 
 然而，有时候一个通用的协议或他的实现并没有很好的满足需求。比如我们无法使用一个通用的 HTTP 服务器来处理大文件、电子邮件以及近实时消息，比如金融信息和多人游戏数据。我们需要一个高度优化的协议来处理一些特殊的场景。例如你可能想实现一个优化了的 Ajax 的聊天应用、媒体流传输或者是大文件传输器，你甚至可以自己设计和实现一个全新的协议来准确地实现你的需求。
 
 另一个不可避免的情况是当你不得不处理遗留的专有协议来确保与旧系统的互操作性。在这种情况下，重要的是我们如何才能快速实现协议而不牺牲应用的稳定性和性能。
-
-# The Solution 解决
 
 # The Solution 解决
 
@@ -23,13 +19,9 @@
 
 # Getting Started 开始
 
-# Getting Started 开始
-
 本章围绕 Netty 的核心架构，通过简单的示例带你快速入门。当你读完本章节，你马上就可以用 Netty 写出一个客户端和服务器。
 
 如果你在学习的时候喜欢“top-down（自顶向下）”，那你可能需要要从第二章《Architectural Overview （架构总览）》开始，然后再回到这里。
-
-# Before Getting Started 开始之前
 
 # Before Getting Started 开始之前
 
@@ -41,13 +33,11 @@
 
 # Writing a Discard Server 写个抛弃服务器
 
-# Writing a Discard Server 写个抛弃服务器
-
 世上最简单的协议不是'Hello, World!' 而是 [DISCARD(抛弃服务)](http://tools.ietf.org/html/rfc863)。这个协议将会抛弃任何收到的数据，而不响应。
 
 为了实现 DISCARD 协议，你只需忽略所有收到的数据。让我们从 handler （处理器）的实现开始，handler 是由 Netty 生成用来处理 I/O 事件的。
 
-```
+```java
  import io.netty.buffer.ByteBuf;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -79,7 +69,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
 
 3.为了实现 DISCARD 协议，处理器不得不忽略所有接受到的消息。ByteBuf 是一个引用计数对象，这个对象必须显示地调用 release() 方法来释放。请记住处理器的职责是释放所有传递到处理器的引用计数对象。通常，channelRead() 方法的实现就像下面的这段代码：
 
-```
+```java
  @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
@@ -94,7 +84,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
 
 目前为止一切都还不错，我们已经实现了 DISCARD 服务器的一半功能，剩下的需要编写一个 main() 方法来启动服务端的 DiscardServerHandler。
 
-```
+```java
 import io.netty.bootstrap.ServerBootstrap;
 
 import io.netty.channel.ChannelFuture;
@@ -174,8 +164,6 @@ public class DiscardServer {
 
 # Looking into the Received Data 查看收到的数据
 
-# Looking into the Received Data 查看收到的数据
-
 现在我们已经编写出我们第一个服务端，我们需要测试一下他是否真的可以运行。最简单的测试方法是用 telnet 命令。例如，你可以在命令行上输入`telnet localhost 8080`或者其他类型参数。
 
 ![](img/f4d3679.jpg)
@@ -186,7 +174,7 @@ public class DiscardServer {
 
 我们已经知道 channelRead() 方法是在数据被接收的时候调用。让我们放一些代码到 DiscardServerHandler 类的 channelRead() 方法。
 
-```
+```java
 @Override
 public void channelRead(ChannelHandlerContext ctx, Object msg) {
     ByteBuf in = (ByteBuf) msg;
@@ -215,13 +203,11 @@ public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
 # Writing an Echo Server 写个应答服务器
 
-# Writing an Echo Server 写个应答服务器
-
 到目前为止，我们虽然接收到了数据，但没有做任何的响应。然而一个服务端通常会对一个请求作出响应。让我们学习怎样在 [ECHO](http://tools.ietf.org/html/rfc862) 协议的实现下编写一个响应消息给客户端，这个协议针对任何接收的数据都会返回一个响应。
 
 和 discard server 唯一不同的是把在此之前我们实现的 channelRead() 方法，返回所有的数据替代打印接收数据到控制台上的逻辑。因此，需要把 channelRead() 方法修改如下：
 
-```
+```java
  @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ctx.write(msg); // (1)
@@ -240,13 +226,11 @@ public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
 # Writing a Time Server 写个时间服务器
 
-# Writing a Time Server 写个时间服务器
-
 在这个部分被实现的协议是 [TIME](http://tools.ietf.org/html/rfc868) 协议。和之前的例子不同的是在不接受任何请求时他会发送一个含 32 位的整数的消息，并且一旦消息发送就会立即关闭连接。在这个例子中，你会学习到如何构建和发送一个消息，然后在完成时关闭连接。
 
 因为我们将会忽略任何接收到的数据，而只是在连接被创建发送一个消息，所以这次我们不能使用 channelRead() 方法了，代替他的是，我们需要覆盖 channelActive() 方法，下面的就是实现的内容：
 
-```
+```java
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
@@ -282,7 +266,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
 另外一个点需要注意的是 ChannelHandlerContext.write() (和 writeAndFlush() )方法会返回一个 [ChannelFuture](http://netty.io/4.0/api/io/netty/channel/ChannelFuture.html) 对象，一个 ChannelFuture 代表了一个还没有发生的 I/O 操作。这意味着任何一个请求操作都不会马上被执行，因为在 Netty 里所有的操作都是异步的。举个例子下面的代码中在消息被发送之前可能会先关闭连接。
 
-```
+```java
  Channel ch = ...;
     ch.writeAndFlush(message);
     ch.close(); 
@@ -294,13 +278,13 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
 或者，你可以使用简单的预定义监听器代码:
 
-```
+```java
 f.addListener(ChannelFutureListener.CLOSE); 
 ```
 
 为了测试我们的 time 服务如我们期望的一样工作，你可以使用 UNIX 的 rdate 命令
 
-```
+```java
 $ rdate -o <port> -p <host> 
 ```
 
@@ -308,13 +292,11 @@ Port 是你在 main()函数中指定的端口，host 使用 locahost 就可以�
 
 # Writing a Time Client 写个时间客户端
 
-# Writing a Time Client 写个时间客户端
-
 不像 DISCARD 和 ECHO 的服务端，对于 TIME 协议我们需要一个客户端,因为人们不能把一个 32 位的二进制数据翻译成一个日期或者日历。在这一部分，我们将会讨论如何确保服务端是正常工作的，并且学习怎样用 Netty 编写一个客户端。
 
 在 Netty 中,编写服务端和客户端最大的并且唯一不同的使用了不同的[BootStrap](http://netty.io/4.0/api/io/netty/bootstrap/Bootstrap.html) 和 [Channel](http://netty.io/4.0/api/io/netty/channel/Channel.html)的实现。请看一下下面的代码：
 
-```
+```java
 public class TimeClient {
 
     public static void main(String[] args) throws Exception {
@@ -359,7 +341,7 @@ public class TimeClient {
 
 正如你看到的，他和服务端的代码是不一样的。[ChannelHandler](http://netty.io/4.0/api/io/netty/channel/ChannelHandler.html) 是如何实现的?他应该从服务端接受一个 32 位的整数消息，把他翻译成人们能读懂的格式，并打印翻译好的时间，最后关闭连接:
 
-```
+```java
 import java.util.Date;
 
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
@@ -391,8 +373,6 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 # Dealing with a Stream-based Transport 处理一个基于流的传输
 
-# Dealing with a Stream-based Transport 处理一个基于流的传输
-
 ## One Small Caveat of Socket Buffer 关于 Socket Buffer 的一个小警告
 
 基于流的传输比如 TCP/IP, 接收到数据是存在 socket 接收的 buffer 中。不幸的是，基于流的传输并不是一个数据包队列，而是一个字节队列。意味着，即使你发送了 2 个独立的数据包，操作系统也不会作为 2 个消息处理而仅仅是作为一连串的字节而言。因此这是不能保证你远程写入的数据就会准确地读取。举个例子，让我们假设操作系统的 TCP/TP 协议栈已经接收了 3 个数据包：
@@ -413,7 +393,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 最简单的方案是构造一个内部的可积累的缓冲，直到 4 个字节全部接收到了内部缓冲。下面的代码修改了 TimeClientHandler 的实现类修复了这个问题
 
-```
+```java
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
     private ByteBuf buf;
 
@@ -466,7 +446,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 幸运地是，Netty 提供了一个可扩展的类，帮你完成 TimeDecoder 的开发。
 
-```
+```java
 public class TimeDecoder extends ByteToMessageDecoder { // (1)
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) { // (2)
@@ -489,7 +469,7 @@ public class TimeDecoder extends ByteToMessageDecoder { // (1)
 
 现在我们有另外一个处理器插入到 [ChannelPipeline](http://netty.io/4.0/api/io/netty/channel/ChannelPipeline.html) 里，我们应该在 TimeClient 里修改 ChannelInitializer 的实现：
 
-```
+```java
 b.handler(new ChannelInitializer<SocketChannel>() {
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
@@ -500,7 +480,7 @@ b.handler(new ChannelInitializer<SocketChannel>() {
 
 如果你是一个大胆的人，你可能会尝试使用更简单的解码类[ReplayingDecoder](http://netty.io/4.0/api/io/netty/handler/codec/ReplayingDecoder.html)。不过你还是需要参考一下 API 文档来获取更多的信息。
 
-```
+```java
 public class TimeDecoder extends ReplayingDecoder<Void> {
     @Override
     protected void decode(
@@ -519,15 +499,13 @@ public class TimeDecoder extends ReplayingDecoder<Void> {
 
 # Speaking in POJO instead of ByteBuf 用 POJO 代替 ByteBuf
 
-# Speaking in POJO instead of ByteBuf 用 POJO 代替 ByteBuf
-
 我们回顾了迄今为止的所有例子使用 [ByteBuf](http://netty.io/4.0/api/io/netty/buffer/ByteBuf.html) 作为协议消息的主要数据结构。在本节中,我们将改善的 TIME 协议客户端和服务器例子，使用 POJO 代替 ByteBuf。
 
 在 [ChannelHandler](http://netty.io/4.0/api/io/netty/channel/ChannelHandler.html) 使用 POIO 的好处很明显：通过从 ChannelHandler 中提取出 ByteBuf 的代码，将会使 ChannelHandler 的实现变得更加可维护和可重用。在 TIME 客户端和服务器的例子中，我们读取的仅仅是一个 32 位的整形数据，直接使用 ByteBuf 不会是一个主要的问题。然而，你会发现当你需要实现一个真实的协议，分离代码变得非常的必要。
 
 首先，让我们定义一个新的类型叫做 UnixTime。
 
-```
+```java
 public class UnixTime {
 
     private final long value;
@@ -553,7 +531,7 @@ public class UnixTime {
 
 现在我们可以修改下 TimeDecoder 类，返回一个 UnixTime，以替代 ByteBuf
 
-```
+```java
 @Override
 protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
     if (in.readableBytes() < 4) {
@@ -566,7 +544,7 @@ protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
 
 下面是修改后的解码器，TimeClientHandler 不再任何的 ByteBuf 代码了。
 
-```
+```java
 @Override
 public void channelRead(ChannelHandlerContext ctx, Object msg) {
     UnixTime m = (UnixTime) msg;
@@ -577,7 +555,7 @@ public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
 是不是变得更加简单和优雅了？相同的技术可以被运用到服务端。让我们修改一下 TimeServerHandler 的代码。
 
-```
+```java
 @Override
 public void channelActive(ChannelHandlerContext ctx) {
     ChannelFuture f = ctx.writeAndFlush(new UnixTime());
@@ -587,7 +565,7 @@ public void channelActive(ChannelHandlerContext ctx) {
 
 现在,唯一缺少的功能是一个编码器,是[ChannelOutboundHandler](http://netty.io/4.0/api/io/netty/channel/ChannelOutboundHandler.html)的实现，用来将 UnixTime 对象重新转化为一个 ByteBuf。这是比编写一个解码器简单得多,因为没有需要处理的数据包编码消息时拆分和组装。
 
-```
+```java
 public class TimeEncoder extends ChannelOutboundHandlerAdapter {
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
@@ -603,7 +581,7 @@ public class TimeEncoder extends ChannelOutboundHandlerAdapter {
 
 进一步简化操作，你可以使用 [MessageToByteEncode](http://netty.io/4.0/api/io/netty/handler/codec/MessageToByteEncoder.html):
 
-```
+```java
 public class TimeEncoder extends MessageToByteEncoder<UnixTime> {
     @Override
     protected void encode(ChannelHandlerContext ctx, UnixTime msg, ByteBuf out) {
@@ -616,11 +594,7 @@ public class TimeEncoder extends MessageToByteEncoder<UnixTime> {
 
 # Shutting Down Your Application 关闭你的应用
 
-# Shutting Down Your Application 关闭你的应用
-
 关闭一个 Netty 应用往往只需要简单地通过 shutdownGracefully() 方法来关闭你构建的所有的 [EventLoopGroup](http://netty.io/4.0/api/io/netty/channel/EventLoopGroup.html)。当 EventLoopGroup 被完全地终止,并且对应的所有 [channel](http://netty.io/4.0/api/io/netty/channel/Channel.html) 都已经被关闭时，Netty 会返回一个[Future](http://netty.io/4.0/api/io/netty/util/concurrent/Future.html)对象来通知你。
-
-# Summary 总结
 
 # Summary 总结
 
@@ -630,13 +604,9 @@ public class TimeEncoder extends MessageToByteEncoder<UnixTime> {
 
 # Architectural Overview 架构总览
 
-# Architectural Overview 架构总览
-
 ![](img/10cdbbe9.png)
 
 在本章中，我们将研究 Netty 提供的核心功能以及他们是如何构成一个完整的网络应用开发堆栈顶部的核心。你阅读本章时，请把这个图记住。
-
-# Rich Buffer Data Structure 丰富的缓冲实现
 
 # Rich Buffer Data Structure 丰富的缓冲实现
 
@@ -658,7 +628,7 @@ ByteBuf 具有丰富的操作集,可以快速的实现协议的优化。例如�
 
 举一个网络应用到极致的表现，你需要减少内存拷贝操作次数。你可能有一组缓冲区可以被组合以形成一个完整的消息。网络提供了一种复合缓冲，允许你从现有的任意数的缓冲区创建一个新的缓冲区而无需内存拷贝。例如，一个信息可以由两部分组成；header 和 body。在一个模块化的应用，当消息发送出去时，这两部分可以由不同的模块生产和装配。
 
-```
+```java
  +--------+----------+
  | header |   body   |
  +--------+----------+
@@ -667,14 +637,14 @@ ByteBuf 具有丰富的操作集,可以快速的实现协议的优化。例如�
 
 如果你使用的是 ByteBuffer ，你必须要创建一个新的大缓存区用来拷贝这两部分到这个新缓存区中。或者，你可以在 NiO 做一个收集写操作，但限制你将复合缓冲类型作为 ByteBuffer 的数组而不是一个单一的缓冲区，打破了抽象，并且引入了复杂的状态管理。此外，如果你不从 NIO channel 读或写，它是没有用的。
 
-```
+```java
 // 复合类型与组件类型不兼容。
 ByteBuffer[] message = new ByteBuffer[] { header, body }; 
 ```
 
 通过对比， ByteBuf 不会有警告，因为它是完全可扩展并有一个内置的复合缓冲区。
 
-```
+```java
 // 复合类型与组件类型是兼容的。
 ByteBuf message = Unpooled.wrappedBuffer(header, body);
 
@@ -693,7 +663,7 @@ messageWithFooter.getUnsignedInt(
 
 许多协议定义可变长度的消息，这意味着没有办法确定消息的长度，直到你构建的消息。或者，在计算长度的精确值时，带来了困难和不便。这就像当你建立一个字符串。你经常估计得到的字符串的长度，让 StringBuffer 扩大了其本身的需求。
 
-```
+```java
 // 一种新的动态缓冲区被创建。在内部，实际缓冲区是被“懒”创建，从而避免潜在的浪费内存空间。
 ByteBuf b = Unpooled.buffer(4);
 
@@ -712,8 +682,6 @@ b.writeByte('5');
 ### Better Performance 更好的性能
 
 最频繁使用的缓冲区 ByteBuf 的实现是一个非常薄的字节数组包装器（比如，一个字节）。与 ByteBuffer 不同，它没有复杂的边界和索引检查补偿，因此对于 JVM 优化缓冲区的访问更加简单。更多复杂的缓冲区实现是用于拆分或者组合缓存，并且比 ByteBuffer 拥有更好的性能。
-
-# Universal Asynchronous I/O API 统一的异步 I/O API
 
 # Universal Asynchronous I/O API 统一的异步 I/O API
 
@@ -738,13 +706,11 @@ Netty 有一个叫做 [Channel](http://netty.io/4.0/api/io/netty/channel/package
 
 # Event Model based on the Interceptor Chain Pattern 基于拦截链模式的事件模型
 
-# Event Model based on the Interceptor Chain Pattern 基于拦截链模式的事件模型
-
 一个定义良好并具有扩展能力的事件模型是事件驱动开发的必要条件。Netty 具有定义良好的 I/O 事件模型。由于严格的层次结构区分了不同的事件类型，因此 Netty 也允许你在不破坏现有代码的情况下实现自己的事件类型。这是与其他框架相比另一个不同的地方。很多 NIO 框架没有或者仅有有限的事件模型概念；在你试图添加一个新的事件类型的时候常常需要修改已有的代码，或者根本就不允许你进行这种扩展。
 
 在一个 [ChannelPipeline](http://netty.io/4.0/api/io/netty/channel/ChannelPipeline.html) 内部一个 ChannelEvent 被一组[ChannelHandler](http://netty.io/4.0/api/io/netty/channel/ChannelHandler.html) 处理。这个管道是 [Intercepting Filter (拦截过滤器)](http://java.sun.com/blueprints/corej2eepatterns/Patterns/InterceptingFilter.html)模式的一种高级形式的实现，因此对于一个事件如何被处理以及管道内部处理器间的交互过程，你都将拥有绝对的控制力。例如，你可以定义一个从 socket 读取到数据后的操作：
 
-```
+```java
 public class MyReadHandler implements SimpleChannelHandler {
        public void messageReceived(ChannelHandlerContext ctx, MessageEvent evt) {
          Object message = evt.getMessage();
@@ -759,7 +725,7 @@ public class MyReadHandler implements SimpleChannelHandler {
 
 同时你也可以定义一种操作响应其他处理器的写操作请求：
 
-```
+```java
 public class MyWriteHandler implements SimpleChannelHandler {
       public void writeRequested(ChannelHandlerContext ctx, MessageEvent evt) {
         Object message = evt.getMessage();
@@ -773,8 +739,6 @@ public class MyWriteHandler implements SimpleChannelHandler {
 ```
 
 有关事件模型的更多信息，请参考 API 文档 ChannelEvent 和 ChannelPipeline 部分。
-
-# Advanced Components for More Rapid Development 适用快速开发的高级组件
 
 # Advanced Components for More Rapid Development 适用快速开发的高级组件
 
@@ -820,8 +784,6 @@ Netty 实现了 RFC 6455 和一些老版本的规范。请参阅[io.netty.handle
 [Google Protocol Buffers](http://code.google.com/apis/protocolbuffers/docs/overview.html) 是快速实现一个高效的二进制协议的理想方案。通过使用 [ProtobufEncoder](http://netty.io/4.0/api/io/netty/handler/codec/protobuf/ProtobufEncoder.html) 和 [ProtobufDecoder](http://netty.io/4.0/api/io/netty/handler/codec/protobuf/ProtobufDecoder.html)，你可以把 Google Protocol Buffers 编译器 (protoc) 生成的消息类放入到 Netty 的 codec 实现中。请参考“[LocalTime](http://docs.jboss.org/netty/3.2/xref/org/jboss/netty/example/localtime/package-summary.html)”实例，这个例子也同时显示出开发一个由简单协议定义 的客户及服务端是多么的容易。
 
 *译者注：翻译版本的项目源码见 [`github.com/waylau/netty-4-user-guide-demos`](https://github.com/waylau/netty-4-user-guide-demos)*
-
-# Summary 总结
 
 # Summary 总结
 

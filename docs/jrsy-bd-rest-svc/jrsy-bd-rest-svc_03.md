@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 3--JAVA 对象转成 JSON 输出
 
-# 用 Jersey 构建 RESTful 服务 3--JAVA 对象转成 JSON 输出
-
 ## 一、 总体说明
 
 XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 java 对象，转成 JSON 输出。
@@ -10,7 +8,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 1.  在上文项目中， 在“com.waylau.rest.resources.UserResource“中增加代码，代码如下：
 
-    ```
+    ```java
      @GET    
         @Path("/getUserJson")    
         @Produces(MediaType.APPLICATION_JSON)    
@@ -27,7 +25,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 2.  运行项目，浏览器输入[`localhost:8089/RestDemo/rest/users/getUserJson`](http://localhost:8089/RestDemo/rest/users/getUserJson) 期望获取到 json 的数据，此时，项目报错
 
-    ```
+    ```java
      org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException: MessageBodyWriter not found for media type=application/json, type=class com.waylau.rest.bean.User, genericType=class com.waylau.rest.bean.User.  
             at org.glassfish.jersey.message.internal.WriterInterceptorExecutor$TerminalWriterInterceptor.aroundWriteTo(WriterInterceptorExecutor.java:247)  
             at org.glassfish.jersey.message.internal.WriterInterceptorExecutor.proceed(WriterInterceptorExecutor.java:162)  
@@ -54,7 +52,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 5.  在“com.waylau.rest”目录下创建 RestApplication.java
 
-    ```
+    ```java
     package com.waylau.rest;  
 
     import org.codehaus.jackson.jaxrs.JacksonJsonProvider;  
@@ -80,7 +78,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 6.  修改 web.xml，初始化从 RestApplicaton 进入应用，如下：
 
-    ```
+    ```java
     <servlet>    
          <servlet-name>Way REST Service</servlet-name>  
          <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>  

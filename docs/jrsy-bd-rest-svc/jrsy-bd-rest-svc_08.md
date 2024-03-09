@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 8--Jersey+SQLServer+Hibernate4.3+Spring3.2+jquery
 
-# 用 Jersey 构建 RESTful 服务 8--Jersey+SQLServer+Hibernate4.3+Spring3.2+jquery
-
 ## 一、总体说明
 
 本例运行演示了用 Jersey 构建 RESTful 服务中，如何集成 jQuery,用 html 作为客户端访问 RESTful 服务。
@@ -19,7 +17,7 @@
 
 2.  在`WebContent`创建`index.html`:
 
-    ```
+    ```java
      <!DOCTYPE HTML>
         <html>
         <head>
@@ -65,7 +63,7 @@
 
 3.  修改`main.js`
 
-    ```
+    ```java
      // The root URL for the RESTful services
         var rootURL = 'http://localhost:8089/RestDemo/rest/users';
 
@@ -222,7 +220,7 @@
 
 4.  在`css`目录下创建`styles.css`文件
 
-    ```
+    ```java
      * {
           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           font-size: 18px;

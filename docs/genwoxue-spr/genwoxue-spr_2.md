@@ -1,12 +1,8 @@
 # 跟我学 Spring MVC
 
-# 跟我学 Spring MVC
-
 > 作者：开涛
 > 
 > 来源：[跟开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/kaitao-springmvc)
-
-# SpringMVC + spring3.1.1 + hibernate4.1.0 集成及常见问题总结
 
 # SpringMVC + spring3.1.1 + hibernate4.1.0 集成及常见问题总结
 
@@ -18,7 +14,7 @@
 
 2、部分依赖
 
-```
+```java
 hibernate-release-4.1.0.Final.zip
 hibernate-validator-4.2.0.Final.jar
 spring-framework-3.1.1.RELEASE-with-docs.zip
@@ -84,7 +80,7 @@ ehcache 2.4.3
 
 1.1、该配置文件只加载除表现层之外的所有 bean，因此需要如下配置：
 
-```
+```java
  <context:component-scan base-package="cn.javass">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan> 
@@ -94,7 +90,7 @@ ehcache 2.4.3
 
 1.2、国际化消息文件配置
 
-```
+```java
 <!-- 国际化的消息资源文件 -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
@@ -118,7 +114,7 @@ ehcache 2.4.3
 
 建议使用声明式容器管理事务，而不建议使用注解容器管理事务（虽然简单），但太分布式了，采用声明式容器管理事务一般只对 service 层进行处理。
 
-```
+```java
  <tx:advice id="txAdvice" transaction-manager="txManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED" />
@@ -158,7 +154,7 @@ ehcache 2.4.3
 
 2.1、表现层配置文件，只应加装表现层 Bean，否则可能引起问题。
 
-```
+```java
  <!-- 开启 controller 注解支持 -->
     <!-- 注：如果 base-package=cn.javass 则注解事务不起作用-->
     <context:component-scan base-package="cn.javass.demo.web.controller">
@@ -172,7 +168,7 @@ ehcache 2.4.3
 
 2.3、静态资源映射
 
-```
+```java
  <!-- 当在 web.xml 中   DispatcherServlet 使用     <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
     <!-- 静态资源映射 -->
@@ -187,7 +183,7 @@ ehcache 2.4.3
 
 为了减少各模块实现的代码量，实际工作时都会有通用 DAO 层实现，以下是部分核心代码：
 
-```
+```java
 public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extends java.io.Serializable> implements IBaseDao<M, PK> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseHibernateDao.class);
@@ -233,7 +229,7 @@ Spring3.1 集成 Hibernate4 不再需要 HibernateDaoSupport 和 HibernateTempla
 
 **四、通用 Service 层代码此处省略，看源代码，有了通用代码后 CURD 就不用再写了。**
 
-```
+```java
 @Service("UserService")
 public class UserServiceImpl extends BaseService<UserModel, Integer> implements UserService {
 
@@ -262,7 +258,7 @@ public class UserServiceImpl extends BaseService<UserModel, Integer> implements 
 
 在 Model 实现上加验证注解
 
-```
+```java
  @Pattern(regexp = "[A-Za-z0-9]{5,20}", message = "{username.illegal}") //java validator 验证（用户名字母数字组成，长度为 5-10）
     private String username;
 
@@ -279,7 +275,7 @@ public class UserServiceImpl extends BaseService<UserModel, Integer> implements 
 
 在 Controller 中相应方法的需要验证的参数上加@Valid 即可
 
-```
+```java
  @RequestMapping(value = "/user/add", method = {RequestMethod.POST})
     public String add(Model model, @ModelAttribute("command") @Valid UserModel command, BindingResult result) 
 ```
@@ -288,7 +284,7 @@ public class UserServiceImpl extends BaseService<UserModel, Integer> implements 
 
 使用 Spring 集成测试能很方便的进行 Bean 的测试，而且使用@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)能自动回滚事务，清理测试前后状态。
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 @Transactional
@@ -309,13 +305,11 @@ public class UserServiceTest {
 
 # Spring Web MVC 中的页面缓存支持 ——跟我学 SpringMVC 系列
 
-# Spring Web MVC 中的页面缓存支持 ——跟我学 SpringMVC 系列
-
 **注：本章讲的是 Spring2 的@Deprecated，但还是有必要提一下。跟我学 SpringMVC 系列。。**
 
 ## 4.2、Controller 接口
 
-```
+```java
 package org.springframework.web.servlet.mvc;
 public interface Controller {
        ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -388,7 +382,7 @@ Cache-Control：max-age=[秒] 客户端副本缓存的最长时间，类似于 H
 
 **boolean synchronizeOnSession = false：**表示该控制器是否在执行时同步 session，从而保证该会话的用户串行访问该控制器。
 
-```
+```java
 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //委托给 WebContentGenerator 进行缓存控制
         checkAndPrepare(request, response, this instanceof LastModified);
@@ -412,7 +406,7 @@ public ModelAndView handleRequest(HttpServletRequest request, HttpServletRespons
 
 首先让我们使用 AbstractController 来重写第二章的 HelloWorldController：
 
-```
+```java
 public class HelloWorldController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -436,7 +430,7 @@ public class HelloWorldController extends AbstractController {
 
 首先让我们使用 AbstractController 来重写第二章的 HelloWorldController：
 
-```
+```java
 public class HelloWorldController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -454,7 +448,7 @@ public class HelloWorldController extends AbstractController {
 } 
 ```
 
-```
+```java
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 <bean name="/hello" class="cn.javass.chapter3.web.controller.HelloWorldController"/> 
 ```
@@ -469,7 +463,7 @@ public class HelloWorldController extends AbstractController {
 
 如果我们想直接在控制器通过 response 写出响应呢，以下代码帮我们阐述：
 
-```
+```java
 public class HelloWorldWithoutReturnModelAndViewController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -483,7 +477,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 
-```
+```java
 <bean name="/helloWithoutReturnModelAndView" class="cn.javass.chapter3.web.controller.HelloWorldWithoutReturnModelAndViewController"/> 
 ```
 
@@ -491,7 +485,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 
 **强制请求方法类型：**
 
-```
+```java
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 <bean name="/helloWithPOST" class="cn.javass.chapter3.web.controller.HelloWorldController">
         <property name="supportedMethods" value="POST"></property>
@@ -504,7 +498,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 
 **当前请求的 session 前置条件检查，如果当前请求无 session 将抛出 HttpSessionRequiredException 异常：**
 
-```
+```java
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 <bean name="/helloRequireSession" 
 class="cn.javass.chapter3.web.controller.HelloWorldController">    
@@ -512,7 +506,7 @@ class="cn.javass.chapter3.web.controller.HelloWorldController">
 </bean> 
 ```
 
-```
+```java
 在进入该控制器时，一定要有 session 存在，否则抛出 HttpSessionRequiredException 异常。 
 ```
 
@@ -524,7 +518,7 @@ class="cn.javass.chapter3.web.controller.HelloWorldController">
 
 **1、 缓存 5 秒，cacheSeconds=5**
 
-```
+```java
 package cn.javass.chapter3.web.controller;
 //省略 import
 public class HelloWorldCacheController extends AbstractController {
@@ -540,7 +534,7 @@ public class HelloWorldCacheController extends AbstractController {
 
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 
-```
+```java
 <bean name="/helloCache" 
 class="cn.javass.chapter3.web.controller.HelloWorldCacheController">
 <property name="cacheSeconds" value="5"/>
@@ -573,7 +567,7 @@ class="cn.javass.chapter3.web.controller.HelloWorldCacheController">
 
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 
-```
+```java
 <bean name="/helloNoCache"
 class="cn.javass.chapter3.web.controller.HelloWorldCacheController">
 <property name="cacheSeconds" value="0"/>
@@ -606,7 +600,7 @@ class="cn.javass.chapter3.web.controller.HelloWorldCacheController">
 
 package cn.javass.chapter3.web.controller;
 
-```
+```java
 public class HelloWorldLastModifiedCacheController extends AbstractController implements LastModified {
     private long lastModified;
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -626,7 +620,7 @@ public class HelloWorldLastModifiedCacheController extends AbstractController im
 
 <!— 在 chapter3-servlet.xml 配置处理器 -->
 
-```
+```java
 <bean name="/helloLastModified" 
 class="cn.javass.chapter3.web.controller.HelloWorldLastModifiedCacheController"/> 
 ```
@@ -657,7 +651,7 @@ HelloWorldLastModifiedCacheController 只需要实现 LastModified 接口的 get
 
 **Spring 也提供了对 ETag 的支持，具体需要在 web.xml 中配置如下代码：**
 
-```
+```java
 <filter>
    <filter-name>etagFilter</filter-name>
    <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
@@ -684,7 +678,7 @@ HelloWorldLastModifiedCacheController 只需要实现 LastModified 接口的 get
 
 **那服务器端是如何计算 ETag 的呢？**
 
-```
+```java
 protected String generateETagHeaderValue(byte[] bytes) {
         StringBuilder builder = new StringBuilder("\"0");
         DigestUtils.appendMd5DigestAsHex(bytes, builder);
@@ -700,8 +694,6 @@ bytes 是 response 要写回到客户端的响应体（即响应的内容数据�
 **缓存的目的是减少相应延迟 和 减少网络带宽消耗，比如 css、js、图片这类静态资源应该进行缓存。**
 
 **实际项目一般使用反向代理服务器（如 nginx、apache 等）进行缓存。**
-
-# Spring3 Web MVC 下的数据类型转换（第一篇）——《跟我学 Spring3 Web MVC》抢先看
 
 # Spring3 Web MVC 下的数据类型转换（第一篇）——《跟我学 Spring3 Web MVC》抢先看
 
@@ -749,33 +741,33 @@ bytes 是 response 要写回到客户端的响应体（即响应的内容数据�
 
 ③：格式化显示：在表单页面可以通过如下方式展示通过`PropertyEditor`格式化的数据和错误信息：
 
-```
+```java
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 ```
 
 首先需要通过如上 taglib 指令引入 spring 的两个标签库。
 
-```
+```java
 //1、格式化单个命令/表单对象的值（好像比较麻烦，真心没有好办法）
 <spring:bind path="dataBinderTest.phoneNumber">${status.value}</spring:bind> 
 ```
 
-```
+```java
 //2、<spring:eval>标签，自动调用 ConversionService 并选择相应的 Converter SPI 进行格式化展示
 <spring:eval expression="dataBinderTest.phoneNumber"></spring:eval> 
 ```
 
 如上代码能工作的前提是在 RequestMappingHandlerMapping 配置了 ConversionServiceExposingInterceptor，它的作用是暴露 conversionService 到请求中以便如<spring:eval>标签使用。
 
-```
+```java
 //3、通过 form 标签，内部的表单标签会自动调用命令/表单对象属性对应的 PropertyEditor 进行格式化显示
 <form:form commandName="dataBinderTest">
     <form:input path="phoneNumber"/><!-- 如果出错会显示错误之前的数据而不是空 -->
 </form:form> 
 ```
 
-```
+```java
 //4、显示验证失败后的错误信息
 <form:errors></form:errors> 
 ```
@@ -794,7 +786,7 @@ PropertyEditor 介绍请参考【4.16.1、数据类型转换】。
 
 （2、控制器定义：
 
-```
+```java
 package cn.javass.chapter7.web.controller;
 //省略 import
 @Controller
@@ -811,7 +803,7 @@ public class DataBinderTestController {
 
 (3、Spring 配置文件定义，请参考 chapter7-servlet.xml，并注册 DataBinderTestController：
 
-```
+```java
 <bean class="cn.javass.chapter7.web.controller.DataBinderTestController"/> 
 ```
 
@@ -823,7 +815,7 @@ public class DataBinderTestController {
 
 **1、使用 WebDataBinder 进行控制器级别注册 PropertyEditor（控制器独享）**
 
-```
+```java
 @InitBinder
 //此处的参数也可以是 ServletRequestDataBinder 类型
 public void initBinder(WebDataBinder binder) throws Exception {
@@ -844,7 +836,7 @@ public void initBinder(WebDataBinder binder) throws Exception {
 
 和【4.16.1、数据类型转换】不太一样，因为我们的注解式控制器是 POJO，没有实现任何东西，因此无法注入 WebBindingInitializer，此时我们需要把 WebBindingInitializer 注入到我们的 RequestMappingHandlerAdapter 或 AnnotationMethodHandlerAdapter，这样对于所有的注解式控制器都是共享的。
 
-```
+```java
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
     <property name="webBindingInitializer">
         <bean class="cn.javass.chapter7.web.controller.support.initializer.MyWebBindingInitializer"/>
@@ -878,7 +870,7 @@ Converter SPI 完成通用的类型转换逻辑，如 java.util.Date<---->java.l
 
 **（1、Converter：**类型转换器，用于转换 S 类型到 T 类型，此接口的实现必须是线程安全的且可以被共享。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface Converter<S, T> { //① S 是源类型 T 是目标类型
     T convert(S source); //② 转换 S 类型的 source 到 T 目标类型的转换方法
@@ -891,7 +883,7 @@ public interface Converter<S, T> { //① S 是源类型 T 是目标类型
 
 **（2、GenericConverter 和 ConditionalGenericConverter：**GenericConverter 接口实现能在多种类型之间进行转换，ConditionalGenericConverter 是有条件的在多种类型之间进行转换。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface GenericConverter {
     Set<ConvertiblePair> getConvertibleTypes();
@@ -903,7 +895,7 @@ getConvertibleTypes:指定了可以转换的目标类型对；
 
 convert：在 sourceType 和 targetType 类型之间进行转换。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConditionalGenericConverter extends GenericConverter {
     boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType);
@@ -918,7 +910,7 @@ matches：用于判断 sourceType 和 targetType 类型之间能否进行类型�
 
 **（3、ConverterFactory：**工厂模式的实现，用于选择将一种 S 源类型转换为 R 类型的子类型 T 的转换器的工厂接口。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConverterFactory<S, R> {
     <T extends R> Converter<S, T> getConverter(Class<T> targetType);
@@ -939,7 +931,7 @@ getConverter：得到目标类型的对应的转换器。
 
 **（1、ConverterRegistry：**类型转换器注册支持，可以注册/删除相应的类型转换器。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConverterRegistry {
     void addConverter(Converter<?, ?> converter);
@@ -954,7 +946,7 @@ public interface ConverterRegistry {
 
 **（2、ConversionService：**运行时类型转换服务接口，提供运行期类型转换的支持。
 
-```
+```java
 package org.springframework.core.convert;
 public interface ConversionService {
     boolean canConvert(Class<?> sourceType, Class<?> targetType);
@@ -1016,7 +1008,7 @@ S：代表源类型，T：代表目标类型
 
 （1、自定义 String----->PhoneNumberModel 的转换器
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.converter;
 //省略 import
 public class StringToPhoneNumberConverter implements Converter<String, PhoneNumberModel> {
@@ -1046,7 +1038,7 @@ String 转换为 Date 的类型转换器，请参考 cn.javass.chapter7.web.cont
 
 (2、测试用例(cn.javass.chapter7.web.controller.support.converter.ConverterTest)
 
-```
+```java
 @Test
 public void testStringToPhoneNumberConvert() {
     DefaultConversionService conversionService = new DefaultConversionService();
@@ -1061,7 +1053,7 @@ public void testStringToPhoneNumberConvert() {
 
 类似于 PhoneNumberEditor 将字符串“010-12345678”转换为 PhoneNumberModel。
 
-```
+```java
 @Test
 public void testOtherConvert() {
     DefaultConversionService conversionService = new DefaultConversionService();
@@ -1080,7 +1072,7 @@ public void testOtherConvert() {
 
 （1、注册 ConversionService 实现和自定义的类型转换器
 
-```
+```java
 <!-- ①注册 ConversionService -->
 <bean id="conversionService" class="org.springframework.format.support.
                                                        FormattingConversionServiceFactoryBean">
@@ -1103,7 +1095,7 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 
 （2、通过 ConfigurableWebBindingInitializer 注册 ConversionService
 
-```
+```java
 <!-- ②使用 ConfigurableWebBindingInitializer 注册 conversionService -->
 <bean id="webBindingInitializer" class="org.springframework.web.bind.support.
                                                                         ConfigurableWebBindingInitializer">
@@ -1115,7 +1107,7 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 
 3、注册 ConfigurableWebBindingInitializer 到 RequestMappingHandlerAdapter
 
-```
+```java
 <bean class="org.springframework.web.servlet.mvc.method.annotation.
                                                             RequestMappingHandlerAdapter">
 <property name="webBindingInitializer" ref="webBindingInitializer"/>
@@ -1127,8 +1119,6 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 此时可能有人会问，如果我同时使用 PropertyEditor 和 ConversionService，执行顺序是什么呢？内部首先查找 PropertyEditor 进行类型转换，如果没有找到相应的 PropertyEditor 再通过 ConversionService 进行转换。
 
 如上集成过程看起来比较麻烦，后边我们会介绍<mvc:annotation-driven>和@EnableWebMvc，ConversionService 会自动注册，后续章节再详细介绍。
-
-# Spring3 Web MVC 下的数据格式化（第二篇）——《跟我学 Spring3 Web MVC》抢先看
 
 # Spring3 Web MVC 下的数据格式化（第二篇）——《跟我学 Spring3 Web MVC》抢先看
 
@@ -1152,7 +1142,7 @@ Formatter SPI 核心是完成解析和格式化转换逻辑，在如 Web 应用/
 
 **（1、Printer 接口：**格式化显示接口，将 T 类型的对象根据 Locale 信息以某种格式进行打印显示（即返回字符串形式）；
 
-```
+```java
 package org.springframework.format;
 public interface Printer<T> {
     String print(T object, Locale locale);
@@ -1161,7 +1151,7 @@ public interface Printer<T> {
 
 **（2、Parser 接口：**解析接口，根据 Locale 信息解析字符串到 T 类型的对象；
 
-```
+```java
 package org.springframework.format;
 public interface Parser<T> {
     T parse(String text, Locale locale) throws ParseException;
@@ -1172,7 +1162,7 @@ public interface Parser<T> {
 
 **（3、Formatter 接口：**格式化 SPI 接口，继承 Printer 和 Parser 接口，完成 T 类型对象的格式化和解析功能；
 
-```
+```java
 package org.springframework.format;
 public interface Formatter<T> extends Printer<T>, Parser<T> {
 } 
@@ -1180,7 +1170,7 @@ public interface Formatter<T> extends Printer<T>, Parser<T> {
 
 **（4、AnnotationFormatterFactory 接口：**注解驱动的字段格式化工厂，用于创建带注解的对象字段的 Printer 和 Parser，即用于格式化和解析带注解的对象字段。
 
-```
+```java
 package org.springframework.format;
 public interface AnnotationFormatterFactory<A extends Annotation> {//①可以识别的注解类型
     Set<Class<?>> getFieldTypes();//②可以被 A 注解类型注解的字段类型集合
@@ -1200,7 +1190,7 @@ public interface AnnotationFormatterFactory<A extends Annotation> {//①可以�
 
 （1、FormatterRegistry：格式化转换器注册器，用于注册格式化转换器（Formatter、Printer 和 Parser、AnnotationFormatterFactory）；
 
-```
+```java
 package org.springframework.format;
 public interface FormatterRegistry extends ConverterRegistry {
     //①添加格式化转换器（Spring3.1 新增 API）
@@ -1256,7 +1246,7 @@ joda-time-2.1.jar
 
 **一、直接使用 Formatter SPI 进行解析/格式化**
 
-```
+```java
 //二、CurrencyFormatter：实现货币样式的格式化/解析
 CurrencyFormatter currencyFormatter = new CurrencyFormatter();
 currencyFormatter.setFractionDigits(2);//保留小数点后几位
@@ -1280,7 +1270,7 @@ print 方法：将 BigDecimal 类型数据根据 Locale 信息格式化为字符
 
 **二、使用 DefaultFormattingConversionService 进行解析/格式化**
 
-```
+```java
 @Test
 public void testWithDefaultFormattingConversionService() {
     DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -1321,7 +1311,7 @@ LocaleContextHolder.*setLocale*(locale)：设置本地化信息到 ThreadLocal�
 
 **（1、定义 Formatter SPI 实现**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class PhoneNumberFormatter implements Formatter<PhoneNumberModel> {
@@ -1360,7 +1350,7 @@ public class PhoneNumberFormatter implements Formatter<PhoneNumberModel> {
 
 **（2、测试用例：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class CustomerFormatterTest {
@@ -1391,7 +1381,7 @@ public class CustomerFormatterTest {
 
 **（1、测试模型类准备：**
 
-```
+```java
 package cn.javass.chapter7.model;
 public class FormatterModel {
     @NumberFormat(style=Style.NUMBER, pattern="#,###")
@@ -1431,7 +1421,7 @@ style：指定用于格式化的样式模式，默认“SS”，具体使用请�
 
 **（2、测试用例：**
 
-```
+```java
 @Test
 public void test() throws SecurityException, NoSuchFieldException {
     //默认自动注册对@NumberFormat 和@DateTimeFormat 的支持
@@ -1465,7 +1455,7 @@ conversionService.convert("10,000", stringDescriptor, descriptor)：将字符串
 
 **（3、通过为不同的字段指定不同的注解信息进行字段级别的细粒度数据解析/格式化**
 
-```
+```java
 descriptor = new TypeDescriptor(FormatterModel.class.getDeclaredField("registerDate"));
 Assert.assertEquals("2012-05-01", conversionService.convert(model.getRegisterDate(), descriptor, stringDescriptor));
 Assert.assertEquals(model.getRegisterDate(), conversionService.convert("2012-05-01", stringDescriptor, descriptor));
@@ -1485,7 +1475,7 @@ Assert.assertEquals(model.getOrderDate(), conversionService.convert("2012-05-01 
 
 **（1、定义解析/格式化字段的注解类型：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -1496,7 +1486,7 @@ public @interface PhoneNumber {
 
 **(2、实现 AnnotationFormatterFactory 注解格式化工厂：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class PhoneNumberFormatAnnotationFormatterFactory
@@ -1532,14 +1522,14 @@ AnnotationFormatterFactory 实现会根据注解信息和字段类型获取相�
 
 **（3、修改 FormatterModel 添加如下代码：**
 
-```
+```java
 @PhoneNumber
 private PhoneNumberModel phoneNumber; 
 ```
 
 **（4、测试用例**
 
-```
+```java
 @Test
 public void test() throws SecurityException, NoSuchFieldException {
     DefaultFormattingConversionService conversionService = 
@@ -1567,7 +1557,7 @@ public void test() throws SecurityException, NoSuchFieldException {
 
 **一、注册 FormattingConversionService 实现和自定义格式化转换器：**
 
-```
+```java
 <bean id="conversionService" 
 class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
   <!—此处省略之前注册的自定义类型转换器-->
@@ -1586,14 +1576,14 @@ class="org.springframework.format.support.FormattingConversionServiceFactoryBean
 
 **（1、模型对象字段的数据解析/格式化：**
 
-```
+```java
 @RequestMapping(value = "/format1")
 public String test1(@ModelAttribute("model") FormatterModel formatModel) {
     return "format/success";
 } 
 ```
 
-```
+```java
 totalCount:<spring:bind path="model.totalCount">${status.value}</spring:bind><br/>
 discount:<spring:bind path="model.discount">${status.value}</spring:bind><br/>
 sumMoney:<spring:bind path="model.sumMoney">${status.value}</spring:bind><br/>
@@ -1616,7 +1606,7 @@ phoneNumber:<spring:eval expression="model.phoneNumber"></spring:eval><br/>
 
 **（2、功能处理方法参数级别的数据解析：**
 
-```
+```java
 @RequestMapping(value = "/format2")
 public String test2(
         @PhoneNumber @RequestParam("phoneNumber") PhoneNumberModel phoneNumber, 
@@ -1638,8 +1628,6 @@ public String test2(
 控制器代码位于 cn.javass.chapter7.web.controller.DataFormatTestController 中。
 
 如果我们请求参数数据不能被正确解析并绑定或输入的数据不合法等该怎么处理呢？接下来的一节我们来学习下绑定失败处理和数据验证相关知识。
-
-# 第一章 Web MVC 简介 —— 跟开涛学 SpringMVC
 
 # 第一章 Web MVC 简介 —— 跟开涛学 SpringMVC
 
@@ -1835,8 +1823,6 @@ Model2 架构其实可以认为就是我们所说的 Web MVC 模型，只是控�
 
 # 第二章 Spring MVC 入门 —— 跟开涛学 SpringMVC
 
-# 第二章 Spring MVC 入门 —— 跟开涛学 SpringMVC
-
 ## 2．1、Spring Web MVC 是什么
 
 Spring Web MVC 是一种基于 Java 的实现了 Web MVC 设计模式的请求驱动类型的轻量级 Web 框架，即使用了 MVC 架构模式的思想，将 web 层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发，Spring Web MVC 也是要简化我们日常 Web 开发的。
@@ -1923,7 +1909,7 @@ Spring Web MVC 框架也是一个基于请求驱动的 Web 框架，并且也使
 
 架构图对应的 DispatcherServlet 核心代码如下：
 
-```
+```java
 //前端控制器分派方法
 protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpServletRequest processedRequest = request;
@@ -2117,7 +2103,7 @@ spring-framework-3.1.1.RELEASE-with-docs.zip
 
 在我们的 web.xml 中添加如下配置：
 
-```
+```java
  <servlet>
         <servlet-name>chapter2</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -2139,7 +2125,7 @@ spring-framework-3.1.1.RELEASE-with-docs.zip
 
 具体配置在 WEB-INF/ chapter2-servlet.xml 文件中：
 
-```
+```java
 <!-- HandlerMapping -->
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
@@ -2155,7 +2141,7 @@ SimpleControllerHandlerAdapter：表示所有实现了 org.springframework.web.s
 
 具体配置在 WEB-INF/ chapter2-servlet.xml 文件中：
 
-```
+```java
 <!-- ViewResolver -->
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -2172,7 +2158,7 @@ prefix 和 suffix：查找视图页面的前缀和后缀（前缀[逻辑视图�
 
 ### 2.5.5、开发处理器/页面控制器
 
-```
+```java
 package cn.javass.chapter2.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -2205,7 +2191,7 @@ ModelAndView：包含了视图要实现的模型数据和逻辑视图名；“mv
 
 我们需要将其添加到 Spring 配置文件(WEB-INF/chapter2-servlet.xml)，让其接受 Spring IoC 容器管理:
 
-```
+```java
 <!-- 处理器 -->
 <bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/> 
 ```
@@ -2216,7 +2202,7 @@ name="/hello"：前边配置的 BeanNameUrlHandlerMapping，表示如过请求�
 
 创建 /WEB-INF/jsp/hello.jsp 视图页面：
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -2280,7 +2266,7 @@ ${message}：表示显示由 HelloWorldController 处理器传过来的模型数
 
 spring Web MVC 框架提供了 org.springframework.web.filter.CharacterEncodingFilter 用于解决 POST 方式造成的中文乱码问题，具体配置如下：
 
-```
+```java
 <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -2399,8 +2385,6 @@ spring Web MVC 框架提供了 org.springframework.web.filter.CharacterEncodingF
 
 # 第三章 DispatcherServlet 详解 ——跟开涛学 SpringMVC
 
-# 第三章 DispatcherServlet 详解 ——跟开涛学 SpringMVC
-
 3.1、DispatcherServlet 作用
 
 DispatcherServlet 是前端控制器设计模式的实现，提供 Spring Web MVC 的集中访问点，而且负责职责的分派，而且与 Spring IoC 容器无缝集成，从而可以获得 Spring 的所有好处。 具体请参考第二章的图 2-1。
@@ -2425,7 +2409,7 @@ DispatcherServlet 主要用作职责调度工作，本身主要用于控制流�
 
 ## 3.2、DispatcherServlet 在 web.xml 中的配置
 
-```
+```java
  <servlet>
         <servlet-name>chapter2</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -2455,7 +2439,7 @@ DispatcherServlet 也可以配置自己的初始化参数，覆盖默认配置�
 
 因此我们可以通过添加初始化参数
 
-```
+```java
  <servlet>
         <servlet-name>chapter2</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -2473,7 +2457,7 @@ DispatcherServlet 也可以配置自己的初始化参数，覆盖默认配置�
 
 集成 Web 环境的通用配置：
 
-```
+```java
 <context-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>
@@ -2523,7 +2507,7 @@ DispatcherServlet 初始化的上下文加载的 Bean 是只对 Spring Web MVC �
 
 ：：：提供给子类初始化扩展点，initServletBean()，该方法由 FrameworkServlet 覆盖。
 
-```
+```java
 public abstract class HttpServletBean extends HttpServlet implements EnvironmentAware{
 @Override
     public final void init() throws ServletException {
@@ -2557,7 +2541,7 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 
 提供给子类初始化扩展点；
 
-```
+```java
 public abstract class FrameworkServlet extends HttpServletBean {
 @Override
     protected final void initServletBean() throws ServletException {
@@ -2573,7 +2557,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 } 
 ```
 
-```
+```java
 protected WebApplicationContext initWebApplicationContext() {
         //ROOT 上下文（ContextLoaderListener 加载的）
        WebApplicationContext rootContext =
@@ -2620,7 +2604,7 @@ protected WebApplicationContext initWebApplicationContext() {
 
 **3、DispatcherServlet 继承 FrameworkServlet**，并实现了 onRefresh()方法提供一些前端控制器相关的配置：
 
-```
+```java
 public class DispatcherServlet extends FrameworkServlet {
      //实现子类的 onRefresh()方法，该方法委托为 initStrategies()方法。
     @Override
@@ -2811,8 +2795,6 @@ DispatcherServlet 默认使用 WebApplicationContext 作为上下文，因此我
 
 # 第四章 Controller 接口控制器详解（1）——跟着开涛学 SpringMVC
 
-# 第四章 Controller 接口控制器详解（1）——跟着开涛学 SpringMVC
-
 4.1、Controller 简介
 
 Controller 控制器，是 MVC 中的部分 C，为什么是部分呢？因为此处的控制器主要负责功能处理部分：
@@ -2845,7 +2827,7 @@ Spring Web MVC 支持多种类型的控制器，比如实现 Controller 接口�
 
 ## 4.2、Controller 接口
 
-```
+```java
 package org.springframework.web.servlet.mvc;
 public interface Controller {
        ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -2920,7 +2902,7 @@ Cache-Control：max-age=[秒] 客户端副本缓存的最长时间，类似于 H
 
 **boolean synchronizeOnSession = false：**表示该控制器是否在执行时同步 session，从而保证该会话的用户串行访问该控制器。
 
-```
+```java
 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
               //委托给 WebContentGenerator 进行缓存控制
               checkAndPrepare(request, response, this instanceof LastModified);
@@ -2944,7 +2926,7 @@ public ModelAndView handleRequest(HttpServletRequest request, HttpServletRespons
 
 首先让我们使用 AbstractController 来重写第二章的 HelloWorldController：
 
-```
+```java
 public class HelloWorldController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -2962,7 +2944,7 @@ public class HelloWorldController extends AbstractController {
 } 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/hello" class="cn.javass.chapter4.web.controller.HelloWorldController"/> 
 ```
@@ -2977,7 +2959,7 @@ public class HelloWorldController extends AbstractController {
 
 如果我们想直接在控制器通过 response 写出响应呢，以下代码帮我们阐述：
 
-```
+```java
 public class HelloWorldWithoutReturnModelAndViewController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -2989,7 +2971,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 } 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/helloWithoutReturnModelAndView" class="cn.javass.chapter4.web.controller.HelloWorldWithoutReturnModelAndViewController"/> 
 ```
@@ -2998,7 +2980,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 
 **强制请求方法类型：**
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/helloWithPOST" class="cn.javass.chapter4.web.controller.HelloWorldController">
         <property name="supportedMethods" value="POST"></property>
@@ -3011,7 +2993,7 @@ public class HelloWorldWithoutReturnModelAndViewController extends AbstractContr
 
 **当前请求的 session 前置条件检查，如果当前请求无 session 将抛出 HttpSessionRequiredException 异常：**
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/helloRequireSession"
 class="cn.javass.chapter4.web.controller.HelloWorldController">
@@ -3019,7 +3001,7 @@ class="cn.javass.chapter4.web.controller.HelloWorldController">
 </bean> 
 ```
 
-```
+```java
 在进入该控制器时，一定要有 session 存在，否则抛出 HttpSessionRequiredException 异常。 
 ```
 
@@ -3031,7 +3013,7 @@ class="cn.javass.chapter4.web.controller.HelloWorldController">
 
 **1、缓存 5 秒，cacheSeconds=5**
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class HelloWorldCacheController extends AbstractController {
@@ -3045,7 +3027,7 @@ public class HelloWorldCacheController extends AbstractController {
 } 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/helloCache" 
 class="cn.javass.chapter4.web.controller.HelloWorldCacheController">
@@ -3077,7 +3059,7 @@ class="cn.javass.chapter4.web.controller.HelloWorldCacheController">
 
 **2、不缓存，cacheSeconds=0**
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->
 <bean name="/helloNoCache"
 class="cn.javass.chapter4.web.controller.HelloWorldCacheController">
@@ -3109,7 +3091,7 @@ class="cn.javass.chapter4.web.controller.HelloWorldCacheController">
 
 **Spring 也提供了 Last-Modified 机制的支持，只需要实现 LastModified 接口，如下所示：**
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 public class HelloWorldLastModifiedCacheController extends AbstractController implements LastModified {
     private long lastModified;
@@ -3128,7 +3110,7 @@ public class HelloWorldLastModifiedCacheController extends AbstractController im
 } 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->   
 <bean name="/helloLastModified" 
 class="cn.javass.chapter4.web.controller.HelloWorldLastModifiedCacheController"/> 
@@ -3160,7 +3142,7 @@ HelloWorldLastModifiedCacheController 只需要实现 LastModified 接口的 get
 
 **Spring 也提供了对 ETag 的支持，具体需要在 web.xml 中配置如下代码：**
 
-```
+```java
 <filter>
    <filter-name>etagFilter</filter-name>
    <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
@@ -3187,7 +3169,7 @@ HelloWorldLastModifiedCacheController 只需要实现 LastModified 接口的 get
 
 **那服务器端是如何计算 ETag 的呢？**
 
-```
+```java
 protected String generateETagHeaderValue(byte[] bytes) {
               StringBuilder builder = new StringBuilder("\"0");
               DigestUtils.appendMd5DigestAsHex(bytes, builder);
@@ -3212,13 +3194,11 @@ bytes 是 response 要写回到客户端的响应体（即响应的内容数据�
 
 # 第四章 Controller 接口控制器详解（2）——跟着开涛学 SpringMVC
 
-# 第四章 Controller 接口控制器详解（2）——跟着开涛学 SpringMVC
-
 4.5、ServletForwardingController
 
 将接收到的请求转发到一个命名的 servlet，具体示例如下：
 
-```
+```java
 package cn.javass.chapter4.web.servlet;
 public class ForwardingServlet extends HttpServlet {    
     @Override
@@ -3231,14 +3211,14 @@ public class ForwardingServlet extends HttpServlet {
 } 
 ```
 
-```
+```java
  <servlet>
         <servlet-name>forwarding</servlet-name>
         <servlet-class>cn.javass.chapter4.web.servlet.ForwardingServlet</servlet-class>
     </servlet> 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->   
 <bean name="/forwardToServlet" 
 class="org.springframework.web.servlet.mvc.ServletForwardingController">
@@ -3270,7 +3250,7 @@ validators：通过该属性注入验证器，验证器用来验证命令对象�
 
 1、创建命令类（就是普通的 JavaBean 类/POJO）
 
-```
+```java
 package cn.javass.chapter4.model;
 public class UserModel {
     private String username;
@@ -3281,7 +3261,7 @@ public class UserModel {
 
 2、实现控制器
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class MyAbstractCommandController extends AbstractCommandController {
@@ -3301,7 +3281,7 @@ public class MyAbstractCommandController extends AbstractCommandController {
 } 
 ```
 
-```
+```java
 <!— 在 chapter4-servlet.xml 配置处理器 -->   
 <bean name="/abstractCommand" 
 class="cn.javass.chapter4.web.controller.MyAbstractCommandController">
@@ -3310,7 +3290,7 @@ class="cn.javass.chapter4.web.controller.MyAbstractCommandController">
 </bean> 
 ```
 
-```
+```java
 <!— WEB-INF/jsp/abstractCommand.jsp 视图下的主要内容 -->   
 
 ${user.username }-${user.password } 
@@ -3328,7 +3308,7 @@ ${user.username }-${user.password }
 
 2、提交表单处理，当用户提交表单内容后，AbstractFormController 可以将用户请求的数据绑定到命令对象，并可以验证表单内容、对命令对象进行处理。
 
-```
+```java
  @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -3361,7 +3341,7 @@ ${user.username }-${user.password }
 
 **Map referenceData(HttpServletRequest request, Object command, Errors errors)**：展示表单时需要的一些引用数据（比如用户注册，可能需要选择工作地点，这些数据可以通过该方法提供），如：
 
-```
+```java
 protected Map referenceData(HttpServletRequest request) throws Exception {
              Map model = new HashMap();
              model.put("cityList", cityList);
@@ -3393,7 +3373,7 @@ SimpleFormController 继承该类，而且提供了更简单的表单流程控�
 
 **（1、控制器**
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class RegisterSimpleFormController extends SimpleFormController {    
@@ -3429,7 +3409,7 @@ public class RegisterSimpleFormController extends SimpleFormController {
 
 **（2、spring 配置（chapter4-servlet.xml）**
 
-```
+```java
 <bean name="/simpleForm" 
 class="cn.javass.chapter4.web.controller.RegisterSimpleFormController">
         <property name="formView" value="register"/>
@@ -3446,7 +3426,7 @@ class="cn.javass.chapter4.web.controller.RegisterSimpleFormController">
 
 **（3、视图页面**
 
-```
+```java
 <!-- register.jsp 注册展示页面-->
 <form method="post">
 username:<input type="text" name="username" value="${user.username}"><br/>
@@ -3484,7 +3464,7 @@ city:<select>
 
 复制 RegisterSimpleFormController 一份命名为 CanCancelRegisterSimpleFormController，添加取消功能处理方法实现：
 
-```
+```java
 @Override
 protected ModelAndView onCancel(Object command) throws Exception {
     UserModel user = (UserModel) command;
@@ -3498,7 +3478,7 @@ protected ModelAndView onCancel(Object command) throws Exception {
 
 **（2、spring 配置（chapter4-servlet.xml）**
 
-```
+```java
 <bean name="/canCancelForm" 
 class="cn.javass.chapter4.web.controller.CanCancelRegisterSimpleFormController">
         <property name="formView" value="register"/>
@@ -3516,7 +3496,7 @@ class="cn.javass.chapter4.web.controller.CanCancelRegisterSimpleFormController">
 
 **（3、视图页面（修改 register.jsp）**
 
-```
+```java
 <input type="submit" name="_cancel" value="取消"/> 
 ```
 
@@ -3533,8 +3513,6 @@ class="cn.javass.chapter4.web.controller.CanCancelRegisterSimpleFormController">
 私塾在线学习网原创内容（[http://sishuok.com`](http://sishuok.com/)）](http://sishuok.com/)原创内容（[`sishuok.com`](http://sishuok.com/)）)
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/5254.html`](http://sishuok.com/forum/blogPost/list/0/5234.html)】
-
-# 第四章 Controller 接口控制器详解（3）——跟着开涛学 SpringMVC
 
 # 第四章 Controller 接口控制器详解（3）——跟着开涛学 SpringMVC
 
@@ -3811,8 +3789,6 @@ UrlFilenameViewController 还提供了如下属性：
 
 # 第四章 Controller 接口控制器详解 （4）——跟着开涛学 SpringMVC
 
-# 第四章 Controller 接口控制器详解 （4）——跟着开涛学 SpringMVC
-
 4.12、ParameterizableViewController
 
 参数化视图控制器，不进行功能处理（即静态视图），根据参数的逻辑视图名直接选择需要展示的视图。
@@ -3892,8 +3868,6 @@ UrlFilenameViewController 还提供了如下属性：
 [私塾在线学习网](http://sishuok.com/)原创内容（[`sishuok.com`](http://sishuok.com/)）
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/5498.html`](http://sishuok.com/forum/blogPost/list/0/5234.html)】
-
-# 第四章 Controller 接口控制器详解（5）——跟着开涛学 SpringMVC
 
 # 第四章 Controller 接口控制器详解（5）——跟着开涛学 SpringMVC
 
@@ -3985,7 +3959,7 @@ public ModelAndView processException(HttpServletRequest request, HttpServletResp
 
 **核心方法：**
 
-```
+```java
 //判断方法是否是功能处理方法
 private boolean isHandlerMethod(Method method) {
     //得到方法返回值类型
@@ -4005,7 +3979,7 @@ private boolean isHandlerMethod(Method method) {
 } 
 ```
 
-```
+```java
 //是否是异常处理方法
 private boolean isExceptionHandlerMethod(Method method) {
     //异常处理方法必须是功能处理方法 且 参数长度为 3、第三个参数类型是 Throwable 子类
@@ -4015,7 +3989,7 @@ private boolean isExceptionHandlerMethod(Method method) {
 } 
 ```
 
-```
+```java
 private void registerHandlerMethods(Object delegate) {
     //缓存 Map 清空
     this.handlerMethodMap.clear();
@@ -4038,7 +4012,7 @@ private void registerHandlerMethods(Object delegate) {
 } 
 ```
 
-```
+```java
 protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
         throws Exception {
     try {
@@ -4063,7 +4037,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
 
 `（1、 ``methodParamNames：``根据请求的参数名解析功能方法名（功能方法名和参数名同名）；`
 
-```
+```java
 <property name="methodParamNames" value="list,create,update"/> 
 ```
 
@@ -4073,7 +4047,7 @@ protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpSer
 
 `&lt;input type="image" name="list"&gt; 和 submit 类似可以提交表单，单击该图片后会发送两个参数“list.x=x 轴坐标”和“list.y=y 轴坐标”（如提交后会变为 list.x=7&list.y=5）；因此我们配置的参数名（如 list）在会加上“.x” 和 “.y”进行匹配。`
 
-```
+```java
 for (String suffix : SUBMIT_IMAGE_SUFFIXES)  {//SUBMIT_IMAGE_SUFFIXES {“.x”, “.y”}
     if (request.getParameter(name + suffix) != null) {// name 是我们配置的 methodParamNames
         return true;
@@ -4085,7 +4059,7 @@ for (String suffix : SUBMIT_IMAGE_SUFFIXES)  {//SUBMIT_IMAGE_SUFFIXES {“.x”,
 
 `（3、logicalMappings：``逻辑功能方法名到真实功能方法名映射，如下所示：`
 
-```
+```java
  <property name="logicalMappings">
            <props>
                <prop key="doList">list</prop>
@@ -4099,7 +4073,7 @@ for (String suffix : SUBMIT_IMAGE_SUFFIXES)  {//SUBMIT_IMAGE_SUFFIXES {“.x”,
 
 `**3、PropertiesMethodNameResolver：**``提供自定义的从请求 URL 解析功能方法的方法名，使用一组用户自定义的模式到功能方法名的映射，映射使用`Properties 对象存放，具体配置示例如下：
 
-```
+```java
 <bean id="propertiesMethodNameResolver" 
 class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
     <property name="mappings">
@@ -4133,7 +4107,7 @@ class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResol
 
 `**（1、控制器 UserController**`
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class UserController extends MultiActionController {
@@ -4205,7 +4179,7 @@ public class UserController extends MultiActionController {
 
 `**（2、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
  <bean id="userService" class="cn.javass.chapter4.service.UserService"/>
    <bean name="/user/**" class="cn.javass.chapter4.web.controller.UserController">
        <property name="userService" ref="userService"/>
@@ -4229,7 +4203,7 @@ public class UserController extends MultiActionController {
 
 `**（3.1、list 页面（WEB-INF/jsp/user/list.jsp）**`
 
-```
+```java
 <a href="${pageContext.request.contextPath}/user/create">用户新增</a><br/>
 <table border="1" width="50%">
    <tr>
@@ -4253,7 +4227,7 @@ public class UserController extends MultiActionController {
 
 `**（3.2、update 页面（WEB-INF/jsp/user/update.jsp）**`
 
-```
+```java
 <form action="${pageContext.request.contextPath}/user/update" method="post">
 用户名： <input type="text" name="username" value="${command.username}"/><br/>
 真实姓名：<input type="text" name="realname" value="${command.realname}"/><br/>
@@ -4275,7 +4249,7 @@ public class UserController extends MultiActionController {
 
 **我们可以将默认的 InternalPathMethodNameResolver 改为 PropertiesMethodNameResolver：**
 
-```
+```java
 <bean id="propertiesMethodNameResolver" 
 class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
     <property name="mappings">
@@ -4308,7 +4282,7 @@ class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResol
 
 `**（2、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
 <!—委托对象-->
 <bean id="userDelegate" class="cn.javass.chapter4.web.controller.UserDelegate">
    <property name="userService" ref="userService"/>
@@ -4330,7 +4304,7 @@ class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
 
 **methodNameResolver：**此处我们使用 ParameterMethodNameResolver 解析器；
 
-```
+```java
 <!—ParameterMethodNameResolver -->
 <bean id="parameterMethodNameResolver" 
 class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
@@ -4367,7 +4341,7 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 `**（3.1、list 页面（WEB-INF/jsp/user2/list.jsp）**`
 
-```
+```java
 <a href="${pageContext.request.contextPath}/user2?action=create">用户新增</a><br/>
 <table border="1" width="50%">
    <tr>
@@ -4391,7 +4365,7 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 `**（3.2、update 页面（WEB-INF/jsp/user2/update.jsp）**`
 
-```
+```java
 <form action="${pageContext.request.contextPath}/user2" method="post">
 <input type="hidden" name="action" value="update"/>
 用户名： <input type="text" name="username" value="${command.username}"/><br/>
@@ -4404,7 +4378,7 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 `**（3.3、create 页面（WEB-INF/jsp/user2/create.jsp）**`
 
-```
+```java
 <form action="${pageContext.request.contextPath}/user2" method="post">
 用户名： <input type="text" name="username" value="${command.username}"/><br/>
 真实姓名：<input type="text" name="realname" value="${command.realname}"/><br/>
@@ -4440,8 +4414,6 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 # 跟着开涛学 SpringMVC 第一章源代码下载
 
-# 跟着开涛学 SpringMVC 第一章源代码下载
-
 源代码请到附件中下载。
 
 ### 其他下载：
@@ -4479,8 +4451,6 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 ### [第五章 处理器拦截器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1655 "第五章 处理器拦截器详解——跟着开涛学 SpringMVC")
 
 ### [注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1684 "注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC")
-
-# 第二章 Spring MVC 入门 源代码下载
 
 # 第二章 Spring MVC 入门 源代码下载
 
@@ -4524,8 +4494,6 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 # 第四章 Controller 接口控制器详解 源代码下载
 
-# 第四章 Controller 接口控制器详解 源代码下载
-
 源代码请到附件中下载。
 
 ### 其他下载：
@@ -4563,8 +4531,6 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 ### [第五章 处理器拦截器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1655 "第五章 处理器拦截器详解——跟着开涛学 SpringMVC")
 
 ### [注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1684 "注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC")
-
-# 第四章 Controller 接口控制器详解（6）——跟着开涛学 SpringMVC
 
 # 第四章 Controller 接口控制器详解（6）——跟着开涛学 SpringMVC
 
@@ -4643,7 +4609,7 @@ class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolv
 
 **（1、模型对象：**
 
-```
+```java
 package cn.javass.chapter4.model;
 //省略 import
 public class DataBinderTestModel {
@@ -4671,7 +4637,7 @@ public class PhoneNumberModel {
 
 前台输入如 010-12345678 自动转换为 PhoneNumberModel。
 
-```
+```java
 package cn.javass.chapter4.web.controller.support.editor;
 //省略 import
 public class PhoneNumberEditor extends PropertyEditorSupport {
@@ -4711,7 +4677,7 @@ public class PhoneNumberEditor extends PropertyEditorSupport {
 
 此处我们使用 AbstractCommandController，因为它继承了 BaseCommandController，拥有绑定流程。
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class DataBinderTestController extends AbstractCommandController {
@@ -4752,14 +4718,14 @@ binder.registerCustomEditor(PhoneNumberModel.**class**, **new**PhoneNumberEditor
 
 `**（4、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
 <bean name="/dataBind" 
 class="cn.javass.chapter4.web.controller.DataBinderTestController"/> 
 ```
 
 **（5、视图页面（WEB-INF/jsp/bindAndValidate/success.jsp）**
 
-```
+```java
 EL phoneNumber:${dataBinderTest.phoneNumber}<br/>
 EL state:${dataBinderTest.state}<br/>
 EL date:${dataBinderTest.date}<br/> 
@@ -4795,7 +4761,7 @@ DataBinderTestModel [username=zhang, bool=true, schooInfo=SchoolInfoModel [schoo
 
 （1、实现 WebBindingInitializer
 
-```
+```java
 package cn.javass.chapter4.web.controller.support.initializer;
 //省略 import
 public class MyWebBindingInitializer implements WebBindingInitializer {
@@ -4819,7 +4785,7 @@ public class MyWebBindingInitializer implements WebBindingInitializer {
 
 （3、修改 chapter4-servlet.xml 配置文件：
 
-```
+```java
 <!-- 注册 WebBindingInitializer 实现 -->
 <bean id="myWebBindingInitializer" class="cn.javass.chapter4.web.controller.support.initializer.MyWebBindingInitializer"/>
 <bean name="/dataBind" class="cn.javass.chapter4.web.controller.DataBinderTestController">
@@ -4854,8 +4820,6 @@ public class MyWebBindingInitializer implements WebBindingInitializer {
 
 # 第四章 Controller 接口控制器详解（7 完）——跟着开涛学 SpringMVC
 
-# 第四章 Controller 接口控制器详解（7 完）——跟着开涛学 SpringMVC
-
 ### 4.16.2、数据验证
 
 **1、数据绑定失败：**比如需要数字却输入了字母；
@@ -4884,7 +4848,7 @@ public class MyWebBindingInitializer implements WebBindingInitializer {
 
 **Errors：**存储和暴露关于数据绑定错误和验证错误相关信息的接口，提供了相关存储和获取错误消息的方法：
 
-```
+```java
 package org.springframework.validation;
 public interface Errors {
   //=========================全局错误消息（验证/绑定对象全局的）=============================
@@ -4918,7 +4882,7 @@ getFieldValue：可以得到验证失败的失败值，这是其他 Web 层框�
 
 **（1、控制器**
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class ErrorController extends AbstractCommandController {
@@ -4942,7 +4906,7 @@ public class ErrorController extends AbstractCommandController {
 } 
 ```
 
-```
+```java
 errors.reject("username.not.empty")：注册全局错误码“username.not.empty”，我们必须提供 messageSource 来提供错误码“username.not.empty”对应的错误信息（如果没有会抛出 NoSuchMessageException 异常）； 
 ```
 
@@ -4954,7 +4918,7 @@ errors.reject("username.not.empty")：注册全局错误码“username.not.empty
 
 `**（2、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
 <bean id="messageSource"
        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
     <property name="basename" value="classpath:messages"/>
@@ -4969,14 +4933,14 @@ errors.reject("username.not.empty")：注册全局错误码“username.not.empty
 
 messages.properties（需要执行 NativeToAscii）
 
-```
+```java
 username.not.empty=用户名不能为空
 username.length.error=用户名长度不合法，长度必须在{0}到{1}之间 
 ```
 
 **（3、视图页面（WEB-INF/jsp/bindAndValidate/error.jsp）**
 
-```
+```java
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 表单的默认命令对象名为 command -->
 <form:form commandName="command">
@@ -5006,7 +4970,7 @@ phoneNumber：自定义的 PhoneNumberModel 类型，如果如果我们前台传
 
 **（1、控制器，DataBinderErrorTestController。**
 
-```
+```java
 package cn.javass.chapter4.web.controller;
 //省略 import
 public class DataBinderErrorTestController extends SimpleFormController {
@@ -5048,7 +5012,7 @@ public class DataBinderErrorTestController extends SimpleFormController {
 
 `**（2、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
 <bean name="/dataBindError"
 class="cn.javass.chapter4.web.controller.DataBinderErrorTestController">
    <property name="formView" value="bindAndValidate/input"/>
@@ -5058,7 +5022,7 @@ class="cn.javass.chapter4.web.controller.DataBinderErrorTestController">
 
 **（3、视图页面（WEB-INF/jsp/bindAndValidate/** **input.jsp）**
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 表单的命令对象名为 dataBinderTest -->
@@ -5103,7 +5067,7 @@ class="cn.javass.chapter4.web.controller.DataBinderErrorTestController">
 
 首先我们看我们的 showForm 方法里输出的“errors”错误对象信息：
 
-```
+```java
 org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 3 errors
 
 Field error in object 'dataBinderTest' on field 'bool': rejected value [www]; codes [typeMismatch.dataBinderTest.bool,typeMismatch.bool,typeMismatch.boolean,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [dataBinderTest.bool,bool]; arguments []; default message [bool]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'boolean' for property 'bool'; nested exception is java.lang.IllegalArgumentException: Invalid boolean value [www]]
@@ -5129,7 +5093,7 @@ Field error in object 'dataBinderTest' on field 'phoneNumber': rejected value [1
 
 因此修改我们的 messages.properties 添加如下错误消息（需要执行 NativeToAscii）：
 
-```
+```java
 typeMismatch.dataBinderTest.date=您输入的数据格式错误，请重新输入（格式：2012-03-19 22:17:17）
 #typeMismatch.date=2
 #typeMismatch.java.util.Date=3
@@ -5162,7 +5126,7 @@ typeMismatch.dataBinderTest.date=您输入的数据格式错误，请重新输�
 
 **一、验证器接口**
 
-```
+```java
 package org.springframework.validation;
 public interface Validator {
 boolean supports(Class<?> clazz);
@@ -5180,7 +5144,7 @@ void validate(Object target, Errors errors);
 
 **（1、验证器实现**
 
-```
+```java
 package cn.javass.chapter4.web.controller.support.validator;
 //省略 import
 public class UserModelValidator implements Validator {
@@ -5249,7 +5213,7 @@ ValidationUtils.*rejectIfEmpty*(errors, "username", "username.not.empty");
 
 `**（2、spring 配置文件 chapter4-servlet.xml**`
 
-```
+```java
 <bean id="userModelValidator"
 class="cn.javass.chapter4.web.controller.support.validator.UserModelValidator"/>
 <bean name="/validator"
@@ -5264,7 +5228,7 @@ class="cn.javass.chapter4.web.controller.RegisterSimpleFormController">
 
 **（3、错误码配置（messages.properties），需要执行 NativeToAscii**
 
-```
+```java
 username.not.empty=用户名不能为空
 username.not.illegal=用户名错误，必须以字母开头，只能出现字母、数字、下划线，并且长度在 5-20 之间
 username.forbidden=用户名中包含非法关键词【{0}】
@@ -5273,7 +5237,7 @@ password.not.illegal=密码长度必须在 5-20 之间
 
 **（4、视图页面（/WEB-INF/jsp/registerAndValidator.jsp）**
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <form:form commandName="user">
@@ -5309,7 +5273,7 @@ form:errors path=*"username"__：*表示只显示 username 字段的错误信息
 
 此处我们复制 4.15 节的 UserController 类为 UserAndValidatorController，并修改它的 create（新增）方法添加如下代码片段：
 
-```
+```java
 BindException errors = new BindException(user, getCommandName(user));
 //如果用户名为空
 if(!StringUtils.hasLength(user.getUsername())) {
@@ -5346,8 +5310,6 @@ if(errors.hasErrors()) {
 
 # 第五章 处理器拦截器详解——跟着开涛学 SpringMVC
 
-# 第五章 处理器拦截器详解——跟着开涛学 SpringMVC
-
 ## 5.1、处理器拦截器简介
 
 `Spring Web MVC 的处理器拦截器（如无特殊说明，下文所说的拦截器即处理器拦截器）`
@@ -5370,7 +5332,7 @@ if(errors.hasErrors()) {
 
 ### 5.1.2、拦截器接口
 
-```
+```java
 package org.springframework.web.servlet;
 public interface HandlerInterceptor {
     boolean preHandle(
@@ -5406,7 +5368,7 @@ false 表示流程中断（如登录检查失败），不会继续调用其他�
 
 `有时候我们可能只需要实现三个回调方法中的某一个，如果实现`HandlerInterceptor 接口的话，三个方法必须实现，不管你需不需要，此时 spring 提供了一个 HandlerInterceptorAdapter 适配器（一种适配器设计模式的实现），允许我们只实现需要的回调方法。
 
-```
+```java
 public abstract class HandlerInterceptorAdapter implements HandlerInterceptor {
      //省略代码 此处所以三个回调方法都是空实现，preHandle 返回 true。
 } 
@@ -5426,7 +5388,7 @@ public abstract class HandlerInterceptorAdapter implements HandlerInterceptor {
 
 `接下来看一下 DispatcherServlet 内部到底是如何工作的吧：`
 
-```
+```java
 //doDispatch 方法
 //1、处理器拦截器的预处理（正序执行）
 HandlerInterceptor[] interceptors = mappedHandler.getInterceptors();
@@ -5466,7 +5428,7 @@ triggerAfterCompletion(mappedHandler, interceptorIndex, processedRequest, respon
 
 注：以上是流程的简化代码，中间省略了部分代码，不完整。
 
-```
+```java
 // triggerAfterCompletion 方法
 private void triggerAfterCompletion(HandlerExecutionChain mappedHandler, int interceptorIndex,
             HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception {
@@ -5496,7 +5458,7 @@ private void triggerAfterCompletion(HandlerExecutionChain mappedHandler, int int
 
 **（1、拦截器实现**
 
-```
+```java
 package cn.javass.chapter5.web.interceptor;
 //省略 import
 public class HandlerInterceptor1 extends HandlerInterceptorAdapter {//此处一般继承 HandlerInterceptorAdapter 适配器即可
@@ -5520,7 +5482,7 @@ public class HandlerInterceptor1 extends HandlerInterceptorAdapter {//此处一�
 
 **（2、控制器**
 
-```
+```java
 package cn.javass.chapter5.web.controller;
 //省略 import
 public class TestController implements Controller {
@@ -5534,7 +5496,7 @@ public class TestController implements Controller {
 
 **（3、Spring 配置文件 chapter5-servlet.xml**
 
-```
+```java
 <bean name="/test" class="cn.javass.chapter5.web.controller.TestController"/>
 <bean id="handlerInterceptor1" 
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor1"/>
@@ -5542,7 +5504,7 @@ class="cn.javass.chapter5.web.interceptor.HandlerInterceptor1"/>
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor2"/> 
 ```
 
-```
+```java
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
     <property name="interceptors">
         <list>
@@ -5557,7 +5519,7 @@ interceptors：指定拦截器链，拦截器的执行顺序就是此处添加�
 
 **（4、视图页面 WEB-INF/jsp/test.jsp**
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%System.out.println("==========test.jsp");%>
 test page 
@@ -5571,7 +5533,7 @@ test page
 
 控制台输出：
 
-```
+```java
 ===========HandlerInterceptor1 preHandle
 ===========HandlerInterceptor2 preHandle
 ===========TestController
@@ -5590,7 +5552,7 @@ test page
 
 HandlerInterceptor3 和 HandlerInterceptor4 与 之前的 HandlerInteceptor1 和 HandlerInterceptor2 一样，只是在 HandlerInterceptor4 的 preHandle 方法返回 false：
 
-```
+```java
  @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("===========HandlerInterceptor1 preHandle");
@@ -5605,21 +5567,21 @@ response.getWriter().print("break");//流程中断的话需要我们进行响应
 
 **（3、Spring 配置文件 chapter5-servlet.xml**
 
-```
+```java
 <bean id="handlerInterceptor3" 
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor3"/>
 <bean id="handlerInterceptor4" 
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor4"/> 
 ```
 
-```
+```java
 <bean id="handlerInterceptor3" 
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor3"/>
 <bean id="handlerInterceptor4" 
 class="cn.javass.chapter5.web.interceptor.HandlerInterceptor4"/> 
 ```
 
-```
+```java
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
     <property name="interceptors">
         <list>
@@ -5642,7 +5604,7 @@ interceptors：指定拦截器链，拦截器的执行顺序就是此处添加�
 
 控制台输出：
 
-```
+```java
 ===========HandlerInterceptor3 preHandle
 ===========HandlerInterceptor4 preHandle
 ===========HandlerInterceptor3 afterCompletion 
@@ -5672,7 +5634,7 @@ interceptors：指定拦截器链，拦截器的执行顺序就是此处添加�
 
 代码实现：
 
-```
+```java
 package cn.javass.chapter5.web.interceptor;
 public class StopWatchHandlerInterceptor extends HandlerInterceptorAdapter {
     private NamedThreadLocal<Long>  startTimeThreadLocal = 
@@ -5722,7 +5684,7 @@ NamedThreadLocal：Spring 提供的一个命名的 ThreadLocal 实现。
 
 拦截器代码如下所示：
 
-```
+```java
 @Override
 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
 Object handler) throws Exception {
@@ -5747,8 +5709,6 @@ Object handler) throws Exception {
 ```
 
 提示：推荐能使用 servlet 规范中的过滤器 Filter 实现的功能就用 Filter 实现，因为 HandlerInteceptor 只有在 Spring Web MVC 环境下才能使用，因此 Filter 是最通用的、最先应该使用的。如登录这种拦截器最好使用 Filter 来实现。
-
-# 源代码下载 第五章 处理器拦截器详解——跟着开涛学 SpringMVC
 
 # 源代码下载 第五章 处理器拦截器详解——跟着开涛学 SpringMVC
 
@@ -5789,8 +5749,6 @@ Object handler) throws Exception {
 ### [第五章 处理器拦截器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1655 "第五章 处理器拦截器详解——跟着开涛学 SpringMVC")
 
 ### [注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC](http://www.iteye.com/blogs/subjects/records/1684 "注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC")
-
-# 注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
 # 注解式控制器运行流程及处理器定义 第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
@@ -5874,7 +5832,7 @@ URL 路径映射：使用 URL 映射请求到处理器的功能处理方法；
 
 `**（1、控制器实现**`
 
-```
+```java
 package cn.javass.chapter6.web.controller;
 //省略 import
 @Controller         // 或 @RequestMapping               //①将一个 POJO 类声明为处理器
@@ -5913,7 +5871,7 @@ public class HelloWorldController {
 
 `DefaultAnnotationHandlerMapping`和 AnnotationMethodHandlerAdapter。
 
-```
+```java
 <!—Spring3.1 之前的注解 HandlerMapping -->
 <bean 
 class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
@@ -5925,7 +5883,7 @@ class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 
 `如果您使用的 Spring3.1 开始的版本，建议使用 RequestMappingHandlerMapping`和 RequestMappingHandlerAdapter。
 
-```
+```java
 <!--Spring3.1 开始的注解 HandlerMapping -->
 <bean 
 class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
@@ -5944,7 +5902,7 @@ class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 **（2.3、处理器的配置**
 
-```
+```java
 <!-- 处理器 -->
 <bean class="cn.javass.chapter6.web.controller.HelloWorldController"/> 
 ```
@@ -5955,7 +5913,7 @@ class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 **（2.4、视图页面（/WEB-INF/jsp/hello.jsp）**
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -6005,7 +5963,7 @@ ${message}：表示显示由 HelloWorldController 处理器传过来的模型数
 
 ### 6.4.1、@Controller
 
-```
+```java
 @Controller
 public class HelloWorldController {
 ……
@@ -6016,7 +5974,7 @@ public class HelloWorldController {
 
 ### 6.4.2、@RequestMapping
 
-```
+```java
 @RequestMapping
 public class HelloWorldController {
 ……
@@ -6027,7 +5985,7 @@ public class HelloWorldController {
 
 窄化功能处理方法的映射的，详见 6.4.3。
 
-```
+```java
 package cn.javass.chapter6.web.controller;
 @Controller
 @RequestMapping(value="/user")                 //①处理器的通用映射前缀
@@ -6041,7 +5999,7 @@ public class HelloWorldController2 {
 
 ### 6.4.3、窄化请求映射
 
-```
+```java
 package cn.javass.chapter6.web.controller;
 @Controller
 @RequestMapping(value="/user")                 //①处理器的通用映射前缀
@@ -6079,43 +6037,43 @@ public class HelloWorldController2 {
 
 ![](img/e3bb686a1f6080dbd4b6172119607642__3.JPG)
 
-```
+```java
 http 请求信息包含六部分信息： 
 ```
 
-```
+```java
 ①请求方法，如 GET 或 POST，表示提交的方式； 
 ```
 
-```
+```java
 ②URL，请求的地址信息； 
 ```
 
-```
+```java
 ③协议及版本； 
 ```
 
-```
+```java
 ④请求头信息（包括 Cookie 信息）； 
 ```
 
-```
+```java
 ⑤回车换行（CRLF）； 
 ```
 
-```
+```java
 ⑥请求内容区（即请求的内容或数据），如表单提交时的参数数据、URL 请求参数（?abc=123 ？后边的）等。 
 ```
 
-```
+```java
 想要了解 HTTP/1.1 协议，请访问[`tools.ietf.org/html/rfc2616`](http://tools.ietf.org/html/rfc2616)。 
 ```
 
-```
+```java
 那此处我们可以看到有①、②、④、⑥一般是可变的，因此我们可以这些信息进行请求到 
 ```
 
-```
+```java
 处理器的功能处理方法的映射，因此请求的映射分为如下几种： 
 ```
 
@@ -6132,8 +6090,6 @@ URL 路径映射：使用 URL 映射请求到处理器的功能处理方法；
 [私塾在线学习网](http://sishuok.com/)原创内容（[`sishuok.com`](http://sishuok.com/)）
 
 原创内容，转载请注明私塾在线【[`sishuok.com/forum/blogPost/list/0/6117.html`](http://sishuok.com/forum/blogPost/list/0/6117.html)】
-
-# 源代码下载 第六章 注解式控制器详解
 
 # 源代码下载 第六章 注解式控制器详解
 
@@ -6177,47 +6133,45 @@ URL 路径映射：使用 URL 映射请求到处理器的功能处理方法；
 
 # SpringMVC3 强大的请求映射规则详解 第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
-# SpringMVC3 强大的请求映射规则详解 第六章 注解式控制器详解——跟着开涛学 SpringMVC
-
 声明：本系列都是原创内容，觉得好就顶一个，让更多人知道！！写博客不容易，写原创更不容易！！
 
 ## 6.5、请求映射
 
 处理器定义好了，那接下来我们应该定义功能处理方法，接收用户请求处理并选择视图进行渲染。首先我们看一下图 6-1:
 
-```
+```java
 http 请求信息包含六部分信息： 
 ```
 
-```
+```java
 ①请求方法，如 GET 或 POST，表示提交的方式； 
 ```
 
-```
+```java
 ②URL，请求的地址信息； 
 ```
 
-```
+```java
 ③协议及版本； 
 ```
 
-```
+```java
 ④请求头信息（包括 Cookie 信息）； 
 ```
 
-```
+```java
 ⑤回车换行（CRLF）； 
 ```
 
-```
+```java
 ⑥请求内容区（即请求的内容或数据），如表单提交时的参数数据、URL 请求参数（?abc=123 ？后边的）等。 
 ```
 
-```
+```java
 想要了解 HTTP/1.1 协议，请访问[`tools.ietf.org/html/rfc2616`](http://tools.ietf.org/html/rfc2616)。 
 ```
 
-```
+```java
 那此处我们可以看到有①、②、④、⑥一般是可变的，因此我们可以这些信息进行请求到处理器的功能处理方法的映射，因此请求的映射分为如下几种： 
 ```
 
@@ -6291,7 +6245,7 @@ URI 模板模式映射是{userId}，不能指定模板变量的数据类型，�
 
 接下来我们使用@RequestMapping 来实现 SimpleFormController 的功能吧。
 
-```
+```java
 package cn.javass.chapter6.web.controller.method;
 //省略 import
 @Controller
@@ -6338,7 +6292,7 @@ public class RequestMethodController {
 
 #### 6.5.3.1、请求数据中有指定参数名
 
-```
+```java
 package cn.javass.chapter6.web.controller.parameter;
 //省略 import
 @Controller
@@ -6379,7 +6333,7 @@ public class RequestParameterController1 {
 
 #### 6.5.3.2、请求数据中没有指定参数名
 
-```
+```java
 //请求参数不包含 create 参数名
 @RequestMapping(params="!create", method=RequestMethod.GET)//进行类级别的@RequestMapping 窄化 
 ```
@@ -6388,7 +6342,7 @@ public class RequestParameterController1 {
 
 #### 6.5.3.3、请求数据中指定参数名=值
 
-```
+```java
 package cn.javass.chapter6.web.controller.parameter;
 //省略 import
 @Controller
@@ -6429,7 +6383,7 @@ public class RequestParameterController2 {
 
 #### 6.5.3.4、请求数据中指定参数名!=值
 
-```
+```java
 //请求参数 submitFlag 不等于 create
 @RequestMapping(params="submitFlag!=create", method=RequestMethod.GET) 
 ```
@@ -6438,7 +6392,7 @@ public class RequestParameterController2 {
 
 #### 6.5.3.5、组合使用是“且”的关系
 
-```
+```java
 @RequestMapping(params={"test1", "test2=create"})  //②进行类级别的@RequestMapping 窄化 
 ```
 
@@ -6574,8 +6528,6 @@ Accept=*/*：表示主类型任意，子类型任意，如“text/plain”、“
 
 # Spring MVC 3.1 新特性 生产者、消费者请求限定 —— 第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
-# Spring MVC 3.1 新特性 生产者、消费者请求限定 —— 第六章 注解式控制器详解——跟着开涛学 SpringMVC
-
 **6.6.5、生产者、消费者限定**
 
 #### 6.6.5.1、基本概念
@@ -6618,7 +6570,7 @@ request 中设置请求头“Content-Type: application/x-www-form-urlencoded”�
 
 **（1、控制器 cn.javass.chapter6.web.controller.consumesproduces.contenttype.RequestContentTypeController**
 
-```
+```java
  @RequestMapping(value = "/ContentType", method = RequestMethod.GET)
     public String showForm() throws IOException {
         //form 表单，使用 application/x-www-form-urlencoded 编码方式提交表单
@@ -6658,7 +6610,7 @@ request 中设置请求头“Content-Type:application/json;charset=GBK”表示�
 
 **（1、控制器 cn.javass.chapter6.web.controller.consumesproduces.contenttype.RequestContentTypeController**
 
-```
+```java
 @RequestMapping(value = "/request/ContentType", method = RequestMethod.POST, 
 headers = "Content-Type=application/json")
     public String request2(HttpServletRequest request) throws IOException {        
@@ -6684,7 +6636,7 @@ request.getCharacterEncoding()：如“Content-Type:application/json;charset=GBK
 
 **（2、客户端发送 json 数据请求**
 
-```
+```java
  //请求的地址
         String url = "http://localhost:9080/springmvc-chapter6/request/ContentType";
         //①创建 Http Request(内部使用 HttpURLConnection)
@@ -6707,7 +6659,7 @@ request.getCharacterEncoding()：如“Content-Type:application/json;charset=GBK
 
 **2.2、响应头的内容类型，表示发送到客户端的内容数据类型，和请求头的内容类型类似，只是方向相反。**
 
-```
+```java
  @RequestMapping("/response/ContentType")
     public void response1(HttpServletResponse response) throws IOException {
         //①表示响应的内容区数据的媒体类型为 html 格式，且编码为 utf-8(客户端应该以 utf-8 解码)
@@ -6743,7 +6695,7 @@ request.getCharacterEncoding()：如“Content-Type:application/json;charset=GBK
 
 **（1、服务器端控制器**
 
-```
+```java
  @RequestMapping(value = "/response/ContentType", headers = "Accept=application/json")
     public void response2(HttpServletResponse response) throws IOException {
         //①表示响应的内容区数据的媒体类型为 json 格式，且编码为 utf-8(客户端应该以 utf-8 解码)
@@ -6768,7 +6720,7 @@ request.getCharacterEncoding()：如“Content-Type:application/json;charset=GBK
 
 **使用普通客户端测试（服务器之间通信可使用该方式）**
 
-```
+```java
  private static void jsonRequest() throws IOException, URISyntaxException {
         //请求的地址
         String url = "http://localhost:9080/springmvc-chapter6/response/ContentType";
@@ -6799,7 +6751,7 @@ response.getHeaders()：可以得到响应头，从而可以得到响应体的�
 
 **（1、服务器端控制器**
 
-```
+```java
  @RequestMapping(value = "/response/ContentType", headers = "Accept=application/xml")
     public void response3(HttpServletResponse response) throws IOException {
         //①表示响应的内容区数据的媒体类型为 xml 格式，且编码为 utf-8(客户端应该以 utf-8 解码)
@@ -6821,7 +6773,7 @@ response.getHeaders()：可以得到响应头，从而可以得到响应体的�
 
 **使用普通客户端测试（服务器之间通信可使用该方式）**
 
-```
+```java
  private static void xmlRequest() throws IOException, URISyntaxException {
         //请求的地址
         String url = "http://localhost:9080/springmvc-chapter6/response/ContentType";
@@ -6876,7 +6828,7 @@ response.getHeaders()：可以得到响应头，从而可以得到响应体的�
 
 Spring3.1 开始支持消费者、生产者限定，而且必须使用如下 HandlerMapping 和 HandlerAdapter 才支持：
 
-```
+```java
 <!--Spring3.1 开始的注解 HandlerMapping -->
 <bean 
 class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> 
@@ -6951,8 +6903,6 @@ Spring 提供了一组注解（`@RequestBody、@ResponseBody`）和一组转换�
 
 # SpringMVC 强大的数据绑定（1）——第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
-# SpringMVC 强大的数据绑定（1）——第六章 注解式控制器详解——跟着开涛学 SpringMVC
-
 到目前为止，请求已经能交给我们的处理器进行处理了，接下来的事情是要进行收集数据啦，接下来我们看看我们能从请求中收集到哪些数据，如图 6-11：
 
 ![](img/c6ffbb25-c9d1-3d48-88d8-b27bf3993923.jpg) 图 6-11
@@ -6983,7 +6933,7 @@ Spring 提供了一组注解（`@RequestBody、@ResponseBody`）和一组转换�
 
 **一、ServletRequest/HttpServletRequest 和 ServletResponse/HttpServletResponse**
 
-```
+```java
 public String requestOrResponse (
         ServletRequest servletRequest, HttpServletRequest httpServletRequest,
         ServletResponse servletResponse, HttpServletResponse httpServletResponse
@@ -6994,7 +6944,7 @@ Spring Web MVC 框架会自动帮助我们把相应的 Servlet 请求/响应（S
 
 **二、InputStream/OutputStream 和 Reader/Writer**
 
-```
+```java
 public void inputOrOutBody(InputStream requestBodyIn, OutputStream responseBodyOut)
         throws IOException {
 responseBodyOut.write("success".getBytes());
@@ -7005,7 +6955,7 @@ requestBodyIn：获取请求的内容区字节流，等价于 request.getInputSt
 
 responseBodyOut：获取相应的内容区字节流，等价于 response.getOutputStream()。
 
-```
+```java
 public void readerOrWriteBody(Reader reader, Writer writer)
         throws IOException {
     writer.write("hello");
@@ -7022,7 +6972,7 @@ InputStream/OutputStream 和 Reader/Writer 两组不能同时使用，只能使�
 
 WebRequest 是 Spring Web MVC 提供的统一请求访问接口，不仅仅可以访问请求相关数据（如参数区数据、请求头数据，但访问不到 Cookie 区数据），还可以访问会话和上下文中的数据；NativeWebRequest 继承了 WebRequest，并提供访问本地 Servlet API 的方法。
 
-```
+```java
 public String webRequest(WebRequest webRequest, NativeWebRequest nativeWebRequest) {
     System.out.println(webRequest.getParameter("test"));//①得到请求参数 test 的值
     webRequest.setAttribute("name", "value", WebRequest.SCOPE_REQUEST);//②
@@ -7049,7 +6999,7 @@ public String webRequest(WebRequest webRequest, NativeWebRequest nativeWebReques
 
 **四、HttpSession**
 
-```
+```java
 public String session(HttpSession session) {
     System.out.println(session);
     return "success";
@@ -7064,7 +7014,7 @@ public String session(HttpSession session) {
 
 Spring Web MVC 能够自动将请求参数绑定到功能处理方法的命令/表单对象上。
 
-```
+```java
 @RequestMapping(value = "/commandObject", method = RequestMethod.GET)
 public String toCreateUser(HttpServletRequest request, UserModel user) {
     return "customer/create";
@@ -7082,7 +7032,7 @@ public String createUser(HttpServletRequest request, UserModel user) {
 
 Spring Web MVC 提供 Model、Map 或 ModelMap 让我们能去暴露渲染视图需要的模型数据。
 
-```
+```java
 @RequestMapping(value = "/model")
 public String createUser(Model model, Map model2, ModelMap model3) {
     model.addAttribute("a", "a");
@@ -7103,7 +7053,7 @@ AnnotationMethodHandlerAdapter 和 RequestMappingHandlerAdapter 将使用 Bindin
 
 此处还有一点需要我们注意：
 
-```
+```java
 @RequestMapping(value = "/mergeModel")
 public ModelAndView mergeModel(Model model) {
     model.addAttribute("a", "a");//①添加模型数据
@@ -7119,17 +7069,17 @@ public ModelAndView mergeModel(Model model) {
 
 **七、Errors/BindingResult**
 
-```
+```java
 @RequestMapping(value = "/error1")
 public String error1(UserModel user, BindingResult result) 
 ```
 
-```
+```java
 @RequestMapping(value = "/error2")
 public String error2(UserModel user, BindingResult result, Model model) { 
 ```
 
-```
+```java
 @RequestMapping(value = "/error3")
 public String error3(UserModel user, Errors errors) 
 ```
@@ -7138,7 +7088,7 @@ public String error3(UserModel user, Errors errors)
 
 Spring3.1 之前（使用 AnnotationMethodHandlerAdapter）错误对象必须紧跟在命令对象/表单对象之后，如下定义是错误的：
 
-```
+```java
 @RequestMapping(value = "/error4")
 public String error4(UserModel user, Model model, Errors errors)
     } 
@@ -7150,7 +7100,7 @@ Errors 及 BindingResult 的详细使用请参考 4.16.2 数据验证。
 
 **八、其他杂项**
 
-```
+```java
 public String other(Locale locale, Principal principal) 
 ```
 
@@ -7166,13 +7116,11 @@ java.security.Principal：该主体对象包含了验证通过的用户信息，
 
 # SpringMVC 强大的数据绑定（2）——第六章 注解式控制器详解——跟着开涛学 SpringMVC
 
-# SpringMVC 强大的数据绑定（2）——第六章 注解式控制器详解——跟着开涛学 SpringMVC
-
 #### 6.6.2、@RequestParam 绑定单个请求参数值
 
 @RequestParam 用于将请求参数区数据映射到功能处理方法的参数上。
 
-```
+```java
 public String requestparam1(@RequestParam String username) 
 ```
 
@@ -7186,7 +7134,7 @@ public String requestparam1(@RequestParam String username)
 
 Name for argument type [java.lang.String] not available, and parameter name information not found in class file either，表示得不到功能处理方法的参数名，此时我们需要如下方法进行入参：
 
-```
+```java
 public String requestparam2(@RequestParam("username") String username) 
 ```
 
@@ -7200,7 +7148,7 @@ required：是否必须，默认是 true，表示请求中一定要有相应的�
 
 defaultValue：默认值，表示如果请求中没有同名参数时的默认值，默认值可以是 SpEL 表达式，如“#{systemProperties['java.vm.version']}”。
 
-```
+```java
 public String requestparam4(@RequestParam(value="username",required=false) String username) 
 ```
 
@@ -7210,7 +7158,7 @@ public String requestparam4(@RequestParam(value="username",required=false) Strin
 
 Boolean 包装类型类型：默认 Boolean.FALSE，其他引用类型默认为 null。
 
-```
+```java
 public String requestparam5(
 @RequestParam(value="username", required=true, defaultValue="zhang") String username) 
 ```
@@ -7219,19 +7167,19 @@ public String requestparam5(
 
 如果请求中有多个同名的应该如何接收呢？如给用户授权时，可能授予多个权限，首先看下如下代码：
 
-```
+```java
 public String requestparam7(@RequestParam(value="role") String roleList) 
 ```
 
 如果请求参数类似于 url?role=admin&rule=user，则实际 roleList 参数入参的数据为“admin,user”，即多个数据之间使用“，”分割；我们应该使用如下方式来接收多个请求参数：
 
-```
+```java
 public String requestparam7(@RequestParam(value="role") String[] roleList) 
 ```
 
 或
 
-```
+```java
 public String requestparam8(@RequestParam(value="list") List<String> list) 
 ```
 
@@ -7241,7 +7189,7 @@ public String requestparam8(@RequestParam(value="list") List<String> list)
 
 @PathVariable 用于将请求 URL 中的模板变量映射到功能处理方法的参数上。
 
-```
+```java
 @RequestMapping(value="/users/{userId}/topics/{topicId}")
 public String test(
        @PathVariable(value="userId") int userId,
@@ -7254,13 +7202,13 @@ public String test(
 
 @CookieValue 用于将请求的 Cookie 数据映射到功能处理方法的参数上。
 
-```
+```java
 public String test(@CookieValue(value="JSESSIONID", defaultValue="") String sessionId) 
 ```
 
 如上配置将自动将 JSESSIONID 值入参到 sessionId 参数上，defaultValue 表示 Cookie 中没有 JSESSIONID 时默认为空。
 
-```
+```java
 public String test2(@CookieValue(value="JSESSIONID", defaultValue="") Cookie sessionId) 
 ```
 
@@ -7272,7 +7220,7 @@ public String test2(@CookieValue(value="JSESSIONID", defaultValue="") Cookie ses
 
 @RequestHeader 用于将请求的头信息区数据映射到功能处理方法的参数上。
 
-```
+```java
 @RequestMapping(value="/header")
 public String test(
        @RequestHeader("User-Agent") String userAgent,
@@ -7297,7 +7245,7 @@ public String test(
 
 如用户登录，我们需要捕获用户登录的请求参数（用户名、密码）并封装为用户对象，此时我们可以使用@ModelAttribute 绑定多个请求参数到我们的命令对象。
 
-```
+```java
 public String test1(@ModelAttribute("user") UserModel user) 
 ```
 
@@ -7305,7 +7253,7 @@ public String test1(@ModelAttribute("user") UserModel user)
 
 绑定请求参数到命令对象支持对象图导航式的绑定，如请求参数包含“?username=zhang&password=123&workInfo.city=bj”自动绑定到 user 中的 workInfo 属性的 city 属性中。
 
-```
+```java
 @RequestMapping(value="/model2/{username}")
 public String test2(@ModelAttribute("model") DataBinderTestModel model) { 
 ```
@@ -7316,7 +7264,7 @@ DataBinderTestModel 相关模型请从第三章拷贝过来，请求参数到命
 
 **二、暴露表单引用对象为模型数据**
 
-```
+```java
 @ModelAttribute("cityList")
 public List<String> cityList() {
     return Arrays.asList("北京", "山东");
@@ -7325,7 +7273,7 @@ public List<String> cityList() {
 
 如上代码会在执行功能处理方法之前执行，并将其自动添加到模型对象中，在功能处理方法中调用 Model 入参的 containsAttribute("cityList")将会返回 true。
 
-```
+```java
 @ModelAttribute("user")  //①
 public UserModel getUser(@RequestParam(value="username", defaultValue="") String username) {
 //TODO 去数据库根据用户名查找用户对象
@@ -7339,7 +7287,7 @@ user.setRealname("zhang");
 
 也可以进行一些默认值的处理。
 
-```
+```java
 @RequestMapping(value="/model1") //②
 public String test1(@ModelAttribute("user") UserModel user, Model model) 
 ```
@@ -7352,7 +7300,7 @@ public String test1(@ModelAttribute("user") UserModel user, Model model)
 
 **三、暴露@RequestMapping 方法返回值为模型数据**
 
-```
+```java
 public @ModelAttribute("user2") UserModel test3(@ModelAttribute("user2") UserModel user) 
 ```
 
@@ -7364,7 +7312,7 @@ public @ModelAttribute("user2") UserModel test3(@ModelAttribute("user2") UserMod
 
 **四、匿名绑定命令参数**
 
-```
+```java
 public String test4(@ModelAttribute UserModel user, Model model)
 或
 public String test5(UserModel user, Model model) 
@@ -7372,7 +7320,7 @@ public String test5(UserModel user, Model model)
 
 此时我们没有为命令对象提供暴露到模型数据中的名字，此时的名字是什么呢？Spring Web MVC 自动将简单类名（首字母小写）作为名字暴露，如“cn.javass.chapter6.model.UserModel”暴露的名字为“userModel”。
 
-```
+```java
 public @ModelAttribute List<String> test6()
 或
 public @ModelAttribute List<UserModel> test7() 
@@ -7386,7 +7334,7 @@ public @ModelAttribute List<UserModel> test7()
 
 有时候我们需要在多次请求之间保持数据，一般情况需要我们明确的调用 HttpSession 的 API 来存取会话数据，如多步骤提交的表单。Spring Web MVC 提供了@SessionAttributes 进行请求间透明的存取会话数据。
 
-```
+```java
 //1、在控制器类头上添加@SessionAttributes 注解
 @SessionAttributes(value = {"user"})    //①
 public class SessionAttributeController
@@ -7431,7 +7379,7 @@ public String session(@ModelAttribute("user") UserModel user, SessionStatus stat
 
 （1、RequestMappingHandlerAdapter.invokeHandlerMethod
 
-```
+```java
 //1、RequestMappingHandlerAdapter 首先调用 ModelFactory 的 initModel 方法准备模型数据：
 modelFactory.initModel(webRequest, mavContainer, requestMappingMethod);
 //2、调用@RequestMapping 注解的功能处理方法
@@ -7442,7 +7390,7 @@ modelFactory.updateModel(webRequest, mavContainer);
 
 （2、ModelFactory.initModel
 
-```
+```java
 Map<String, ?> attributesInSession = this.sessionAttributesHandler.retrieveAttributes(request);
 //1.1、将与@SessionAttributes 注解相关的会话对象放入模型数据中
 mavContainer.mergeAttributes(attributesInSession);
@@ -7463,7 +7411,7 @@ for (String name : findSessionAttributeArguments(handlerMethod)) {
 
 （3、ModelFactory.invokeModelAttributeMethods
 
-```
+```java
 for (InvocableHandlerMethod attrMethod : this.attributeMethods) {
     String modelName = attrMethod.getMethodAnnotation(ModelAttribute.class).value();
     //1.2.1、如果模型数据中包含同名数据则不再添加
@@ -7478,7 +7426,7 @@ for (InvocableHandlerMethod attrMethod : this.attributeMethods) {
 
 （5、ModelFactory.updateMode 更新模型数据
 
-```
+```java
 //3.1、如果会话被标识为完成，此时从会话中清除@SessionAttributes 注解相关的会话对象
 if (mavContainer.getSessionStatus().isComplete()){
     this.sessionAttributesHandler.cleanupAttributes(request);
@@ -7498,15 +7446,13 @@ else {
 
 @Value 用于将一个 SpEL 表达式结果映射到到功能处理方法的参数上。
 
-```
+```java
 public String test(@Value("#{systemProperties['java.vm.version']}") String jvmVersion) 
 ```
 
 到此数据绑定我们就介绍完了，对于没有介绍的方法参数和注解（包括自定义注解）在后续章节进行介绍。接下来我们学习下数据类型转换吧。
 
 转载请注明出处【`jinnianshilongnian.iteye.com/blog/1703694`】
-
-# SpringMVC 数据类型转换——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
 
 # SpringMVC 数据类型转换——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
 
@@ -7548,26 +7494,26 @@ public String test(@Value("#{systemProperties['java.vm.version']}") String jvmVe
 
 ③：格式化显示：在表单页面可以通过如下方式展示通过`PropertyEditor`格式化的数据和错误信息：
 
-```
+```java
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 ```
 
 首先需要通过如上 taglib 指令引入 spring 的两个标签库。
 
-```
+```java
 //1、格式化单个命令/表单对象的值（好像比较麻烦，真心没有好办法）
 <spring:bind path="dataBinderTest.phoneNumber">${status.value}</spring:bind> 
 ```
 
-```
+```java
 //2、通过 form 标签，内部的表单标签会自动调用命令/表单对象属性对应的 PropertyEditor 进行格式化显示
 <form:form commandName="dataBinderTest">
     <form:input path="phoneNumber"/><!-- 如果出错会显示错误之前的数据而不是空 -->
 </form:form> 
 ```
 
-```
+```java
 //3、显示验证失败后的错误信息
 <form:errors></form:errors> 
 ```
@@ -7606,33 +7552,33 @@ Formatter SPI 内部实现实际委托给 Converter SPI 进行转换，即约束
 
 ③：格式化显示：在表单页面可以通过如下方式展示通过`内部通过 Converter SPI`格式化的数据和错误信息：
 
-```
+```java
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 ```
 
 首先需要通过如上 taglib 指令引入 spring 的两个标签库。
 
-```
+```java
 //1、格式化单个命令/表单对象的值（好像比较麻烦，真心没有好办法）
 <spring:bind path="dataBinderTest.phoneNumber">${status.value}</spring:bind> 
 ```
 
-```
+```java
 //2、<spring:eval>标签，自动调用 ConversionService 并选择相应的 Converter SPI 进行格式化展示
 <spring:eval expression="dataBinderTest.phoneNumber"></spring:eval> 
 ```
 
 如上代码能工作的前提是在 RequestMappingHandlerMapping 配置了 ConversionServiceExposingInterceptor，它的作用是暴露 conversionService 到请求中以便如<spring:eval>标签使用。
 
-```
+```java
 //3、通过 form 标签，内部的表单标签会自动调用命令/表单对象属性对应的 PropertyEditor 进行格式化显示
 <form:form commandName="dataBinderTest">
     <form:input path="phoneNumber"/><!-- 如果出错会显示错误之前的数据而不是空 -->
 </form:form> 
 ```
 
-```
+```java
 //4、显示验证失败后的错误信息
 <form:errors></form:errors> 
 ```
@@ -7651,7 +7597,7 @@ PropertyEditor 介绍请参考【4.16.1、数据类型转换】。
 
 （2、控制器定义：
 
-```
+```java
 package cn.javass.chapter7.web.controller;
 //省略 import
 @Controller
@@ -7668,7 +7614,7 @@ public class DataBinderTestController {
 
 (3、Spring 配置文件定义，请参考 chapter7-servlet.xml，并注册 DataBinderTestController：
 
-```
+```java
 <bean class="cn.javass.chapter7.web.controller.DataBinderTestController"/> 
 ```
 
@@ -7680,7 +7626,7 @@ public class DataBinderTestController {
 
 **1、使用 WebDataBinder 进行控制器级别注册 PropertyEditor（控制器独享）**
 
-```
+```java
 @InitBinder
 //此处的参数也可以是 ServletRequestDataBinder 类型
 public void initBinder(WebDataBinder binder) throws Exception {
@@ -7701,7 +7647,7 @@ public void initBinder(WebDataBinder binder) throws Exception {
 
 和【4.16.1、数据类型转换】不太一样，因为我们的注解式控制器是 POJO，没有实现任何东西，因此无法注入 WebBindingInitializer，此时我们需要把 WebBindingInitializer 注入到我们的 RequestMappingHandlerAdapter 或 AnnotationMethodHandlerAdapter，这样对于所有的注解式控制器都是共享的。
 
-```
+```java
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
   <property name="webBindingInitializer">
     <bean class="cn.javass.chapter7.web.controller.support.initializer.MyWebBindingInitializer"/>
@@ -7735,7 +7681,7 @@ Converter SPI 完成通用的类型转换逻辑，如 java.util.Date<---->java.l
 
 **（1、Converter：**类型转换器，用于转换 S 类型到 T 类型，此接口的实现必须是线程安全的且可以被共享。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface Converter<S, T> { //① S 是源类型 T 是目标类型
     T convert(S source); //② 转换 S 类型的 source 到 T 目标类型的转换方法
@@ -7748,7 +7694,7 @@ public interface Converter<S, T> { //① S 是源类型 T 是目标类型
 
 **（2、GenericConverter 和 ConditionalGenericConverter：**GenericConverter 接口实现能在多种类型之间进行转换，ConditionalGenericConverter 是有条件的在多种类型之间进行转换。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface GenericConverter {
     Set<ConvertiblePair> getConvertibleTypes();
@@ -7760,7 +7706,7 @@ getConvertibleTypes:指定了可以转换的目标类型对；
 
 convert：在 sourceType 和 targetType 类型之间进行转换。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConditionalGenericConverter extends GenericConverter {
     boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType);
@@ -7775,7 +7721,7 @@ matches：用于判断 sourceType 和 targetType 类型之间能否进行类型�
 
 **（3、ConverterFactory：**工厂模式的实现，用于选择将一种 S 源类型转换为 R 类型的子类型 T 的转换器的工厂接口。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConverterFactory<S, R> {
     <T extends R> Converter<S, T> getConverter(Class<T> targetType);
@@ -7798,7 +7744,7 @@ getConverter：得到目标类型的对应的转换器。
 
 **（1、ConverterRegistry：**类型转换器注册支持，可以注册/删除相应的类型转换器。
 
-```
+```java
 package org.springframework.core.convert.converter;
 public interface ConverterRegistry {
     void addConverter(Converter<?, ?> converter);
@@ -7813,7 +7759,7 @@ public interface ConverterRegistry {
 
 **（2、ConversionService：**运行时类型转换服务接口，提供运行期类型转换的支持。
 
-```
+```java
 package org.springframework.core.convert;
 public interface ConversionService {
     boolean canConvert(Class<?> sourceType, Class<?> targetType);
@@ -7875,7 +7821,7 @@ S：代表源类型，T：代表目标类型
 
 （1、自定义 String----->PhoneNumberModel 的转换器
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.converter;
 //省略 import
 public class StringToPhoneNumberConverter implements Converter<String, PhoneNumberModel> {
@@ -7905,7 +7851,7 @@ String 转换为 Date 的类型转换器，请参考 cn.javass.chapter7.web.cont
 
 (2、测试用例(cn.javass.chapter7.web.controller.support.converter.ConverterTest)
 
-```
+```java
 @Test
 public void testStringToPhoneNumberConvert() {
     DefaultConversionService conversionService = new DefaultConversionService();
@@ -7920,7 +7866,7 @@ public void testStringToPhoneNumberConvert() {
 
 类似于 PhoneNumberEditor 将字符串“010-12345678”转换为 PhoneNumberModel。
 
-```
+```java
 @Test
 public void testOtherConvert() {
     DefaultConversionService conversionService = new DefaultConversionService();
@@ -7939,7 +7885,7 @@ public void testOtherConvert() {
 
 （1、注册 ConversionService 实现和自定义的类型转换器
 
-```
+```java
 <!-- ①注册 ConversionService -->
 <bean id="conversionService" class="org.springframework.format.support.
                                                        FormattingConversionServiceFactoryBean">
@@ -7962,7 +7908,7 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 
 （2、通过 ConfigurableWebBindingInitializer 注册 ConversionService
 
-```
+```java
 <!-- ②使用 ConfigurableWebBindingInitializer 注册 conversionService -->
 <bean id="webBindingInitializer" class="org.springframework.web.bind.support.
                                                                         ConfigurableWebBindingInitializer">
@@ -7974,7 +7920,7 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 
 3、注册 ConfigurableWebBindingInitializer 到 RequestMappingHandlerAdapter
 
-```
+```java
 <bean class="org.springframework.web.servlet.mvc.method.annotation.
                                                             RequestMappingHandlerAdapter">
 <property name="webBindingInitializer" ref="webBindingInitializer"/>
@@ -7986,8 +7932,6 @@ converters：注册我们自定义的类型转换器，此处注册了 String---
 此时可能有人会问，如果我同时使用 PropertyEditor 和 ConversionService，执行顺序是什么呢？内部首先查找 PropertyEditor 进行类型转换，如果没有找到相应的 PropertyEditor 再通过 ConversionService 进行转换。
 
 如上集成过程看起来比较麻烦，后边我们会介绍<mvc:annotation-driven>和@EnableWebMvc，ConversionService 会自动注册，后续章节再详细介绍。
-
-# SpringMVC 数据格式化——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
 
 # SpringMVC 数据格式化——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
 
@@ -8009,7 +7953,7 @@ Formatter SPI 核心是完成解析和格式化转换逻辑，在如 Web 应用/
 
 **（1、Printer 接口：**格式化显示接口，将 T 类型的对象根据 Locale 信息以某种格式进行打印显示（即返回字符串形式）；
 
-```
+```java
 package org.springframework.format;
 public interface Printer<T> {
     String print(T object, Locale locale); 
@@ -8018,7 +7962,7 @@ public interface Printer<T> {
 
 **（2、Parser 接口：**解析接口，根据 Locale 信息解析字符串到 T 类型的对象；
 
-```
+```java
 package org.springframework.format;
 public interface Parser<T> {
     T parse(String text, Locale locale) throws ParseException;
@@ -8029,7 +7973,7 @@ public interface Parser<T> {
 
 **（3、Formatter 接口：**格式化 SPI 接口，继承 Printer 和 Parser 接口，完成 T 类型对象的格式化和解析功能；
 
-```
+```java
 package org.springframework.format;
 public interface Formatter<T> extends Printer<T>, Parser<T> {
 } 
@@ -8037,7 +7981,7 @@ public interface Formatter<T> extends Printer<T>, Parser<T> {
 
 **（4、AnnotationFormatterFactory 接口：**注解驱动的字段格式化工厂，用于创建带注解的对象字段的 Printer 和 Parser，即用于格式化和解析带注解的对象字段。
 
-```
+```java
 package org.springframework.format;
 public interface AnnotationFormatterFactory<A extends Annotation> {//①可以识别的注解类型
     Set<Class<?>> getFieldTypes();//②可以被 A 注解类型注解的字段类型集合
@@ -8057,7 +8001,7 @@ public interface AnnotationFormatterFactory<A extends Annotation> {//①可以�
 
 （1、FormatterRegistry：格式化转换器注册器，用于注册格式化转换器（Formatter、Printer 和 Parser、AnnotationFormatterFactory）；
 
-```
+```java
 package org.springframework.format;
 public interface FormatterRegistry extends ConverterRegistry {
     //①添加格式化转换器（Spring3.1 新增 API）
@@ -8109,7 +8053,7 @@ NumberFormatAnnotationFormatterFactory 和 JodaDateTimeFormatAnnotationFormatter
 
 在示例之前，我们需要到[`joda-time.sourceforge.net/`](http://joda-time.sourceforge.net/)下载 Joda-Time 类库，本书使用的是 joda-time-2.1 版本，将如下 jar 包添加到 classpath：
 
-```
+```java
 joda-time-2.1.jar 
 ```
 
@@ -8117,7 +8061,7 @@ joda-time-2.1.jar
 
 **一、直接使用 Formatter SPI 进行解析/格式化**
 
-```
+```java
 //二、CurrencyFormatter：实现货币样式的格式化/解析
 CurrencyFormatter currencyFormatter = new CurrencyFormatter();
 currencyFormatter.setFractionDigits(2);//保留小数点后几位
@@ -8139,7 +8083,7 @@ print 方法：将 BigDecimal 类型数据根据 Locale 信息格式化为字符
 
 其他测试用例请参考 cn.javass.chapter7.web.controller.support.formatter.InnerFormatterTest 的 testNumber 测试方法和 testDate 测试方法。
 
-```
+```java
 @Test
 public void testWithDefaultFormattingConversionService() {
     DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -8180,7 +8124,7 @@ LocaleContextHolder.*setLocale*(locale)：设置本地化信息到 ThreadLocal�
 
 **（1、定义 Formatter SPI 实现**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class PhoneNumberFormatter implements Formatter<PhoneNumberModel> {
@@ -8219,7 +8163,7 @@ public class PhoneNumberFormatter implements Formatter<PhoneNumberModel> {
 
 **（2、测试用例：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class CustomerFormatterTest {
@@ -8250,7 +8194,7 @@ public class CustomerFormatterTest {
 
 **（1、测试模型类准备：**
 
-```
+```java
 package cn.javass.chapter7.model;
 public class FormatterModel {
     @NumberFormat(style=Style.NUMBER, pattern="#,###")
@@ -8290,7 +8234,7 @@ style：指定用于格式化的样式模式，默认“SS”，具体使用请�
 
 **（2、测试用例：**
 
-```
+```java
 @Test
 public void test() throws SecurityException, NoSuchFieldException {
     //默认自动注册对@NumberFormat 和@DateTimeFormat 的支持
@@ -8324,7 +8268,7 @@ conversionService.convert("10,000", stringDescriptor, descriptor)：将字符串
 
 **（3、通过为不同的字段指定不同的注解信息进行字段级别的细粒度数据解析/格式化**
 
-```
+```java
 descriptor = new TypeDescriptor(FormatterModel.class.getDeclaredField("registerDate"));
 Assert.assertEquals("2012-05-01", conversionService.convert(model.getRegisterDate(), descriptor, stringDescriptor));
 Assert.assertEquals(model.getRegisterDate(), conversionService.convert("2012-05-01", stringDescriptor, descriptor));
@@ -8344,7 +8288,7 @@ Assert.assertEquals(model.getOrderDate(), conversionService.convert("2012-05-01 
 
 **（1、定义解析/格式化字段的注解类型：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
@@ -8355,7 +8299,7 @@ public @interface PhoneNumber {
 
 **(2、实现 AnnotationFormatterFactory 注解格式化工厂：**
 
-```
+```java
 package cn.javass.chapter7.web.controller.support.formatter;
 //省略 import
 public class PhoneNumberFormatAnnotationFormatterFactory
@@ -8391,14 +8335,14 @@ AnnotationFormatterFactory 实现会根据注解信息和字段类型获取相�
 
 **（3、修改 FormatterModel 添加如下代码：**
 
-```
+```java
 @PhoneNumber
 private PhoneNumberModel phoneNumber; 
 ```
 
 **（4、测试用例**
 
-```
+```java
  @Test
 public void test() throws SecurityException, NoSuchFieldException {
     DefaultFormattingConversionService conversionService = 
@@ -8426,7 +8370,7 @@ public void test() throws SecurityException, NoSuchFieldException {
 
 **一、注册 FormattingConversionService 实现和自定义格式化转换器：**
 
-```
+```java
 <bean id="conversionService" 
 class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
   <!—此处省略之前注册的自定义类型转换器-->
@@ -8445,14 +8389,14 @@ class="org.springframework.format.support.FormattingConversionServiceFactoryBean
 
 **（1、模型对象字段的数据解析/格式化：**
 
-```
+```java
 @RequestMapping(value = "/format1")
 public String test1(@ModelAttribute("model") FormatterModel formatModel) {
     return "format/success";
 } 
 ```
 
-```
+```java
 totalCount:<spring:bind path="model.totalCount">${status.value}</spring:bind><br/>
 discount:<spring:bind path="model.discount">${status.value}</spring:bind><br/>
 sumMoney:<spring:bind path="model.sumMoney">${status.value}</spring:bind><br/>
@@ -8475,7 +8419,7 @@ phoneNumber:<spring:eval expression="model.phoneNumber"></spring:eval><br/>
 
 **（2、功能处理方法参数级别的数据解析：**
 
-```
+```java
 @RequestMapping(value = "/format2")
 public String test2(
         @PhoneNumber @RequestParam("phoneNumber") PhoneNumberModel phoneNumber, 
@@ -8500,8 +8444,6 @@ public String test2(
 
 # SpringMVC 数据验证——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
 
-# SpringMVC 数据验证——第七章 注解式控制器的数据验证、类型转换及格式化——跟着开涛学 SpringMVC
-
 ## 7.4、数据验证
 
 ### 7.4.1、编程式数据验证
@@ -8516,7 +8458,7 @@ Spring 2.x 提供了编程式验证支持，详见【4.16.2 数据验证】章�
 
 **（2、控制器实现**
 
-```
+```java
 @Controller
 public class RegisterSimpleFormController {
     private UserModelValidator validator = new UserModelValidator();
@@ -8546,7 +8488,7 @@ public class RegisterSimpleFormController {
 
 **（3、spring 配置文件 chapter7-servlet.xml**
 
-```
+```java
 <bean class="cn.javass.chapter7.web.controller.RegisterSimpleFormController"/> 
 ```
 
@@ -8556,7 +8498,7 @@ public class RegisterSimpleFormController {
 
 在 spring 配置文件`chapter7-servlet.xml 中添加`messageSource：
 
-```
+```java
 <bean id="messageSource" 
 class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:messages"/>
@@ -8589,7 +8531,7 @@ Spring3 开始支持 JSR-303 验证框架，JSR-303 支持 XML 风格的和注�
 
 **（2、在 Spring 配置总添加对 JSR-303 验证框架的支持**
 
-```
+```java
 <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
 <bean id="validator" 
 class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -8605,7 +8547,7 @@ validationMessageSource 属性：指定国际化错误消息从哪里取，此�
 
 通过 ConfigurableWebBindingInitializer 注册 validator：
 
-```
+```java
 <bean id="webBindingInitializer" 
 class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
         <property name="conversionService" ref="conversionService"/>
@@ -8619,7 +8561,7 @@ class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
 
 **（3、使用 JSR-303 验证框架注解为模型对象指定验证信息**
 
-```
+```java
 package cn.javass.chapter7.model;
 import javax.validation.constraints.NotNull;
 public class UserModel {
@@ -8632,7 +8574,7 @@ public class UserModel {
 
 **（4、控制器**
 
-```
+```java
 package cn.javass.chapter7.web.controller.validate;
 //省略 import
 @Controller
@@ -8652,7 +8594,7 @@ public class HelloWorldController {
 
 **（5、验证失败后需要展示的页面（/WEB-INF/jsp/validate/error.jsp）**
 
-```
+```java
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -8709,7 +8651,7 @@ public class HelloWorldController {
 
 直接在验证约束注解上指定错误消息，如下所示：
 
-```
+```java
 @NotNull(message = "用户名不能为空")
 @Length(min=5, max=20, message="用户名长度必须在 5-20 之间")
 @Pattern(regexp = "^[a-zA-Z_]\\w{4,19}$", message = "用户名必须以字母下划线开头，可由字母数字下划线组成")
@@ -8742,13 +8684,13 @@ private String username;
 
 在类装载路径的根下创建 ValidationMessages.properties 文件，如在 src 目录下创建会自动复制到类装载路径的根下，并添加如下消息键值（需要 native2ascii，可以在 eclipse 里装 Properties Editor，自动保存为 ASCII 码）：
 
-```
+```java
 javax.validation.constraints.Pattern.message=用户名必须以字母或下划线开头，后边可以跟字母数字下划线，长度在 5-20 之间 
 ```
 
 需要在你的 spring 配置文件 WEB-INF/chapter7-servlet.xml 修改之前的 validator Bean：
 
-```
+```java
 <bean id="validator" 
 class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" 
@@ -8766,7 +8708,7 @@ value="org.hibernate.validator.HibernateValidator"/>
 
 在 spring 配置文件 WEB-INF/chapter7-servlet.xml 定义 MessageSource Bean：
 
-```
+```java
 <bean id="messageSource" 
 class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:messages"/>
@@ -8779,7 +8721,7 @@ class="org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 在 spring 配置文件 WEB-INF/chapter7-servlet.xml 定义的 validator Bean，添加如下属性：
 
-```
+```java
 <property name="validationMessageSource" ref="messageSource"/> 
 ```
 
@@ -8787,7 +8729,7 @@ class="org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 在消息文件 src/messages.properties 中添加如下错误消息：
 
-```
+```java
 javax.validation.constraints.Pattern.message=用户名必须以字母或下划线开头，后边可以跟字母数字下划线，长度在 5-20 之间 
 ```
 
@@ -8821,7 +8763,7 @@ Pattern=验证错误注解简单类名
 
 在验证约束注解上指定错误消息键：
 
-```
+```java
 package cn.javass.chapter7.web.controller.validate.model;
 public class PatternModel {    
     @Pattern(regexp = "^[a-zA-Z_][\\w]{4,19}$", message="{user.name.error}")
@@ -8833,7 +8775,7 @@ public class PatternModel {
 
 在消息文件 src/messages.properties 中添加如下错误消息：
 
-```
+```java
 user.name.error=用户名格式不合法 
 ```
 
@@ -8841,11 +8783,11 @@ user.name.error=用户名格式不合法
 
 接下来我们看下如下场景
 
-```
+```java
 @Length(min=5, max=20, message="{user.name.length.error}") 
 ```
 
-```
+```java
 user.name.error=用户名长度必须在 5-20 之间 
 ```
 
@@ -8857,7 +8799,7 @@ user.name.error=用户名长度必须在 5-20 之间
 
 {验证注解属性名}，如@Length 有 min 和 max 属性，则在错误消息文件中可以通过{min}和{max}来获取；如@Max 有 value 属性，则在错误消息文件中可以通过{value}来获取。
 
-```
+```java
 user.name.length.error=用户名长度必须在{min}-{max}之间 
 ```
 
@@ -8867,7 +8809,7 @@ user.name.length.error=用户名长度必须在{min}-{max}之间
 
 当我们在一个功能处理方法上需要验证多个模型对象时，需要通过如下形式来获取验证结果：
 
-```
+```java
 @RequestMapping("/validate/multi")
 public String multi(
             @Valid @ModelAttribute("a") A a, BindingResult aErrors,
@@ -8887,7 +8829,7 @@ public String multi(
 
 在错误页面，需要针对不同的模型来显示错误消息：
 
-```
+```java
 <form:form commandName="a">
     <form:errors path="*" cssStyle="color:red"></form:errors><br/>
 </form:form>

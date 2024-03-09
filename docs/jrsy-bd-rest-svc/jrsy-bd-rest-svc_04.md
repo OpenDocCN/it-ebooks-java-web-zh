@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 4--通过 jersey-client 客户端调用 Jersey 的 Web 服务模拟 CURD
 
-# 用 Jersey 构建 RESTful 服务 4--通过 jersey-client 客户端调用 Jersey 的 Web 服务模拟 CURD
-
 ## 一、总体说明
 
 通过 jersey-client 接口，创建客户端程序，来调用 Jersey 实现的 RESTful 服务，实现增、删、改、查等操作。 服务端主要是通过内存的方式，来模拟用户的增加、删除、修改、查询等操作。
@@ -10,13 +8,13 @@
 
 1.  在上文项目中， 在“com.waylau.rest.resources.UserResource“中修改代码， 首先创建一个 HashMap，用来保存添加的用户
 
-    ```
+    ```java
     private static Map<String,User> userMap  = new HashMap<String,User>(); 
     ```
 
 2.  创建增、删、改、查 用户资源等操作
 
-    ```
+    ```java
      /**
          * 增加
          * @param user
@@ -77,7 +75,7 @@
 
 创建包“com.waylau.rest.client”，在包下建一个 UserClient.java，代码如下：
 
-```
+```java
  package com.waylau.rest.client;  
 
     import javax.ws.rs.client.Client;  
@@ -180,7 +178,7 @@
 
 启动服务端项目，运行客户端程序 UserClient，控制台输出如下
 
-```
+```java
 ****增加用户 addUser****  
 ****查询所有 getAllUsers****  
 [{"userId":"006","userName":"Susan","age":"21"}]  
@@ -198,7 +196,7 @@
 
 1.  客户端如果需要进行 JSON 转换，需要进行 JSON 注册
 
-    ```
+    ```java
     Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class); 
     ```
 

@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 5--Jersey+MySQL5.6+Hibernate4.3
 
-# 用 Jersey 构建 RESTful 服务 5--Jersey+MySQL5.6+Hibernate4.3
-
 ## 一、总体说明
 
 本例运行演示了用 Jersey 构建 RESTful 服务中，如何同过 Hibernate 将数据持久化进 MySQL 的过程
@@ -22,7 +20,7 @@
 
 2.  创建数据库 RestDemo ,及数据表 t_user,结构如下
 
-    ```
+    ```java
     DROP TABLE IF EXISTS `t_user`;
     CREATE TABLE `t_user` (
       `userId` varchar(50) NOT NULL,
@@ -46,7 +44,7 @@
 
 3.  在项目的根目录创建 hibernate 的配置文件 hibernate.cfg.xml，内容如下：
 
-    ```
+    ```java
     <?xml version='1.0' encoding='utf-8'?>  
     <!DOCTYPE hibernate-configuration PUBLIC  
             "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
@@ -86,7 +84,7 @@
 
 4.  在项目 User.java 的同个目录下，创建该类的映射文件 User.hbm.xml
 
-    ```
+    ```java
     <?xml version="1.0"?>  
     <!DOCTYPE hibernate-mapping PUBLIC  
             "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
@@ -107,7 +105,7 @@
 
 5.  创建包 com.waylau.rest.util，在该包下创建 HibernateUtil.java
 
-    ```
+    ```java
     package com.waylau.rest.util;  
 
     import org.hibernate.SessionFactory;  
@@ -149,7 +147,7 @@
 
 6.  在项目中建 com.waylau.rest.dao 包，在该包下建立 User 操作的接口 UserDao.java
 
-    ```
+    ```java
     package com.waylau.rest.dao;  
 
     import java.util.List;  
@@ -177,7 +175,7 @@
 
 7.  在项目中建 com.waylau.rest.dao.impl 包，在该包下建立 User 操作接口的实现 UserDaoImpl.java
 
-    ```
+    ```java
     package com.waylau.rest.dao.impl;  
 
     import java.util.List;  
@@ -312,7 +310,7 @@
 
 8.  修改项目中 com.waylau.rest.resources 包下的 UserResource.java，使之前在内存中模拟 CURD 转为在数据库中实现
 
-    ```
+    ```java
     package com.waylau.rest.resources;  
 
     import java.util.ArrayList;  

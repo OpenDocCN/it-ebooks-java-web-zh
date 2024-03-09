@@ -1,7 +1,5 @@
 # 用 Jersey 2 和 Spring 4 构建 RESTful web service
 
-# 用 Jersey 2 和 Spring 4 构建 RESTful web service
-
 本文介绍了如何通过 Jersey 框架优美的在 Java 实现了 REST 的 API。CRUD 的 操作存储在 MySQL 中
 
 ## 1\. 示例
@@ -74,7 +72,7 @@ MySql 5.6
 
 [Jersey Spring 扩展包](https://github.com/waylau/Jersey-2.x-User-Guide/tree/master/Chapter%2022.%20Spring%20DI%20%E4%BD%BF%E7%94%A8%20Spring%20%E6%B3%A8%E5%85%A5) 是必须要放在 项目 classpath 中。在 pom.xml 中添加下面依赖：
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.ext</groupId>
     <artifactId>jersey-spring3</artifactId>
@@ -107,7 +105,7 @@ MySql 5.6
 
 应用部署描述
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" 
 
@@ -157,7 +155,7 @@ MySql 5.6
 
 `org.codingpedia.demo.rest.RestDemoJaxRsApplication` 是自己实现的 `ResourceConfig`类，注册应用的 resources, filters, exception mappers 和 feature :
 
-```
+```java
 package org.codingpedia.demo.rest.service;
 
 //imports omitted for brevity
@@ -205,7 +203,7 @@ public class RestDemoJaxRsApplication extends ResourceConfig {
 
 配置文件在 classpath 目录下的 spring/applicationContext.xml:
 
-```
+```java
 <beans 
 
     xsi:schemaLocation="
@@ -306,7 +304,7 @@ REST 中的资源 一般是名词 (podcasts, customers, user, accounts 等) 而�
 
 Podcast.java
 
-```
+```java
 package org.codingpedia.demo.rest.resource;
 
 //imports omitted for brevity
@@ -380,7 +378,7 @@ public class Podcast implements Serializable {
 
 转化成 JSON 输出如下
 
-```
+```java
 {
     "id":1,
     "title":"Quarks & Co - zum Mitnehmen-modified",
@@ -406,7 +404,7 @@ public class Podcast implements Serializable {
 
 `PodcastRestResource` 类 是处理所有的请求
 
-```
+```java
 package org.codingpedia.demo.rest.resource;
 //imports
 ......................
@@ -437,7 +435,7 @@ PUT POST 最大的区别是 ，PUT 就是把你应该事先知道资源将被创
 
 ###### 3.2.1.2.1\. POST 创建一个单资源
 
-```
+```java
 /**
  * Adds a new resource (podcast) from the given json format (at least title
  * and feed elements are required at the DB level)
@@ -478,7 +476,7 @@ public Response createPodcast(Podcast podcast) throws AppException {
 
 ###### 3.2.1.2.3\. 附加 – 通过表单创建 (“podcast”)资源
 
-```
+```java
 /**
  * Adds a new podcast (resource) from "form" (at least title and feed
  * elements are required at the DB level)
@@ -543,7 +541,7 @@ API 支持两种操作
 
 ###### 3.2.2.2.1\. 获取所有 podcasts (“/”)
 
-```
+```java
 /**
  * Returns all resources (podcasts) from the database
  *
@@ -579,7 +577,7 @@ public List<Podcast> getPodcasts(
 
 根据 id 获取一个 podcast
 
-```
+```java
 @GET
 @Path("{id}")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -618,7 +616,7 @@ public Response getPodcastById(@PathParam("id") Long id)
 
 创建或者完全更新资源
 
-```
+```java
 @PUT
 @Path("{id}")
 @Consumes({ MediaType.APPLICATION_JSON })
@@ -671,7 +669,7 @@ public Response putPodcastById(@PathParam("id") Long id, Podcast podcast)
 
 ###### 3.2.3.1.2\. 部分更新
 
-```
+```java
 //PARTIAL update
 @POST
 @Path("{id}")   
@@ -708,7 +706,7 @@ public Response partialUpdatePodcast(@PathParam("id") Long id, Podcast podcast) 
 
 ###### 3.2.4.2.1\. 删除所有资源
 
-```
+```java
 @DELETE
 @Produces({ MediaType.TEXT_HTML })
 public Response deletePodcasts() {
@@ -729,7 +727,7 @@ public Response deletePodcasts() {
 
 ###### 3.2.4.2.2\. 删除一个资源
 
-```
+```java
 @DELETE
 @Path("{id}")
 @Produces({ MediaType.TEXT_HTML })
@@ -760,7 +758,7 @@ public Response deletePodcastById(@PathParam("id") Long id) {
 
 错误处理要有统一的格式，就像下面
 
-```
+```java
 {
    "status": 400,
    "code": 400,
@@ -780,7 +778,7 @@ public Response deletePodcastById(@PathParam("id") Long id) {
 
 ##### 7.1.1.1 Jersey 客户端依赖
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.core</groupId>
     <artifactId>jersey-client</artifactId>
@@ -791,7 +789,7 @@ public Response deletePodcastById(@PathParam("id") Long id) {
 
 ##### 7.1.1.2\. Failsafe 插件
 
-```
+```java
 <plugins>
     [...]
     <plugin>
@@ -819,7 +817,7 @@ public Response deletePodcastById(@PathParam("id") Long id) {
 
 ##### 7.1.1.2\. Jetty Maven 插件
 
-```
+```java
 <plugins>
     <plugin>
         <groupId>org.eclipse.jetty</groupId>
@@ -872,7 +870,7 @@ public Response deletePodcastById(@PathParam("id") Long id) {
 
 创建了测试类 RestDemoServiceIT
 
-```
+```java
 public class RestDemoServiceIT {
 
     [....]
@@ -916,7 +914,7 @@ public class RestDemoServiceIT {
 
 运行
 
-```
+```java
 mvn verify 
 ```
 
@@ -935,7 +933,7 @@ mvn verify
 
 在 路径中 加入 版本信息
 
-```
+```java
 @Component
 @Path("/v1/podcasts")
 public class PodcastResource {...} 

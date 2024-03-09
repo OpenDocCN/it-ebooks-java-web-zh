@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 2--JAVA 对象转成 XML 输出
 
-# 用 Jersey 构建 RESTful 服务 2--JAVA 对象转成 XML 输出
-
 ## 一、 总体说明
 
 XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 java 对象，转成 XML 输出。
@@ -12,7 +10,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 2.  在该包下创建一个 JAVA 类"User"
 
-    ```
+    ```java
      package com.waylau.rest.bean;  
         import javax.xml.bind.annotation.XmlRootElement;  
         /* *
@@ -59,7 +57,7 @@ XML 和 JSON 是最为常用的数据交换格式。本例子演示如何将 jav
 
 3.  在“com.waylau.rest.resources”中，增加资源“UserResource“，代码如下：
 
-    ```
+    ```java
      package com.waylau.rest.resources;  
 
         import java.util.ArrayList;  

@@ -1,7 +1,5 @@
 # 前言
 
-# 前言
-
 本文档是 Java™ Servlet 规范，针对版本是 3.1。本文档描述了 Java Servlet API 的标准。
 
 ## 其他资料
@@ -98,11 +96,7 @@ Oracle 的 Bill Shannon 为该规范提供了非常宝贵的技术投入。Oracl
 
 # 什么是 Servlet
 
-# 什么是 Servlet
-
 servlet 是基于 Java 的 Web 组件，由容器进行管理，来生成动态内容。像其他基于 Java 的组件技术一样，servlet 也是基于平台无关的 Java 类格式，被编译为平台无关的字节码，可以被基于 Java 技术的 Web 服务器动态加载并运行。容器（Container），有时候也叫做 servlet 引擎，是 Web 服务器为支持 servlet 功能扩展的部分。客户端通过 servlet 容器实现的 request/response paradigm（请求/应答模式） 与 Servlet 进行交互。
-
-# 什么是 Servlet 容器
 
 # 什么是 Servlet 容器
 
@@ -118,8 +112,6 @@ Java SE 7 是构建 Servlet 容器最低的 Java 平 台版本。
 
 # 一个例子
 
-# 一个例子
-
 以下是一个典型的事件序列：
 
 1.  客户端（如 web 浏览器）要访问 Web 服务器，并发送一个 HTTP 请求；
@@ -127,8 +119,6 @@ Java SE 7 是构建 Servlet 容器最低的 Java 平 台版本。
 3.  servlet 容器根据 servlet 配置选择相应的 servlet，并调用代表请求和响应的对象。
 4.  servlet 通过请求对象得到远程用户，HTTP POST 参数和其他有关数据可能作为请求的一部分随请求一起发送过来。Servlet 执行我们编写的任意的逻辑，然后动态产生响应内容发送回客户端。发送数据到客户端是通过响应对象完成的。
 5.  一旦 servlet 完成请求的处理，servlet 容器必须确保响应正确的输出，并且将控制权还给宿主 Web 服务器。
-
-# Servlet 与其他技术的对比
 
 # Servlet 与其他技术的对比
 
@@ -143,11 +133,7 @@ Java SE 7 是构建 Servlet 容器最低的 Java 平 台版本。
 
 # 与 Java EE 的关系
 
-# 与 Java EE 的关系
-
 Java Servlet API 3.1 版本是 Java 平台企业版 7 版本必须的 API。Servlet 容器和 servlet 被部署到平台中时，为了能在 Java EE 环境中执行，必须满足 JavaEE 规范中描述的额外的一些要求。
-
-# 与 Servlet 2.5 规范的兼容性
 
 # 与 Servlet 2.5 规范的兼容性
 
@@ -157,11 +143,7 @@ Java Servlet API 3.1 版本是 Java 平台企业版 7 版本必须的 API。Serv
 
 # Servlet 接口
 
-# Servlet 接口
-
 Servlet 接口是 Java Servlet API 的核心抽象。所有 Servlet 类必须直接或间接的实现该接口，或者更通常做法是通过继承一个实现了该接口的类从而复用许多共性功能。目前有 GenericServlet 和 HttpServlet 这两个类实现了 Servlet 接口。大多数情况下，开发者只需要继承 HttpServlet 去实现自己的 Servlet 即可。
-
-# 请求处理方法
 
 # 请求处理方法
 
@@ -195,8 +177,6 @@ HttpServlet 定义了用于支持有条件 GET 操作的 getLastModified 方法�
 
 # 实例数量
 
-# 实例数量
-
 通过注解描述的（第八章 注解和可插拔性）或者在 Web 应用程序的部署描述符（第十四章 部署描述符）中描述的 servlet 声明，控制着 servlet 容器如何提供 servlet 实例。
 
 对于未托管在分布式环境中（默认）的 servlet 而言，servlet 容器对于每一个 Servlet 声明必须且只能产生一个实例。不过，如果 Servlet 实现了 SingleThreadModel 接口，servlet 容器可以选择实例化多个实例以便处理高负荷请求或者串行化请求到一个特定实例。
@@ -208,8 +188,6 @@ HttpServlet 定义了用于支持有条件 GET 操作的 getLastModified 方法�
 SingleThreadModel 接口的作用是保证一个特定 servlet 实例的 service 方法在一个时刻仅能被一个线程执行，一定要注意，此保证仅适用于每一个 servlet 实例，因此容器可以选择池化这些对象。有些对象可以在同一时刻被多个 servlet 实例访问，如 HttpSession 实例，可以在一个特定的时间对多个 Servlet 可用，包括那些实现了 SingleThreadModel 接口的 Servlet。
 
 建议开发人员采取其他手段来解决这些问题,而不是实现这个接口,如避免使用实例变量或同步的代码块访问这些资源。SingleThreadModel 接口已经在本版本规范中弃用。
-
-# Servlet 生命周期
 
 # Servlet 生命周期
 
@@ -312,7 +290,7 @@ Java 企业版的功能，如第 15.2.2 节，在“Web 应用环境”和第 15
 
 CODE EXAMPLE 2-1
 
-```
+```java
 // REQUEST to /url/A
 AsyncContext ac = request.startAsync();
 ...
@@ -321,7 +299,7 @@ ac.dispatch(); // ASYNC dispatch to /url/A
 
 CODE EXAMPLE 2-2
 
-```
+```java
 // REQUEST to /url/A
 // FORWARD to /url/B
 request.getRequestDispatcher(“/url/B”).forward(request,
@@ -333,7 +311,7 @@ ac.dispatch(); // ASYNC dispatch to /url/A
 
 CODE EXAMPLE 2-3
 
-```
+```java
 // REQUEST to /url/A
 // FORWARD to /url/B
 request.getRequestDispatcher(“/url/B”).forward(request,
@@ -404,11 +382,7 @@ servlet 容器没必要保持装载的 servlet 持续任何特定的一段时间
 
 # 请求
 
-# 请求
-
 请求对象封装了客户端请求的所有信息。在 HTTP 协议中，这些信息是从客户端发送到服务器请求的 HTTP 头部和消息体。
-
-# HTTP 协议参数
 
 # HTTP 协议参数
 
@@ -438,8 +412,6 @@ getParameterValues 方法返回一个 String 对象的数组，包含了与参�
 
 # 文件上传
 
-# 文件上传
-
 当数据以 multipart/form-data 的格式发送时，servlet 容器支持文件上传。
 
 如果满足以下任何一个条件，servlet 容器提供 multipart/form-data 格式数据的处理。
@@ -456,8 +428,6 @@ getParameterValues 方法返回一个 String 对象的数组，包含了与参�
 
 # 属性
 
-# 属性
-
 属性是与请求相关联的对象。属性可以由容器设置来表达信息，否则无法通过 API 表示，或者由 servlet 设置将信息传达给另一个 servlet（通过 RequestDispatcher）。属性通过 ServletRequest 接口中下面的方法来访问：
 
 *   getAttribute
@@ -467,8 +437,6 @@ getParameterValues 方法返回一个 String 对象的数组，包含了与参�
 只有一个属性值可与一个属性名称相关联。
 
 以前缀 java. 和 javax. 开头的属性名称是本规范的保留定义。同样地，以前缀 sun. 和 com.sun.，oracle 和 com.oracle 开头的属性名是 Oracle Corporation 的保留定义。建议属性集中所有属性的命名与[Java 编程语言的规范](http://docs.oracle.com/javase/specs/)为包命名建议的反向域名约定一致。
-
-# 头
 
 # 头
 
@@ -487,8 +455,6 @@ getHeader 方法返回给定头名称的头。多个头可以具有相同的名�
 
 # 请求路径元素
 
-# 请求路径元素
-
 引导 servlet 服务请求的请求路径由许多重要部分组成。以下元素从请求 URI 路径得到，并通过请求对象公开：
 
 *   Context Path：与 ServletContext 相关联的路径前缀是这个 servlet 的一部分。如果这个上下文是基于 Web 服务器的 URL 命名空间基础上的“默认”上下文，那么这个路径将是一个空字符串。否则，如果上下文不是基于服务器的命名空间，那么这个路径以 / 字符开始，但不以 / 字符结束。
@@ -502,7 +468,7 @@ getHeader 方法返回给定头名称的头。多个头可以具有相同的名�
 
 重要的是要注意，除了请求 URI 和路径部分的 URL 编码差异外，下面的等式永远为真：
 
-```
+```java
 requestURI = contextPath + servletPath + pathInfo 
 ```
 
@@ -528,16 +494,12 @@ ServletPath: /lawn PathInfo: /index.html /catalog/garden/implements/ | ContextPa
 
 # 路径转换方法
 
-# 路径转换方法
-
 在 API 中有两个方便的方法，允许开发者获得与某个特定的路径等价的文件系统路径。这些方法是：
 
 *   ServletContext.getRealPath
 *   HttpServletRequest.getPathTranslated
 
 getRealPath 方法需要一个 String 参数，并返回一个 String 形式的路径，这个路径对应一个在本地文件系统上的文件。getPathTranslated 方法推断出请求的 pathInfo 的实际路径。 这些方法在 servlet 容器无法确定一个有效的文件路径 的情况下，如 Web 应用程序从归档中，在不能访问本地的远程文件系统上，或在一个数据库中执行时，这些方法必须返回 null。JAR 文件中 META-INF/resources 目录下的资源，只有当调用 getRealPath() 方法时才认为容器已经从包含它的 JAR 文件中解压，在这种情况下，必须返回解压缩后位置。
-
-# 非阻塞 IO
 
 # 非阻塞 IO
 
@@ -561,11 +523,7 @@ ReadListener 为非阻塞 IO 提供了下面的回调方法：
 
 # Cookie
 
-# Cookie
-
 HttpServletRequest 接口提供了 getCookies 方法来获得请求中的 cookie 的一个数组。这些 cookie 是从客户端发送到服务器端的客户端发出的每个请求上的数据。典型地，客户端发送回的作为 cookie 的一部分的唯一信息是 cookie 的名称和 cookie 值。当 cookie 发送到浏览器时可以设置其他 cookie 属性，诸如注释，这些信息不会返回到服务器。该规范还允许的 cookies 是 HttpOnly cookie。HttpOnly cookie 暗示客户端它们不会暴露给客户端脚本代码（它没有被过滤掉，除非客户端知道如何查找此属性）。使用 HttpOnly cookie 有助于减少某些类型的跨站点脚本攻击。
-
-# SSL 属性
 
 # SSL 属性
 
@@ -586,8 +544,6 @@ TABLE 3-3 Protocol Attributes
 
 # 国际化
 
-# 国际化
-
 客户可以选择希望 Web 服务器用什么语言来响应。该信息可以和使用 Accept-Language 头与 HTTP/1.1 规范中描述的其他机制的客户端通信。ServletRequest 接口提供下面的方法来确定发送者的首选语言环境：
 
 *   getLocale
@@ -599,13 +555,9 @@ getLocales 方法将返回一个 Locale 对象的 Enumeration (枚举)，从首�
 
 # 请求数据编码
 
-# 请求数据编码
-
 目前，许多浏览器不随着 Content-Type 头一起发送字符编码限定符，而是根据读取 HTTP 请求确定字符编码。如果客户端请求没有指定请求默认的字符编码，容器用来创建请求读取器和解析 POST 数据的编码必须是“ISO-8859-1”。然而，为了向开发人员说明客户端没有指定请求默认的字符编码，在这种情况下，客户端发送字符编码失败，容器从 getCharacterEncoding 方法返回 null。
 
 如果客户端没有设置字符编码，并使用不同的编码来编码请求数据，而不是使用上面描述的默认的字符编码，那么可能会发生问题。为了弥补这种情况，ServletRequest 接口添加了一个新的方法 setCharacterEncoding(String enc)。开发人员可以通过调用此方法来覆盖由容器提供的字符编码。必须在解析任何 post 数据或从请求读取任何输入之前调用此方法。此方法一旦调用，将不会影响已经读取的数据的编码。
-
-# 请求对象生命周期
 
 # 请求对象生命周期
 
@@ -615,13 +567,9 @@ getLocales 方法将返回一个 Locale 对象的 Enumeration (枚举)，从首�
 
 # ServletContext 接口介绍
 
-# ServletContext 接口介绍
-
 ServletContext 接口定义了 servlet 运行在的 Web 应用的视图。容器供应商负责提供 servlet 容器的 ServletContext 接口的实现。servlet 可以使用 ServletContext 对象记录事件，获取 URL 引用的资源，存取当前上下文的其他 servlet 可以访问的属性。
 
 ServletContext 是 Web 服务器中已知路径的根。例如，servlet 上下文可以从 [`www.mycorp.com/catalog`](http://www.mycorp.com/catalog) 找出，/catalog 请求路径称为上下文路径，所有以它开头的请求都会被路由到与 ServletContext 相关联的 Web 应用。
-
-# ServletContext 接口作用域
 
 # ServletContext 接口作用域
 
@@ -631,16 +579,12 @@ ServletContext 是 Web 服务器中已知路径的根。例如，servlet 上下�
 
 # 初始化参数
 
-# 初始化参数
-
 如下 ServletContext 接口方法允许 servlet 访问由应用开发人员在 Web 应用中的部署描述符中指定的上下文初始化参数：
 
 *   getInitParameter
 *   getInitParameterNames
 
 应用开发人员使用初始化参数来表达配置信息。代表性的例子是一个网络管理员的 e-mail 地址，或保存关键数据的系统名称。
-
-# 配置方法
 
 # 配置方法
 
@@ -765,8 +709,6 @@ ServletContext 是 Web 服务器中已知路径的根。例如，servlet 上下�
 
 # 上下文属性
 
-# 上下文属性
-
 servlet 可以通过名字将对象属性绑定到上下文。同一个 Web 应用内的其他任何 servlet 都可以使用绑定到上下文的任意属性。以下 ServletContext 接口中的方法允许访问此功能：
 
 *   setAttribute
@@ -780,8 +722,6 @@ servlet 可以通过名字将对象属性绑定到上下文。同一个 Web 应�
 
 # 资源
 
-# 资源
-
 ServletContext 接口提供了直接访问 Web 应用中仅是静态内容层次结构的文件的方法，包括 HTML，GIF 和 JPEG 文件：
 
 *   getResource
@@ -792,13 +732,9 @@ ServletContext 接口提供了直接访问 Web 应用中仅是静态内容层次
 
 # 多主机和 Servlet 上下文
 
-# 多主机和 Servlet 上下文
-
 Web 服务器可以支持多个逻辑主机共享一个服务器 IP 地址。有时，这种能力被称为“虚拟主机”。这种情况下，每一个逻辑主机必须有它自己的 servlet 上下文或一组 servlet 上下文。servlet 上下文不会在虚拟主机之间共享。
 
 ServletContext 接口的 getVirtualServerName 方法允许访问 ServletContext 部署在的逻辑主机的配置名字。该方法必须对所有部署在逻辑主机上的所有 servlet 上下文返回同一个名字。且该方法返回的名字必须是明确的、每个逻辑主机稳定的、和适合用于关联服务器配置信息和逻辑主机。
-
-# 重载注意事项
 
 # 重载注意事项
 
@@ -814,11 +750,7 @@ ServletContext 接口的 getVirtualServerName 方法允许访问 ServletContext 
 
 # 响应
 
-# 响应
-
 响应对象封装了从服务器返回到客户端的所有信息。在 HTTP 协议中，从服务器传输到客户端的信息通过 HTTP 头信息或响应的消息体。
-
-# 缓冲
 
 # 缓冲
 
@@ -840,8 +772,6 @@ isCommitted 方法返回一个表示是否有任何响应字节已经返回到�
 如果响应已经提交并且 reset 或 resetBuffer 方法已被调用，则必须抛出 IllegalStateException，响应及它关联的缓冲区将保持不变。
 
 当使用缓冲区时，容器必须立即刷出填满的缓冲区内容到客户端。如果这是最早发送到客户端的数据，且认为响应被提交了。
-
-# 头
 
 # 头
 
@@ -867,13 +797,11 @@ servlet 程序员负责保证为 servlet 生成的内容设置合适的响应对
 
 建议容器使用 X-Powered-By HTTP 头公布它的实现信息。该字段值应考虑一个或多个实现类型，如"Servlet/3.1"。容器应该可以配置来隐藏该头。可选的容器补充的信息和底层 Java 平台可以被放在括号内并添加到实现类型之后。
 
-```
+```java
 X-Powered-By: Servlet/3.1
 X-Powered-By: Servlet/3.1 JSP/2.3 (GlassFish Server Open Source
 Edition 4.0 Java/Oracle Corporation/1.7) 
 ```
-
-# 非阻塞 IO
 
 # 非阻塞 IO
 
@@ -892,8 +820,6 @@ WriteListener 提供了如下适用于容器调用的回调方法。
 
 # 简便方法
 
-# 简便方法
-
 HttpServletResponse 提供了如下简便方法：
 
 *   sendRedirect
@@ -906,11 +832,9 @@ sendError 方法将设置适当的头和内容体用于返回给客户端返回�
 
 # 国际化
 
-# 国际化
-
 Servlet 应设置响应的 locale 和字符集。使用 ServletResponse.setLocale 方法设置 locale。该方法可以重复的调用；但响应被提交后调用该方法不会产生任何作用。如果在页面被提交之前 servlet 没有设置 locale，容器的默认 locale 将用来确定响应的 locale，但是没有制定与客户端通信的规范，例如使用 HTTP 情况下的 Content-Language 头。
 
-```
+```java
 <locale-encoding-mapping-list>
     <locale-encoding-mapping>
         <locale>ja</locale>
@@ -927,8 +851,6 @@ Servlet 应设置响应的 locale 和字符集。使用 ServletResponse.setLocal
 
 # 结束响应对象
 
-# 结束响应对象
-
 当响应被关闭时，容器必须立即刷出响应缓冲区中的所有剩余的内容到客户端。以下事件表明 servlet 满足了请求且响应对象即将关闭：
 
 *   servlet 的 service 方法终止。
@@ -939,11 +861,7 @@ Servlet 应设置响应的 locale 和字符集。使用 ServletResponse.setLocal
 
 # 响应对象的生命周期
 
-# 响应对象的生命周期
-
 每个响应对象是只有当在 servlet 的 service 方法的范围内或在 filter 的 doFilter 方法范围内是有效的，除非该组件关联的请求对象已经开启异步处理。如果相关的请求已经启动异步处理，那么直到 AsyncContext 的 complete 方法被调用，请求对象一直有效。为了避免响应对象创建的性能开销，容器通常回收响应对象。在相关的请求的 startAsync 还没有调用时，开发人员必须意识到保持到响应对象引用，超出之上描述的范围可能导致不确定的行为。
-
-# 过滤
 
 # 过滤器
 
@@ -952,8 +870,6 @@ Filter（过滤器）是 Java 组件，允许运行过程中改变进入资源�
 Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态和静态内容。还描述了如何在 Web 应用配置 filter，它们实现的约定和语义。
 
 网上提供了 servlet 过滤器的 API 文档。过滤器的配置语法在第十四章的“部署描述符”中的部署描述符模式部分给出。当阅读本章时，读者应该是一这些资源作为参考。
-
-# 什么是过滤器
 
 # 什么是过滤器
 
@@ -982,8 +898,6 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 *   XSL/T filters that transform XML content
 *   MIME-type chain filters
 *   Caching filters
-
-# 主要概念
 
 # 主要概念
 
@@ -1032,7 +946,7 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 
 下面是一个过滤器声明的例子：
 
-```
+```java
 <filter>
     <filter-name>Image Filter</filter-name>
     <filter-class>com.acme.ImageServlet</filter-class>
@@ -1043,7 +957,7 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 
 过滤器到 ImageServlet servlet：
 
-```
+```java
 <filter-mapping>
     <filter-name>Image Filter</filter-name>
     <servlet-name>ImageServlet</servlet-name>
@@ -1052,7 +966,7 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 
 过滤器可以使用`<url-pattern>`风格的过滤器映射关联到一组 servlet 和静态内容：
 
-```
+```java
 <filter-mapping>
     <filter-name>Logging Filter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -1070,7 +984,7 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 
 如果过滤器映射同时包含了`<servlet-name>` 和 `<url-pattern>`，容器必须展开过滤器映射为多个过滤器映射（每一个`<servlet-name>` 和 `<url-pattern>`一个），保持`<servlet-name>`和`<url-pattern>`元素顺序。例如，以下过滤器映射：
 
-```
+```java
 <filter-mapping>
     <filter-name>Multipe Mappings Filter</filter-name>
     <url-pattern>/foo/*</url-pattern>
@@ -1082,7 +996,7 @@ Java Servlet API 类和方法提供了一种轻量级的框架用于过滤动态
 
 等价于
 
-```
+```java
 <filter-mapping>
     <filter-name>Multipe Mappings Filter</filter-name>
     <url-pattern>/foo/*</url-pattern>
@@ -1124,7 +1038,7 @@ Java Servlet 规范自从 2.4 新版本以来，能够在请求分派器 forward
 
 如：
 
-```
+```java
 <filter-mapping>
     <filter-name>Logging Filter</filter-name>
     <url-pattern>/products/*</url-pattern>
@@ -1133,7 +1047,7 @@ Java Servlet 规范自从 2.4 新版本以来，能够在请求分派器 forward
 
 客户端以`/products/...`开始的请求将导致 Logging Filter 被调用，但不是在以路径`/products/...`开始的请求分派器调用情况下。LoggingFilter 将在初始请求分派和恢复请求时被调用。如下代码：
 
-```
+```java
 <filter-mapping>
     <filter-name>Logging Filter</filter-name>
     <servlet-name>ProductServlet</servlet-name>
@@ -1143,7 +1057,7 @@ Java Servlet 规范自从 2.4 新版本以来，能够在请求分派器 forward
 
 客户端到 ProductServlet 的请求将不会导致 Logging Filter 被调用，且也不会在请求分派器 forward() 调用到 ProductServlet 情况时，仅在以 ProductServlet 名字开头的请求分派器 include() 调用时被调用。如下代码：
 
-```
+```java
 <filter-mapping>
     <filter-name>Logging Filter</filter-name>
     <url-pattern>/products/*</url-pattern>
@@ -1156,7 +1070,7 @@ Java Servlet 规范自从 2.4 新版本以来，能够在请求分派器 forward
 
 最后，如下代码使用特殊的 servlet 名字 “*”：
 
-```
+```java
 <filter-mapping>
     <filter-name>All Dispatch Filter</filter-name>
     <servlet-name>*</servlet-name>
@@ -1168,13 +1082,9 @@ Java Servlet 规范自从 2.4 新版本以来，能够在请求分派器 forward
 
 # 会话
 
-# 会话
-
 超文本传输协议（HTTP）被设计为一种无状态协议。为构建有效的 Web 应用，使来自一个特定的客户端的请求彼此相关联是必要的。随时间的推移，演变了许多会话跟踪机制，这些机制直接使用对程序员而言是困难或麻烦的。
 
 该规范定义了一个简单的 HttpSession 接口，允许 servlet 容器使用几种方法来跟踪用户会话，而不会使应用开发人员陷入到这些方法的细节中。
-
-# 会话跟踪机制
 
 # 会话跟踪机制
 
@@ -1208,8 +1118,6 @@ URL 重写在日志、书签、referer header、缓存的 HTML、URL 工具条�
 
 # 创建会话
 
-# 创建会话
-
 当会话仅是一个未来的且还没有被建立时会话被认为是“新”的。因为 HTTP 是一种基于请求-响应的协议，直到客户端“加入”到 HTTP 会话之前它都被认为是新的。当会话跟踪信息返回到服务器指示会话已经建立时客户端加入到会话。直到客户端加入到会话，不能假定下一个来自客户端的请求被识别为同一会话。
 
 如果以下之一是 true，会话被认为是“新”的：
@@ -1227,15 +1135,11 @@ javax.servlet.http.HttpServletRequest.changeSessionId() 改变。
 
 # 会话范围
 
-# 会话范围
-
 HttpSession 对象必须被限定在应用（或 servlet 上下文）级别。底层的机制，如使用 cookie 建立会话，不同的上下文可以是相同，但所引用的对象，包括包括该对象中的属性，决不能在容器上下文之间共享。
 
 用一个例子来说明该要求： 如果 servlet 使用 RequestDispatcher 来调用另一个 Web 应用的 servlet，任何创建的会话和被调用 servlet 所见的必须不同于来自调用会话所见的。
 
 此外，一个上下文的会话在请求进入那个上下文时必须是可恢复的，不管是直接访问它们关联的上下文还是在请求目标分派时创建的会话。
-
-# 绑定属性到会话
 
 # 绑定属性到会话
 
@@ -1250,19 +1154,13 @@ servlet 可以按名称绑定对象属性到 HttpSession 实现，任何绑定�
 
 # 会话超时
 
-# 会话超时
-
 在 HTTP 协议中，当客户端不再处于活动状态时没有显示的终止信号。这意味着当客户端不再处于活跃状态时可以使用的唯一机制是超时时间。
 
 Servlet 容器定义了默认的会话超时时间，且可以通过 HttpSession 接口的 getMaxInactiveInterval 方法获取。开发人员可以使用 HttpSession 接口的 setMaxInactiveInterval 方法改变超时时间。这些方法的超时时间以秒为单位。根据定义，如果超时时间设置为 0 或更小的值，会话将永不过期。会话不会生效，直到所有 servlet 使用的会话已经退出其 service 方法。一旦会话已失效,新的请求必须不能看到该会话。
 
 # 最后访问时间
 
-# 最后访问时间
-
 HttpSession 接口的 getLastAccessedTime 方法允许 servlet 确定在当前请求之前的会话的最后访问时间。当会话中的请求是 servlet 容器第一个处理的时该会话被认为是访问了。
-
-# 重要会话语义
 
 # 重要会话语义
 
@@ -1298,11 +1196,7 @@ HttpSession 接口的 getLastAccessedTime 方法允许 servlet 确定在当前�
 
 # 注解和可插拔性
 
-# 注解和可插拔性
-
 本章描述了注解的使用和使 web 应用内使用的框架和库能够可插拔的增强。
-
-# 注解和可插拔性
 
 # 注解和可插拔性
 
@@ -1320,7 +1214,7 @@ Web 应用部署描述符的 web-app 元素包含一个新的 “metadata-comple
 
 CODE EXAMPLE 8-1 @WebServlet Annotation Example
 
-```
+```java
 @WebServlet(”/foo”)
 public class CalculatorServlet extends HttpServlet{
     //...
@@ -1331,7 +1225,7 @@ public class CalculatorServlet extends HttpServlet{
 
 CODE EXAMPLE 8-2 @WebServlet annotation example using other annotation attributes specified
 
-```
+```java
 @WebServlet(name=”MyServlet”, urlPatterns={"/foo", "/bar"})
 public class SampleUsingAnnotationAttributes extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse res) {
@@ -1349,7 +1243,7 @@ public class SampleUsingAnnotationAttributes extends HttpServlet{
 
 CODE EXAMPLE 8-3 @WebFilter annotation example
 
-```
+```java
 @WebFilter(“/foo”)
 public class MyFilter implements Filter {
     public void doFilter(HttpServletRequest req, HttpServletResponse res)
@@ -1377,7 +1271,7 @@ WebListener 注解用于注解用来获得特定 web 应用上下文中的各种
 
 一个例子：
 
-```
+```java
 @WebListener
 public class MyListener implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
@@ -1400,8 +1294,6 @@ public class MyListener implements ServletContextListener{
 
 # 可插拔性
 
-# 可插拔性
-
 ### web.xml 模块
 
 使用上述定义的注解，使得 web.xml 的使用变为可选。然而，对于覆盖默认值或使用注解设置的值，仍然需要使用部署描述符。如前所述，如果 web.xml 描述符中的 metadata-complete 元素设置为 true，则存在于 class 文件和绑定在 jar 包中的 web-fragments 中的指定部署信息的注解将不被处理。这意味着，所有应用的元数据通过 web.xml 描述符指定。
@@ -1416,7 +1308,7 @@ web fragment 是 web 应用的一个逻辑分区，以这样一种方式，在�
 
 如下是库或框架可以包括什么的例子。
 
-```
+```java
 <web-fragment>
     <servlet>
         <servlet-name>welcome</servlet-name>
@@ -1452,7 +1344,7 @@ web fragment 是 web 应用的一个逻辑分区，以这样一种方式，在�
 
 web-fragment.xml
 
-```
+```java
 <web-fragment>
     <name>MyFragment1</name>
     <ordering><after><name>MyFragment2</name></after></ordering>
@@ -1462,7 +1354,7 @@ web-fragment.xml
 
 web-fragment.xml
 
-```
+```java
 <web-fragment>
     <name>MyFragment2</name>
     ..
@@ -1471,7 +1363,7 @@ web-fragment.xml
 
 web-fragment.xml
 
-```
+```java
 <web-fragment>
     <name>MyFragment3</name>
     <ordering><before><others/></before></ordering>
@@ -1481,7 +1373,7 @@ web-fragment.xml
 
 web.xml
 
-```
+```java
 <web-app>
     ...
 </web-app> 
@@ -1511,7 +1403,7 @@ MyFragment1
 
 web.xml
 
-```
+```java
 <web-app>
     <absolute-ordering>
         <name>MyFragment3</name>
@@ -1533,7 +1425,7 @@ MyFragment2
 
 Document A：
 
-```
+```java
 <after>
     <others/>
     <name>
@@ -1544,7 +1436,7 @@ Document A：
 
 Document B:
 
-```
+```java
 <before>
     <others/>
 </before> 
@@ -1552,7 +1444,7 @@ Document B:
 
 Document C:
 
-```
+```java
 <after>
     <others/>
 </after> 
@@ -1564,7 +1456,7 @@ Document E： 没有指定顺序
 
 Document F：
 
-```
+```java
 <before>
     <others/>
     <name>
@@ -1579,7 +1471,7 @@ web.xml, F, B, D, E, C, A。
 
 Document <no id="" class="calibre14">:</no>
 
-```
+```java
 <after>
     <others/>
 </after>
@@ -1592,7 +1484,7 @@ Document <no id="" class="calibre14">:</no>
 
 Document B:
 
-```
+```java
 <before>
     <others/>
 </before> 
@@ -1602,7 +1494,7 @@ Document C: 没有指定顺序
 
 Document D:
 
-```
+```java
 <after>
     <others/>
 </after> 
@@ -1610,7 +1502,7 @@ Document D:
 
 Document E:
 
-```
+```java
 <before>
     <others/>
 </before> 
@@ -1629,7 +1521,7 @@ Document F：没有指定顺序
 
 Document A：
 
-```
+```java
 <after>
     <name>
         B
@@ -1641,7 +1533,7 @@ Document B：没有指定顺序
 
 Document C：
 
-```
+```java
 <before>
     <others/>
 </before> 
@@ -1706,7 +1598,7 @@ Fragment 1
 
 web-fragment.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1723,7 +1615,7 @@ web-fragment.xml
 
 有效的 metadata 将是：
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ....
@@ -1742,7 +1634,7 @@ CODE EXAMPLE 8-5
 
 web.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1753,7 +1645,7 @@ Fragment 1
 
 web-fragment.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1772,7 +1664,7 @@ Fragment 2
 
 web-fragment.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1789,7 +1681,7 @@ web-fragment.xml
 
 有效的 metadata 是：
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ....
@@ -1816,7 +1708,7 @@ CODE EXAMPLE 8-6
 
 web.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     <injection-target>
@@ -1834,7 +1726,7 @@ Fragment 1
 
 web-fragment.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1853,7 +1745,7 @@ Fragment 2
 
 web-fragment.xml
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     ...
@@ -1870,7 +1762,7 @@ web-fragment.xml
 
 有效的 metadata 是：
 
-```
+```java
 <resource-ref>
     <resource-ref-name="foo">
     <injection-target>
@@ -1899,7 +1791,7 @@ web-fragment.xml
 
 Fragment 1 和 2 的`<injection-target>`将被合并到主 web.xml
 
-```
+```java
 * 如果主 web.xml 没有指定任何`<post-construct>`元素，且 web-fragment 中也指定了`<post-construct>` ，那么 fragment 中的  `<post-construct>`将被合并到主 web.xml。不过如果在主 web.xml 中至少指定一个`<post-construct>`元素，那么 fragment 中的`<post-construct>`将不被合并。由 web.xml 的作者负责确保`<post-construct>`列表是完成的。
 * 如果主 web.xml 没有指定任何`<pre-destroy>`元素，且 web-fragment 中也指定了`<pre-destroy>`，那么 fragment 中的`<pre-destroy>`元素将被合并到主 web.xml。不过如果在主 web.xml 中至少指定一个`<pre-destroy>`元素，那么 fragment 中的`<pre-destroy>`将不被合并。由 web.xml 的作者负责确保`<pre-destroy>`列表是完成的。
 * 在处理完 web-fragment.xml 之后，在处理下一个 fragment 之前相应 fragment 的注解被处理以完成有效的 metadata。以下规则用于处理注解：
@@ -1916,7 +1808,7 @@ Fragment 1 和 2 的`<injection-target>`将被合并到主 web.xml
 
 使用注解声明 Servlet 和在打包到的相应 web.xml 描述符中声明 Servlet：
 
-```
+```java
 @WebServlet(urlPatterns=”/MyPattern”, initParams=
 {@WebInitParam(name="ccc", value="333")})
 public class com.acme.Foo extends HttpServlet
@@ -1927,7 +1819,7 @@ public class com.acme.Foo extends HttpServlet
 
 web.xml
 
-```
+```java
 <servlet>
     <servlet-class>com.acme.Foo</servlet-class>
     <servlet-name>Foo</servlet-name>
@@ -1956,7 +1848,7 @@ web.xml
 
 因为使用注解声明的 Servlet 名字不匹配在 web.xml 中声明的 servlet 名字，在 web.xml 中除了其他的声明外，注解指定一个新的 servlet 声明，相当于：
 
-```
+```java
 <servlet>
     <servlet-class>com.acme.Foo</servlet-class>
     <servlet-name>com.acme.Foo</servlet-name>
@@ -1968,7 +1860,7 @@ web.xml
 
 如果上面的 web.xml 被替换为如下：
 
-```
+```java
 <servlet>
     <servlet-class>com.acme.Foo</servlet-class>
     <servlet-name>com.acme.Foo</servlet-name>
@@ -1985,7 +1877,7 @@ web.xml
 
 那么有效的描述符将等价于：
 
-```
+```java
  <servlet-class>com.acme.Foo</servlet-class>
     <servlet-name>com.acme.Foo</servlet-name>
     <init-param>
@@ -2021,7 +1913,7 @@ web.xml
 
 JAX-WS 运行时实现通常不是绑定到每个 war 包。其实现将绑定一个 ServletContainerInitializer 的实现（如下所示）且容器将查找使用的 services API（绑定在 jar 包中的 META-INF/services 目录中的一个叫做 javax.servlet.ServletContainerInitializer 的文件，它将指出如下所示的 JAXWSServletContainerInitializer）。
 
-```
+```java
 @HandlesTypes(WebService.class)
 JAXWSServletContainerInitializer
 implements ServletContainerInitializer
@@ -2042,8 +1934,6 @@ ServletContainerInitializer 接口的实现将被运行时的服务查找机制�
 
 # JSP 容器可插拔性
 
-# JSP 容器可插拔性
-
 ServletContainerInitializer 和编程式注册特性可以在 Servlet 和 JSP 容器之间提供一个清晰的职责分离，通过由 Servlet 容器只负责解析 web.xml 和 web-fragment.xml 资源，而解析标签库描述符（TLD）资源委托给 JSP 容器。
 
 在此之前，web 容器必须扫描 TLD 资源寻找任何 Listener 声明。使用 Servlet 3.0 和后续版本后，该职责可以委托给 JSP 容器。JSP 容器是内嵌到一个 Servlet3.0 兼容的 Servlet 容器中，可以提供它自己的 ServletContainerInitializer 实现，搜索传递到它的 onStartup 方法的 ServletContext 参数寻找任何 TLD 资源，扫描这些资源寻找 Listener 声明，并向 ServletContext 注册相关的 Listener。
@@ -2053,8 +1943,6 @@ ServletContainerInitializer 和编程式注册特性可以在 Servlet 和 JSP �
 在 TLD 中发现的和编程注册的任何 ServletContextListener 在它们提供的功能上是有限的。任何试图调用一个在 Servlet3.0 中加入的 ServletContext API 方法将导致一个 UnsupportedOperationException。
 
 另外，Servlet 3.0 和后续版本兼容的 Servlet 容器必须提供一个名字为 javax.servlet.context.orderedLibs 的 ServletContext 属性，它的值（java.util.List<java.lang.string class="calibre14">类型）包含了由 ServletContext 所代表的应用的 WEB-INF/lib 目录中的 JAR 文件的名字列表，按照它们的 web fragment 名字的排序（可能排除如果 fragment JAR 包已经被排除在 absolute-ordering），或者 null 如果应用没有指定任意绝对或相对顺序。</java.lang.string>
-
-# 处理注解和 fragment
 
 # 处理注解和 fragment
 
@@ -2071,13 +1959,9 @@ TABLE 8-1 Annotations and web fragment processing requirements
 
 # 分发请求
 
-# 分发请求
-
 构建 Web 应用时，把请求转发给另一个 servlet 处理、或在请求中包含另一个 servlet 的输出通常是很有用的。RequestDispatcher 接口提供了一种机制来实现这种功能。
 
 当请求启用异步处理时，AsyncContext 允许用户将这个请求转发到 servlet 容器。
-
-# 获取 RequestDispatcher
 
 # 获取 RequestDispatcher
 
@@ -2098,7 +1982,7 @@ getNamedDispatcher 方法使用一个 ServletContext 知道的 servlet 名称作
 
 ServletContext 和 ServletRequest 中创建 RequestDispatcher 对象的方法使用的路径信息中允许附加可选的查询字符串信息。比如，开发人员可以通过下面的代码来获得一个 RequestDispatcher：
 
-```
+```java
 String path = “/raisins.jsp?orderno=5”;
 RequestDispatcher rd = context.getRequestDispatcher(path);
 rd.include(request, response); 
@@ -2108,13 +1992,9 @@ rd.include(request, response);
 
 # 使用请求调度器
 
-# 使用请求调度器
-
 要使用请求调度器，servlet 可调用 RequestDispatcher 接口的 include 或 forward 方法。这些方法的参数既可以是 javax.servlet.Servlet 接口的 service 方法传来的请求和响应对象实例，也可以是本规范的 2.3 版本中介绍的请求和响应包装器类的子类对象实例。对于后者，包装器实例必须包装容器传递到 service 方法中的请求和响应对象。
 
 容器提供者应该保证分发到目标 servlet 的请求作为原始请求发生在的同一个 JVM 的同一个线程中。
-
-# Include 方法
 
 # Include 方法
 
@@ -2128,7 +2008,7 @@ RequestDispatcher 接口的 include 方法可能随时被调用。Include 方法
 
 除了可以用 getNamedDispatcher 方法获得 servlet 外，已经被另一个 servlet 使用 RequestDispatcher 的 include 方法调用过的 servlet，有权访问被调用过的 servlet 的路径。 以下的请求属性必须被设置：
 
-```
+```java
 javax.servlet.include.request_uri
 javax.servlet.include.context_path
 javax.servlet.include.servlet_path
@@ -2139,8 +2019,6 @@ javax.servlet.include.query_string
 这些属性可以通过包含的 servlet 的请求对象的 getAttribute 方法访问，它们的值必须分别与被包含 servlet 的请求 RUI、上下文路径、servlet 路径、路径信息、查询字符串相等。如果随后的请求包含这些属性，那么这些属性会被后面包含的属性值替换。
 
 如果包含的 servlet 通过 getNamedDispatcher 方法获得，那么这些属性不能被设置。
-
-# Forward 方法
 
 # Forward 方法
 
@@ -2158,7 +2036,7 @@ RequestDispatcher 接口的 forward 方法，只有在没有输出提交到向�
 
 除了可以用 getNamedDispatcher 方法获得 servlet 外，已经被另一个 servlet 使用 RequestDispatcher 的 forward 方法调用过的 servlet，有权访问被调用过的 servlet 的路径。 以下的请求属性必须设置：
 
-```
+```java
 javax.servlet.forward.request_uri
 javax.servlet.forward.context_path
 javax.servlet.forward.servlet_path
@@ -2174,17 +2052,11 @@ javax.servlet.forward.query_string
 
 # 错误处理
 
-# 错误处理
-
 如果请求分发的目标 servlet 抛出运行时异常或受检查类型异常 ServletException 或 IOException，异常应该传播到调用的 servlet。所有其它的异常都应该被包装成 ServletExceptions，异常的根本原因设置成原来的异常，因为它不应该被传播。
 
 # 获取 AsyncContext
 
-# 获取 AsyncContext
-
 实现了 AsyncContext 接口的对象可从 ServletRequest 的一个 startAsync 方法中获得，一旦有了 AsyncContext 对象，你就能够使用它的 complete() 方法来完成请求处理，或使用下面描述的转发方法。
-
-# Dispatch 方法
 
 # Dispatch 方法
 
@@ -2214,7 +2086,7 @@ AsyncContext 接口中的 dispatch 方法可被等待异步事件发生的应用
 
 使用 AsyncContext 的 dispatch 方法调用过的 servlet 能够访问原始请求的路径。 下面的 request 属性必须设置：
 
-```
+```java
 javax.servlet.async.request_uri
 javax.servlet.async.context_path
 javax.servlet.async.servlet_path
@@ -2228,11 +2100,7 @@ javax.servlet.async.query_string
 
 # Web 应用
 
-# Web 应用
-
 Web 应用是一个 servlets,HTML 页面,类,和其他资源的集合，用于一个在 Web 服务器的完成的应用。Web 应用可以捆绑和运行来自多个供应商的在多个容器。
-
-# Web 服务器中的 Web 应用
 
 # Web 服务器中的 Web 应用
 
@@ -2244,11 +2112,7 @@ servlet 容器能够制定 Web 应用程序自动生成的规则。例如，一�
 
 # 与 ServletContext 的关系
 
-# 与 ServletContext 的关系
-
 servlet 容器必须强制 Web 应用程序和 ServletContext 之间一对一对应的关系。ServletContext 对象提供了一个 servlet 和它的应用程序视图。
-
-# Web 应用的元素
 
 # Web 应用的元素
 
@@ -2263,11 +2127,7 @@ Web 应用可能由下面几部分组成：
 
 # 部署层次结构
 
-# 部署层次结构
-
 本规范定义了一个用于部署和打包用途的，可存在于开放文件系统、归档文件或一些其他形式中的层次结构。建议 servlet 容器支持这种结构作为运行时表示形式，但不是必须的.
-
-# 目录结构
 
 # 目录结构
 
@@ -2285,7 +2145,7 @@ WEB-INF 目录中的内容有：
 
 下面是一个示例 Web 应用程序的文件清单：
 
-```
+```java
 /index.html
 /howto.jsp
 /feedback.jsp
@@ -2300,13 +2160,9 @@ WEB-INF 目录中的内容有：
 
 # Web 应用归档文件
 
-# Web 应用归档文件
-
 可以使用标准的 Java 归档工具把 Web 应用程序打包并签名到一个 Web 存档格式（WAR）文件中。例如，一个关于“issue tracking”的应用程序可以分布在一个称为 issuetrack.war 的归档文件中。
 
 当打包成这种形式时，将生成一个 META-INF 目录，其中包含了对 java 归档工具有用的信息。尽管这个目录的内容可以通过 servlet 代码调用 ServletContext 的 getResource 和 getResourceAsStream 方法来访问，容器也不能把这个目录当作内容来响应客户端请求。此外，任何请求访问 META-INF 目录中的资源必须返回一个 SC_NOT_FOUND（404）的响应。
-
-# Web 应用部署描述符
 
 # Web 应用部署描述符
 
@@ -2339,11 +2195,7 @@ Web 容器也必须能够识别出 WAR 文件中 WEB-INF/lib 目录下的任意�
 
 # 更新 Web 应用
 
-# 更新 Web 应用
-
 服务器应该能够更新一个新版本的应用程序，而无需重启容器。当一个应用程序更新时，容器应提供一个可靠的方法来保存该应用程序的会话数据。
-
-# 错误处理
 
 # 错误处理
 
@@ -2406,8 +2258,6 @@ Web 应用程序可以使用 exception-type 元素声明错误页面。在这种
 
 # 欢迎文件
 
-# 欢迎文件
-
 Web 应用程序开发人员可以在 Web 应用程序部署描述文件中定义一个称为欢迎文件的局部 URI 有序列表。在 Web 应用程序部署描述文件模式中描述了部署描述文件中欢迎文件列表的语法。
 
 这种机制的目的是，当一个对应到 WA R 文件中一个目录条目的请求 URI 没有映射到一个 Web 组件时，允许部署者为容器用于添加 URI 指定局部 URI 有序列表。这种请求被认为是有效的局部请求。
@@ -2422,7 +2272,7 @@ Web 应用程序开发人员可以在 Web 应用程序部署描述文件中定�
 
 *   部署描述文件列出了以下的欢迎文件。
 
-    ```
+    ```java
      <welcome-file>index.html</welcome-file>
       <welcome-file>default.jsp</welcome-file> 
     ```
@@ -2445,11 +2295,7 @@ Web 应用程序开发人员可以在 Web 应用程序部署描述文件中定�
 
 # Web 环境
 
-# Web 环境
-
 servlet 容器不属于 Java EE 技术标准的实现，鼓励实现这个容器但不是必需的，实现应用环境的功能请参见第 15.2.2 节中描述的“Web 应用环境”和 Java EE 规范。如果他们没有实现需要支持这种环境的条件，根据部署依赖它们的应用程序，容器应该提供一个警告。
-
-# Web 应用部署
 
 # Web 应用部署
 
@@ -2462,17 +2308,11 @@ servlet 容器不属于 Java EE 技术标准的实现，鼓励实现这个容器
 
 # 包含 web.xml 部署描述符
 
-# 包含 web.xml 部署描述符
-
 如果 Web 应用不包含任何 servlet、过滤器、或监听器组件或使用注解声明相同的，那么可以不需要 web.xml 文件。换句话说，只包含静态文件或 JSP 页面的应用程序并不需要一个 web.xml 的存在。
 
 # 介绍
 
-# 介绍
-
 应用事件设施给 Web 应用开发人员更好地控制 ServletContext、HttpSession 和 ServletRequest 的生命周期，可以更好地代码分解，并在管理 Web 应用使用的资源上提高了效率。
-
-# 事件监听器
 
 # 事件监听器
 
@@ -2524,8 +2364,6 @@ javax.servlet.ServletRequestAttributeListener 异步事件 | 超时、连接终�
 
 # 监听器类的配置
 
-# 监听器类的配置
-
 ### 提供监听器类
 
 Web 应用的开发人员提供实现了一个或多个在 javax.servlet API 中的监听器接口的监听器类。每一个监听器类必须有一个无参构造器。监听器类打包到 WAR 包中，或者在 WEB-INF/classes 归档项下，或者在 WEB-INF/lib 目录的一个 JAR 内部。
@@ -2544,11 +2382,9 @@ Web 容器创建每一个监听器类的一个实例，并在应用处理第一�
 
 # 部署描述符示例
 
-# 部署描述符示例
-
 以下示例是注册两个 Servlet 上下文生命周期监听器和一个 HttpSession 监听器的部署语法。 假设 com.acme.MyConnectionManager 和 com.acme.MyLoggingModule 两个都实现了 javax.servlet.ServletContextListener，且 com.acme.MyLoggingModule 又实现了 javax.servlet.http.HttpSessionListener。此外，开发人员希望 com.acme.MyConnectionManager 在 com.acme.MyLoggingModule 得到 Servlet 上下文生命周期事件的通知。下面是这个应用的部署描述符：
 
-```
+```java
 <web-app>
     <display-name>MyListeningApplication</display-name>
     <listener>
@@ -2566,13 +2402,9 @@ Web 容器创建每一个监听器类的一个实例，并在应用处理第一�
 
 # 监听器实例和线程
 
-# 监听器实例和线程
-
 容器需要在开始执行进入应用的第一个请求之前完成 Web 应用中的监听器类的实例化。容器必须保持到每一个监听器的引用直到为 Web 应用最后一个请求提供服务。
 
 ServletContext 和 HttpSession 对象的属性改变可能会同时发生。不要求容器同步到属性监听器类产生的通知。维护状态的监听器类负责数据的完整性且应明确处理这种情况。
-
-# 监听器异常
 
 # 监听器异常
 
@@ -2584,11 +2416,7 @@ ServletContext 和 HttpSession 对象的属性改变可能会同时发生。不�
 
 # 分布式容器
 
-# 分布式容器
-
 在分布式 Web 容器中，HttpSession 实例被限到特定的 JVM 服务会话请求，且 ServletContext 对象被限定到 Web 容器所在的 JVM。分布式容器不需要传播 Servlet 上下文事件或 HttpSession 事件到其他 JVM。监听器类实例被限定到每个 JVM 的每个部署描述符声明一个。
-
-# 会话事件
 
 # 会话事件
 
@@ -2596,11 +2424,7 @@ ServletContext 和 HttpSession 对象的属性改变可能会同时发生。不�
 
 # 映射请求到 Servlet
 
-# 映射请求到 Servlet
-
 Web 容器需要本章描述的映射技术去映射客户端请求到 Servlet（该规范 2.5 以前的版本，使用这些映射技术是作为一个建议而不是要求，允许 servlet 容器各有其不同的策略用于映射客户端请求到 servlet）。
-
-# 使用 URL 路径
 
 # 使用 URL 路径
 
@@ -2612,8 +2436,6 @@ Web 容器接下来必须用下面描述的路径匹配步骤找出 servlet 来�
 2.  容器将递归地尝试匹配最长路径前缀。这是通过一次一个目录的遍历路径树完成的，使用‘/’字符作为路径分隔符。最长匹配确定选择的 servlet。
 3.  如果 URL 最后一部分包含一个扩展名（如 .jsp），servlet 容器将视图匹配为扩展名处理请求的 Servlet。扩展名定义在最后一部分的最后一个‘.’字符之后。
 4.  如果前三个规则都没有产生一个 servlet 匹配，容器将试图为请求资源提供相关的内容。如果应用中定义了一个“default”servlet，它将被使用。许多容器提供了一种隐式的 default servlet 用于提供内容。 容器必须使用区分大小写字符串比较匹配。
-
-# 映射规范
 
 # 映射规范
 
@@ -2665,13 +2487,9 @@ TABLE 12-2 Incoming Paths Applied to Example Maps
 
 # 安全
 
-# 安全
-
 应用开发人员创建 Web 应用，他给、销售或其他方式转入应用给部署人员，部署人员覆盖安装到运行时环境。应用开发人员与部署人员沟通部署系统的安全需求。该信息可以通过应用部署描述符声明传达，通过在应用代码中使用注解，或通过 ServletRegistration 接口的 setServletSecurity 方法编程。
 
 本节描述了 Servlet 容器安全机制、接口、部署描述符和基于注解机制和编程机制用于传达应用安全需求。
-
-# 介绍
 
 # 介绍
 
@@ -2684,15 +2502,11 @@ web 应用包含的资源可以被多个用户访问。这些资源常常不受�
 
 # 声明式安全
 
-# 声明式安全
-
 声明式安全是指以在应用外部的形式表达应用的安全模型需求，包括角色、访问控制和认证需求。部署描述符是 web 应用中的声明式安全的主要手段。
 
 部署人员映射应用的逻辑安全需求到特定于运行时环境的安全策略的表示。在运行时，servlet 容器使用安全策略表示来实施认证和授权。
 
 安全模型适用于 web 应用的静态内容部分和客户端请求到的应用内的 servlet 和过滤器。安全模型不适用于当 servlet 使用 RequestDispatcher 调用静态内容或使用 forward 或 include 到的 servlet。
-
-# 编程式安全
 
 # 编程式安全
 
@@ -2725,7 +2539,7 @@ isUserInRolem 方法需要一个引用应用角色的参数。对于用在调用
 
 例如，映射安全角色应用“FOO”到 role-name 为"manager"的安全角色的语法是：
 
-```
+```java
 <security-role-ref>
     <role-name>FOO</role-name>
     <role-link>manager</role-link>
@@ -2744,15 +2558,13 @@ security-role-ref 元素声明通知部署人员应用使用的角色引用和�
 
 # 编程式安全策略配置
 
-# 编程式安全策略配置
-
 本章定义的注解和 API 提供用于配置 Servlet 容器强制的安全约束。
 
 ### @ServletSecurity 注解
 
 @ServletSecurity 提供了用于定义访问控制约束的另一种机制，相当于那些通过在便携式部署描述符中声明式或通过 ServletRegistration 接口的 setServletSecurity 方法编程式表示。Servlet 容器必须支持在实现 javax.servlet.Servlet 接口的类（和它的子类）上使用@ServletSecurity 注解。
 
-```
+```java
 package javax.servlet.annotation;
 
 @Inherited
@@ -2778,7 +2590,7 @@ TABLE 13-1 The ServletSecurity Interface
 
 对于一个 @HttpConstraint 返回所有默认值发生在与至少一个@HttpMethodConstraint 返回不同于所有默认值的组合的特殊情况，@HttpMethodConstraint 表示没有安全约束被应用到任何 HTTP 协议方法，否则一个安全约束将应用。这个例外是确保这些潜在的非特定@HttpConstraint 使用没有产生约束，这将明确建立不受保护的访问这些方法；因为，它们没有被约束覆盖。
 
-```
+```java
 package javax.servlet.annotation;
 
 @Documented
@@ -2800,7 +2612,7 @@ public @interface HttpConstraint {
 
 @HttpMethodConstraint 注解用在 @ServletSecurity 注解中表示在特定 HTTP 协议消息上的安全约束。
 
-```
+```java
 package javax.servlet.annotation;
 
 @Documented
@@ -2841,7 +2653,7 @@ TABLE 13-3 The HttpMethodConstraint Interface
 
 CODE EXAMPLE 13-1 for all HTTP methods, no constraints
 
-```
+```java
 @ServletSecurity
 public class Example1 extends HttpServlet {
 } 
@@ -2849,7 +2661,7 @@ public class Example1 extends HttpServlet {
 
 CODE EXAMPLE 13-2 for all HTTP methods, no auth-constraint, confidential transport　required
 
-```
+```java
 @ServletSecurity(@HttpConstraint(transportGuarantee =
 TransportGuarantee.CONFIDENTIAL))
 public class Example2 extends HttpServlet {
@@ -2858,7 +2670,7 @@ public class Example2 extends HttpServlet {
 
 CODE EXAMPLE 13-3 for all HTTP methods, all access denied
 
-```
+```java
 @ServletSecurity(@HttpConstraint(EmptyRoleSemantic.DENY))
 public class Example3 extends HttpServlet {
 } 
@@ -2866,7 +2678,7 @@ public class Example3 extends HttpServlet {
 
 CODE EXAMPLE 13-4 for all HTTP methods, auth-constraint requiring membership in Role　R1
 
-```
+```java
 @ServletSecurity(@HttpConstraint(rolesAllowed = "R1"))
 public class Example4 extends HttpServlet {
 } 
@@ -2874,7 +2686,7 @@ public class Example4 extends HttpServlet {
 
 CODE EXAMPLE 13-5 for All HTTP methods except GET and POST, no constraints; forethods GET and POST, auth-constraint requiring membership in　Role R1; for POST, confidential transport required
 
-```
+```java
 @ServletSecurity((httpMethodConstraints = {
 @HttpMethodConstraint(value = "GET", rolesAllowed = "R1"),
 @HttpMethodConstraint(value = "POST", rolesAllowed = "R1",
@@ -2886,7 +2698,7 @@ public class Example5 extends HttpServlet {
 
 CODE EXAMPLE 13-6 for all HTTP methods except GET auth-constraint requiring　membership in Role R1; for GET, no constraints
 
-```
+```java
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = "R1"),
 httpMethodConstraints = @HttpMethodConstraint("GET"))
 public class Example6 extends HttpServlet {
@@ -2895,7 +2707,7 @@ public class Example6 extends HttpServlet {
 
 CODE EXAMPLE 13-7 for all HTTP methods except TRACE, auth-constraint requiring　membership in Role R1; for TRACE, all access denied
 
-```
+```java
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = "R1"),
 httpMethodConstraints = @HttpMethodConstraint(value="TRACE",
 emptyRoleSemantic = EmptyRoleSemantic.DENY))
@@ -2913,7 +2725,7 @@ public class Example7 extends HttpServlet {
 
 CODE EXAMPLE 13-8 mapping @ServletSecurity with no contained @HttpMethodConstraint
 
-```
+```java
 @ServletSecurity(@HttpConstraint(rolesAllowed = "Role1"))
 
 <security-constraint>
@@ -2932,7 +2744,7 @@ CODE EXAMPLE 13-8 mapping @ServletSecurity with no contained @HttpMethodConstrai
 
 CODE EXAMPLE 13-9 mapping @ServletSecurity with contained @HttpMethodConstraint
 
-```
+```java
 @ServletSecurity(value=@HttpConstraint(rolesAllowed = "Role1"),
 httpMethodConstraints = @HttpMethodConstraint(value = "TRACE",
 emptyRoleSemantic = EmptyRoleSemantic.DENY))
@@ -2969,7 +2781,7 @@ CODE EXAMPLE 13-10 emptyRoleSemantic=PERMIT, rolesAllowed={}, transportGuarantee
 
 CODE EXAMPLE 13-11 emptyRoleSemantic=PERMIT, rolesAllowed={}, transportGuarantee=CONFIDENTIAL
 
-```
+```java
 <user-data-constraint>
     <transport-guarantee>CONFIDENTIAL</transport-guarantee>
 </user-data-constraint> 
@@ -2977,7 +2789,7 @@ CODE EXAMPLE 13-11 emptyRoleSemantic=PERMIT, rolesAllowed={}, transportGuarantee
 
 CODE EXAMPLE 13-12 emptyRoleSemantic=PERMIT, rolesAllowed={Role1},transportGuarantee=NONE
 
-```
+```java
 <auth-constraint>
     <security-role-name>Role1</security-role-name>
 </auth-constraint> 
@@ -2985,7 +2797,7 @@ CODE EXAMPLE 13-12 emptyRoleSemantic=PERMIT, rolesAllowed={Role1},transportGuara
 
 CODE EXAMPLE 13-13 emptyRoleSemantic=PERMIT, rolesAllowed={Role1},transportGuarantee=CONFIDENTIAL
 
-```
+```java
 <auth-constraint>
     <security-role-name>Role1</security-role-name>
 </auth-constraint>
@@ -2996,13 +2808,13 @@ CODE EXAMPLE 13-13 emptyRoleSemantic=PERMIT, rolesAllowed={Role1},transportGuara
 
 CODE EXAMPLE 13-14 emptyRoleSemantic=DENY, rolesAllowed={}, transportGuarantee=NONE
 
-```
+```java
 <auth-constraint/> 
 ```
 
 CODE EXAMPLE 13-15 emptyRoleSemantic=DENY, rolesAllowed={}, transportGuarantee=CONFIDENTIAL
 
-```
+```java
 <auth-constraint/>
 <user-data-constraint>
     <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -3013,7 +2825,7 @@ CODE EXAMPLE 13-15 emptyRoleSemantic=DENY, rolesAllowed={}, transportGuarantee=C
 
 ServletContextListener 内的 setServletSecurity 方法用于定义应用到 ServletRegistration 定义的映射的安全约束。
 
-```
+```java
 Collection<String> setServletSecurity(ServletSecurityElement arg); 
 ```
 
@@ -3029,16 +2841,12 @@ setServletSecurity 方法返回一组 URL pattern（可能空），其已是便�
 
 # 角色
 
-# 角色
-
 安全角色是由应用开发人员或装配人员定义的逻辑用户分组。当部署了应用，由部署人员映射角色到运行时环境的 principal 或组。
 
 Servlet 容器根据 principal 的安全属性为与进入请求相关的 principal 实施声明式或编程式安全。 这可能以如下任一方式发生：
 
 1.  部署人员已经映射一个安全角色到运行环境中的一个用户组。调用的 principal 所属的用户组取自其安全属性。仅当 principal 所属的用户组由部署人员已经映射了安全角色，principal 是在安全角色中。
 2.  部署人员已经映射安全角色到安全策略域中的 principal 名字。在这种情况下，调用的 principal 的名字取自其安全属性。仅当 principal 名字与安全角色已映射到的 principal 名字一样时，principal 是在安全角色中。
-
-# 认证
 
 # 认证
 
@@ -3094,7 +2902,7 @@ HttpServletRequest 接口的 login 方法提供另一种用于应用控制它的
 
 下面的示例展示了如何把表单编码到 HTML 页中：
 
-```
+```java
 <form method=”POST” action=”j_security_check”>
 <input type=”text” name=”j_username”>
 <input type=”password” name=”j_password” autocomplete=”off”>
@@ -3117,8 +2925,6 @@ Servlet 容器应该提供公共接口，可用于集成和配置其他的 HTTP 
 
 # 服务器跟踪认证信息
 
-# 服务器跟踪认证信息
-
 下面的安全标识（如用户和组）在运行时环境中映射的角色是环境指定的而非应用指定的，理想的是：
 
 1.  使登录机制和策略是 web 应用部署到的环境属性。
@@ -3126,8 +2932,6 @@ Servlet 容器应该提供公共接口，可用于集成和配置其他的 HTTP 
 3.  需要重新认证用户仅当已经越过了安全策略域边界。
 
 因此，servlet 容器需要在容器级别（而不是在 web 应用级别）跟踪认证信息。这允许在一个 web 应用已经通过认证的用户可以访问容器管理的以同样的安全标识许可的其他资源。
-
-# 指定安全约束
 
 # 指定安全约束
 
@@ -3161,7 +2965,7 @@ Servlet 容器应该提供公共接口，可用于集成和配置其他的 HTTP 
 
 下面的示例演示了组合约束及它们翻译到的可应用的约束表格。假设部署描述符包含如下安全约束。
 
-```
+```java
 <security-constraint>
     <web-resource-collection>
         <web-resource-name>precluded methods</web-resource-name>
@@ -3245,7 +3049,7 @@ security-constraint schema 提供了枚举（包括省略）定义在 security-c
 
     <security-constraint class="calibre14"></security-constraint>
 
-    ```
+    ```java
      <web-resource-collection>
          <web-resource-name>wholesale</web-resource-name>
          <url-pattern>/acme/wholesale/*</url-pattern>
@@ -3264,7 +3068,7 @@ security-constraint schema 提供了枚举（包括省略）定义在 security-c
 
     <security-constraint class="calibre14"></security-constraint>
 
-    ```
+    ```java
      <web-resource-collection>
          <web-resource-name>wholesale</web-resource-name>
          <url-pattern>/acme/wholesale/*</url-pattern>
@@ -3309,11 +3113,7 @@ Servlet 容器可以提供一个配置选项来选择未覆盖方法的默认行
 
 # 默认策略
 
-# 默认策略
-
 默认情况下，身份认证并不需要访问资源。当安全约束（如果有）包含的 url-pattern 是请求 URI 的最佳匹配，且结合了施加在请求的 HTTP 方法上的 auth-constraint（指定的角色），则身份认证是需要的。同样，一个受保护的传输是不需要的，除非应用到请求的安全约束结合了施加在请求的 HTTP 方法上的 user-data-constraint（有一个受保护的 transport-guarantee）。
-
-# 登录和登出
 
 # 登录和登出
 
@@ -3325,15 +3125,11 @@ Servlet 容器可以提供一个配置选项来选择未覆盖方法的默认行
 
 # 部署描述符
 
-# 部署描述符
-
 本章指定的 Java™ Servlet 规范要求 Web 容器支持部署描述文件。部署描述文件表达了应用开发人员、应用集成人员和 Web 应用部署人员之间的元素和配置信息。
 
 对于 Java Servlet 2.4 和以后的版本，部署描述文件在 XML 模式文档中定义。
 
 为了向后兼容到 2.2 版本的 API 编写的应用程序，Web 容器也需要支持 2.2 版本的部署描述文件。为了向后兼容 2.3 版本的 API 编写的应用程序，Web 容器也需要支持 2.3 版本的部署描述文件。2.2 版本的部署描述文件可在此下载：[`java.sun.com/j2ee/dtds/web-app_2_2.dtd，2.3 版本的部署描述文件可在此下载：http://java.sun.com/dtd/web-app_2_3.dtd。`](http://java.sun.com/j2ee/dtds/web-app_2_2.dtd，2.3 版本的部署描述文件可在此下载：http://java.sun.com/dtd/web-app_2_3.dtd。)
-
-# 部署描述符元素
 
 # 部署描述符元素
 
@@ -3353,8 +3149,6 @@ Servlet 容器可以提供一个配置选项来选择未覆盖方法的默认行
 
 # 处理部署描述符的规则
 
-# 处理部署描述符的规则
-
 本节列出了一些通用的规则，Web 容器和开发人员必须注意有关 Web 应用程序部署描述文件的处理。
 
 *   对于部署描述文件的文本节点元素内容，Web 容器必须删除所有前导和后置空格，空格在 XML 1.0“（[`www.w3.org/TR/2000/WD-xml-2e-20000814）中被定义为“S(white`](http://www.w3.org/TR/2000/WD-xml-2e-20000814）中被定义为“S(white) space)”。
@@ -3371,11 +3165,7 @@ Servlet 容器可以提供一个配置选项来选择未覆盖方法的默认行
 
 # 部署描述符
 
-# 部署描述符
-
 这个版本规范的部署描述文件可在此下载：[`xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd`](http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd)
-
-# 部署描述符图解
 
 # 部署描述符图解
 
@@ -3567,7 +3357,7 @@ message-destination-ref 元素包含了部署组件和对部署组件环境中�
 
 示例：
 
-```
+```java
 <message-destination-ref>
     <message-destination-ref-name>
         jms/StockQueue
@@ -3604,7 +3394,7 @@ locale-encoding-mapping-list 包含了语言环境和编码之间的映射。由
 
 示例：
 
-```
+```java
 <locale-encoding-mapping-list>
     <locale-encoding-mapping>
         <locale>ja</locale>
@@ -3619,15 +3409,13 @@ FIGURE 14-23 locale-encoding-mapping-list Element Structure
 
 # 示例
 
-# 示例
-
 下面的例子说明了部署描述文件模式中列出的定义的用法。
 
 ### 一个简单的例子
 
 CODE EXAMPLE 14-1 Basic Deployment Descriptor Example
 
-```
+```java
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app 
 
@@ -3675,7 +3463,7 @@ version=”2.5”>
 
 CODE EXAMPLE 14-2 Deployment Descriptor Example Using Security
 
-```
+```java
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app 
 
@@ -3725,19 +3513,13 @@ version=”2.5”>
 
 # 与其它规范有关的要求
 
-# 与其它规范有关的要求
-
 本章列出对 web 容器的要求，它已经包含在容器产品中了，还包括其他 Java 技术。
 
 下面章节中任何涉及到 Java EE 应用的 profile，不只是完整的 Java EE profile，还包括任何支持 Servelt 的 profile，像 Java EE Web Profile。有关配置文件的更多信息，请参阅 Java EE 平台规范。
 
 # 会话
 
-# 会话
-
 分布式的 servlet 容器必须支持 Java EE 实现机制所必需的其他 Java EE 对象从一个 JVM 迁移到另一个。
-
-# Web 应用
 
 # Web 应用
 
@@ -3773,13 +3555,13 @@ Java EE 平台规范定义了一个标准化的全局 JNDI 命名空间和一系
 
 全局命名空间中
 
-```
+```java
 java:global[/<app-name>]/<module-name>!ROOT 
 ```
 
 ，应用程序指定的命名空间中
 
-```
+```java
 java:app/<module-name>!ROOT 
 ```
 
@@ -3797,7 +3579,7 @@ java:app 前缀允许一个组件内执行的 Java EE 应用程序来访问特�
 
 CODE EXAMPLE 15-1
 
-```
+```java
 @Resource(lookup=“java:global/myWebApp!ROOT”)
 URL myWebApp; 
 ```
@@ -3806,12 +3588,10 @@ URL myWebApp;
 
 CODE EXAMPLE 15-2
 
-```
+```java
 @Resource(lookup=“java:global/myApp/myWebApp!ROOT”)
 URL myWebApp; 
 ```
-
-# 安全
 
 # 安全
 
@@ -3833,8 +3613,6 @@ URL myWebApp;
 ### 容器认证的要求
 
 在 Java EE 产品中或包括支持 Java 容器认证 SPI（JASPIC, i.e, JSR 196）的产品中，所有 Servlet 容器必须实现 JASPIC 规范的 Servlet 容器 Profile。JASPIC 规范可在此处下载 [`www.jcp.org/en/jsr/detail?id=196`](http://www.jcp.org/en/jsr/detail?id=196)
-
-# 部署
 
 # 部署
 
@@ -3878,8 +3656,6 @@ Web 容器可以选择支持运行实现 JAX-PRC 和/或 JAX-WS 规范定义的 
 
 # 注解和资源注入
 
-# 注解和资源注入
-
 Java 元数据（Metadata）规范（JSR-175），是 J2SE 5.0 和更高版本的一部分，提供一种在 Java 代码中指定配置数据的方法。Java 代码中的元数据也被称为注解。在 JavaEE 中，注解用于声明对外部资源的依赖和在 Java 代码中的配置数据而无需在配置文件中定义该数据。
 
 本节描述了在 Java EE 技术兼容的 Servlet 容器中注解和资源注入的行为。本节扩展了 Java EE 规范第 5 节标题为“资源，命名和注入”。
@@ -3914,7 +3690,7 @@ web-fragment.xml 的 web-fragment 元素也包含了 metadata-complete 属性。
 
 CODE EXAMPLE 15-3 @DeclareRoles Annotation Example
 
-```
+```java
 @DeclareRoles("BusinessAdmin")
 public class CalculatorServlet {
     //...
@@ -3925,7 +3701,7 @@ public class CalculatorServlet {
 
 CODE EXAMPLE 15-4 @DeclareRoles web.xml
 
-```
+```java
 <web-app>
     <security-role>
         <role-name>BusinessAdmin</role-name>
@@ -3945,7 +3721,7 @@ CODE EXAMPLE 15-4 @DeclareRoles web.xml
 
 一个例子：
 
-```
+```java
 @EJB private ShoppingCart myCart; 
 ```
 
@@ -3961,7 +3737,7 @@ CODE EXAMPLE 15-4 @DeclareRoles web.xml
 
 CODE EXAMPLE 15-5 @EJBs Annotation Example
 
-```
+```java
 @EJBs({@EJB(Calculator), @EJB(ShoppingCart)})
 public class ShoppingCartServlet {
     //...
@@ -3978,7 +3754,7 @@ public class ShoppingCartServlet {
 
 CODE EXAMPLE 15-6 @Resource Example
 
-```
+```java
 @Resource private javax.sql.DataSource catalogDS;
 public getProductsByCategory() {
     // get a connection and execute the query
@@ -3999,7 +3775,7 @@ public getProductsByCategory() {
 
 CODE EXAMPLE 15-7 @PersistenceContext Example
 
-```
+```java
 @PersistenceContext (type=EXTENDED)
 EntityManager em; 
 ```
@@ -4018,7 +3794,7 @@ PersistenceContexts 注解允许在一个资源上声明多于一个@Persistence
 
 CODE EXAMPLE 15-8 @PersistenceUnit Example
 
-```
+```java
 @PersistenceUnit
 EntityManagerFactory emf; 
 ```
@@ -4037,7 +3813,7 @@ EntityManagerFactory emf;
 
 CODE EXAMPLE 15-9 @PostConstruct Example
 
-```
+```java
 @PostConstruct
 public void postConstruct() {
     ...
@@ -4056,7 +3832,7 @@ public void postConstruct() {
 
 CODE EXAMPLE 15-10 @PreDestroy Example
 
-```
+```java
 @PreDestroy
 public void cleanup() {
 // clean up any open resources
@@ -4076,7 +3852,7 @@ public void cleanup() {
 
 CODE EXAMPLE 15-11 @Resources Example
 
-```
+```java
 @Resources ({
 @Resource(name=”myDB” type=javax.sql.DataSource),
 @Resource(name=”myMQ” type=javax.jms.ConnectionFactory)
@@ -4098,7 +3874,7 @@ public class CalculatorServlet {
 
 CODE EXAMPLE 15-12 @RunAs Example
 
-```
+```java
 @RunAs(“Admin”)
 public class CalculatorServlet {
 
@@ -4118,7 +3894,7 @@ public class CalculatorServlet {
 
 CODE EXAMPLE 15-13 @RunAs web.xml Example
 
-```
+```java
 <servlet>
     <servlet-name>CalculatorServlet</servlet-name>
     <run-as>Admin</run-as>
@@ -4135,7 +3911,7 @@ CODE EXAMPLE 15-13 @RunAs web.xml Example
 
 一个例子：
 
-```
+```java
 @WebServiceRef private MyService service; 
 ```
 

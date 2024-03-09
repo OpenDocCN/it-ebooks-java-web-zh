@@ -18,7 +18,7 @@ Spring Boot Maven 插件为 Maven 提供 Spring Boot 支持，它允许你打包
 
 想要使用 Spring Boot Maven 插件只需简单地在你的 pom.xml 的`plugins`部分包含相应的 XML：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -45,7 +45,7 @@ Spring Boot Maven 插件为 Maven 提供 Spring Boot 支持，它允许你打包
 
 该配置会在 Maven 生命周期的`package`阶段重新打包一个 jar 或 war。下面的示例显示在`target`目录下既有重新打包后的 jar，也有原始的 jar：
 
-```
+```java
 $ mvn package
 $ ls target/*.jar
 target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original 
@@ -53,7 +53,7 @@ target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
 
 如果不包含像上面那样的`<execution/>`，你可以自己运行该插件（但只有在 package 目标也被使用的情况）。例如：
 
-```
+```java
 $ mvn package spring-boot:repackage
 $ ls target/*.jar
 target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original 
@@ -61,7 +61,7 @@ target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
 
 如果使用一个里程碑或快照版本，你还需要添加正确的 pluginRepository 元素：
 
-```
+```java
 <pluginRepositories>
     <pluginRepository>
         <id>spring-snapshots</id>
@@ -80,7 +80,7 @@ target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
 
 一旦`spring-boot-maven-plugin`被包含到你的 pom.xml 中，它就会自动尝试使用`spring-boot:repackage`目标重写存档以使它们能够执行。为了构建一个 jar 或 war，你应该使用常规的 packaging 元素配置你的项目：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -94,14 +94,14 @@ target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
 
 为了构建和运行一个项目的 artifact，你可以输入以下命令：
 
-```
+```java
 $ mvn package
 $ java -jar target/mymodule-0.0.1-SNAPSHOT.jar 
 ```
 
 为了构建一个即是可执行的，又能部署到一个外部容器的 war 文件，你需要标记内嵌容器依赖为"provided"，例如：
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -139,7 +139,7 @@ Spring Boot Gradle 插件为 Gradle 提供 Spring Boot 支持，它允许你打�
 
 想要使用 Spring Boot Gradle 插件，你只需简单的包含一个`buildscript`依赖，并应用`spring-boot`插件：
 
-```
+```java
 buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.0.BUILD-SNAPSHOT")
@@ -150,7 +150,7 @@ apply plugin: 'spring-boot'
 
 如果想使用一个里程碑或快照版本，你可以添加相应的 repositories 引用：
 
-```
+```java
 buildscript {
     repositories {
         maven.url "http://repo.spring.io/snapshot"
@@ -166,7 +166,7 @@ buildscript {
 
 `spring-boot`插件会为你的构建注册一个自定义的 Gradle `ResolutionStrategy`，它允许你在声明对"神圣"的 artifacts 的依赖时获取版本号。为了充分使用该功能，只需要想通常那样声明依赖，但将版本号设置为空：
 
-```
+```java
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.thymeleaf:thymeleaf-spring4")
@@ -178,7 +178,7 @@ dependencies {
 
 `spring-boot`插件对于没有指定版本的依赖只会提供一个版本。如果不想使用插件提供的版本，你可以像平常那样在声明依赖的时候指定版本。例如：
 
-```
+```java
 dependencies {
     compile("org.thymeleaf:thymeleaf-spring4:2.1.1.RELEASE")
 } 
@@ -190,7 +190,7 @@ dependencies {
 
 如果你需要不同于 Spring Boot 的"blessed"依赖，有可能的话可以自定义`ResolutionStrategy`使用的版本。替代的版本元数据使用`versionManagement`配置。例如：
 
-```
+```java
 dependencies {
     versionManagement("com.mycorp:mycorp-versions:1.0.0.RELEASE@properties")
     compile("org.springframework.data:spring-data-hadoop")
@@ -199,7 +199,7 @@ dependencies {
 
 版本信息需要作为一个`.properties`文件发布到一个仓库中。对于上面的示例，`mycorp-versions.properties`文件可能包含以下内容：
 
-```
+```java
 org.springframework.data\:spring-data-hadoop=2.0.0.RELEASE 
 ```
 
@@ -211,7 +211,7 @@ org.springframework.data\:spring-data-hadoop=2.0.0.RELEASE
 
 Gradle 处理"exclude rules"的方式和 Maven 稍微有些不同，在使用 starter POMs 时这可能会引起无法预料的结果。特别地，当一个依赖可以通过不同的路径访问时，对该依赖声明的 exclusions 将不会生效。例如，如果一个 starter POM 声明以下内容：
 
-```
+```java
 <dependencies>
     <dependency>
         <groupId>org.springframework</groupId>
@@ -238,7 +238,7 @@ Gradle 处理"exclude rules"的方式和 Maven 稍微有些不同，在使用 st
 
 如果不想自动应用排除规则，你可以使用以下配置：
 
-```
+```java
 springBoot {
     applyExcludeRules=false
 } 
@@ -254,14 +254,14 @@ springBoot {
 
 为了构建和运行一个项目 artifact，你可以输入以下内容：
 
-```
+```java
 $ gradle build
 $ java -jar build/libs/mymodule-0.0.1-SNAPSHOT.jar 
 ```
 
 为了构建一个即能执行也可以部署到外部容器的 war 包，你需要将内嵌容器依赖标记为"providedRuntime"，比如：
 
-```
+```java
 ...
 apply plugin: 'war'
 
@@ -294,7 +294,7 @@ dependencies {
 
 为了在不先构建 jar 的情况下运行项目，你可以使用"bootRun"任务：
 
-```
+```java
 $ gradle bootRun 
 ```
 
@@ -302,7 +302,7 @@ $ gradle bootRun
 
 你可以禁止直接使用静态 classpath 资源。这意味着资源不再是可重新加载的，但`processResources`任务的输出将会被使用。想要这样做，只需将`bootRun`任务的`addResources`设为 false：
 
-```
+```java
 bootRun {
     addResources = false
 } 
@@ -314,7 +314,7 @@ bootRun {
 
 Gradle 插件自动扩展你的构建脚本 DSL，它为脚本添加一个`springBoot`元素以此作为 Boot 插件的全局配置。你可以像配置其他 Gradle 扩展那样为`springBoot`设置相应的属性（下面有配置选项列表）。
 
-```
+```java
 springBoot {
     backupSource = false
 } 
@@ -326,7 +326,7 @@ springBoot {
 
 该插件添加了一个 bootRepackage 任务，你可以直接配置它，比如：
 
-```
+```java
 bootRepackage {
     mainClass = 'demo.Application'
 } 
@@ -350,7 +350,7 @@ bootRepackage {
 
 使用自定义的配置将自动禁用来自 compile，runtime 和 provided 作用域的依赖解析。自定义配置即可以定义为全局的（处于 springBoot 部分内），也可以定义为任务级的。
 
-```
+```java
 task clientJar(type: Jar) {
     appendix = 'client'
     from sourceSets.main.output
@@ -365,7 +365,7 @@ task clientBoot(type: BootRepackage, dependsOn: clientJar) {
 
 在以上示例中，我们创建了一个新的 clientJar Jar 任务从你编译后的源中打包一个自定义文件集。然后我们创建一个新的 clientBoot BootRepackage 任务，并让它使用 clientJar 任务和 mycustomconfiguration。
 
-```
+```java
 configurations {
     mycustomconfiguration.exclude group: 'log4j'
 }
@@ -402,20 +402,20 @@ dependencies {
 
 如果'仅仅'从项目创建自定义 jar 文件，你可以简单地禁用默认的`jar`和`bootRepackage`任务：
 
-```
+```java
 jar.enabled = false
 bootRepackage.enabled = false 
 ```
 
 另一个选项是指示默认的`bootRepackage`任务只能使用一个默认的`jar`任务：
 
-```
+```java
 bootRepackage.withJarTask = jar 
 ```
 
 如果你有一个默认的项目 setup，在该项目中，主（main）jar 文件被创建和重新打包。并且，你仍旧想创建额外的自定义 jars，你可以将自定义的 repackage 任务结合起来，然后使用`dependsOn`，这样`bootJars`任务就会在默认的`bootRepackage`任务执行以后运行：
 
-```
+```java
 task bootJars
 bootJars.dependsOn = [clientBoot1,clientBoot2,clientBoot3]
 build.dependsOn(bootJars) 
@@ -457,7 +457,7 @@ Spring Boot Maven 和 Gradle 插件都利用`spring-boot-loader-tools`来实际�
 
 这里是一个传统的 repackage 示例：
 
-```
+```java
 Repackager repackager = new Repackager(sourceJarFile);
 repackager.setBackupSource(false);
 repackager.repackage(new Libraries() {

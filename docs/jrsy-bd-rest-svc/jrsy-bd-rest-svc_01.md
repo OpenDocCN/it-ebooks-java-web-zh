@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 1--HelloWorld
 
-# 用 Jersey 构建 RESTful 服务 1--HelloWorld
-
 ## 一、环境
 
 1.  Eclipse Juno R2
@@ -26,7 +24,7 @@
 
 4.  在 resources 包下建一个 class“HelloResource”
 
-    ```
+    ```java
      package com.waylau.rest.resources;
         import javax.ws.rs.GET;
         import javax.ws.rs.Path;
@@ -51,7 +49,7 @@
 
 5.  修改 web.xml,添加基于 Servlet-的部署
 
-    ```
+    ```java
     <servlet>
         <servlet-name>Way REST Service</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>

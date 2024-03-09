@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 9--Jersey+SQLServer+Hibernate4.3+Spring3.2+AngularJS
 
-# 用 Jersey 构建 RESTful 服务 9--Jersey+SQLServer+Hibernate4.3+Spring3.2+AngularJS
-
 ## 一、总体说明
 
 本例运行演示了用 Jersey 构建 RESTful 服务中，如何集成 angular,用 MVC 分层的方式访问 RESTful 服务。
@@ -32,7 +30,7 @@
 
 2.  在`list.html`填入如下内容,主要是显示用户列表`ng-repeat`为 angularjs 迭代器 作用是数据绑定:
 
-    ```
+    ```java
      <div class="pull-right">
             <a href="#/create" class="btn btn-default" title="Create"><span class="glyphicon glyphicon-plus"></span></a>
         </div>
@@ -56,7 +54,7 @@
 
 3.  修改`create.html`用来添加用户信息，`ng-model`是模型
 
-    ```
+    ```java
      <div class="page-header">
             <h3>Create</h3>
         </div>
@@ -124,7 +122,7 @@
 
 4.  修改`detail.html`用来显示用户信息并提供修改、删除等功能
 
-    ```
+    ```java
      <form role="form" name="userForm">
 
          <div class="row">&nbsp;</div>
@@ -195,7 +193,7 @@
 
 5.  修改`index.html`作为主页面,嵌入其他子页面，`ng-app`声明这个是模块，`ng-controller`说明他的控制器叫`ListCtrl`,`ng-view`用来存放子视图（页面）。
 
-    ```
+    ```java
      <!doctype html>
         <html ng-app="appMain" ng-controller="ListCtrl">
         <head>
@@ -230,7 +228,7 @@
 
 6.  修改`app.js` ，声明模块`appMain`,提供路由功能，说明了调转到哪个页面，用哪个控制器
 
-    ```
+    ```java
      angular.module('appMain', ['ngRoute']).config(['$routeProvider', function ($routeProvider) {
             $routeProvider.
                 when('/users', {templateUrl: 'partials/list.html', controller: ListCtrl}).
@@ -245,7 +243,7 @@
 
 7.  修改`controller.js`，控制器。主要是对业务逻辑的操作，常见的 CURD 功能，http 访问 RESTful 接口，并且返回数据
 
-    ```
+    ```java
      var url = 'http://localhost:8089/RestDemo/rest';
 
         function ListCtrl($scope, $http) {

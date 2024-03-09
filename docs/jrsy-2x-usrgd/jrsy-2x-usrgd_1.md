@@ -37,7 +37,7 @@ POJO 的支持是最简单的方法将 Java 对象转换为 JSON 和转回去。
 
 Example 9.1\. Simple JAXB bean implementation
 
-```
+```java
 @XmlRootElement
 public class MyJaxbBean {
     public String name;
@@ -56,7 +56,7 @@ public class MyJaxbBean {
 
 Example 9.2\. JAXB bean used to generate JSON representation
 
-```
+```java
 @GET
 @Produces("application/json")
 public MyJaxbBean getMyBean() {
@@ -66,7 +66,7 @@ public MyJaxbBean getMyBean() {
 
 注意,JSON @Produces 注释中指定特定的 mime 类型,MyJaxbBean 的方法返回一个实例,JAXB 能够处理。生成的 JSON 在这种情况下会看起来像:
 
-```
+```java
 {"name":"Agamemnon", "age":"32"} 
 ```
 
@@ -74,7 +74,7 @@ public MyJaxbBean getMyBean() {
 
 Example 9.3\. Tweaking JSON format using JAXB
 
-```
+```java
 @XmlRootElement
 public class MyJaxbBean {
 
@@ -100,7 +100,7 @@ JSON 处理 API 是一个新的标准 API 进行解析和处理 JSON 结构以�
 
 Example 9.4\. JAXB bean creation
 
-```
+```java
 MyJaxbBean myBean = new MyJaxbBean("Agamemnon", 32); 
 ```
 
@@ -108,7 +108,7 @@ MyJaxbBean myBean = new MyJaxbBean("Agamemnon", 32);
 
 现在构建一个等价的 JsonObject / JsonObject(生成的 JSON 的表达式),您需要几行代码。下面的例子说明了如何构造相同的 JSON 数据使用标准的 Java EE 7 JSON 处理 API。
 
-```
+```java
 JsonObject myObject = Json.createObjectBuilder()
         .add("name", "Agamemnon")
         .add("age", 32)
@@ -119,7 +119,7 @@ JsonObject myObject = Json.createObjectBuilder()
 
 Example 9.6\. Constructing a JSONObject (Jettison)
 
-```
+```java
 JSONObject myObject = new JSONObject();
 try {
     myObject.put("name", "Agamemnon");
@@ -137,7 +137,7 @@ try {
 
 需要添加 jersey-media-moxy 依赖库在你的 pom.xml 来使用 MOXy
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-moxy</artifactId>
@@ -167,7 +167,7 @@ try {
 
 Example 9.7\. MoxyJsonConfig - Setting properties.
 
-```
+```java
 final Map<String, String> namespacePrefixMapper = new HashMap<String, String>();
 namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
 
@@ -180,7 +180,7 @@ final MoxyJsonConfig configuration = new MoxyJsonConfig()
 
 Example 9.8\. Creating ContextResolver
 
-```
+```java
 final Map<String, String> namespacePrefixMapper = new HashMap<String, String>();
 namespacePrefixMapper.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
 
@@ -195,7 +195,7 @@ final ContextResolver<MoxyJsonConfig> jsonConfigResolver = moxyJsonConfig.resolv
 
 Example 9.9\. Setting properties for MOXy providers into [Configurable](http://jax-rs-spec.java.net/nonav/$%7Bjaxrs.api.version%7D/apidocs/javax/ws/rs/core/Configurable.html)
 
-```
+```java
 new ResourceConfig()
                             .property(MarshallerProperties.JSON_NAMESPACE_SEPARATOR, ".")
                             // further configuration 
@@ -209,7 +209,7 @@ javax.xml.bind.Marshaller#JAXB_FORMATTED_OUTPUT org.eclipse.persistence.jaxb.JAX
 
 Example 9.10\. Building client with MOXy JSON feature enabled.
 
-```
+```java
 final Client client = ClientBuilder.newBuilder()
         // The line below that registers MOXy feature can be
         // omitted if FEATURE_AUTO_DISCOVERY_DISABLE is
@@ -221,7 +221,7 @@ final Client client = ClientBuilder.newBuilder()
 
 Example 9.11\. Creating JAX-RS application with MOXy JSON feature enabled.
 
-```
+```java
 // Create JAX-RS application.
 final Application application = new ResourceConfig()
         .packages("org.glassfish.jersey.examples.jsonmoxy")
@@ -242,7 +242,7 @@ Jersey 提供一个 [JSON MOXy example](https://github.com/jersey/jersey/tree/2.
 
 使用 JSON-P 作为 JSON 的提供者需要添加 jersey-media-json-processing 模块到 pom.xml 文件:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-processing</artifactId>
@@ -268,7 +268,7 @@ JSON-P 提供配置 [MessageBodyReader](http://jax-rs-spec.java.net/nonav/$%7Bja
 
 Example 9.12\. Building client with JSON-Processing JSON feature enabled.
 
-```
+```java
 ClientBuilder.newClient(new ClientConfig()
         // The line below that registers JSON-Processing feature can be
         // omitted if FEATURE_AUTO_DISCOVERY_DISABLE is not disabled.
@@ -279,7 +279,7 @@ ClientBuilder.newClient(new ClientConfig()
 
 Example 9.13\. Creating JAX-RS application with JSON-Processing JSON feature enabled.
 
-```
+```java
 // Create JAX-RS application.
 final Application application = new ResourceConfig()
         // The line below that registers JSON-Processing feature can be
@@ -299,7 +299,7 @@ Jersey 提供了一个[JSON Processing 实例](https://github.com/jersey/jersey/
 
 使用 Jackson 2.x 需添加 jersey-media-json-jackson 模块到 pom.xml:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
@@ -309,7 +309,7 @@ Jersey 提供了一个[JSON Processing 实例](https://github.com/jersey/jersey/
 
 使用 Jackson 1.x 用法如下:
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson1</artifactId>
@@ -331,7 +331,7 @@ Jackson JSON 处理器可以通过提供一个自定义 Jackson 2 的[ObjectMapp
 
 Example 9.14\. ContextResolver<objectmapper class="hljs-annotation"></objectmapper>
 
-```
+```java
 @Provider
 public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
 
@@ -380,7 +380,7 @@ Jettison 模块提供 (反)序列化 JSON 的 JAXB 方法，除了使用纯 JAXB
 
 如果使用 Jettison 需要添加 jersey-media-json-jettison 模块到 pom.xml :
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jettison</artifactId>
@@ -403,7 +403,7 @@ JettisonConfig 允许你使用两种 JSON 符号，每种序列化 JSON 的方�
 
 Example 9.17\. JAXB beans for JSON supported notations description, simple address bean
 
-```
+```java
 @XmlRootElement
 public class Address {
     public String street;
@@ -420,7 +420,7 @@ public class Address {
 
 Example 9.18\. JAXB beans for JSON supported notations description, contact bean
 
-```
+```java
 @XmlRootElement
 public class Contact {
 
@@ -443,7 +443,7 @@ public class Contact {
 
 Example 9.19\. JAXB beans for JSON supported notations description, initialization
 
-```
+```java
 Address[] addresses = {new Address("Long Street 1", "Short Village")};
 Contact contact = new Contact(2, "Bob", Arrays.asList(addresses)); 
 ```
@@ -456,7 +456,7 @@ Contact contact = new Contact(2, "Bob", Arrays.asList(addresses));
 
 如果你需要处理各种 XML 名称空间,你会发现 Jettison 映射符号非常有用。允许定义一个特定名称空间 id 项:
 
-```
+```java
 ...
 @XmlElement(namespace="http://example.com")
 public int id;
@@ -467,7 +467,7 @@ public int id;
 
 Example 9.20\. XML namespace to JSON mapping configuration for Jettison based mapped notation
 
-```
+```java
 Map<String,String> ns2json = new HashMap<String, String>();
 ns2json.put("http://example.com", "example");
 context = new JettisonJaxbContext(
@@ -479,7 +479,7 @@ JSON 的结果就像下面的例子.
 
 Example 9.21\. JSON expression with XML namespaces mapped into JSON
 
-```
+```java
 {
    "contact":{
       "example.id":2,
@@ -498,7 +498,7 @@ Jersey 版本 2.2 中引入另一个可配置的选项与序列化 JSON 数组�
 
 Example 9.22\. JSON Array configuration for Jettison based mapped notation
 
-```
+```java
 context = new JettisonJaxbContext(
     JettisonConfig.mappedJettison().serializeAsArray("name").build(),
     types); 
@@ -508,7 +508,7 @@ JSON 结果想下面例子，不重要的行已经删除
 
 Example 9.23\. JSON expression with JSON arrays explicitly configured via Jersey
 
-```
+```java
 {
    "contact":{
       ...
@@ -524,7 +524,7 @@ Example 9.23\. JSON expression with JSON arrays explicitly configured via Jersey
 
 JettisonConfig 使用 badgerfish 符号可以通过下面语句创建
 
-```
+```java
 JettisonConfig.badgerFish().build() 
 ```
 
@@ -532,7 +532,7 @@ JSON 输出如下：
 
 Example 9.24\. JSON expression produced using badgerfish notation
 
-```
+```java
 {
    "contact":{
       "id":{
@@ -559,7 +559,7 @@ Example 9.24\. JSON expression produced using badgerfish notation
 
 Example 9.25\. ContextResolver<objectmapper class="hljs-annotation"></objectmapper>
 
-```
+```java
 @Provider
 public class JaxbContextResolver implements ContextResolver<JAXBContext> {
 
@@ -581,7 +581,7 @@ public class JaxbContextResolver implements ContextResolver<JAXBContext> {
 
 Example 9.26\. Building client with Jettison JSON feature enabled.
 
-```
+```java
 final Client client = ClientBuilder.newBuilder()
         .register(JaxbContextResolver.class)  // No need to register this provider if no special configuration is required.
         .register(JettisonFeature.class)
@@ -590,7 +590,7 @@ final Client client = ClientBuilder.newBuilder()
 
 Example 9.27\. Creating JAX-RS application with Jettison JSON feature enabled.
 
-```
+```java
 // Create JAX-RS application.
 final Application application = new ResourceConfig()
         .packages("org.glassfish.jersey.examples.jettison")
@@ -614,7 +614,7 @@ Jersey 提供 开箱即用的支持 [JSONP](http://en.wikipedia.org/wiki/JSONP) 
 
 Example 9.28\. Simplest case of using @JSONP
 
-```
+```java
 @GET
 @JSONP
 @Produces({"application/json", "application/javascript"})
@@ -627,7 +627,7 @@ public JaxbBean getSimpleJSONP() {
 
 Example 9.29\. JaxbBean for @JSONP example
 
-```
+```java
 @XmlRootElement
 public class JaxbBean {
 
@@ -651,7 +651,7 @@ public class JaxbBean {
 
 当你发送一个 GET 请求接受标题设置为 application/javascript 你会得到一个结果实体看起来像:
 
-```
+```java
 callback({
     "value" : "jsonp",
 }) 
@@ -667,7 +667,7 @@ queryParam 值(如果设置)总是优先于回调函数值。
 
 Example 9.30\. Example of @JSONP with configured parameters.
 
-```
+```java
 @GET
 @Produces({"application/json", "application/javascript"})
 @JSONP(callback = "eval", queryParam = "jsonpCallback")
@@ -682,7 +682,7 @@ public JaxbBean getSimpleJSONP() {
 
 将返回
 
-```
+```java
 eval({
     "value" : "jsonp",
 }) 
@@ -694,7 +694,7 @@ eval({
 
 将返回
 
-```
+```java
 alert({
     "value" : "jsonp",
 }) 
@@ -714,7 +714,7 @@ Jersey 目前支持一些低水平的数据类型:[StreamSource](http://docs.ora
 
 Example 8.31\. Low level XML test - methods added to HelloWorldResource.java
 
-```
+```java
 @POST
 @Path("StreamSource")
 public StreamSource getStreamSource(StreamSource streamSource) {
@@ -754,7 +754,7 @@ MessageBodyWriter <t class="hljs-annotation">和 MessageBodyReader <t class="hlj
 
 Example 9.32\. Planet class
 
-```
+```java
 @XmlRootElement
 public class Planet {
     public int id;
@@ -765,7 +765,7 @@ public class Planet {
 
 Example 9.33\. Resource class
 
-```
+```java
 @Path("planet")
 public class Resource {
 
@@ -787,7 +787,7 @@ public class Resource {
 
 我们的资源类将响应 GET/planet 请求
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <planet>
     <id>1</id>
@@ -798,7 +798,7 @@ public class Resource {
 
 这可能正是我们想要的……与否。或者我们可能不关心,因为我们可以使用 JAX-RS 客户端发出请求该资源,这很容易:
 
-```
+```java
 Planet planet = webTarget.path("planet").request(MediaType.APPLICATION_XML_TYPE).get(Planet.class); 
 ```
 
@@ -808,7 +808,7 @@ Planet planet = webTarget.path("planet").request(MediaType.APPLICATION_XML_TYPE)
 
 Example 9.34\. Method for consuming Planet
 
-```
+```java
 @POST
 @Consumes(MediaType.APPLICATION_XML)
 public void setPlanet(Planet planet) {
@@ -818,7 +818,7 @@ public void setPlanet(Planet planet) {
 
 有效的请求后,服务将打印字符串表示的 Planet,可以像 Planet{id=2, name='Mars', radius=1.51}。通过 JAX-RS 客户端你能做到:
 
-```
+```java
 webTarget.path("planet").post(planet); 
 ```
 
@@ -830,7 +830,7 @@ webTarget.path("planet").post(planet);
 
 Example 9.35\. Resource class - JAXBElement
 
-```
+```java
 @Path("planet")
 public class Resource {
 
@@ -858,7 +858,7 @@ public class Resource {
 
 Example 9.36\. Client side - JAXBElement
 
-```
+```java
 // GET
 GenericType<JAXBElement<Planet>> planetType = new GenericType<JAXBElement<Planet>>() {};
 
@@ -879,7 +879,7 @@ webTarget.path("planet").post(new JAXBElement<Planet>(new QName("planet"), Plane
 
 Example 9.37\. PlanetJAXBContextProvider
 
-```
+```java
 @Provider
 public class PlanetJAXBContextProvider implements ContextResolver<JAXBContext> {
     private JAXBContext context = null;
@@ -907,7 +907,7 @@ public class PlanetJAXBContextProvider implements ContextResolver<JAXBContext> {
 
 Example 9.38\. Using Provider with JAX-RS client
 
-```
+```java
 ClientConfig config = new ClientConfig();
 config.register(PlanetJAXBContextProvider.class);
 
@@ -920,7 +920,7 @@ Client client = ClientBuilder.newClient(config);
 
 Example 9.39\. Add jersey-media-moxy dependency.
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-moxy</artifactId>
@@ -930,7 +930,7 @@ Example 9.39\. Add jersey-media-moxy dependency.
 
 Example 9.40\. Register the MoxyXmlFeature class.
 
-```
+```java
 final ResourceConfig config = new ResourceConfig()
 .packages("org.glassfish.jersey.examples.xmlmoxy")
 .register(MoxyXmlFeature.class); 
@@ -938,7 +938,7 @@ final ResourceConfig config = new ResourceConfig()
 
 Example 9.41\. Configure and register an MoxyXmlFeature instance.
 
-```
+```java
 // Configure Properties.
 final Map<String, Object> properties = new HashMap<String, Object>();
 // ...
@@ -977,7 +977,7 @@ final ResourceConfig config = new ResourceConfig()
 
 添加 jersey-media-multipart 到 pom.xml
 
-```
+```java
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-multipart</artifactId>
@@ -993,7 +993,7 @@ final ResourceConfig config = new ResourceConfig()
 
 Example 9.42\. Building client with MultiPart feature enabled.
 
-```
+```java
 final Client client = ClientBuilder.newBuilder()
     .register(MultiPartFeature.class)
     .build(); 
@@ -1001,7 +1001,7 @@ final Client client = ClientBuilder.newBuilder()
 
 Example 9.43\. Creating JAX-RS application with MultiPart feature enabled.
 
-```
+```java
 // Create JAX-RS application.
 final Application application = new ResourceConfig()
     .packages("org.glassfish.jersey.examples.multipart")
@@ -1018,7 +1018,7 @@ final Application application = new ResourceConfig()
 
 Example 9.44\. MultiPart entity
 
-```
+```java
 final MultiPart multiPartEntity = new MultiPart()
         .bodyPart(new BodyPart().entity("hello"))
         .bodyPart(new BodyPart(new JaxbBean("xml"), MediaType.APPLICATION_XML_TYPE))
@@ -1034,7 +1034,7 @@ final Response response = target
 
 Example 9.45\. MultiPart entity in HTTP message.
 
-```
+```java
 Content-Type: multipart/mixed; boundary=Boundary_1_829077776_1369128119878
 
 --Boundary_1_829077776_1369128119878
@@ -1056,7 +1056,7 @@ Content-Type: application/json
 
 Example 9.46\. FormDataMultiPart entity
 
-```
+```java
 final FormDataMultiPart multipart = new FormDataMultiPart()
     .field("hello", "hello")
     .field("xml", new JaxbBean("xml"))
@@ -1070,7 +1070,7 @@ final Response response = target.request().post(Entity.entity(multipart, multipa
 
 Example 9.47\. FormDataMultiPart entity in HTTP message.
 
-```
+```java
 Content-Type: multipart/form-data; boundary=Boundary_1_511262261_1369143433608
 
 --Boundary_1_511262261_1369143433608
@@ -1095,7 +1095,7 @@ Content-Disposition: form-data; name="json"
 
 Example 9.48\. Multipart - sending files.
 
-```
+```java
 // MediaType of the body part will be derived from the file.
 final FileDataBodyPart filePart = new FileDataBodyPart("my_pom", new File("pom.xml"));
 
@@ -1127,7 +1127,7 @@ MultiPart 类型的工作方式 与注入/返回其他实体类型不同。Jerse
 
 Example 9.49\. Resource method using MultiPart as input parameter / return value.
 
-```
+```java
 @POST
 @Produces("multipart/mixed")
 public MultiPart post(final FormDataMultiPart multiPart) {
@@ -1157,7 +1157,7 @@ public MultiPart post(final FormDataMultiPart multiPart) {
 
 Example 9.50\. Use of @FormDataParam annotation
 
-```
+```java
 @POST
 @Consumes(MediaType.MULTIPART_FORM_DATA_TYPE)
 public String postForm(
@@ -1202,13 +1202,11 @@ Jersey 提供了支持 Model-View-Controller (MVC) 设计模式的扩展。 在 
 
 # 20.1\. Viewable
 
-# 20.1\. Viewable
-
 为了让资源的方法显式地返回对于一个视图模板和数据模型被使用的引用。为此，Jersey 1 引入了 [Viewable](https://jersey.java.net/apidocs/2.16/jersey/org/glassfish/jersey/server/mvc/Viewable.html) 类，目前也存在于（不同的包下）Jersey 2。见下面 一个简单的例子， Example 20.1, “Using Viewable in a resource class”
 
 Example 20.1\. Using Viewable in a resource class
 
-```
+```java
 package com.example;
 
 @Path("foo")
@@ -1235,7 +1233,7 @@ public class Foo {
 
 Example 20.2\. Using @Template on a resource method
 
-```
+```java
 package com.example;
 
 @Path("foo")
@@ -1259,7 +1257,7 @@ public class Foo {
 
 Example 20.3\. Using @Template on a resource class
 
-```
+```java
 @Path("foo")
 @Template
 public class Foo {
@@ -1272,7 +1270,7 @@ public class Foo {
 
 这个例子需要更多的解释是这样的。首先，你可能已经注意到，没有定义资源的方法为 JAX-RS 资源。同时，没有被定义的模板引用。在这种情况下，由于`@Template` 注释放在资源类中不包含任何信息，默认模板将使用相对引用 index（详见 20.3 节，20.3\. Absolute vs. Relative template reference）。对于缺少资源的方法，默认的 `@GET` 方法将自动生成的 Foo 资源（现在是 MVC 的控制器）。生成的资源的方法执行与下列显示资源的方法的实现是等效的：
 
-```
+```java
 @GET
 public Viewable get() {
     return new Viewable("index", this);
@@ -1285,7 +1283,7 @@ public Viewable get() {
 
 下面例子，MVC 控制器以 JAX-RS @GET 子资源方法来表示，同时也可以在资源类中注明 `@Template`来生成
 
-```
+```java
 @GET
 @Path("{implicit-view-path-parameter}")
 public Viewable get(@PathParameter("{implicit-view-path-parameter}") String template) {
@@ -1296,8 +1294,6 @@ public Viewable get(@PathParameter("{implicit-view-path-parameter}") String temp
 这允许 Jersey 来支持隐式的子资源模板。举例，一个在 `foo/bar` 路径的 JAX-RS 将视图使用相对模板引用 bar ,分解为 绝对模板引用 `/com/foo/Foo/bar`
 
 换句话说，一个 HTTP GET 请求`/foo/bar`会通过 Foo 资源方法自动处理产生并将请求转到注册模板处理器来支持绝对参考引用 /com/foo/Foo/bar，其中模型仍然是相同的 JAX-RS 资源类 Foo 的一个实例。
-
-# 20.3\. 绝对 vs. 相对模块引用
 
 # 20.3\. 绝对 vs. 相对模块引用
 
@@ -1321,7 +1317,7 @@ Jersey 将会搜索所有的注册的模板处理器（见 20.7\. Writing Custom
 
 Example 20.4\. Using absolute path to template in Viewable
 
-```
+```java
 @GET
 public Viewable get() {
     return new Viewable("/index", "FOO");

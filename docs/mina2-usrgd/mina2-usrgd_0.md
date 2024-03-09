@@ -7,8 +7,6 @@
 
 # NIO 总览
 
-# NIO 总览
-
 NIO API 是由 Java 1.4 引入的，被广泛用于各种应用。NIO API 封装了 IO 非阻塞操作。
 
 *首先，最好了解一下 MINA 是基于 NIO 1 写的。Java 7 设计了一个新版本 NIO-2，(因为我们基于 NIO 1) 我们并没有从这一版本 (NIO-2) 所带来的新加功能中获益。*
@@ -39,8 +37,6 @@ java.nio.* 包包含了以下关键构造
 
 # 为何使用 MINA
 
-# 为何使用 MINA
-
 写网络应用常常被视作一种高负担但低水平的开发。这是一个不经常为程序员所学习或者了解的领域，这可能是因为这些内容是在很久以前在学校里学过但都忘光了，也可能是因为这一网络层的复杂性常常被更高层的传输层所隐藏以致你从来没有深入它。
 
 补充一点，当涉及到异步 IO 时，一个额外的复杂的层出场了：时间。
@@ -65,8 +61,6 @@ MINA 不仅仅处理 TCP 和 UDP，它也使用 VmpPipe 或者 APR 提供了一�
 *   高并发的用户量。 BIO 明显地要比 NIO 快。这点使得 30% 的用户喜欢 BIO。对于数千个用户连接的情况确实如此，但是一旦达到某个点，BIO 方式将会停止扩展，你无法使用一个线程一个用户的方式来处理上百万用户的并发。NIO 可以。现在，另一方面是，相对于你的应用所消耗的时间，你的代码中花在 MINA 部分的时间实际可能是微不足道的。在某种情况下，不需要花费更多时间和精力来写一个更快的网络层以获得些许提升的目标。
 *   被证明的系统。MINA 已被全球数以万计的应用所使用。也有一些基于 MINA 的 Apache 项目，而且它们工作的相当好。这就是某种形式的担保，你不需要为你网络传输层的实现的一些神秘的错误而花费大量的时间。
 *   现有协议的支持。MINA 附带有对各种现有协议的实现：HTTP、XML、TCP、LDAP、DHCP、NTP、DNS、XMPP、SSH、FTP ...在某种情况下，MINA 不仅可以作为一个 NIO 框架，也可以作为一个具有各种协议实现的网络传输层。MINA 近期要推出的新特性之一就是提供一个你可以使用现有的协议的集合。
-
-# 特性
 
 # 特性
 
@@ -95,8 +89,6 @@ MINA 是一个简单但功能齐全的网络应用框架，它提供：
 
 # 开始的步骤
 
-# 开始的步骤
-
 我们将通过运行一个 MINA 包提供的很简单的例子给你演示使用 MINA 是多么简单。
 
 想要在你的应用中使用 MINA 的第一件事是要设置环境。我们将描述你需要安装什么，以及如何运行一个 MINA 程序。没啥大不了的，先来体验一下 MINA 吧 ...
@@ -113,13 +105,13 @@ MINA 是一个简单但功能齐全的网络应用框架，它提供：
 
 在 UNIX 系统，输入：
 
-```
+```java
 $ tar xzpf apache-mina-2.0.7-tar.gz 
 ```
 
 你将会在 apache-mina-2.0.7 目录下得到以下内容：
 
-```
+```java
  |
  +- dist
  +- docs
@@ -157,7 +149,7 @@ $ tar xzpf apache-mina-2.0.7-tar.gz
 
 在命令行中输入以下命令：
 
-```
+```java
 $ java org.apache.mina.example.gettingstarted.timeserver.MinaTimeServer 
 ```
 
@@ -165,13 +157,11 @@ $ java org.apache.mina.example.gettingstarted.timeserver.MinaTimeServer
 
 输入以下命令来 telnet：
 
-```
+```java
 telnet 127.0.0.1 9123 
 ```
 
 现在我们已经运行了第一个 MINA 程序。请试着运行 MINA 所附带的其他一些例子程序。
-
-# 总结
 
 # 总结
 
@@ -186,8 +176,6 @@ telnet 127.0.0.1 9123
 在第一章中，我们对 Apache MINA 有了一个基本认识。本章中，我们将继续认识一下客户端/服务器端结构以及一个基于 MINA 的服务器或者客户端的工作详情。
 
 我们也将展示一些很简单的，基于 TCP 和 UDP 的服务器和客户端的例子。
-
-# 应用架构
 
 # 应用架构
 
@@ -227,8 +215,6 @@ telnet 127.0.0.1 9123
 
 # 服务端架构
 
-# 服务端架构
-
 前面我们披露了基于 MINA 的应用架构。现在我们来关注一下服务器端架构。从根本上说，服务器端监听一个端口以获得连入的请求，将其进行处理然后发送回复。服务器端还会为每个客户端 (无论是基于 TCP 还是基于 UDP 协议的) 创建并维护一个 session，详见 Chapter 4 - Session。
 
 ![](img/Server_arch.png)
@@ -250,8 +236,6 @@ telnet 127.0.0.1 9123
 
 # 客户端架构
 
-# 客户端架构
-
 前面我们对基于 MINA 的服务端架构有了一个大体认识，现在我们看一下客户端的情况。客户端需要连接到一个服务端，发送消息并处理响应
 
 ![](img/clientdiagram.png)
@@ -260,8 +244,6 @@ telnet 127.0.0.1 9123
 *   在连接创建时，一个 Session 会被创建并关联到该连接
 *   应用或者客户端写入 Session，导致数据在穿越 Filter Chain (过滤器链) 后被发送给服务器端
 *   所有接收自服务器端的响应或者消息穿越 Filter Chain (过滤器链) 后由 IOHandler 接收并处理
-
-# TCP Server 示例
 
 # TCP Server 示例
 
@@ -283,7 +265,7 @@ telnet 127.0.0.1 9123
 
 我们以创建一个叫做 MinaTimeServer.java 的文件开始。初始化代码如下：
 
-```
+```java
 public class MinaTimeServer {
     public static void main(String[] args) {
         // code will go here next
@@ -295,7 +277,7 @@ public class MinaTimeServer {
 
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
-```
+```java
 public class MinaTimeServer
 {
     public static void main( String[] args )
@@ -307,7 +289,7 @@ public class MinaTimeServer
 
 NioSocketAcceptor 类就绪了，我们继续定义处理类并绑定 NioSocketAcceptor 到一个端口：
 
-```
+```java
 import java.net.InetSocketAddress;
 
 import org.apache.mina.core.service.IoAcceptor;
@@ -328,7 +310,7 @@ public class MinaTimeServer
 
 接下来我们在配置中添加一个过滤器。这个过滤器将会日志记录所有信息，比如 session 的新建、接收到的消息、发送的消息、session 的关闭。接下来的过滤器是一个 ProtocolCodecFilter。这个过滤器将会把二进制或者协议特定的数据翻译为消息对象，反之亦然。我们使用一个现有的 TextLine 工厂因为它将为你处理基于文本的消息 (你无须去编写 codec 部分)。
 
-```
+```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -353,7 +335,7 @@ public class MinaTimeServer
 
 接下来，我们将定义用于服务客户端连接和当前时间的请求的处理器。处理器类是一个必须实现 IoHandler 接口的类。对于几乎所有的使用 MINA 的程序，这里都会变成程序的主要工作所在，因为它将服务所有来自客户端的请求。本文我们将扩展 IoHandlerAdapter 类。这个类遵循了[适配器设计模式](http://en.wikipedia.org/wiki/Adapter_pattern)，简化了需要为满足在一个类中传递实现了 IoHandler 接口的需求而要编写的代码量。
 
-```
+```java
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
@@ -378,7 +360,7 @@ public class MinaTimeServer
 
 现在我们对 NioSocketAcceptor 中的配置进行添加。这将允许我们为用于接收客户端连接的 socket 进行 socket 特有的设置。
 
-```
+```java
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
@@ -408,7 +390,7 @@ MinaTimeServer 类中新加了两行。这些方法设置了 IoHandler，为 ses
 
 处理器代码如下所示：
 
-```
+```java
 import java.util.Date;
 
 import org.apache.mina.core.session.IdleStatus;
@@ -452,7 +434,7 @@ messageReceived 方法会从客户端接收数据并将当前时间回写给客�
 
 剩下的工作就是定义服务器端将要监听的 socket 地址，并进行启动服务的调用。代码如下所示：
 
-```
+```java
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -505,15 +487,13 @@ user@myhost:~> | MINA Time server started. Message written... |
 
 # TCP Client 示例
 
-# TCP Client 示例
-
 在上文中我们已经了解了客户端架构。现在我们将展示一个客户端实现的示例。
 
 我们将使用 [Sumup Client](http://mina.apache.org/mina-project/xref/org/apache/mina/example/sumup/Client.html) 作为一个参考实现。
 
 我们将移除掉样板代码并专注于重要结构上。以下是为客户端代码：
 
-```
+```java
 public static void main(String[] args) throws Throwable {
     NioSocketConnector connector = new NioSocketConnector();
     connector.setConnectTimeoutMillis(CONNECT_TIMEOUT);
@@ -560,7 +540,7 @@ public static void main(String[] args) throws Throwable {
 
 ## 创建一个 Connector
 
-```
+```java
 NioSocketConnector connector = new NioSocketConnector(); 
 ```
 
@@ -568,7 +548,7 @@ NioSocketConnector connector = new NioSocketConnector();
 
 ## 创建一个 Filter Chain
 
-```
+```java
 if (USE_CUSTOM_CODEC) {
     connector.getFilterChain().addLast("codec",
         new ProtocolCodecFilter(new SumUpProtocolCodecFactory(false)));
@@ -582,7 +562,7 @@ if (USE_CUSTOM_CODEC) {
 
 ## 创建 IOHandler
 
-```
+```java
 connector.setHandler(new ClientSessionHandler(values)); 
 ```
 
@@ -590,7 +570,7 @@ connector.setHandler(new ClientSessionHandler(values));
 
 ## 绑定到服务器
 
-```
+```java
 IoSession session;
 
 for (;;) {
@@ -613,8 +593,6 @@ for (;;) {
 
 # UDP Server 示例
 
-# UDP Server 示例
-
 现在我们看一下 [org.apache.mina.example.udp](http://mina.apache.org/mina-project/xref/org/apache/mina/example/udp/package-summary.html) 包里的代码。简单起见，我们将只专注于 MINA 相关构建方面的东西。
 
 *译者注：翻译版本的项目源码见 [`github.com/waylau/apache-mina-2-user-guide-demos`](https://github.com/waylau/apache-mina-2-user-guide-demos) 中的`com.waylau.mina.demo.udp`包下*
@@ -627,21 +605,21 @@ for (;;) {
 
 这里是第 1 点提到的一些代码片段：
 
-```
+```java
 NioDatagramAcceptor acceptor = new NioDatagramAcceptor();
 acceptor.setHandler(new MemoryMonitorHandler(this)); 
 ```
 
 这里我们创建了一个 NioDatagramAcceptor 以监听连入的客户端请求，并设置了 IoHandler。"PORT" 是一整型变量。下一步将要为这一 DatagramAcceptor 使用的过滤器链添加一个日志过滤器。LoggingFilter 实在 MINA 中表现不错的一个选择。它在不同阶段产生日志事务，以为我们观察 MINA 的工作情况。
 
-```
+```java
  DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
 chain.addLast("logger", new LoggingFilter()); 
 ```
 
 接下来我们来看一些更具体的 UDP 传输的代码。我们设置 acceptor 以复用地址：
 
-```
+```java
 DatagramSessionConfig dcfg = acceptor.getSessionConfig();
 dcfg.setReuseAddress(true);acceptor.bind(new InetSocketAddress(PORT)); 
 ```
@@ -660,7 +638,7 @@ dcfg.setReuseAddress(true);acceptor.bind(new InetSocketAddress(PORT));
 
 ### Session 创建事件
 
-```
+```java
 @Override
 public void sessionCreated(IoSession session) throws Exception {
     SocketAddress remoteAddress = session.getRemoteAddress();
@@ -672,7 +650,7 @@ public void sessionCreated(IoSession session) throws Exception {
 
 ### Message 收到事件
 
-```
+```java
 @Override
 public void messageReceived(IoSession session, Object message) throws Exception {
     if (message instanceof IoBuffer) {
@@ -687,7 +665,7 @@ public void messageReceived(IoSession session, Object message) throws Exception 
 
 ### Session 关闭事件
 
-```
+```java
 @Override
 public void sessionClosed(IoSession session) throws Exception {
     System.out.println("Session closed...");
@@ -697,8 +675,6 @@ public void sessionClosed(IoSession session) throws Exception {
 ```
 
 在 Session 关闭事件中，我们将客户端选项卡从界面中移除。
-
-# UDP Client 示例
 
 # UDP Client 示例
 
@@ -713,7 +689,7 @@ public void sessionClosed(IoSession session) throws Exception {
 
 现在我们看一下 org.apache.mina.example.udp.client 包中的 [MemMonClient.java](http://mina.apache.org/mina-project/xref/org/apache/mina/example/udp/client/MemMonClient.html)。前几行代码简单明了：
 
-```
+```java
 connector = new NioDatagramConnector();
 connector.setHandler( this );
 ConnectFuture connFuture = connector.connect( new InetSocketAddress("localhost", MemoryMonitor.PORT )); 
@@ -721,7 +697,7 @@ ConnectFuture connFuture = connector.connect( new InetSocketAddress("localhost",
 
 我们创建了一个 NioDatagramConnector，设置了处理器然后连接到服务器。我曾经落入的一个陷阱是，你必须在 InetSocketAddress 对象中设置主机，否则它将什么也不干。这个例子是在一台 Windows XP 主机上编写并测试，因此在其他环境中可能会有所不同。解析来我们将等待客户端连接到的主机的确认。一旦得知我们已经建立连接，我们就可以开始向服务器端写数据了：
 
-```
+```java
 connFuture.addListener( new IoFutureListener(){
     public void operationComplete(IoFuture future) {
         ConnectFuture connFuture = (ConnectFuture)future;
@@ -741,7 +717,7 @@ connFuture.addListener( new IoFutureListener(){
 
 这里我们为 ConnectFuture 对象添加了一个监听者，当我们接收到客户端已建立连接的回调时，我们就可以写数据了。向服务器端写数据将会由一个叫做 sendData 的方法处理。这个方法如下所示：
 
-```
+```java
 private void sendData() throws InterruptedException {
     for (int i = 0; i < 30; i++) {
         long free = Runtime.getRuntime().freeMemory();
@@ -762,8 +738,6 @@ private void sendData() throws InterruptedException {
 这个方法将在 30 秒之内的每秒钟向服务器端发送一次空闲内存的数量。在这里你可以看到我们分配了一个足够大的 IoBuffer 来保存一个 long 类型变量，然后将空闲内存的数量放进缓存。缓冲随即写给服务器端。
 
 UDP Client 实现完成。
-
-# 总结
 
 # 总结
 
@@ -832,8 +806,6 @@ IoService 是一个接口，它被 MINA 中最重要的两个类实现：
 
 # Acceptor
 
-# Acceptor
-
 为了构建一个服务器，需要选择一个 IoAcceptor 接口的实现
 
 ## IoAcceptor
@@ -861,7 +833,7 @@ IoService 是一个接口，它被 MINA 中最重要的两个类实现：
 
 首先你要选择想要实例化的 IoAcceptor 类型。在早期的过程中就应该做出这一选择，这取决于你将使用的网络协议。现在看一下它是如何工作的一个例子：
 
-```
+```java
 public TcpServer() throws IOException {
     // Create a TCP acceptor
     IoAcceptor acceptor = new NioSocketAcceptor();
@@ -878,7 +850,7 @@ public TcpServer() throws IOException {
 
 就是这样！你已经创建了一个 TCP 服务器。如果你想要启动一个 UDP 服务器，只需替换掉第一行代码：
 
-```
+```java
 ...
 // Create an UDP acceptor
 IoAcceptor acceptor = new NioDatagramAcceptor();
@@ -889,14 +861,14 @@ IoAcceptor acceptor = new NioDatagramAcceptor();
 
 服务可以通过调用 dispose() 方法进行停止。服务只能在所有等待中的 session 都被处理之后才能停止：
 
-```
+```java
 // Stop the service, waiting for the pending sessions to be inactive
 acceptor.dispose(); 
 ```
 
 你也可以通过传递给这个方法一个布尔类型的参数等待每一个执行中的线程正常结束：
 
-```
+```java
 // Stop the service, waiting for the processing session to be properly completed
 acceptor.dispose( true ); 
 ```
@@ -917,7 +889,7 @@ acceptor.dispose( true );
 
 如果你想要管理过滤器链，你得调用一把 getFilterChain() 方法，如下所示：
 
-```
+```java
 // Add a logger filter
 DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
 chain.addLast("logger", new LoggingFilter()); 
@@ -925,7 +897,7 @@ chain.addLast("logger", new LoggingFilter());
 
 你也可以在将过滤器链设置进服务之前先创建它:
 
-```
+```java
 // Add a logger filter
 DefaultIoFilterChainBuilder chain = new DefaultIoFilterChainBuilder();
 chain.addLast("logger", new LoggingFilter());
@@ -933,8 +905,6 @@ chain.addLast("logger", new LoggingFilter());
 // And inject the created chain builder in the service
 acceptor.setFilterChainBuilder(chain); 
 ```
-
-# Connector
 
 # Connector
 
@@ -998,7 +968,7 @@ Session（会话）是 MINA 的核心。每当一个客户端连接到服务器�
 
 例如，如果你想跟踪会话创建以后用户已发送的请求次数，把它放进集合很容易：只需要创建将要关联到这个值的键即可。
 
-```
+```java
 ...
 int counterValue = session.getAttribute( "counter" );
 session.setAttribute( "counter", counterValue + 1 );
@@ -1015,7 +985,7 @@ session.setAttribute( "counter", counterValue + 1 );
 
 以下代码演示了会话初始化时容器的创建：
 
-```
+```java
 protected final void initSession(IoSession session,
         IoFuture future, IoSessionInitializer sessionInitializer) {
     ...
@@ -1033,7 +1003,7 @@ protected final void initSession(IoSession session,
 
 如果我们想要定义其他类型的容器，这里是我们可以实现的工厂接口：
 
-```
+```java
 public interface IoSessionDataStructureFactory {
     /**
      * Returns an {@link IoSessionAttributeMap} which is going to be associated
@@ -1065,7 +1035,7 @@ public interface IoSessionDataStructureFactory {
 
 最后，并非最不重要的，每个会话会被附加到一个处理器，该处理器负责调度给你的应用的消息。这个处理器也会通过使用会话发送响应包，只需调用 write() 方法：
 
-```
+```java
 ...
 session.write( <your message> );
 ... 
@@ -1116,7 +1086,7 @@ IoFilter 扮演着很重要角色，它是 MINA 的核心结构之一。它过�
 
 你可以对 IoAdapter 重写以取代直接实现 IoFilter 的做法。除非重写，否则所有接收到的事件将被直接转发给下一个过滤器。
 
-```
+```java
 public class MyFilter extends IoFilterAdapter {
     @Override
     public void sessionOpened(NextFilter nextFilter, IoSession session) throws Exception {
@@ -1135,7 +1105,7 @@ public class MyFilter extends IoFilterAdapter {
 
 假定你在实现一个将字符串转换为字符数组的过滤器。你的过滤器的 filterWrite() 将会类似于：
 
-```
+```java
 public void filterWrite(NextFilter nextFilter, IoSession session, WriteRequest request) {
     nextFilter.filterWrite(
         session, new DefaultWriteRequest(
@@ -1145,7 +1115,7 @@ public void filterWrite(NextFilter nextFilter, IoSession session, WriteRequest r
 
 现在我们需要在 messageSent() 中做相反的事情：
 
-```
+```java
 public void messageSent(NextFilter nextFilter, IoSession session, Object message) {
     nextFilter.messageSent(session, new String((char[]) message));
 } 
@@ -1153,7 +1123,7 @@ public void messageSent(NextFilter nextFilter, IoSession session, Object message
 
 字符串到字节缓存的转换怎么样？这样我们会更加高效，我们不在需要重建原始消息 (字符串)。但是，这比前面的例子复杂：
 
-```
+```java
 public void filterWrite(NextFilter nextFilter, IoSession session, WriteRequest request) {
     String m = (String) request.getMessage();
     ByteBuffer newBuffer = new MyByteBuffer(m, ByteBuffer.wrap(m.getBytes());
@@ -1185,7 +1155,7 @@ private static class MyByteBuffer extends ByteBufferProxy {
 
 sessionCreated 是一个特殊事件，它必须在 I/O 处理程序中执行 (参考 线程模型的配置)。决不允许将 sessionCreated 事件转发给其他线程。
 
-```
+```java
 public void sessionCreated(NextFilter nextFilter, IoSession session) throws Exception {
     // ...
     nextFilter.sessionCreated(session);
@@ -1206,7 +1176,7 @@ public void sessionCreated(final NextFilter nextFilter, final IoSession session)
 
 ProtocolCodecFilter 使用了一个空缓存 (比如 buf.hasRemaining() = 0) 来标记消息的结束部分。如果你的过滤器放在 ProtocolCodecFilter 之前，如果你的过滤器实现在缓存为空时能抛出一个异常的话，请确认你的过滤器将空缓存转发给了下一个过滤器：
 
-```
+```java
 public void messageSent(NextFilter nextFilter, IoSession session, Object message) {
     if (message instanceof ByteBuffer && !((ByteBuffer) message).hasRemaining()) {
         nextFilter.messageSent(nextFilter, session, message);
@@ -1237,8 +1207,6 @@ public void filterWrite(NextFilter nextFilter, IoSession session, WriteRequest r
 
 # APR 传输
 
-# APR 传输
-
 ## 介绍
 
 [APR (Apache Portable Runtime)](http://apr.apache.org/) 提供了更好的扩展性、性能以及更好的与本地服务器技术的集成。MINA 照常 APR 传输。现在我们将了解如何使用 MINA 进行 APR 传输。我们将为此使用时间服务器的例子。
@@ -1261,7 +1229,7 @@ JNI 包装 (tomcat-apr-5.5.23.jar) 这个 jar 附带于在发布版中
 
 现在看一下基于 NIO 的时间服务器应用：
 
-```
+```java
 IoAcceptor acceptor = new NioSocketAcceptor();
 
 acceptor.getFilterChain().addLast( "logger", new LoggingFilter() );
@@ -1277,7 +1245,7 @@ acceptor.bind( new InetSocketAddress(PORT) );
 
 然后看一下如何使用 APR 传输：
 
-```
+```java
 IoAcceptor acceptor = new AprSocketAcceptor();
 
 acceptor.getFilterChain().addLast( "logger", new LoggingFilter() );
@@ -1294,8 +1262,6 @@ acceptor.bind( new InetSocketAddress(PORT) );
 我们只是将 NioSocketAcceptor 换成了 AprSocketAcceptor，仅仅如此，我们的时间服务器就是使用 APR 传输了。
 
 其他完成过程保持不变。
-
-# 串行传输
 
 # 串行传输
 
@@ -1321,7 +1287,7 @@ MINA 所提供的串行通信只有一个 IoConnector，根据点对点通信媒
 
 你需要一个 SerialConnector 以连接到一个串行端口：
 
-```
+```java
 // create your connector
 IoConnector connector = new SerialConnector()
 connector.setHandler( ... here your buisness logic IoHandler ... ); 
@@ -1331,7 +1297,7 @@ connector.setHandler( ... here your buisness logic IoHandler ... );
 
 现在为连接到我们的串行端口创建一个地址：
 
-```
+```java
 SerialAddress portAddress=new SerialAddress( "/dev/ttyS0", 38400, 8, StopBits.BITS_1, Parity.NONE, FlowControl.NONE ); 
 ```
 
@@ -1346,7 +1312,7 @@ SerialAddress portAddress=new SerialAddress( "/dev/ttyS0", 38400, 8, StopBits.BI
 
 这个完成之后，将连接器连接到相应地址：
 
-```
+```java
 ConnectFuture future = connector.connect( portAddress );
 future.await();
 IoSession sessin = future.getSession(); 
@@ -1423,7 +1389,7 @@ MINA 应用所用的一个字节缓存。
 
 IoBuffer 是个抽象类，因此不能够直接被实例化。要分配 IoBuffer，我们需要使用两个 allocate() 方法中的其中一个。
 
-```
+```java
 // Allocates a new buffer with a specific size, defining its type (direct or heap)
 public static IoBuffer allocate(int capacity, boolean direct)
 
@@ -1440,7 +1406,7 @@ allocate() 方法具有一个或两个参数。第一种方式具有两个参数
 
 作为一个选择，也可以使用以下形式：
 
-```
+```java
 // Allocates heap buffer by default.
 IoBuffer.setUseDirectBuffer(false);
 // A new heap buffer is returned.
@@ -1455,7 +1421,7 @@ IoBuffer buf = IoBuffer.allocate(1024);
 
 我们看一下如何创建一个自动扩展的缓存：
 
-```
+```java
 IoBuffer buffer = IoBuffer.allocate(8);
 buffer.setAutoExpand(true);
 buffer.putString("12345678", encoder);
@@ -1473,7 +1439,7 @@ buffer.put((byte)10);
 
 可以用例子对此进行验证：
 
-```
+```java
 IoBuffer buffer = IoBuffer.allocate(16);
 buffer.setAutoShrink(true);
 buffer.put((byte)1);
@@ -1490,7 +1456,7 @@ System.out.println("Buffer capacity after shrink= "+buffer.capacity());
 
 我们看一下它的输出：
 
-```
+```java
 Initial Buffer capacity = 16
 Initial Buffer capacity after shrink = 16
 Buffer capacity after incrementing capacity to 32 = 32
@@ -1574,7 +1540,7 @@ MINA 具有以下 IoBufferAllocater 实现：
 
 ImageRequest 类源代码如下：
 
-```
+```java
 public class ImageRequest {
 
     private int width;
@@ -1603,7 +1569,7 @@ public class ImageRequest {
 
 编码往往比解码容易，因此我们先从 ImageRequestEncoder 开始：
 
-```
+```java
 public class ImageRequestEncoder implements ProtocolEncoder {
 
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
@@ -1631,7 +1597,7 @@ public class ImageRequestEncoder implements ProtocolEncoder {
 
 现在我们来看一下解码器。CumulativeProtocolDecoder 绝对对写你自己的编码器有很大帮助：它将把你的解码器决定对连入数据可以做一些事情之前都缓存起来。在这种情况下消息具有固定大小，因此很容易等待所有的数据到齐以后再进行一些操作：
 
-```
+```java
 public class ImageRequestDecoder extends CumulativeProtocolDecoder {
 
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
@@ -1657,7 +1623,7 @@ public class ImageRequestDecoder extends CumulativeProtocolDecoder {
 
 响应也是一个非常简单的 POJO：
 
-```
+```java
 public class ImageResponse {
 
     private BufferedImage image1;
@@ -1681,7 +1647,7 @@ public class ImageResponse {
 
 响应的编码也很简单：
 
-```
+```java
 public class ImageResponseEncoder extends ProtocolEncoderAdapter {
 
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
@@ -1713,7 +1679,7 @@ public class ImageResponseEncoder extends ProtocolEncoderAdapter {
 
 现在我们来看一下响应的解码：
 
-```
+```java
 public class ImageResponseDecoder extends CumulativeProtocolDecoder {
 
     private static final String DECODER_STATE_KEY = ImageResponseDecoder.class.getName() + ".STATE";
@@ -1776,7 +1742,7 @@ public class ImageResponseDecoder extends CumulativeProtocolDecoder {
 
 如果响应只有单一的一个图片，我们就无需保存解码状态了：
 
-```
+```java
 protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
     if (in.prefixedDataAvailable(4)) {
         int length = in.getInt();
@@ -1794,7 +1760,7 @@ protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput
 
 现在我们把它们都组合在一起：
 
-```
+```java
 public class ImageCodecFactory implements ProtocolCodecFactory {
     private ProtocolEncoder encoder;
     private ProtocolDecoder decoder;
@@ -1826,7 +1792,7 @@ public class ImageCodecFactory implements ProtocolCodecFactory {
 
 这里是服务器端对 ProtocolCodecFactory 的使用：
 
-```
+```java
 public class ImageServer {
     public static final int PORT = 33789;
 
@@ -1844,7 +1810,7 @@ public class ImageServer {
 
 客户端的使用完全一致：
 
-```
+```java
 public class ImageClient extends IoHandlerAdapter {
     public static final int CONNECT_TIMEOUT = 3000;
 
@@ -1872,7 +1838,7 @@ public class ImageClient extends IoHandlerAdapter {
 
 完整性考虑，现在附加一个服务器端的 IoHandler 代码：
 
-```
+```java
 public class ImageServerIoHandler extends IoHandlerAdapter {
 
     private final static String characters = "mina rocks abcdefghijklmnopqrstuvwxyz0123456789";
@@ -1996,7 +1962,7 @@ SLF4J 也提供了一种办法在不修改源代码的情况下将使用 Jakarta
 
 本示例我们将使用 log4j 日志系统。创建一个项目，然后将下面代码放进一个叫做 log4j.properties 的文件：
 
-```
+```java
 # 设置根日志级别为 DEBUG ，并且它的 appender 只是 A1.
 log4j.rootLogger=DEBUG, A1
 
@@ -2014,7 +1980,7 @@ log4j.appender.A1.layout.ConversionPattern=%-4r [%t] %-5p %c{1} %x - %m%n
 
 接下来我们建立一个简单的示例服务器以生成一些日志。这里我们采用的是 EchoServer 示例项目并添加日志到类中：
 
-```
+```java
 public static void main(String[] args) throws Exception {
     IoAcceptor acceptor = new SocketAcceptor();
     DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
@@ -2077,7 +2043,7 @@ public static void main(String[] args) throws Exception {
 
 现在写一些代码。外界(与磁带机接口的代码)将会只能看到 TapeDeck 接口：
 
-```
+```java
 public interface TapeDeck {
     void load(String nameOfTape);
     void eject();
@@ -2089,7 +2055,7 @@ public interface TapeDeck {
 
 接下来我们写一下包含在状态机中的一个转变发生时要具体执行的代码的类。这些对象都被定义为常量字符串对象并以 @State 进行注解：
 
-```
+```java
 public class TapeDeckHandler {
     @State public static final String EMPTY   = "Empty";
     @State public static final String LOADED  = "Loaded";
@@ -2100,7 +2066,7 @@ public class TapeDeckHandler {
 
 现在当状态被定义时，我们为每个转换建立相应的代码。每个转换将被对应到 TapeDeckHandler 中的一个方法。每个转换方法都使用 @Transition 进行注解，@Transition 定义了事件 id，该事件触发了转移 (on)、转移的开始状态 (in) 和转移的结束状态 (next)：
 
-```
+```java
 public class TapeDeckHandler {
     @State public static final String EMPTY = "Empty";
     @State public static final String LOADED = "Loaded";
@@ -2139,14 +2105,14 @@ public class TapeDeckHandler {
 
 请注意 TapeDeckHandler 类并没不实现 TapeDeck 接口。这是有意的。 现在，让我们来仔细看看这段代码。loadTape 方法上的 @Transition 注解
 
-```
+```java
 @Transition(on = "load", in = EMPTY, next = LOADED)
 public void loadTape(String nameOfTape) { 
 ```
 
 定义了当录音机处于 EMPTY 状态时，load 事件发生了，loadTape 方法会被调用，然后录音机会转移到 LOADED 状态。pauseTape、stopTape 和 ejectTape 方法上的 @Transition 注解不需要更多说明。playTape 方法上的注解看起来略有不同。正如上图所见，当录音机处于 LOADED 或者 PAUSED 状态时，play 事件会播放磁带。为多个转移具有相同的方法调用，@Transitions 注解必须这样使用：
 
-```
+```java
 @Transitions({
     @Transition(on = "play", in = LOADED, next = PLAYING),
     @Transition(on = "play", in = PAUSED, next = PLAYING)
@@ -2164,7 +2130,7 @@ public void playTape() {
 
 最后一步就是从注解的类中创建一个 StateMachine 对象，并用其创建一个实现了 TapeDeck 的代理对象：
 
-```
+```java
 public static void main(String[] args) {
     TapeDeckHandler handler = new TapeDeckHandler();
     StateMachine sm = StateMachineFactory.getInstance(Transition.class).create(TapeDeckHandler.EMPTY, handler);
@@ -2181,7 +2147,7 @@ public static void main(String[] args) {
 
 这些行
 
-```
+```java
 TapeDeckHandler handler = new TapeDeckHandler();
 StateMachine sm = StateMachineFactory.getInstance(Transition.class).create(TapeDeckHandler.EMPTY, handler); 
 ```
@@ -2194,7 +2160,7 @@ StateMachine sm = StateMachineFactory.getInstance(Transition.class).create(TapeD
 
 TapeDeck 实例通过调用 StateMachineProxyBuilder 进行创建：
 
-```
+```java
 TapeDeck deck = new StateMachineProxyBuilder().create(TapeDeck.class, sm); 
 ```
 
@@ -2202,7 +2168,7 @@ StateMachineProxyBuilder.create() 方法获取返回代理对象应该实现的�
 
 以上代码执行时的输出是为：
 
-```
+```java
 Tape 'The Knife - Silent Shout' loaded
 Playing tape
 Tape paused
@@ -2247,14 +2213,14 @@ MethodTransition 很重要，需要进一步的解释。如果事件 id 匹配 @
 
 因此，如果 Event 看起来像 {id = "foo", arguments = [a, b, c]}，方法
 
-```
+```java
 @Transition(on = "foo")
 public void someMethod(One one, Two two, Three three) { ... } 
 ```
 
 当且仅当 ((a instanceof One && b instanceof Two && c instanceof Three) == true) 时匹配。匹配的方法将被匹配的参数绑定到方法的参数的事件调用：
 
-```
+```java
 someMethod(a, b, c); 
 ```
 
@@ -2262,7 +2228,7 @@ someMethod(a, b, c);
 
 正如上面提到过，子集也会匹配：
 
-```
+```java
 @Transition(on = "foo")
 public void someMethod(Two two) { ... } 
 ```
@@ -2271,14 +2237,14 @@ public void someMethod(Two two) { ... }
 
 没有任何参数的方法常常会在事件 id 匹配以下时匹配到：
 
-```
+```java
 @Transition(on = "foo")
 public void someMethod() { ... } 
 ```
 
 让事情更复杂，前两个方法参数也会匹配 Event 类和 StateContext 接口。这意味着
 
-```
+```java
 @Transition(on = "foo")
 public void someMethod(Event event, StateContext context, One one, Two two, Three three) { ... }
 @Transition(on = "foo")
@@ -2291,7 +2257,7 @@ public void someMethod(StateContext context, One one, Two two, Three three) { ..
 
 像以前一样可以使用事件参数的一个子集。另外，一个特定 StateContext 实现可能会被定义以取代石油泛型接口：
 
-```
+```java
 @Transition(on = "foo")
 public void someMethod(MyStateContext context, Two two) { ... } 
 ```
@@ -2302,7 +2268,7 @@ public void someMethod(MyStateContext context, Two two) { ... }
 
 考虑一下 Event {id = "messageReceived", arguments = [ArrayList a = [...], Integer b = 1024]}。以下方法匹配这一 Event：
 
-```
+```java
 // All method arguments matches all event arguments directly
 @Transition(on = "messageReceived")
 public void messageReceived(ArrayList l, Integer i) { ... }
@@ -2330,7 +2296,7 @@ public void messageReceived(Event event, Collection c) { ... }
 
 以下则不能够匹配：
 
-```
+```java
 // Incorrect ordering
 @Transition(on = "messageReceived")
 public void messageReceived(Integer i, List l) { ... }
@@ -2358,7 +2324,7 @@ public void messageReceived(StateContext context, Event event) { ... }
 
 当你想要添加一些泛型代码到所有状态而没有为每个状态定义 @Transition 时这一特性很有用。这里是如何使用 @State 注解创建状态层次的例子：
 
-```
+```java
 @State    public static final String A = "A";
 @State(A) public static final String B = "A->B";
 @State(A) public static final String C = "A->C";
@@ -2370,7 +2336,7 @@ public void messageReceived(StateContext context, Event event) { ... }
 
 现在回到 TapeDeck 例子。当录音机中没有磁带时如果你调用 deck.play() 会发生什么呢？我们试一下：
 
-```
+```java
 public static void main(String[] args) {
     ...
     deck.load("The Knife - Silent Shout");
@@ -2394,7 +2360,7 @@ Unhandled event: org.apache.mina.statemachine.event.Event@15eb0a9[id=play,...]
 
 噢哟！我们得到一个 UnhandledEventException，因为我们处于 Empty 状态，没有任何处理 play 事件的转移。我们可以为所有的状态添加一个特殊的移动，用以处理不匹配的 Event 对象：
 
-```
+```java
 @Transitions({
     @Transition(on = "*", in = EMPTY, weight = 100),
     @Transition(on = "*", in = LOADED, weight = 100),
@@ -2408,7 +2374,7 @@ public void error(Event event) {
 
 现在你在运行上面的 main() 方法时就不会遭遇到异常了。输出是为：
 
-```
+```java
 ...
 Tape stopped
 Tape ejected
@@ -2417,7 +2383,7 @@ Cannot 'play' at this time
 
 现在貌似工作良好了，是么？但是如果我们有 30 个状态，而不仅仅是 4 个呢？然后我们要需要在 error() 方法上加 30 个 @Transition 注解了。不怎么好。可以使用状态继承替代这种做法：
 
-```
+```java
 public static class TapeDeckHandler {
     @State public static final String ROOT = "Root";
     @State(ROOT) public static final String EMPTY = "Empty";
@@ -2440,7 +2406,7 @@ public static class TapeDeckHandler {
 
 现在我们要转化我们的录音机为一个 TCP 服务器，然后使用更多功能对其进行扩展。这个服务器将会接收一些命令注入 load、play、stop 等等。服务器可以以 positive + 或者 negative - 进行响应。协议是基于文本的，所有命令和响应都是一行行的 UTF-8 文本，并以 CRLF (比如，Java 中是 \r\n) 终结。这里是一个会话示例：
 
-```
+```java
 telnet localhost 12345
 S: + Greetings from your tape deck!
 C: list
@@ -2469,7 +2435,7 @@ S: + Bye! Please come back!
 
 现在，看一下服务器是如何工作的。实现了状态机的重要的类是 TapeDeckServer。我们要做的第一件事是定义状态：
 
-```
+```java
 @State public static final String ROOT = "Root";
 @State(ROOT) public static final String EMPTY = "Empty";
 @State(ROOT) public static final String LOADED = "Loaded";
@@ -2479,7 +2445,7 @@ S: + Bye! Please come back!
 
 没有任何新东西。但是，处理事件的方法现在看起来不一样了。我们看一下 playTape 方法：
 
-```
+```java
 @IoHandlerTransitions({
     @IoHandlerTransition(on = MESSAGE_RECEIVED, in = LOADED, next = PLAYING),
     @IoHandlerTransition(on = MESSAGE_RECEIVED, in = PAUSED, next = PLAYING)
@@ -2493,7 +2459,7 @@ public void playTape(TapeDeckContext context, IoSession session, PlayCommand cmd
 
 我们使用 MESSAGE_RECEIVED 取代了 "play" 作为事件名 (@IoHandlerTransition 注解的 on 属性)。这一常量定义于 org.apache.mina.statemachine.event.IoHandlerEvents，值是为 "messageReceived"，自然对应于 MINA 的 IoHandler 接口的 messageReceived() 方法。多亏 Java5 的静态导入，我们不需要去写出持有该变量的类名。我们只需要把
 
-```
+```java
 import static org.apache.mina.statemachine.event.IoHandlerEvents.*; 
 ```
 
@@ -2501,7 +2467,7 @@ import static org.apache.mina.statemachine.event.IoHandlerEvents.*;
 
 发生变化的另一件事是我们使用的是一个自定义的 StateContext 实现，TapeDeckContext。这个类用于跟踪当前磁带的名称：
 
-```
+```java
 static class TapeDeckContext extends AbstractStateContext {
     public String tapeName;
 } 
@@ -2515,7 +2481,7 @@ static class TapeDeckContext extends AbstractStateContext {
 
 在录音机能够播放之前必须得先放进一个磁带。当从客户端接收到 LoadCommand 时，提供的磁带号将被用于从一个磁带的数组中获取该磁带名：
 
-```
+```java
 @IoHandlerTransition(on = MESSAGE_RECEIVED, in = EMPTY, next = LOADED)
 public void loadTape(TapeDeckContext context, IoSession session, LoadCommand cmd) {
     if (cmd.getTapeNumber() < 1 || cmd.getTapeNumber() > tapes.length) {
@@ -2530,7 +2496,7 @@ public void loadTape(TapeDeckContext context, IoSession session, LoadCommand cmd
 
 代码使用 StateControl 来覆盖下一状态。如果用户指定了一个未知磁带号，我们不应该移至 LOADED 状态，而应该继续保持 EMPTY，
 
-```
+```java
 StateControl.breakAndGotoNext(EMPTY); 
 ```
 
@@ -2538,7 +2504,7 @@ StateControl.breakAndGotoNext(EMPTY);
 
 connect() 方法应该总是在会话的起始时 (当 MINA 调用 IoHandler 的 sessionOpened() 时) 被调用：
 
-```
+```java
 @IoHandlerTransition(on = SESSION_OPENED, in = EMPTY)
 public void connect(IoSession session) {
     session.write("+ Greetings from your tape deck!");
@@ -2551,7 +2517,7 @@ pauseTape()、stopTape() 和 ejectTape() 方法非常类似于 playTape()，这�
 
 现在我们来看一下错误处理。error() 方法将在客户端发送一个对当前状态不合法的命令时被调用：
 
-```
+```java
 @IoHandlerTransition(on = MESSAGE_RECEIVED, in = ROOT, weight = 10)
 public void error(Event event, StateContext context, IoSession session, Command cmd) {
     session.write("- Cannot " + cmd.getName() + " while " 
@@ -2569,7 +2535,7 @@ exceptionCaught() 将被为所有抛出的异常而调用，除了 CommandSyntax
 
 我们需要看的最后一块代码是为创建 IoHandler 代理的代码和 main() 方法：
 
-```
+```java
 private static IoHandler createIoHandler() {
     StateMachine sm = StateMachineFactory.getInstance(IoHandlerTransition.class).create(EMPTY, new TapeDeckServer());
 
@@ -2645,7 +2611,7 @@ MINA 应用启用 JMX，我们需要执行以下步骤：
 
 ### 创建或者获取 MBean 服务器
 
-```
+```java
 // create a JMX MBean Server server instance
 MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer(); 
 ```
@@ -2656,7 +2622,7 @@ MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
 我们为 IoService 创建一个 IoService：
 
-```
+```java
 // create a JMX-aware bean that wraps a MINA IoService object.  In this
 // case, a NioSocketAcceptor. 
 IoServiceMBean acceptorMBean = new IoServiceMBean( acceptor ); 
@@ -2668,7 +2634,7 @@ IoServiceMBean acceptorMBean = new IoServiceMBean( acceptor );
 
 ### 将 MBean 注册到 MBean 服务器
 
-```
+```java
 // create a JMX ObjectName.  This has to be in a specific format.  
 ObjectName acceptorName = new ObjectName( acceptor.getClass().getPackage().getName() +
         ":type=acceptor,name=" + acceptor.getClass().getSimpleName());
@@ -2684,13 +2650,13 @@ mBeanServer.registerMBean( acceptorMBean, acceptorName );
 
 如果你使用的是 Java 5 或者更老的版本：
 
-```
+```java
 java -Dcom.sun.management.jmxremote -classpath <CLASSPATH> org.apache.mina.example.imagine.step3.server.ImageServer 
 ```
 
 如果是使用 Java 6:
 
-```
+```java
 java  -classpath <CLASSPATH> }}{{{}org.apache.mina.example.imagine.step3.server.ImageServer 
 ```
 
@@ -2698,7 +2664,7 @@ java  -classpath <CLASSPATH> }}{{{}org.apache.mina.example.imagine.step3.server.
 
 执行
 
-```
+```java
 /bin/jconsole 
 ```
 
@@ -2722,7 +2688,7 @@ java  -classpath <CLASSPATH> }}{{{}org.apache.mina.example.imagine.step3.server.
 
 我们先看一下代码。简单起见我们忽略掉了负责粘合的相关代码。
 
-```
+```java
 public void initialize() throws IOException {
 
     // Create an Acceptor
@@ -2764,14 +2730,14 @@ public void initialize() throws IOException {
 
 在 Spring context 文件中设置 IO 处理器：
 
-```
+```java
 !-- The IoHandler implementation -->
 <bean id="trapHandler" class="com.ashishpaliwal.udp.mina.server.ServerHandler"> 
 ```
 
 创建过滤器链
 
-```
+```java
 <bean id="snmpCodecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
   <constructor-arg>
     <bean class="com.ashishpaliwal.udp.mina.snmp.SNMPCodecFactory" />
@@ -2795,7 +2761,7 @@ public void initialize() throws IOException {
 
 来完成最后的部分，创建套接字并完成过滤器链：
 
-```
+```java
 <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
     <property name="customEditors">
       <map>
@@ -2816,7 +2782,7 @@ public void initialize() throws IOException {
 
 现在我们创建了我们的 ioAcceptor，设置了 IO 处理器和过滤器链。现在我们就可以写一个方法来使用 Spring 读取这个文件并启动我们的应用了。代码如下：
 
-```
+```java
 public void initializeViaSpring() throws Exception {
     new ClassPathXmlApplicationContext("trapReceiverContext.xml");
 } 

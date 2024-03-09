@@ -2,8 +2,6 @@
 
 # Netty-异步和数据驱动
 
-# Netty-异步和数据驱动
-
 ## 什么是 Netty
 
 Netty 是一个利用 Java 的高级网络的能力，隐藏其背后的复杂性而提供一个易于使用的 API 的客户端/服务器框架。Netty 提供高性能和可扩展性，让你可以自由地专注于你真正感兴趣的东西，你的独特的应用！
@@ -20,7 +18,7 @@ Java 早期版本(1995-2002)介绍了足够的面向对象的糖衣来隐藏一�
 
 Listing 1.1 Blocking I/O Example
 
-```
+```java
 ServerSocket serverSocket = new ServerSocket(portNumber);//1
 Socket clientSocket = serverSocket.accept();             //2
 BufferedReader in = new BufferedReader(                     //3
@@ -91,8 +89,6 @@ Selector 最终决定哪一组注册的 socket 准备执行 I/O。正如我们�
 
 # Netty 介绍
 
-# Netty 介绍
-
 以前，一个应用可以支持成千上万并发的客户端会的想法会被认为是荒谬。今天我们认为是理所当然的。事实上，开发者知道，总是会有这样的需求-以较低的成本交付来换取更大的吞吐量和可用性。
 
 我们不要低估最后一点的重要性。我们从漫长的学习痛苦的经验，低级别的 API 不仅暴露了一个高水平的直接使用的复杂性，而且引入了过分依赖于这项技术所造成的短板。因此，面向对象的一个基本原则：通过抽象来隐藏背后的复杂性。
@@ -149,8 +145,6 @@ Netty 是一个广泛使用的 Java 网络编程框架(Netty 在 2011 年获得�
 
 # 构成部分
 
-# 构成部分
-
 正如我们前面解释的,非阻塞 I/O 不迫使我们等待完成的操作。在这种能力的基础上,真正的异步 I/O 起到了更进一步的作用:一个异步方法完成时立即返回并直接或稍后通知用户。
 
 正如我们将看到的,在一个网络环境的异步模型可以更有效地利用资源,可以快速连续执行多个调用。
@@ -169,7 +163,7 @@ Netty 内部使用回调处理事件时。一旦这样的回调被触发，事�
 
 Listing 1.2 ChannelHandler triggered by a callback
 
-```
+```java
 public class ConnectHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {   //1
@@ -195,7 +189,7 @@ ChannelFuture 提供多个附件方法来允许一个或者多个 ChannelFutureL
 
 Listing 1.3 Callback in action
 
-```
+```java
 Channel channel = ...;
 //不会阻塞
 ChannelFuture future = channel.connect(
@@ -210,7 +204,7 @@ ChannelFuture future = channel.connect(
 
 Listing 1.4 Callback in action
 
-```
+```java
 Channel channel = ...;
 //不会阻塞
 ChannelFuture future = channel.connect(            //1
@@ -298,8 +292,6 @@ Netty 通过触发事件从应用程序中抽象出 Selector，从而避免手�
 
 # 关于本书
 
-# 关于本书
-
 我们开始通过讨论阻塞和非阻塞处理之间的差异来了解到后一种方法的优点。然后，我们转移到了的 Netty 的功能，设计和效益的概述。这些包括了 Netty 的异步模型，包括回调，future 及其组合使用。我们还谈到了 Netty 的线程模型，事件是如何被使用的，以及它们如何被拦截和处理。展望未来，我们将更加深入探索如何使用这些丰富的工具集用来满足特殊需求的应用。
 
 一路上，我们将介绍公司的工程师自己的案例研究解释为什么他们选择的 Netty 以及他们如何使用它。
@@ -308,11 +300,7 @@ Netty 通过触发事件从应用程序中抽象出 Selector，从而避免手�
 
 # 第一个 Netty 应用
 
-# 第一个 Netty 应用
-
 在本章中，我们会确保你有一个工作的发展环境并通过构建一个简单的客户端和服务器进行测试。虽然我们不会开始学习的 Netty 框架的细节，直到下一个章节，在这里我们将采取仔细看看的重要我们在引进触及的 API 方面;即通过 ChannelHandler 来实现应用的逻辑。
-
-# 设置开发环境
 
 # 设置开发环境
 
@@ -358,8 +346,6 @@ echo（回声）客户端和服务器之间的交互是很简单的;客户端后
 
 # 写一个 echo 服务器
 
-# 写一个 echo 服务器
-
 所以 Netty 服务器都需要下面这些：
 
 *   一个服务器 handler：这个组件实现了服务器的业务逻辑，决定了连接创建后和接收到信息后该如何处理
@@ -377,7 +363,7 @@ EchoServerHandler 代码如下：
 
 Listing 2.2 EchoServerHandler
 
-```
+```java
 @Sharable                                        //1
 public class EchoServerHandler extends
         ChannelInboundHandlerAdapter {
@@ -443,7 +429,7 @@ public class EchoServerHandler extends
 
 Listing 2.3 EchoServer
 
-```
+```java
 public class EchoServer {
 
     private final int port;
@@ -536,8 +522,6 @@ NIO 用于在本实施例，因为它是目前最广泛使用的传输，归功�
 
 # 写一个 echo 客户端
 
-# 写一个 echo 客户端
-
 客户端要做的是：
 
 *   连接服务器
@@ -555,7 +539,7 @@ NIO 用于在本实施例，因为它是目前最广泛使用的传输，归功�
 
 Listing 2.4 ChannelHandler for the client
 
-```
+```java
 @Sharable                                //1
 public class EchoClientHandler extends
         SimpleChannelInboundHandler<ByteBuf> {
@@ -605,7 +589,7 @@ public class EchoClientHandler extends
 
 Listing 2.5 Main class for the client
 
-```
+```java
 public class EchoClient {
 
     private final String host;
@@ -684,15 +668,13 @@ public class EchoClient {
 
 # 编译和运行 Echo 服务器和客户端
 
-# 编译和运行 Echo 服务器和客户端
-
 ### 编译
 
 *本例涉及到多模块 Maven 项目的组织*
 
 在例子 chapter2 目录下，执行
 
-```
+```java
 mvn clean package 
 ```
 
@@ -700,7 +682,7 @@ mvn clean package
 
 Listing 2.6 Build Output
 
-```
+```java
 chapter2>mvn clean package
 [INFO] Scanning for projects...
 [INFO] --------------------------------------------------------------------
@@ -754,13 +736,13 @@ chapter2>mvn clean package
 
 在 chapter2/Server 目录，执行
 
-```
+```java
 mvn exec:java 
 ```
 
 输出如下：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------------------------------------------------
@@ -778,13 +760,13 @@ nettyinaction.echo.EchoServer started and listening for connections on
 
 在 chapter2/Client 目录，执行
 
-```
+```java
 mvn exec:java 
 ```
 
 输出如下：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------------------------------------------------
@@ -808,7 +790,7 @@ Client received: Netty rocks!
 
 在服务器的控制台输出：
 
-```
+```java
 Server received: Netty rocks! 
 ```
 
@@ -820,13 +802,13 @@ Server received: Netty rocks!
 
 每次运行客户端，你会看到在服务器的控制台输出：
 
-```
+```java
 Server received: Netty rocks! 
 ```
 
 现在，我们看下错误的情况。在控制台 输入 Ctrl-C 来关闭服务器。而后运行客户端，此时输出如下：
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------------------------------------------------------
@@ -887,15 +869,11 @@ java.lang.reflect.InvocationTargetException
 
 # 总结
 
-# 总结
-
 在本章中，您构建并运行你的第一 个 Netty 的客户端和服务器。虽然这是一个简单的应用程序，它可以扩展到几千个并发连接。
 
 在下面的章节中，我们会看到的更多 Netty 如何简化可扩展和多线程的例子。我们还将更深入的了解 Netty 支持的关注点分离的构建理念;通过提供正确的抽象将业务逻辑从网络逻辑中解耦，Netty 可以很容易地跟上迅速发展的要求，而不损害系统的稳定性。
 
 在下一章中，我们将提供的 Netty 的架构的概述。
-
-# Netty 总览
 
 # Netty 总览
 
@@ -909,8 +887,6 @@ java.lang.reflect.InvocationTargetException
 *   ChannelFuture
 
 这个目标是提供一个深入研究的上下文，如果你有一个很好的把握它 组织原则，可以避免迷失。
-
-# Netty 快速入门
 
 # Netty 快速入门
 
@@ -948,8 +924,6 @@ Netty 所有的 I/O 操作都是异步。因为一个操作可能无法立即返
 
 # Channel, Event 和 I/O
 
-# Channel, Event 和 I/O
-
 Netty 是一个非阻塞、事件驱动的网络框架。Netty 实际上是使用 Threads（多线程）处理 I/O 事件，对于熟悉多线程编程的读者可能会需要关注同步代码。这样的方式不好，因为同步会影响程序的性能，Netty 的设计保证程序处理事件不会有同步。图 Figure 3.1 展示了，你不需要在 Channel 之间共享 ChannelHandler 实例的原因：
 
 Figure 3.1
@@ -961,8 +935,6 @@ Figure 3.1
 当创建一个 Channel，Netty 通过 一个单独的 EventLoop 实例来注册该 Channel（并同样是一个单独的 Thread）的通道的使用寿命。这就是为什么你的应用程序不需要同步 Netty 的 I/O 操作;所有 Channel 的 I/O 始终用相同的线程来执行。
 
 我们将在第十五章进一步讨论 EventLoop 和 EventLoopGroup。
-
-# 什么是 Bootstrapping 为什么要用
 
 # 什么是 Bootstrapping 为什么要用
 
@@ -998,8 +970,6 @@ Figure 3.2 Server with two EventLoopGroups
 
 # ChannelHandler 和 ChannelPipeline
 
-# ChannelHandler 和 ChannelPipeline
-
 ChannelPipeline 是 ChannelHandler 链的容器。
 
 在许多方面的 ChannelHandler 是在您的应用程序的核心，尽管有时它 可能并不明显。ChannelHandler 支持广泛的用途，使它难以界定。因此，最好是把它当作一个通用的容器，处理进来的事件（包括数据）并且通过 ChannelPipeline。下图展示了 ChannelInboundHandler 和 ChannelOutboundHandler 继承自父接口 ChannelHandler。
@@ -1029,8 +999,6 @@ Figure 3.4 ChannelPipeline with inbound and outbound ChannelHandlers
 当 ChannelHandler 被添加到的 ChannelPipeline 它得到一个 ChannelHandlerContext，它代表一个 ChannelHandler 和 ChannelPipeline 之间的“绑定”。它通常是安全保存对此对象的引用，除了当协议中的使用的是不面向连接（例如，UDP）。而该对象可以被用来获得 底层 Channel,它主要是用来写出站数据。
 
 还有，实际上，在 Netty 发送消息有两种方式。您可以直接写消息给 Channel 或写入 ChannelHandlerContext 对象。主要的区别是， 前一种方法会导致消息从 ChannelPipeline 的尾部开始，而 后者导致消息从 ChannelPipeline 下一个处理器开始。
-
-# 近距离观察 ChannelHandler
 
 # 近距离观察 ChannelHandler
 
@@ -1068,8 +1036,6 @@ Figure 3.4 ChannelPipeline with inbound and outbound ChannelHandlers
 
 # 总结
 
-# 总结
-
 在本章中，我们提出了 Netty 的关键部件和概念的概述，以及他们是如何结合在一起的。许多下面的章节都致力于深入研究各个组件和概念，应该可以帮助你了解全貌。
 
 下一章将探讨 Netty 并提供不同的传输，以及如何选择最适合您应用程序的传输。
@@ -1099,8 +1065,6 @@ Netty 在传输层是统一的 API，这使得比你用 JDK 实现更简单。�
 
 # 案例研究:Transport 的迁移
 
-# 案例研究:Transport 的迁移
-
 为了让你想象 Transport 如何工作，我会从一个简单的应用程序开始，这个应用程序什么都不做，只是接受客户端连接并发送“Hi!”字符串消息到客户端，发送完了就断开连接。
 
 ### 没有用 Netty 实现 I/O 和 NIO
@@ -1109,7 +1073,7 @@ Netty 在传输层是统一的 API，这使得比你用 JDK 实现更简单。�
 
 Listing 4.1 Blocking networking without Netty
 
-```
+```java
 public class PlainOioServer {
 
     public void serve(int port) throws IOException {
@@ -1165,7 +1129,7 @@ public class PlainOioServer {
 
 Listing 4.2 Asynchronous networking without Netty
 
-```
+```java
 public class PlainNioServer {
     public void serve(int port) throws IOException {
         ServerSocketChannel serverChannel = ServerSocketChannel.open();
@@ -1254,7 +1218,7 @@ public class PlainNioServer {
 
 Listing 4.3 Blocking networking with Netty
 
-```
+```java
 public class NettyOioServer {
 
     public void server(int port) throws Exception {
@@ -1310,7 +1274,7 @@ public class NettyOioServer {
 
 Listing 4.4 Asynchronous networking with Netty
 
-```
+```java
 public class NettyNioServer {
 
     public void server(int port) throws Exception {
@@ -1364,8 +1328,6 @@ public class NettyNioServer {
 
 # Transport API
 
-# Transport API
-
 Transport API 的核心是 Channel 接口，用于所有的出站操作，见下图
 
 ![](img/Figure%204.1%20Channel%20interface%20hierarchy.jpg)
@@ -1408,7 +1370,7 @@ Table 4.1 Channel main methods
 
 Listing 4.5 Writing to a channel
 
-```
+```java
 Channel channel = ...; // 获取 channel 的引用
 ByteBuf buf = Unpooled.copiedBuffer("your data", CharsetUtil.UTF_8);            //1
 ChannelFuture cf = channel.writeAndFlush(buf); //2
@@ -1440,7 +1402,7 @@ Channel 是线程安全(thread-safe)的，它可以被多个不同的线程安�
 
 Listing 4.6 Using the channel from many threads
 
-```
+```java
 final Channel channel = ...; // 获取 channel 的引用
 final ByteBuf buf = Unpooled.copiedBuffer("your data",
         CharsetUtil.UTF_8).retain();    //1
@@ -1468,8 +1430,6 @@ executor.execute(writer);        //5
 4.手写一个任务，在一个线程中执行
 
 5.手写另一个任务，在另一个线程中执行
-
-# 包含的 Transport
 
 # 包含的 Transport
 
@@ -1578,8 +1538,6 @@ Netty 中 还提供了可以嵌入 ChannelHandler 实例到其他的 ChannelHand
 
 # Transport 使用情况
 
-# Transport 使用情况
-
 前面说了，并不是所有传输都支持核心协议，这会限制你的选择，具体看下表
 
 | Transport | TCP | UDP | SCTP* | UDT |
@@ -1593,13 +1551,13 @@ Netty 中 还提供了可以嵌入 ChannelHandler 实例到其他的 ChannelHand
 
 注意 SCTP 需要 kernel 支持，举例 Ubuntu：
 
-```
+```java
 sudo apt-get install libsctp1 
 ```
 
 Fedora 使用 yum:
 
-```
+```java
 sudo yum install kernel-modules-extra.x86_64 lksctp-tools.x86_64 
 ```
 
@@ -1614,15 +1572,11 @@ sudo yum install kernel-modules-extra.x86_64 lksctp-tools.x86_64
 
 # 总结
 
-# 总结
-
 在本章中，我们研究了传输，他们的实现和使用，以及展示了如何用 Netty 来开发。
 
 我们介绍了 Netty 的传输，并解释他们的行为。我们还知道了他们的最低要求，因为不是所有的传输都使用相同的 Java 版本的工作或者可能是仅在特定的操作系统可用。最后，我们讲了匹配传输到特定的用例。
 
 在下一章中，我们的重点是 ByteBuf 和 ByteBufHolder，Netty 中的数据容器。我们将介绍如何使用它们，如何从中获得最佳的性能。
-
-# Buffer（缓冲）
 
 # Buffer（缓冲）
 
@@ -1635,8 +1589,6 @@ sudo yum install kernel-modules-extra.x86_64 lksctp-tools.x86_64
 在本章中，你将会学习 Netty 的缓冲 API,为什么它能够超过 JDK 的实现，它是如何做到这一点，以及为什么它会比 JDK 的实现更加灵活。你将会深入了解到如何在 Netty 框架中访问被交换数据以及你能对它做些什么。这一章是之后章节的基础，因为几乎 Netty 框架的每一个地方都用到了缓冲。
 
 因为数据需要经过 ChannelPipeline 和 ChannelHandler 进行传输，而这又离不开缓冲，所以缓冲在 Netty 应用程序中是十分普遍的。我们将在第六章学习 ChannelHandler 和 ChannelPipeline。
-
-# Buffer API
 
 # Buffer API
 
@@ -1655,8 +1607,6 @@ Netty 使用 reference-counting(引用计数)来判断何时可以释放 ByteBuf
 *   方法链
 *   引用计数
 *   Pooling(池)
-
-# ByteBuf - 字节数据的容器
 
 # ByteBuf - 字节数据的容器
 
@@ -1686,7 +1636,7 @@ Figure 5.1 A 16-byte ByteBuf with its indices set to 0
 
 Listing 5.1 Backing array
 
-```
+```java
 ByteBuf heapBuf = ...;
 if (heapBuf.hasArray()) {                //1
     byte[] array = heapBuf.array();        //2
@@ -1724,7 +1674,7 @@ if (heapBuf.hasArray()) {                //1
 
 Listing 5.2 Direct buffer data access
 
-```
+```java
 ByteBuf directBuf = ...
 if (!directBuf.hasArray()) {            //1
     int length = directBuf.readableBytes();//2
@@ -1766,7 +1716,7 @@ Figure 5.2 CompositeByteBuf holding a header and body
 
 Listing 5.3 Composite buffer pattern using ByteBuffer
 
-```
+```java
 // 使用数组保存消息的各个部分
 ByteBuffer[] message = { header, body };
 
@@ -1784,7 +1734,7 @@ message2.flip();
 
 Listing 5.4 Composite buffer pattern using CompositeByteBuf
 
-```
+```java
 CompositeByteBuf messageBuf = ...;
 ByteBuf headerBuf = ...; // 可以支持或直接
 ByteBuf bodyBuf = ...; // 可以支持或直接
@@ -1807,7 +1757,7 @@ for (int i = 0; i < messageBuf.numComponents(); i++) {                        //
 
 Listing 5.5 Access data
 
-```
+```java
 CompositeByteBuf compBuf = ...;
 int length = compBuf.readableBytes();    //1
 byte[] array = new byte[length];        //2
@@ -1831,8 +1781,6 @@ Netty 尝试使用 CompositeByteBuf 优化 socket I/O 操作，消除 原生 JDK
 
 # 字节级别的操作
 
-# 字节级别的操作
-
 除了基本的读写操作， ByteBuf 还提供了它所包含的数据的修改方法。
 
 ### 随机访问索引
@@ -1841,7 +1789,7 @@ ByteBuf 使用 zero-based 的 indexing(从 0 开始的索引)，第一个字节�
 
 Listing 5.6 Access data
 
-```
+```java
 ByteBuf buffer = ...;
 for (int i = 0; i < buffer.capacity(); i++) {
     byte b = buffer.getByte(i);
@@ -1887,7 +1835,7 @@ ByteBuf 的“可读字节”分段存储的是实际数据。新分配，包装
 
 如果所谓的读操作是一个指定 ByteBuf 参数作为写入的对象，并且没有一个目标索引参数，目标缓冲区的 writerIndex 也会增加了。例如：
 
-```
+```java
 readBytes(ByteBuf dest); 
 ```
 
@@ -1895,7 +1843,7 @@ readBytes(ByteBuf dest);
 
 Listing 5.7 Read all data
 
-```
+```java
 //遍历缓冲区的可读字节
 ByteBuf buffer= ...;
 while (buffer.isReadable()) {
@@ -1905,7 +1853,7 @@ while (buffer.isReadable()) {
 
 这段是未定义内容的地方，准备好写。一个新分配的缓冲区的 writerIndex 的默认值是 0 。任何操作，其名称 "write"开头的操作在当前的 writerIndex 写入数据时，递增字节写入的数量。如果写操作的目标也是 ByteBuf ，且未指定源索引，则源缓冲区的 readerIndex 将增加相同的量。例如：
 
-```
+```java
 writeBytes(ByteBuf dest); 
 ```
 
@@ -1915,7 +1863,7 @@ writeBytes(ByteBuf dest);
 
 Listing 5.8 Write data
 
-```
+```java
 //填充随机整数到缓冲区中
 ByteBuf buffer = ...;
 while (buffer.writableBytes() >= 4) {
@@ -1953,7 +1901,7 @@ clear() 比 discardReadBytes() 更低成本，因为他只是重置了索引，�
 
 ByteBufProcessor 定义了很多方便实现共同目标值。例如，假设您的应用程序需要集成所谓的“[Flash sockets](http://help.adobe.com/en_US/as3/dev/WSb2ba3b1aad8a27b0-181c51321220efd9d1c-8000.html)”，将使用 NULL 结尾的内容。调用
 
-```
+```java
 forEachByte（ByteBufProcessor.FIND_NUL） 
 ```
 
@@ -1963,7 +1911,7 @@ forEachByte（ByteBufProcessor.FIND_NUL）
 
 Listing 5.9 Using ByteBufProcessor to find `\r`
 
-```
+```java
 ByteBuf buffer = ...;
 int index = buffer.forEachByte(ByteBufProcessor.FIND_CR); 
 ```
@@ -1980,7 +1928,7 @@ int index = buffer.forEachByte(ByteBufProcessor.FIND_CR);
 
 Listing 5.10 Slice a ByteBuf
 
-```
+```java
 Charset utf8 = Charset.forName("UTF-8");
 ByteBuf buf = Unpooled.copiedBuffer("Netty in Action rocks!", utf8); //1
 
@@ -2005,7 +1953,7 @@ assert buf.getByte(0) == sliced.getByte(0);
 
 Listing 5.11 Copying a ByteBuf
 
-```
+```java
 Charset utf8 = Charset.forName("UTF-8");
 ByteBuf buf = Unpooled.copiedBuffer("Netty in Action rocks!", utf8);     //1
 
@@ -2066,7 +2014,7 @@ Table 5.2 set() operations
 
 Listing 5.12 get() and set() usage
 
-```
+```java
 Charset utf8 = Charset.forName("UTF-8");
 ByteBuf buf = Unpooled.copiedBuffer("Netty in Action rocks!", utf8);    //1
 System.out.println((char)buf.getByte(0));                    //2
@@ -2123,7 +2071,7 @@ Table 5.4 Write operations
 
 Listing 5.13 read()/write() operations on the ByteBuf
 
-```
+```java
 Charset utf8 = Charset.forName("UTF-8");
 ByteBuf buf = Unpooled.copiedBuffer("Netty in Action rocks!", utf8);    //1
 System.out.println((char)buf.readByte());                    //2
@@ -2168,8 +2116,6 @@ UnsupportedOperationException.
 
 # ByteBufHolder
 
-# ByteBufHolder
-
 我们经常遇到需要另外存储除有效的实际数据各种属性值。 HTTP 响应是一个很好的例子；与内容一起的字节的还有状态码, cookies,等。
 
 Netty 提供 ByteBufHolder 处理这种常见的情况。 ByteBufHolder 还提供对于 Netty 的高级功能，如缓冲池，其中保存实际数据的 ByteBuf 可以从池中借用，如果需要还可以自动释放。
@@ -2184,8 +2130,6 @@ Table 5.7 ByteBufHolder operations
 | copy() | 制作一个 ByteBufHolder 的拷贝，但不共享其数据(所以数据也是拷贝). |
 
 如果你想实现一个“消息对象”有效负载存储在 ByteBuf，使用 ByteBufHolder 是一个好主意。
-
-# ByteBuf 分配
 
 # ByteBuf 分配
 
@@ -2213,7 +2157,7 @@ Table 5.8 ByteBufAllocator methods
 
 Listing 5.15 Obtain ByteBufAllocator reference
 
-```
+```java
 Channel channel = ...;
 ByteBufAllocator allocator = channel.alloc(); //1
 ....
@@ -2255,8 +2199,6 @@ ByteBufUtil 静态辅助方法来操作 ByteBuf，因为这个 API 是通用的�
 
 # 引用计数器
 
-# 引用计数器
-
 Netty 4 引入了 引用计数器给 ByteBuf 和 ByteBufHolder（两者都实现了 ReferenceCounted 接口）
 
 引用计数本身并不复杂;它在特定的对象上跟踪引用的数目。实现了 ReferenceCounted 的类的实例会通常开始于一个活动的引用计数器为 1。活动的引用计数器大于 0 的对象被保证不被释放。当数量引用减少到 0，该实例将被释放。需要注意的是“释放”的语义是特定于具体的实现。最起码，一个对象，它已被释放应不再可用。
@@ -2265,7 +2207,7 @@ Netty 4 引入了 引用计数器给 ByteBuf 和 ByteBufHolder（两者都实现
 
 Listing 5.16 Reference counting
 
-```
+```java
 Channel channel = ...;
 ByteBufAllocator allocator = channel.alloc(); //1
 ....
@@ -2282,7 +2224,7 @@ assert buffer.refCnt() == 1; //3
 
 Listing 5.17 Release reference counted object
 
-```
+```java
 ByteBuf buffer = ...;
 boolean released = buffer.release(); //1
 ... 
@@ -2300,13 +2242,9 @@ boolean released = buffer.release(); //1
 
 # 总结
 
-# 总结
-
 这一章专门讨论了 Netty 基于 ByteBuf 的数据容器。我们开始说明了 Netty 比 JDK 更多的优点。我们还突出适合具体情况的 API 的可用变型。
 
 在下一章中，重点是 ChannelHandler，它提供了数据处理逻辑的载体。 ChannelHandler 大量使用了 ByteBuf。
-
-# ChannelHandler 和 ChannelPipeline
 
 # ChannelHandler 和 ChannelPipeline
 
@@ -2322,8 +2260,6 @@ boolean released = buffer.release(); //1
 Netty 在这方面提供了强大的支持。它让 Channelhandler 链接在 ChannelPipeline 上使数据处理更加灵活和模块化。
 
 在这一章中，下面我们会遇到各种各样 Channelhandler，ChannelPipeline 的使用案例，以及重要的相关的类 Channelhandlercontext 。我们将展示如何将这些基本组成的框架可以帮助我们写干净可重用的处理实现。
-
-# ChannelHandler 家族
 
 # ChannelHandler 家族
 
@@ -2392,7 +2328,7 @@ Table 6.3 ChannelInboundHandler methods
 
 Listing 6.1 Handler to discard data
 
-```
+```java
 @ChannelHandler.Sharable
 public class DiscardHandler extends ChannelInboundHandlerAdapter {        //1
 
@@ -2413,7 +2349,7 @@ Netty 用一个 WARN-level 日志条目记录未释放的资源,使其能相当�
 
 Listing 6.2 Handler to discard data
 
-```
+```java
 @ChannelHandler.Sharable
 public class SimpleDiscardHandler extends SimpleChannelInboundHandler<Object> {  //1
 
@@ -2475,7 +2411,7 @@ Netty 使用引用计数器来处理池化的 ByteBuf。所以当 ByteBuf 完全
 
 对于检测泄漏,您将看到类似于下面的日志消息。
 
-```
+```java
 LEAK: ByteBuf.release() was not called before it’s garbage-collected. Enable advanced leak reporting to find out where the leak occurred. To enable advanced
 leak reporting, specify the JVM option ’-Dio.netty.leakDetectionLevel=advanced’ or call ResourceLeakDetector.setLevel()
 
@@ -2511,7 +2447,7 @@ Table 6.5 Leak detection levels
 
 修改检测等级，只需修改 io.netty.leakDetectionLevel 系统属性，举例
 
-```
+```java
 # java -Dio.netty.leakDetectionLevel=paranoid 
 ```
 
@@ -2521,7 +2457,7 @@ Table 6.5 Leak detection levels
 
 Listing 6.3 Handler that consume inbound data
 
-```
+```java
 @ChannelHandler.Sharable
 public class DiscardInboundHandler extends ChannelInboundHandlerAdapter {  //1
 
@@ -2549,7 +2485,7 @@ Listing 6.4 Handler to discard outbound data
 
 @ChannelHandler.Sharable public class DiscardOutboundHandler extends ChannelOutboundHandlerAdapter { //1
 
-```
+```java
 @Override
 public void write(ChannelHandlerContext ctx,
                                  Object msg, ChannelPromise promise) {
@@ -2568,8 +2504,6 @@ public void write(ChannelHandlerContext ctx,
 重要的是，释放资源并通知 ChannelPromise。如果，ChannelPromise 没有被通知到，这可能会引发 ChannelFutureListener 不会被处理的消息通知的状况。
 
 所以，总结下：如果消息是被 消耗/丢弃 并不会被传入下个 ChannelPipeline 的 ChannelOutboundHandler ，调用 ReferenceCountUtil.release(message) 。一旦消息经过实际的传输，在消息被写或者 Channel 关闭时，它将会自动释放。
-
-# ChannelPipeline
 
 # ChannelPipeline
 
@@ -2613,7 +2547,7 @@ Table 6.6 ChannelHandler methods for modifying a ChannelPipeline
 
 Listing 6.5 Modify the ChannelPipeline
 
-```
+```java
 ChannelPipeline pipeline = null; // get reference to pipeline;
 FirstHandler firstHandler = new FirstHandler(); //1
 pipeline.addLast("handler1", firstHandler); //2
@@ -2680,8 +2614,6 @@ bind(ChannelHandlerContext, SocketAddress, ChannelPromise) on the next ChannelOu
 
 # ChannelHandlerContext
 
-# ChannelHandlerContext
-
 接口 ChannelHandlerContext 代表 ChannelHandler 和 ChannelPipeline 之间的关联,并在 ChannelHandler 添加到 ChannelPipeline 时创建一个实例。ChannelHandlerContext 的主要功能是管理通过同一个 ChannelPipeline 关联的 ChannelHandler 之间的交互。
 
 ChannelHandlerContext 有许多方法,其中一些也出现在 Channel 和 ChannelPipeline 本身。然而,如果您通过 Channel 或 ChannelPipeline 的实例来调用这些方法，他们就会在整个 pipeline 中传播 。相比之下,一样的 的方法在 ChannelHandlerContext 的实例上调用， 就只会从当前的 ChannelHandler 开始并传播到相关管道中的下一个有处理事件能力的 ChannelHandler 。
@@ -2728,7 +2660,7 @@ Figure 6.3 Channel, ChannelPipeline, ChannelHandler and ChannelHandlerContext
 
 Listing 6.6 Accessing the Channel from a ChannelHandlerContext
 
-```
+```java
 ChannelHandlerContext ctx = context;
 Channel channel = ctx.channel();  //1
 channel.write(Unpooled.copiedBuffer("Netty in Action",
@@ -2742,7 +2674,7 @@ channel.write(Unpooled.copiedBuffer("Netty in Action",
 
 Listing 6.7 Accessing the ChannelPipeline from a ChannelHandlerContext
 
-```
+```java
 ChannelHandlerContext ctx = context;
 ChannelPipeline pipeline = ctx.pipeline(); //1
 pipeline.write(Unpooled.copiedBuffer("Netty in Action", CharsetUtil.UTF_8));  //2 
@@ -2772,7 +2704,7 @@ Figure 6.4 Event propagation via the Channel or the ChannelPipeline
 
 Listing 6.8 Events via ChannelPipeline
 
-```
+```java
 ChannelHandlerContext ctx = context;
 ctx.write(Unpooled.copiedBuffer("Netty in Action",              CharsetUtil.UTF_8)); 
 ```
@@ -2800,7 +2732,7 @@ Figure 6.5 Event flow for operations triggered via the ChannelHandlerContext
 
 Listing 6.9 ChannelHandlerContext usage
 
-```
+```java
 public class WriteHandler extends ChannelHandlerAdapter {
 
     private ChannelHandlerContext ctx;
@@ -2825,7 +2757,7 @@ public class WriteHandler extends ChannelHandlerAdapter {
 
 Listing 6.10 A shareable ChannelHandler
 
-```
+```java
 @ChannelHandler.Sharable            //1
 public class SharableHandler extends ChannelInboundHandlerAdapter {
 
@@ -2844,7 +2776,7 @@ public class SharableHandler extends ChannelInboundHandlerAdapter {
 
 Listing 6.11 Invalid usage of @Sharable
 
-```
+```java
 @ChannelHandler.Sharable  //1
 public class NotSharableHandler extends ChannelInboundHandlerAdapter {
     private int count;
@@ -2877,13 +2809,9 @@ public class NotSharableHandler extends ChannelInboundHandlerAdapter {
 
 # 总结
 
-# 总结
-
 本章带你深入窥探了一下 Netty 的数据处理组件: ChannelHandler。我们讨论了 ChannelHandler 之间是如何链接的以及它在像 ChannelInboundHandler 和 ChannelOutboundHandler 这样的化身中是如何与 ChannelPipeline 交互的。
 
 下一章将集中在 Netty 的编解码器的抽象上,这种抽象使得编写一个协议编码器和解码器比使用原始 ChannelHandler 接口更容易。
-
-# Codec 框架
 
 # Codec 框架
 
@@ -2899,8 +2827,6 @@ public class NotSharableHandler extends ChannelInboundHandlerAdapter {
 
 # 什么是 Codec
 
-# 什么是 Codec
-
 编写一个网络应用程序需要实现某种 codec (编解码器)，codec 的作用就是将原始字节数据与目标程序数据格式进行互转。网络中都是以字节码的数据形式来传输数据的，codec 由两部分组成：decoder(解码器)和 encoder(编码器)
 
 编码器和解码器一个字节序列转换为另一个业务对象。我们如何区分?
@@ -2910,8 +2836,6 @@ public class NotSharableHandler extends ChannelInboundHandlerAdapter {
 我们看看 Netty 的提供的类实现的 codec 。
 
 解码器负责将消息从字节或其他序列形式转成指定的消息对象，编码器则相反；解码器负责处理“入站”数据，编码器负责处理“出站”数据。编码器和解码器的结构很简单，消息被编码后解码后会自动通过 ReferenceCountUtil.release(message)释放，如果不想释放消息可以使用 ReferenceCountUtil.retain(message)，这将会使引用数量增加而没有消息发布，大多数时候不需要这么做。
-
-# Decoder(解码器)
 
 # Decoder(解码器)
 
@@ -2949,7 +2873,7 @@ Figure 7.1 ToIntegerDecoder
 
 Listing 7.1 ByteToMessageDecoder that decodes to Integer
 
-```
+```java
 public class ToIntegerDecoder extends ByteToMessageDecoder {  //1
 
     @Override
@@ -2989,7 +2913,7 @@ ReplayingDecoder 是 byte-to-message 解码的一种特殊的抽象基类，读�
 
 Listing 7.2 ReplayingDecoder
 
-```
+```java
 public class ToIntegerDecoder2 extends ReplayingDecoder<Void> {   //1
 
     @Override
@@ -3026,13 +2950,13 @@ handling
 
 因为这是一个参数化的类,实现的签名是:
 
-```
+```java
 public class IntegerToStringDecoder extends MessageToMessageDecoder<Integer> 
 ```
 
 decode() 方法的签名是
 
-```
+```java
 protected void decode( ChannelHandlerContext ctx,
 Integer msg, List<Object> out ) throws Exception 
 ```
@@ -3047,7 +2971,7 @@ Figure 7.2 IntegerToStringDecoder
 
 Listing 7.3 MessageToMessageDecoder - Integer to String
 
-```
+```java
 public class IntegerToStringDecoder extends
         MessageToMessageDecoder<Integer> { //1
 
@@ -3078,7 +3002,7 @@ Netty 是异步框架需要缓冲区字节在内存中,直到你能够解码它�
 
 Listing 7.4 SafeByteToMessageDecoder encodes shorts into a ByteBuf
 
-```
+```java
 public class SafeByteToMessageDecoder extends ByteToMessageDecoder {  //1
     private static final int MAX_FRAME_SIZE = 1024;
 
@@ -3102,8 +3026,6 @@ public class SafeByteToMessageDecoder extends ByteToMessageDecoder {  //1
 这种保护是很重要的，尤其是当你解码一个有可变帧大小的协议的时候。
 
 到这里我们解释了解码器常见用例和 Netty 提供的用于构建它们的抽象基类。但解码器只是一方面。另一方面,还需要完成 Codec API,我们有编码器,用于转换消息到出站数据。这将是我们下一个话题。
-
-# Encoder(编码器)
 
 # Encoder(编码器)
 
@@ -3134,7 +3056,7 @@ Figure 7.3 ShortToByteEncoder
 
 Listing 7.5 ShortToByteEncoder encodes shorts into a ByteBuf
 
-```
+```java
 public class ShortToByteEncoder extends
         MessageToByteEncoder<Short> {  //1
     @Override
@@ -3170,7 +3092,7 @@ encoder 从出站字节流提取 Integer，以 String 形式传递给 ChannelPip
 
 Listing 7.6 IntegerToStringEncoder encodes integer to string
 
-```
+```java
 public class IntegerToStringEncoder extends
         MessageToMessageEncoder<Integer> { //1
 
@@ -3186,8 +3108,6 @@ public class IntegerToStringEncoder extends
 2.  转 Integer 为 String，并添加到 MessageBuf
 
 更复杂 的 MessageToMessageEncoder 应用案例，可以查看 io.netty.handler.codec.protobuf 包下的 ProtobufEncoder
-
-# 抽象 Codec(编解码器)类
 
 # 抽象 Codec(编解码器)类
 
@@ -3225,13 +3145,13 @@ Table 7.6 Methods of MessageToMessageCodec
 
 MessageToMessageCodec 是一个参数化的类，定义如下：
 
-```
+```java
 public abstract class MessageToMessageCodec<INBOUND,OUTBOUND> 
 ```
 
 上面所示的完整签名的方法都是这样的
 
-```
+```java
 protected abstract void encode(ChannelHandlerContext ctx,
 OUTBOUND msg, List<Object> out)
 protected abstract void decode(ChannelHandlerContext ctx,
@@ -3246,7 +3166,7 @@ encode() 处理出站消息类型 OUTBOUND 到 INBOUND，而 decode() 则相反�
 
 Listing 7.7 MessageToMessageCodec
 
-```
+```java
 public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFrame, WebSocketConvertHandler.WebSocketFrame> {  //1
 
     public static final WebSocketConvertHandler INSTANCE = new WebSocketConvertHandler();
@@ -3337,7 +3257,7 @@ public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFram
 
 关键是下面的类:
 
-```
+```java
 public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler,O extends ChannelOutboundHandler> 
 ```
 
@@ -3345,7 +3265,7 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler,O exte
 
 Listing 7.8 ByteToCharDecoder
 
-```
+```java
 public class ByteToCharDecoder extends
         ByteToMessageDecoder { //1
 
@@ -3368,7 +3288,7 @@ decode() 方法从输入数据中提取两个字节,并将它们作为一个 cha
 
 Listing 7.9 CharToByteEncoder
 
-```
+```java
 public class CharToByteEncoder extends
         MessageToByteEncoder<Character> { //1
 
@@ -3389,7 +3309,7 @@ public class CharToByteEncoder extends
 
 Listing 7.10 CombinedByteCharCodec
 
-```
+```java
 public class CombinedByteCharCodec extends CombinedChannelDuplexHandler<ByteToCharDecoder, CharToByteEncoder> {
     public CombinedByteCharCodec() {
         super(new ByteToCharDecoder(), new CharToByteEncoder());
@@ -3401,8 +3321,6 @@ public class CombinedByteCharCodec extends CombinedChannelDuplexHandler<ByteToCh
 2.  传递 ByteToCharDecoder 和 CharToByteEncoder 实例到 super 构造函数来委托调用使他们结合起来。
 
 正如你所看到的,它可能是用上述方式来使程序更简单、更灵活,而不是使用一个以上的编解码器类。它也可以归结到你个人喜好或风格。
-
-# 总结
 
 # 总结
 
@@ -3429,8 +3347,6 @@ Netty 提供了很多共同协议的编解码器和处理程序,您可以几乎�
 
 # 使用 SSL/TLS 加密 Netty 程序
 
-# 使用 SSL/TLS 加密 Netty 程序
-
 今天数据隐私是一个十分关注的问题,作为开发人员,我们需要准备好解决这个问题。至少我们需要熟悉加密协议 SSL 和 TLS 等之上的其他协议实现数据安全。作为一个 HTTPS 网站的用户,你是安全。当然,这些协议是广泛不基于 http 的应用程序,例如安全 SMTP(SMTPS)邮件服务,甚至关系数据库系统。
 
 为了支持 SSL/TLS,Java 提供了 javax.net.ssl API 的类 SslContext 和 SslEngine 使它相对简单的实现解密和加密。Netty 的利用该 API 命名 SslHandler 的 ChannelHandler 实现, 有一个内部 SslEngine 做实际的工作。
@@ -3450,7 +3366,7 @@ Figure 8.1 Data flow through SslHandler for decryption and encryption
 
 Listing 8.1 Add SSL/TLS support
 
-```
+```java
 public class SslChannelInitializer extends ChannelInitializer<Channel> {
 
     private final SslContext context;
@@ -3486,8 +3402,6 @@ Table 8.1 SslHandler methods
 | setCloseNotifyTimeout(...) setCloseNotifyTimeoutMillis(...) getCloseNotifyTimeoutMillis() | Set and get the timeout after which the close notify will time out and the connection will close. This also results in having the close notify ChannelFuture fail. |
 | handshakeFuture() | Returns a ChannelFuture that will be notified once the handshake is complete. If the handshake was done before it will return a ChannelFuture that contains the result of the previous handshake. |
 | close(...) | Send the close_notify to request close and destroy the underlying SslEngine. |
-
-# 构建 Netty HTTP/HTTPS 应用
 
 # 构建 Netty HTTP/HTTPS 应用
 
@@ -3532,7 +3446,7 @@ Table 8.2 HTTP decoder and encoder
 
 Listing 8.2 Add support for HTTP
 
-```
+```java
 public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
 
     private final boolean client;
@@ -3570,7 +3484,7 @@ public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
 
 Listing 8.3 Automatically aggregate HTTP message fragments
 
-```
+```java
 public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
 
     private final boolean client;
@@ -3604,7 +3518,7 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
 
 客户端可以通过提供下面的头显示支持加密模式。然而服务器不是,所以不得不压缩它发送的数据。
 
-```
+```java
 GET /encrypted-area HTTP/1.1
 Host: www.example.com
 Accept-Encoding: gzip, deflate 
@@ -3614,7 +3528,7 @@ Accept-Encoding: gzip, deflate
 
 Listing 8.4 Automatically compress HTTP messages
 
-```
+```java
 public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
 
     private final boolean isClient;
@@ -3644,7 +3558,7 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
 
 *注意，Java 6 或者更早版本，如果要压缩数据，需要添加 [jzlib](http://www.jcraft.com/jzlib/) 到 classpath*
 
-```
+```java
 <dependency>
     <groupId>com.jcraft</groupId>
         <artifactId>jzlib</artifactId>
@@ -3658,7 +3572,7 @@ public class HttpAggregatorInitializer extends ChannelInitializer<Channel> {
 
 Listing 8.5 Using HTTPS
 
-```
+```java
 public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
 
     private final SslContext context;
@@ -3728,7 +3642,7 @@ Table 8.3 WebSocketFrame types
 
 Listing 8.6 Support WebSocket on the server
 
-```
+```java
 public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
     @Override
     protected void initChannel(Channel ch) throws Exception {
@@ -3797,8 +3711,6 @@ Netty 支持 版本 2 和 3 （包含 3.1）的支持。这些版本被广泛应
 
 # 空闲连接以及超时
 
-# 空闲连接以及超时
-
 检测空闲连接和超时是为了及时释放资源。常见的方法发送消息用于测试一个不活跃的连接来,通常称为“心跳”,到远端来确定它是否还活着。(一个更激进的方法是简单地断开那些指定的时间间隔的不活跃的连接)。
 
 处理空闲连接是一项常见的任务,Netty 提供了几个 ChannelHandler 实现此目的。表 8.4 概述。
@@ -3815,7 +3727,7 @@ Table 8.4 ChannelHandlers for idle connections and timeouts
 
 Listing 8.7 Sending heartbeats
 
-```
+```java
 public class IdleStateHandlerInitializer extends ChannelInitializer<Channel> {
 
     @Override
@@ -3851,8 +3763,6 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel> {
 
 # 解码分隔符和基于长度的协议
 
-# 解码分隔符和基于长度的协议
-
 使用 Netty 时会遇到需要解码以分隔符和长度为基础的协议，本节讲解 Netty 如何解码这些协议。
 
 ### 分隔符协议
@@ -3880,7 +3790,7 @@ Figure 8.5 Handling delimited frames
 
 Listing 8.8 Handling line-delimited frames
 
-```
+```java
 public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
 
     @Override
@@ -3919,7 +3829,7 @@ public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
 
 Listing 8.9 Decoder for the command and the handler
 
-```
+```java
 public class CmdHandlerInitializer extends ChannelInitializer<Channel> {
 
     @Override
@@ -4013,7 +3923,7 @@ LengthFieldBasedFrameDecoder 提供了几个构造函数覆盖各种各样的头
 
 Listing 8.10 Decoder for the command and the handler
 
-```
+```java
 public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
 
     @Override
@@ -4040,8 +3950,6 @@ public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
 
 # 编写大型数据
 
-# 编写大型数据
-
 由于网络的原因，如何有效的写大数据在异步框架是一个特殊的问题。因为写操作是非阻塞的，即便是在数据不能写出时,只是通知 ChannelFuture 完成了。当这种情况发生时,你必须停止写操作或面临内存耗尽的风险。所以写时,会产生大量的数据,我们需要做好准备来处理的这种情况下的缓慢的连接远端导致延迟释放内存的问题你。作为一个例子让我们考虑写一个文件的内容到网络。
 
 在我们的讨论传输(见 4.2 节)时，我们提到了 NIO 的“zero-copy（零拷贝）”功能,消除移动一个文件的内容从文件系统到网络堆栈的复制步骤。所有这一切发生在 Netty 的核心,因此所有所需的应用程序代码是使用 interface FileRegion 的实现,在 Netty 的 API 文档中定义如下为一个通过 Channel 支持 zero-copy 文件传输的文件区域。
@@ -4050,7 +3958,7 @@ public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
 
 Listing 8.11 Transferring file contents with FileRegion
 
-```
+```java
 FileInputStream in = new FileInputStream(file); //1
 FileRegion region = new DefaultFileRegion(in.getChannel(), 0, file.length()); //2
 
@@ -4087,7 +3995,7 @@ channel.writeAndFlush(region).addListener(new ChannelFutureListener() { //3
 
 Listing 8.12 Transfer file content with FileRegion
 
-```
+```java
 public class ChunkedWriteHandlerInitializer extends ChannelInitializer<Channel> {
     private final File file;
     private final SslContext sslCtx;
@@ -4132,8 +4040,6 @@ public class ChunkedWriteHandlerInitializer extends ChannelInitializer<Channel> 
 
 # 序列化数据
 
-# 序列化数据
-
 JDK 提供了 ObjectOutputStream 和 ObjectInputStream 通过网络将原始数据类型和 POJO 进行序列化和反序列化。API 并不复杂,可以应用到任何对象,支持 java.io.Serializable 接口。但它也不是非常高效的。在本节中,我们将看到 Netty 所提供的。
 
 ### JDK 序列化
@@ -4173,7 +4079,7 @@ MarshallingEncoder MarshallingEncoder | 使用自定义序列化用于编码，�
 
 Listing 8.13 Using JBoss Marshalling
 
-```
+```java
 public class MarshallingInitializer extends ChannelInitializer<Channel> {
 
     private final MarshallerProvider marshallerProvider;
@@ -4219,7 +4125,7 @@ Table 8.10 ProtoBuf codec
 
 Listing 8.14 Using Google Protobuf
 
-```
+```java
 public class ProtoBufInitializer extends ChannelInitializer<Channel> {
 
     private final MessageLite lite;
@@ -4255,11 +4161,7 @@ public class ProtoBufInitializer extends ChannelInitializer<Channel> {
 
 # 总结
 
-# 总结
-
 Netty 的提供了编解码器和处理程序，可以组合和扩展来实现一个非常广泛的处理场景。此外,他们在许多大型系统被证明是健壮的组件。 请注意我们只介绍最常见的例子。API 文档提供完整的描述。
-
-# 引导
 
 # 引导
 
@@ -4273,8 +4175,6 @@ Netty 的提供了编解码器和处理程序，可以组合和扩展来实现�
 正如我们所见,ChannelPipeline 、ChannelHandler 和编解码器提供工具,我们可以处理一个广泛的数据处理需求。但是你可能会问,“我创建了组件后,如何将其组装形成一个应用程序?”
 
 答案是“bootstrapping（引导）”。到目前为止我们使用这个词有点模糊,时间可以来定义它。在最简单的条件下,引导就是配置应用程序的过程。但正如我们看到的,不仅仅如此；Netty 的引导客户端和服务器的类从网络基础设施使您的应用程序代码在后台可以连接和启动所有的组件。简而言之,引导使你的 Netty 应用程序完整。
-
-# Bootstrap 类型
 
 # Bootstrap 类型
 
@@ -4295,8 +4195,6 @@ Figure 9.1 Bootstrap hierarchy
 *注意,因为这将创建只是 EventLoopGroup 浅拷贝,后者将会共享所有的克隆管道。这是可以接受的,因为往往是克隆的管道是 short-lived(短暂的，典型示例是管道创建用于 HTTP 请求)*
 
 下面内容将会关注 Bootstrap 和 ServerBootstrap
-
-# 引导客户端和无连接协议
 
 # 引导客户端和无连接协议
 
@@ -4339,7 +4237,7 @@ Figure 9.2 Bootstrap process
 
 Listing 9.1 Bootstrapping a client
 
-```
+```java
 EventLoopGroup group = new NioEventLoopGroup();
 Bootstrap bootstrap = new Bootstrap(); //1
 bootstrap.group(group) //2
@@ -4393,7 +4291,7 @@ Channel 和 EventLoopGroup 的 EventLoop 必须相容，例如 NioEventLoop、Ni
 
 Listing 9.2 Bootstrap client with incompatible EventLoopGroup
 
-```
+```java
 EventLoopGroup group = new NioEventLoopGroup();
 Bootstrap bootstrap = new Bootstrap(); //1
 bootstrap.group(group) //2
@@ -4422,7 +4320,7 @@ IllegalStateException 显示如下：
 
 Listing 9.3 IllegalStateException thrown because of invalid configuration
 
-```
+```java
 Exception in thread "main" java.lang.IllegalStateException: incompatible event loop
 type: io.netty.channel.nio.NioEventLoop
 at
@@ -4438,8 +4336,6 @@ io.netty.channel.AbstractChannel$AbstractUnsafe.register(AbstractChannel.java:5
 *   handler()
 
 handler() 方法尤为重要,因为这些 ChannelPipeline 需要适当配置。 一旦提供了这些参数,应用程序将充分利用 Netty 的能力。
-
-# 引导服务器
 
 # 引导服务器
 
@@ -4485,7 +4381,7 @@ Figure 9.3 ServerBootstrap
 
 Listing 9.4 Bootstrapping a server
 
-```
+```java
 NioEventLoopGroup group = new NioEventLoopGroup();
 ServerBootstrap bootstrap = new ServerBootstrap(); //1
 bootstrap.group(group) //2
@@ -4523,8 +4419,6 @@ future.addListener(new ChannelFutureListener() {
 
 # 从 Channel 引导客户端
 
-# 从 Channel 引导客户端
-
 有时你可能需要引导客户端 Channel 从另一个 Channel。这可能发生,如果您正在编写一个代理或从其他系统需要检索数据。后一种情况是常见的,因为许多 Netty 的应用程序集成现有系统,例如 web 服务或数据库。
 
 你当然可以创建一个新的 Bootstrap 并使用它如 9.2.1 节所述,这个解决方案不一定有效。至少,你需要创建另一个 EventLoop 给新客户端 Channel 的,并且 Channel 将会需要在不同的 Thread 间进行上下文切换。
@@ -4550,7 +4444,7 @@ Figure 9.4 EventLoop shared between channels with ServerBootstrap and Bootstrap
 
 实现 EventLoop 共享，包括设置 EventLoop 引导通过 Bootstrap.eventLoop() 方法。这是清单 9.5 所示。
 
-```
+```java
 ServerBootstrap bootstrap = new ServerBootstrap(); //1
 bootstrap.group(new NioEventLoopGroup(), //2
     new NioEventLoopGroup()).channel(NioServerSocketChannel.class) //3
@@ -4609,8 +4503,6 @@ future.addListener(new ChannelFutureListener() {
 
 # 在一个引导中添加多个 ChannelHandler
 
-# 在一个引导中添加多个 ChannelHandler
-
 在所有的例子代码中，我们在引导过程中通过 handler() 或 childHandler() 都只添加了一个 ChannelHandler 实例，对于简单的程序可能足够，但是对于复杂的程序则无法满足需求。例如，某个程序必须支持多个协议，如 HTTP、WebSocket。若在一个 ChannelHandle r 中处理这些协议将导致一个庞大而复杂的 ChannelHandler。Netty 通过添加多个 ChannelHandler，从而使每个 ChannelHandler 分工明确，结构清晰。
 
 Netty 的一个优势是可以在 ChannelPipeline 中堆叠很多 ChannelHandler 并且可以最大程度的重用代码。如何添加多个 ChannelHandler 呢？Netty 提供 ChannelInitializer 抽象类用来初始化 ChannelPipeline 中的 ChannelHandler。ChannelInitializer 是一个特殊的 ChannelHandler，通道被注册到 EventLoop 后就会调用 ChannelInitializer，并允许将 ChannelHandler 添加到 CHannelPipeline；完成初始化通道后，这个特殊的 ChannelHandler 初始化器会从 ChannelPipeline 中自动删除。
@@ -4619,7 +4511,7 @@ Netty 的一个优势是可以在 ChannelPipeline 中堆叠很多 ChannelHandler
 
 Listing 9.6 Bootstrap and using ChannelInitializer
 
-```
+```java
 ServerBootstrap bootstrap = new ServerBootstrap();//1
 bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup())  //2
     .channel(NioServerSocketChannel.class)  //3
@@ -4650,8 +4542,6 @@ final class ChannelInitializerImpl extends ChannelInitializer<Channel> {  //6
 
 # 使用 Netty 的 ChannelOption 和属性
 
-# 使用 Netty 的 ChannelOption 和属性
-
 比较麻烦的是创建通道后不得不手动配置每个通道，为了避免这种情况，Netty 提供了 ChannelOption 来帮助引导配置。这些选项会自动应用到引导创建的所有通道，可用的各种选项可以配置底层连接的详细信息，如通道“keep-alive(保持活跃)”或“timeout(超时)”的特性。
 
 Netty 应用程序通常会与组织或公司其他的软件进行集成，在某些情况下，Netty 的组件如 Channel 在 Netty 正常生命周期外使用； Netty 的提供了抽象 AttributeMap 集合,这是由 Netty　的管道和引导类,和　AttributeKey<t class="calibre25">，常见类用于插入和检索属性值。属性允许您安全的关联任何数据项与客户端和服务器的　Channel。</t>
@@ -4662,7 +4552,7 @@ Netty 应用程序通常会与组织或公司其他的软件进行集成，在�
 
 Listing 9.7 Using Attributes
 
-```
+```java
 final AttributeKey<Integer> id = new AttributeKey<Integer>("ID");　//1
 
 Bootstrap bootstrap = new Bootstrap(); //2
@@ -4699,8 +4589,6 @@ future.syncUninterruptibly();
 
 # 关闭之前已经引导的客户端或服务器
 
-# 关闭之前已经引导的客户端或服务器
-
 引导您的应用程序启动并运行,但是迟早你也需要关闭它。当然你可以让 JVM 处理所有退出但这不会满足“优雅”的定义，是指干净地释放资源。关闭一个 Netty 的应用程序并不复杂,但有几件事要记住。
 
 主要是记住关闭 EventLoopGroup,将处理任何悬而未决的事件和任务并随后释放所有活动线程。这只是一种叫 EventLoopGroup.shutdownGracefully()。这个调用将返回一个 Future 用来通知关闭完成。注意,shutdownGracefully()也是一个异步操作,所以你需要阻塞,直到它完成或注册一个侦听器直到返回的 Future 来通知完成。
@@ -4709,7 +4597,7 @@ future.syncUninterruptibly();
 
 Listing 9.9 Graceful shutdown
 
-```
+```java
 EventLoopGroup group = new NioEventLoopGroup() //1
 Bootstrap bootstrap = new Bootstrap(); //2
 bootstrap.group(group)
@@ -4729,13 +4617,9 @@ future.sync();
 
 # 总结
 
-# 总结
-
 在本章中,您了解了如何引导基于 Netty 服务器和客户端应用程序(包括那些使用无连接协议),如何指定管道的配置选项,以及如何使用属性信息附加到一个管道。
 
 在下一章,我们将研究如何测试你 ChannelHandler 实现以确保其正确性。
-
-# 单元测试
 
 # 单元测试
 
@@ -4747,8 +4631,6 @@ future.sync();
 学会了使用一个或多个 ChannelHandler 处理接收/发送数据消息，但是如何测试它们呢？Netty 提供了 2 个额外的类使得测试 ChannelHandler 变得很容易，本章讲解如何测试 Netty 程序。测试使用 JUnit4，如果不会用可以慢慢了解。JUnit4 很简单，但是功能很强大。
 
 本章将重点讲解测试已实现的 ChannelHandler 和编解码器
-
-# 总览
 
 # 总览
 
@@ -4786,8 +4668,6 @@ Figure 10.1 EmbeddedChannel data flow
 
 # 测试 ChannelHandler
 
-# 测试 ChannelHandler
-
 本节，将使用 EmbeddedChannel 来测试 ChannelHandler
 
 ### 测试入站消息
@@ -4804,7 +4684,7 @@ Figure 10.2 Decoding via FixedLengthFrameDecoder
 
 Listing 10.1 FixedLengthFrameDecoder implementation
 
-```
+```java
 public class FixedLengthFrameDecoder extends ByteToMessageDecoder { //1
 
     private final int frameLength;
@@ -4837,7 +4717,7 @@ public class FixedLengthFrameDecoder extends ByteToMessageDecoder { //1
 
 Listing 10.2 Test the FixedLengthFrameDecoder
 
-```
+```java
 public class FixedLengthFrameDecoderTest {
 
     @Test    //1
@@ -4926,7 +4806,7 @@ Figure 10.3 Encoding via AbsIntegerEncoder
 
 Listing 10.3 AbsIntegerEncoder
 
-```
+```java
 public class AbsIntegerEncoder extends MessageToMessageEncoder<ByteBuf> {  //1
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
@@ -4947,7 +4827,7 @@ public class AbsIntegerEncoder extends MessageToMessageEncoder<ByteBuf> {  //1
 
 Listing 10.4 Test the AbsIntegerEncoder
 
-```
+```java
 public class AbsIntegerEncoderTest {
 
     @Test   //1
@@ -4978,8 +4858,6 @@ public class AbsIntegerEncoderTest {
 
 # 测试异常处理
 
-# 测试异常处理
-
 有时候传输的入站或出站数据不够，通常这种情况也需要处理，例如抛出一个异常。这可能是你错误的输入或处理大的资源或其他的异常导致。我们来写一个实现，如果输入字节超出限制长度就抛出 TooLongFrameException，这样的功能一般用来防止资源耗尽。看下图：
 
 在图 10.4 最大帧大小被设置为 3 个字节。
@@ -4990,7 +4868,7 @@ Figure 10.4 Decoding via FrameChunkDecoder
 
 上图显示帧的大小被限制为 3 字节，若输入的字节超过 3 字节，则超过的字节被丢弃并抛出 TooLongFrameException。在 ChannelPipeline 中的其他 ChannelHandler 实现可以处理 TooLongFrameException 或者忽略异常。处理异常在 ChannelHandler.exceptionCaught() 方法中完成，ChannelHandler 提供了一些具体的实现，看下面代码：
 
-```
+```java
 public class FrameChunkDecoder extends ByteToMessageDecoder {  //1
 
     private final int maxFrameSize;
@@ -5023,7 +4901,7 @@ public class FrameChunkDecoder extends ByteToMessageDecoder {  //1
 
 Listing 10.6 Testing FixedLengthFrameDecoder
 
-```
+```java
 public class FrameChunkDecoderTest {
 
     @Test    //1
@@ -5077,13 +4955,9 @@ public class FrameChunkDecoderTest {
 
 # 总结
 
-# 总结
-
 使用测试工具，如 JUnit 单元测试是一个非常有效的方式保证代码的正确性,提高其可维护性。在本章中,您了解了如何测试定制 ChannelHandler 来验证他们的工作。
 
 在接下来的章节我们将专注于写 Netty “真实世界” 的应用程序。即使我们任何进一步的测试代码的例子，但希望你能记住我们的测试方法的探讨及其重要性。
-
-# WebSocket
 
 # WebSocket
 
@@ -5098,8 +4972,6 @@ public class FrameChunkDecoderTest {
 HTTP 的请求/响应的设计并不能满足实时的需求，而 WebSocket 协议从设计以来就提供双向数据传输，允许客户和服务器在任何时间发送消息，并要求它们能够异步处理消息。最新的浏览器都将 WebSockets 作为 HTML5 的一种客户端 API 来支持的。
 
 Netty 中对于 [WebSocket](http://tools.ietf.org/html/rfc6455) 的支持包括正在使用的所有主要的实现，所以在你的下一个应用程序中采用它会非常简单。像往常使用 Netty 一样，你可以充分利用这种协议，而不必担心其内部实现细节。 我们将通过开发基于 WebSocket 的实时聊天应用证明这一点。
-
-# WebSocket 程序示例
 
 # WebSocket 程序示例
 
@@ -5123,8 +4995,6 @@ Netty 中对于 [WebSocket](http://tools.ietf.org/html/rfc6455) 的支持包括�
 *   2.消息被广播到所有其他连接的客户端。
 
 这正如你所想的聊天室的工作方式：每个人都可以跟其他人聊天。此例子将仅提供服务器端，浏览器充当客户端，通过访问网页来聊天。正如您接下来要看到的，WebSocket 让这一切变得简单。
-
-# 添加 WebSocket 支持
 
 # 添加 WebSocket 支持
 
@@ -5158,7 +5028,7 @@ Figure 11.2 Server logic
 
 Listing 11.1 HTTPRequestHandler
 
-```
+```java
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {    //1
     private final String wsUri;
     private static final File INDEX;
@@ -5287,7 +5157,7 @@ Table 11.1 WebSocketFrame types
 
 Listing 11.2 Handles Text frames
 
-```
+```java
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> { //1
     private final ChannelGroup group;
 
@@ -5341,7 +5211,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
 Listing 11.3 Init the ChannelPipeline
 
-```
+```java
 public class ChatServerInitializer extends ChannelInitializer<Channel> {    //1
     private final ChannelGroup group;
 
@@ -5397,7 +5267,7 @@ Figure 11.4 ChannelPipeline after WebSockets Upgrade
 
 最后一步是 引导服务器，设置 ChannelInitializer
 
-```
+```java
 public class ChatServer {
 
     private final ChannelGroup channelGroup = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);//1
@@ -5458,17 +5328,15 @@ public class ChatServer {
 
 # 测试程序
 
-# 测试程序
-
 使用下面命令启动服务器：
 
-```
+```java
 mvn -PChatServer clean package exec:exec 
 ```
 
 其中项目中的 pom.xml 是配置了 9999 端口。你也可以通过下面的方法修改属性
 
-```
+```java
 mvn -PChatServer -Dport=1111 clean package exec:exec 
 ```
 
@@ -5476,7 +5344,7 @@ mvn -PChatServer -Dport=1111 clean package exec:exec
 
 Listing 11.5 Compile and start the ChatServer
 
-```
+```java
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------------------------------------------------------------
@@ -5505,7 +5373,7 @@ Figure 11.5 WebSockets ChatServer demonstration
 
 Listing 11.6 Add encryption to the ChannelPipeline
 
-```
+```java
 public class SecureChatServerIntializer extends ChatServerInitializer {    //1
     private final SslContext context;
 
@@ -5532,7 +5400,7 @@ public class SecureChatServerIntializer extends ChatServerInitializer {    //1
 
 Listing 11.7 Add encryption to the ChatServer
 
-```
+```java
 public class SecureChatServer extends ChatServer {//1
 
     private final SslContext context;
@@ -5576,7 +5444,7 @@ public class SecureChatServer extends ChatServer {//1
 
 Listing 11.8 Start the SecureChatServer
 
-```
+```java
 $ mvn -PSecureChatServer clean package exec:exec
 [INFO] Scanning for projects...
 [INFO]
@@ -5596,13 +5464,9 @@ Starting SecureChatServer on port 9999
 
 # 总结
 
-# 总结
-
 在本章中，我们学习了如何使用 Netty 中的 WebSocket 来管理 Web 应用程序中的实时数据。我们讲了所支持的数据类型，并讨论了你可能会遇到的问题。虽然 WebSockets 并不能在所有情况下使用，但应该清楚，它代表了 web 技术发展上的一个重要进步。
 
 接下来我们来谈谈“Web2.0”开发中的另一项技术。也许你还没有听说过“SPDY”，但只要你读了下一章，你就很可能在你将来的开发中很好的运用这门技术了。
-
-# SPDY
 
 # SPDY
 
@@ -5616,8 +5480,6 @@ Starting SecureChatServer on port 9999
 *[SPDY](http://www.chromium.org/spdy/spdy-whitepaper)(读作“speedy”)是一个谷歌开发的开放的网络协议，主要运用于 web 内容传输。SPDY 操纵 HTTP 流量,目标是减少 web 页面加载延迟,提高网络安全。SPDY 达到通过压缩、多路复用和优先级来减少延迟，虽然这取决于网络和网站部署条件的组合。“SPDY”这个名字是谷歌的一个商标,不是一个首字母缩写。（摘自[`en.wikipedia.org/wiki/SPDY`](http://en.wikipedia.org/wiki/SPDY)）*
 
 Netty 的包支持 SPDY。正如我们已经看到在其他情况下,这种支持将使您能够使用 SPDY 无需担心所有的内部细节。在这一章里,我们将提供你需要的所有信息关于在您的应用程序中启用 SPDY ，并同时支持 SPDY 和 HTTP。
-
-# SPDY 背景
 
 # SPDY 背景
 
@@ -5653,15 +5515,11 @@ Table 12.2 Browsers that support SPDY
 
 # 示例程序
 
-# 示例程序
-
 编写一个简单的服务器应用程序,向您展示如何将 SPDY 集成到你的下一个应用程序。它只会提供一些静态内容回客户机。这些内容将取决于所使用协议是 HTTPS 或 SPDY 。如果 服务器提供 SPDY 是可以被客户端浏览器所支持，则自动切换到 SPDY 。图 12.1 显示了应用程序的流程
 
 ![](img/Figure%2012.1%20Application%20logic.jpg)
 
 对于这个应用程序只编写一个服务器组件处理 HTTPS 和 SPDY。为了演示其功能使用两个不同的 web 浏览器,一个支持 SPDY,另外一个不支持。
-
-# 实现
 
 # 实现
 
@@ -5682,7 +5540,7 @@ Jetty 库提供了一个接口称为 ServerProvider,确定所使用的协议和�
 
 Listing 12.1 Implementation of ServerProvider
 
-```
+```java
 public class DefaultServerProvider implements NextProtoNego.ServerProvider {
     private static final List<String> PROTOCOLS =
             Collections.unmodifiableList(Arrays.asList("spdy/2", "spdy/3", "http/1.1"));  //1
@@ -5732,7 +5590,7 @@ public class DefaultServerProvider implements NextProtoNego.ServerProvider {
 
 Listing 12.2 Implementation that handles HTTP
 
-```
+```java
 @ChannelHandler.Sharable
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     @Override
@@ -5796,7 +5654,7 @@ HttpRequestHandler 虽然是我们可以重用代码,我们将改变我们的内
 
 Listing 12.3 Implementation that handles SPDY
 
-```
+```java
 @ChannelHandler.Sharable
 public class SpdyRequestHandler extends HttpRequestHandler {   //1
     @Override
@@ -5817,7 +5675,7 @@ Netty 的附带一个基类,完全能做这个。所有您需要做的是实现�
 
 清单 12.4 显示了实现,它使用 Netty 的提供的抽象基类。
 
-```
+```java
 public class DefaultSpdyOrHttpChooser extends SpdyOrHttpChooser {
 
     public DefaultSpdyOrHttpChooser(int maxSpdyContentLength, int maxHttpContentLength) {
@@ -5879,7 +5737,7 @@ SPDY 需要两个 ChannelHandler:
 
 Listing 12.5 Implementation that handles SPDY
 
-```
+```java
 public class SpdyChannelInitializer extends ChannelInitializer<SocketChannel> {  //1
     private final SslContext context;
 
@@ -5965,7 +5823,7 @@ HttpObjectAggregator 处理 SPDY session HttpRequestHandler | 解码时处理 Fu
 
 Listing 12.6 SpdyServer implementation
 
-```
+```java
 public class SpdyServer {
 
     private final NioEventLoopGroup group = new NioEventLoopGroup();  //1
@@ -6027,15 +5885,13 @@ public class SpdyServer {
 
 # 启动 SpdyServer 并测试
 
-# 启动 SpdyServer 并测试
-
 请注意,当您使用 Jetty NPN 库需要提供它的位置通过 bootclasspath 的 JVM 参数。这一步是必需的,这样才能访问 SslEngine 接口。(`-Xbootclasspath` 选项允许您覆盖标准 JDK 附带的实现类)。
 
 下面的清单显示了特殊的参数(`-Xbootclasspath`)使用。
 
 Listing 12.7 SpdyServer implementation
 
-```
+```java
 java -Xbootclasspath/p:<path_to_npn_boot_jar> .... 
 ```
 
@@ -6043,7 +5899,7 @@ java -Xbootclasspath/p:<path_to_npn_boot_jar> ....
 
 Listing 12.8 Compile and start SpdyServer with Maven
 
-```
+```java
 $ mvn clean package exec:exec -Pchapter12-SpdyServer
 [INFO] Scanning for projects...
 [INFO]
@@ -6083,8 +5939,6 @@ Figure 12.7 SPDY not supported by Safari
 
 # 总结
 
-# 总结
-
 在这一章里,你学习了如何在基于 Netty 应用程序同时简单的使用 SPDY 和 HTTP(s) 。这提供了一个基础,您可以受益于性能于 SPDY 提供的增强,同时允许现有客户访问您的应用程序。
 
 您学习了如何使用 Netty 提供的 SPDY 助手类,如何使用 Google Chrome 获取更多的运行时信息协议。
@@ -6092,8 +5946,6 @@ Figure 12.7 SPDY not supported by Safari
 一路上我们看到了再次修改 ChannelPipeline 如何帮助您构建强大的多路复用器在单个连接的生命周期切换协议。
 
 下一章你学习如何利用高性能、无连接的 UDP。
-
-# 通过 UDP 广播事件
 
 # 通过 UDP 广播事件
 
@@ -6109,8 +5961,6 @@ Figure 12.7 SPDY not supported by Safari
 
 # UDP 基础
 
-# UDP 基础
-
 面向连接的传输协议(如 TCP)管理建立一个两个网络端点之间调用(或“连接”),命令和可靠的消息传输在调用的生命周期期间,最后有序在调用终止时终止。与此相反,在这样一个无连接协议 UDP 没有持久连接的概念,每个消息(UDP 数据报)是一个独立的传播。
 
 此外,UDP 没有 TCP 的纠错机制,其中每个对等承认它接收的数据包并由发送方传送包。
@@ -6118,8 +5968,6 @@ Figure 12.7 SPDY not supported by Safari
 以此类推,一个 TCP 连接就像一个电话交谈,一系列的命令消息流在两个方向上。UDP,另一方面,就像把一堆明信片丢进信箱。我们不能知道他们到达目的地的顺序,以及他们是否能够到达。
 
 虽然 UDP 存在某些方面的的局限性,这也解释了为什么它是如此远远快于 TCP:所有的握手和消息管理的开销已被消灭。显然,UDP 是一种只适合应用程序可以处理或容忍丢失消息，而不是例如处理金钱交易。
-
-# UDP 广播
 
 # UDP 广播
 
@@ -6133,8 +5981,6 @@ Figure 12.7 SPDY not supported by Safari
 示例应用程序在本章将说明使用 UDP 广播发送消息,可以接收到所有主机在同一网络。为此我们将使用特殊的“有限广播”或“零”网络地址 255.255.255.255。消息发送到这个地址是规定要在本地网络(0.0.0.0)的所有主机和从不转发到其他网络通过路由器。
 
 下一节将讨论示例应用程序的设计。
-
-# UDP 示例
 
 # UDP 示例
 
@@ -6162,15 +6008,13 @@ Figure 13.1 Application overview
 
 # EventLog 的 POJO
 
-# EventLog 的 POJO
-
 在消息应用里面，数据一般以 POJO 形式呈现。这可能保存配置或处理信息除了实际的消息数据。在这个应用程序里，消息的单元是一个“事件”。由于数据来自一个日志文件，我们将称之为 LogEvent。
 
 清单 13.1 显示了这个简单的 POJO 的细节。
 
 Listing 13.1 LogEvent message
 
-```
+```java
 public final class LogEvent {
     public static final byte SEPARATOR = (byte) ':';
 
@@ -6217,8 +6061,6 @@ public final class LogEvent {
 
 # 写广播器
 
-# 写广播器
-
 本节，我们将写一个广播器。下图展示了广播一个 DatagramPacket 在每个日志实体里面的方法
 
 ![](img/Figure%2013.2%20Log%20entries%20sent%20with%20DatagramPackets.jpg)
@@ -6245,7 +6087,7 @@ Figure 13.3 LogEventBroadcaster: ChannelPipeline and LogEvent flow
 
 Listing 13.2 LogEventEncoder
 
-```
+```java
 public class LogEventEncoder extends MessageToMessageEncoder<LogEvent> {
     private final InetSocketAddress remoteAddress;
 
@@ -6280,7 +6122,7 @@ public class LogEventEncoder extends MessageToMessageEncoder<LogEvent> {
 
 Listing 13.3 LogEventBroadcaster
 
-```
+```java
 public class LogEventBroadcaster {
     private final Bootstrap bootstrap;
     private final File file;
@@ -6359,7 +6201,7 @@ public class LogEventBroadcaster {
 
 Netcat 是完美的第一个测试我们的应用程序;它只是监听指定的端口上接收并打印所有数据到标准输出。将其设置为在端口 9999 上监听 UDP 数据如下:
 
-```
+```java
 $ nc -l -u 9999 
 ```
 
@@ -6367,7 +6209,7 @@ $ nc -l -u 9999
 
 Listing 13.4 Compile and start the LogEventBroadcaster
 
-```
+```java
 $ mvn clean package exec:exec -Pchapter13-LogEventBroadcaster
 [INFO] Scanning for projects...
 [INFO]
@@ -6389,7 +6231,7 @@ LogEventBroadcaster running
 
 Listing 13.5 Compile and start the LogEventBroadcaster
 
-```
+```java
 $ mvn clean package exec:exec -Pchapter13-LogEventBroadcaster /
 -Dlogfile=/var/log/mail.log -Dport=8888 -....
 ....
@@ -6401,8 +6243,6 @@ LogEventBroadcaster running
 当看到 “LogEventBroadcaster running” 说明程序运行成功了。
 
 netcat 只用于测试，但不适合生产环境中使用。
-
-# 写监视器
 
 # 写监视器
 
@@ -6422,7 +6262,7 @@ Figure 13.4 LogEventMonitor
 
 Listing 13.6 LogEventDecoder
 
-```
+```java
 public class LogEventDecoder extends MessageToMessageDecoder<DatagramPacket> {
     @Override
     protected void decode(ChannelHandlerContext ctx, DatagramPacket datagramPacket, List<Object> out) throws Exception {
@@ -6450,7 +6290,7 @@ public class LogEventDecoder extends MessageToMessageDecoder<DatagramPacket> {
 
 Listing 13.7 LogEventHandler
 
-```
+```java
 public class LogEventHandler extends SimpleChannelInboundHandler<LogEvent> { //1
 
     @Override
@@ -6491,7 +6331,7 @@ LogEventHandler 打印出 LogEvent 的一个易读的格式,包括以下:
 
 Listing 13.8 LogEventMonitor
 
-```
+```java
 public class LogEventMonitor {
 
     private final Bootstrap bootstrap;
@@ -6545,13 +6385,11 @@ public class LogEventMonitor {
 
 # 运行 LogEventBroadcaster 和 LogEventMonitor
 
-# 运行 LogEventBroadcaster 和 LogEventMonitor
-
 如上所述,我们将使用 Maven 来运行应用程序。这一次你需要打开两个控制台窗口给每个项目。用 Ctrl-C 可以停止它。
 
 首先我们将启动 LogEventBroadcaster 如清单 13.4 所示,除了已经构建项目以下命令即可(使用默认值):
 
-```
+```java
 $ mvn exec:exec -Pchapter13-LogEventBroadcaster 
 ```
 
@@ -6561,7 +6399,7 @@ $ mvn exec:exec -Pchapter13-LogEventBroadcaster
 
 Listing 13.9 Compile and start the LogEventBroadcaster
 
-```
+```java
 $ mvn clean package exec:exec -Pchapter13-LogEventMonitor
 [INFO] Scanning for projects...
 [INFO]
@@ -6584,7 +6422,7 @@ LogEventMonitor running
 
 Listing 13.10 LogEventMonitor output
 
-```
+```java
 1364217299382 [/192.168.0.38:63182] [/var/log/messages] : Mar 25 13:55:08 dev-linux
 dhclient: DHCPREQUEST of 192.168.0.50 on eth2 to 192.168.0.254 port 67
 1364217299382 [/192.168.0.38:63182] [/var/log/messages] : Mar 25 13:55:08 dev-linux
@@ -6607,19 +6445,19 @@ dhclient: bound to 192.168.0.50 -- renewal in 285 seconds.
 
 若你没有访问 UNIX syslog 的权限，可以创建 自定义的文件，手动填入内容。下面是 UNIX 命令用 touch 创建一个空文件
 
-```
+```java
 $ touch ~/mylog.log 
 ```
 
 再次启动 LogEventBroadcaster，设置系统属性
 
-```
+```java
 $ mvn exec:exec -Pchapter13-LogEventBroadcaster -Dlogfile=~/mylog.log 
 ```
 
 当 LogEventBroadcaster 运行时，你可以手动的添加消息到文件来查看广播到 LogEventMonitor 控制台的内容。使用 echo 和输出的文件
 
-```
+```java
 $ echo ’Test log entry’ >> ~/mylog.log 
 ```
 
@@ -6627,13 +6465,9 @@ $ echo ’Test log entry’ >> ~/mylog.log
 
 # 总结
 
-# 总结
-
 本章提供了一个无连接的传输协议，如 UDP 的介绍。我们看到,在 Netty 的您可以从 TCP 切换到 UDP 的同时使用相同的 API。您还了解了如何通过专门的 ChannelHandler 来组织处理逻辑。我们通过独立的解码器的逻辑来处理消息对象。
 
 在下一章中我们将探讨用 Netty 实现可重用的编解码器。
-
-# 实现自定义的编解码器
 
 # 实现自定义的编解码器
 
@@ -6649,13 +6483,9 @@ Memcached 是来自 Memcached.org 的免费开源、高性能、分布式的内�
 
 # 编解码器的范围
 
-# 编解码器的范围
-
 我们将只实现 Memcached 协议的一个子集，这足够我们进行添加、检索、删除对象；在 Memcached 中是通过执行 SET,GET,DELETE 命令来实现的。Memcached 支持很多其他的命令，但我们只使用其中三个命令，简单的东西，我们才会理解的更清楚。
 
 Memcached 有一个二进制和纯文本协议，它们都可以用来与 Memcached 服务器通信，使用什么类型的协议取决于服务器支持哪些协议。本章主要关注实现二进制协议，因为二进制在网络编程中最常用。
-
-# 实现 Memcached 编解码器
 
 # 实现 Memcached 编解码器
 
@@ -6663,8 +6493,6 @@ Memcached 有一个二进制和纯文本协议，它们都可以用来与 Memcac
 在 RFC 中有相应的规范，可以在 [`code.google.com/p/Memcached/wiki/MemcacheBinaryProtocol`](https://code.google.com/p/Memcached/wiki/MemcacheBinaryProtocol) 找到 。
 
 我们不会实现 Memcached 的所有命令，只会实现三种操作：SET,GET 和 DELETE。这样做事为了让事情变得简单。
-
-# 了解 Memcached 二进制协议
 
 # 了解 Memcached 二进制协议
 
@@ -6699,8 +6527,6 @@ Figure 14.2 Real-world Memcached request and response headers
 
 # Netty 编码器和解码器
 
-# Netty 编码器和解码器
-
 Netty 的是一个复杂和先进的框架,但它并不玄幻。当我们请求一些设置了 key 的给定值时,我们知道 Request 类的一个实例被创建来代表这个请求。但 Netty 并不知道 Request 对象是如何转成 Memcached 所期望的。Memcached 所期望的是字节序列；忽略使用的协议，数据在网络上传输永远是字节序列。
 
 将 Request 对象转为 Memcached 所需的字节序列，Netty 需要用 MemcachedRequest 来编码成另外一种格式。这里所说的另外一种格式不单单是从对象转为字节，也可以是从对象转为对象，或者是从对象转为字符串等。编码器的内容可以详见第七章。
@@ -6725,7 +6551,7 @@ Netty 提供了一个抽象类称为 MessageToByteEncoder。它提供了一个�
 
 Listing 14.1 Implementation of a Memcached request
 
-```
+```java
 public class MemcachedRequest { //1
     private static final Random rand = new Random();
     private final int magic = 0x80;//fixed so hard coded
@@ -6804,7 +6630,7 @@ public class MemcachedRequest { //1
 
 Listing 14.2 Possible Memcached operation codes and response statuses
 
-```
+```java
 public class Status {
     public static final short NO_ERROR = 0x0000;
     public static final short KEY_NOT_FOUND = 0x0001;
@@ -6827,7 +6653,7 @@ public class Opcode {
 
 Listing 14.3 MemcachedRequestEncoder implementation
 
-```
+```java
 public class MemcachedRequestEncoder extends
         MessageToByteEncoder<MemcachedRequest> { //1
     @Override
@@ -6914,7 +6740,7 @@ public class MemcachedRequestEncoder extends
 
 Listing 14.7 Implementation of a MemcachedResponse
 
-```
+```java
 public class MemcachedResponse {  //1
     private final byte magic;
     private final byte opCode;
@@ -7001,7 +6827,7 @@ public class MemcachedResponse {  //1
 
 Listing 14.4 MemcachedResponseDecoder class
 
-```
+```java
 public class MemcachedResponseDecoder extends ByteToMessageDecoder {  //1
     private enum State {  //2
         Header,
@@ -7096,8 +6922,6 @@ public class MemcachedResponseDecoder extends ByteToMessageDecoder {  //1
 
 # 测试编解码器
 
-# 测试编解码器
-
 编码器和解码器完成,但仍有一些缺失:测试。
 
 没有测试你只看到如果编解码器工作对一些真正的服务器运行时,这并不是你应该是依靠什么。第十章所示,为一个自定义编写测试 ChannelHandler 通常是通过 EmbeddedChannel。
@@ -7108,7 +6932,7 @@ Listing 14.5 MemcachedRequestEncoderTest class
 
 public class MemcachedRequestEncoderTest {
 
-```
+```java
 @Test
 public void testMemcachedRequestEncoder() {
     MemcachedRequest request = new MemcachedRequest(Opcode.SET, "key1", "value1"); //1
@@ -7163,7 +6987,7 @@ public void testMemcachedRequestEncoder() {
 
 Listing 14.6 MemcachedResponseDecoderTest class
 
-```
+```java
 public class MemcachedResponseDecoderTest {
 
     @Test
@@ -7262,13 +7086,9 @@ public class MemcachedResponseDecoderTest {
 
 # 总结
 
-# 总结
-
 阅读本章后,您应该能够创建自己的编解码器针对你最喜欢的协议。这包括写编码器和解码器,从字节转换为你的 POJO,反之亦然。这一章展示了如何使用一个协议规范实现和提取所需的信息。
 
 它还向您展示了如何编写单元测试完成你的工作的编码器和解码器,确保一切工作如预期而不需要一个完整的 Memcached 服务器运行。这允许轻松集成测试到构建系统的中。
-
-# EventLoop 和线程模型
 
 # EventLoop 和线程模型
 
@@ -7288,8 +7108,6 @@ public class MemcachedResponseDecoderTest {
 
 *   你明白线程是什么以及如何使用，并有使用线程的工作经验。若不是这样，就请花些时间来了解清楚这些知识。推荐一本书：《Java Concurrency in Practice（Java 并发编程实战）》（Brian Goetz）。
 *   你了解多线程应用程序及其设计，也包括如何保证线程安全和获取最佳性能。
-
-# 线程模型的总览
 
 # 线程模型的总览
 
@@ -7320,15 +7138,13 @@ Figure 15.1 Executor execution logic
 
 # EventLoop
 
-# EventLoop
-
 事件循环所做的正如它的名字所说的。它运行在一个循环里,直到它的终止。这符合网络框架的设计,因为他们需要在一个循环为一个特定的连接运行事件。这不是 Netty 发明新的东西;其他框架和实现已经这样做了。
 
 下面的清单显示了典型的 EventLoop 逻辑。请注意这是为了更好的说明这个想法而不是单单展示 Netty 实现本身。
 
 Listing 14.1 Execute task in EventLoop
 
-```
+```java
 while (!terminated) {
     List<Runnable> readyEvents = blockUntilEventsReady(); //1
     for (Runnable ev: readyEvents) {
@@ -7421,7 +7237,7 @@ ScheduledThreadExecutorService 用于调度命令来延迟或者周期性的执�
 
 Listing 15.4 Schedule task with a ScheduledExecutorService
 
-```
+```java
 ScheduledExecutorService executor = Executors
         .newScheduledThreadPool(10); //1
 
@@ -7452,7 +7268,7 @@ Netty 允许使用 EventLoop 调度任务分配到通道，如下面代码：
 
 Listing 15.5 Schedule task with EventLoop
 
-```
+```java
 Channel ch = null; // Get reference to channel
 ScheduledFuture<?> future = ch.eventLoop().schedule(
         new Runnable() {
@@ -7471,7 +7287,7 @@ ScheduledFuture<?> future = ch.eventLoop().schedule(
 
 Listing 15.6 Schedule a fixed task with the EventLoop
 
-```
+```java
 Channel ch = null; // Get reference to channel
 ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
         new Runnable() {
@@ -7488,7 +7304,7 @@ ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
 
 取消操作，可以使用 ScheduledFuture 返回每个异步操作。 ScheduledFuture 提供一个方法用于取消一个调度了的任务或者检查它的状态。一个简单的取消操作如下：
 
-```
+```java
 ScheduledFuture<?> future = ch.eventLoop()
 .scheduleAtFixedRate(..); //1
 // Some other code that runs...
@@ -7513,8 +7329,6 @@ Netty 内部实现其实是基于 George Varghese 提出的 “Hashed and hierar
 因为这样的实现计划执行不可能 100%正确，对于多数用例不可能 100%准备的执行计划任务；在 Netty 中，这样的工作几乎没有资源开销。
 
 但是如果需要更准确的执行呢？很容易，你需要使用 ScheduledExecutorService 的另一个实现，这不是 Netty 的内容。记住，如果不遵循 Netty 的线程模型协议，你将需要自己同步并发访问。
-
-# I/O EventLoop/Thread 分配细节
 
 # I/O EventLoop/Thread 分配细节
 
@@ -7553,8 +7367,6 @@ Figure 15.7 Thread allocation for nonblocking transports (such as NIO and AIO)
 Figure 15.8 Thread allocation of blocking transports (such as OIO)
 
 你可能会注意到这里,一个 EventLoop (也是一个 Thread)创建每个 Channel。你可能被用来从开发网络应用程序是基于常规阻塞 I/O 在使用 java.io.* 包。但即使语义变化在这种情况下,有一件事仍然是相同的:每个 I/O 通道将由一次只有一个线程来处理,这是一个线程增强 Channel 的 EventLoop。可以依靠这个硬性的规则,使 Netty 的框架很容易与其他网络框架进行比较。
-
-# 总结
 
 # 总结
 

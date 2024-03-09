@@ -1,7 +1,5 @@
 # 用 Jersey 构建 RESTful 服务 7--Jersey+SQLServer+Hibernate4.3+Spring3.2
 
-# 用 Jersey 构建 RESTful 服务 7--Jersey+SQLServer+Hibernate4.3+Spring3.2
-
 ## 一、总体说明
 
 本例运行演示了用 Jersey 构建 RESTful 服务中，如何集成 Spring3
@@ -17,7 +15,7 @@
 
 1.  根目录下下创建 Spring 的配置文件`applicationContext.xml`； 配置如下： <?xml version="1.0" encoding="UTF-8"?>
 
-    ```
+    ```java
     <beans 
 
            xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -39,7 +37,7 @@
 
     `UserService.java`
 
-    ```
+    ```java
     package com.waylau.rest.service;
 
     import java.util.List;
@@ -67,7 +65,7 @@
 
     `UserServiceImpl.java`
 
-    ```
+    ```java
     package com.waylau.rest.service.impl;
 
     import java.util.List;
@@ -121,7 +119,7 @@
 
 3.  修改 `UserResource.java`
 
-    ```
+    ```java
     package com.waylau.rest.resources;
 
     import java.util.ArrayList;
@@ -218,7 +216,7 @@
 
 4.  修改 web.xml,插入
 
-    ```
+    ```java
     <module-name>RestDemo</module-name>
 
     <listener>
@@ -237,7 +235,7 @@
 
 2.  运行 UserClient.java 测试，控制台输出如下
 
-    ```
+    ```java
     ****增加用户 addUser****
     ****查询所有 getAllUsers****
     [{"userId":"002","userName":"sdfs","age":"23"},{"userId":"003","userName":"sdfs","age":"23"},{"userId":"004","userName":"sdfs","age":"23"},{"userId":"005","userName":"sdfs","age":"23"},{"userId":"006","userName":"Susan","age":"21"},{"userId":"007","userName":"sdfs","age":"23"},{"userId":"ds","userName":"ds","age":"ds"}]
